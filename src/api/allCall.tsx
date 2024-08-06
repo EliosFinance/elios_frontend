@@ -6,7 +6,7 @@ import {To} from 'react-router-dom'
 import {userStore} from "../store/UserStore.ts";
 import { useAuth } from "../context/AuthProvider.tsx";
 
-const BACK_API_URL = 'http://localhost:3333/'
+const BACK_API_URL = import.meta.env.VITE_URL_BACK
 
 const instance_back = axios.create({
     baseURL: BACK_API_URL
