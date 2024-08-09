@@ -15,10 +15,13 @@ import {
 import {columns} from "@/components/columnsTransaction.tsx";
 import {DataTable} from "@/components/DataTable.tsx";
 import {useGetConnection, useGetTransactions} from "@/api/allCall.tsx";
+import useDeviceDetection from "@/hook/useDeviceDetection.ts";
 
 const Home = () => {
     const listTransaction = useGetTransactions()
     const listConnection = useGetConnection()
+    const device = useDeviceDetection();
+    console.log(device)
 
     console.log(listConnection.data)
 
