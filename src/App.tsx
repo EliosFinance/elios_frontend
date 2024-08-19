@@ -1,8 +1,4 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import {Button} from "@/components/ui/button.tsx";
+import './css/App.css'
 import {Route, Routes} from "react-router-dom";
 import AuthRoute from "./components/AuthRoute.tsx";
 import Login from "@/pages/Login.tsx";
