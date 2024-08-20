@@ -7,6 +7,8 @@
 
 @layer base {
   :root {
+    
+    
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
     --card: 0 0% 100%;
@@ -33,7 +35,7 @@
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
 
-      /* Neutral Colors */
+    /* Neutral Colors */
     --neutral-50: #F9FAFB;
     --neutral-100: #F3F4F6;
     --neutral-200: #E5E7EB;
@@ -117,6 +119,69 @@
     --warning-800: #92400E;
     --warning-900: #78350F;
 
+    /* Border radiuses */
+    --border-radius-1: 4px;
+    --border-radius-2: 8px;
+    --border-radius-3: 12px;
+    --border-radius-4: 16px;
+    --border-radius-5: 20px;
+    --border-radius-6: 24px;
+    --border-radius-7: 28px;
+    --border-radius-8: 32px;
+    --border-radius-9: 40px;
+
+    /* Spacings */
+    --spacing-1: 4px;
+    --spacing-2: 8px;
+    --spacing-3: 12px;
+    --spacing-4: 16px;
+    --spacing-5: 20px;
+    --spacing-6: 24px;
+    --spacing-7: 28px;
+    --spacing-8: 32px;
+    --spacing-10: 48px;
+    --spacing-12: 64px;
+    --spacing-14: 80px;
+    --spacing-16: 96px;
+    --spacing-20: 128px;
+    --spacing-24: 160px;
+    --spacing-25: 168px;
+    --spacing-28: 192px;
+
+    /* Shadows */
+    --elevation-1: 0px 1px 2px rgba(16, 24, 40, 0.05);
+    --elevation-2: 0px 1px 3px rgba(16, 24, 40, 0.1), 0px 1px 2px -2px rgba(16, 24, 40, 0.1);
+    --elevation-3: 0px 4px 6px -1px rgba(16, 24, 40, 0.1), 0px 2px 4px -2px rgba(16, 24, 40, 0.1);
+    --elevation-4: 0px 10px 15px -3px rgba(16, 24, 40, 0.1), 0px 4px 6px -4px rgba(16, 24, 40, 0.1);
+    --elevation-5: 0px 20px 25px -5px rgba(16, 24, 40, 0.1), 0px 8px 10px -6px rgba(16, 24, 40, 0.1);
+    --elevation-6: 0px 25px 50px -12px rgba(16, 24, 40, 0.25), 0px 10px 12px -8px rgba(16, 24, 40, 0.1);
+
+    /* Font-Sizes */
+    --font-size-caption: 12px;
+    --font-size-body1: 14px;
+    --font-size-subtitle1: 14px;
+    --font-size-body2: 16px;
+    --font-size-subtitle2: 16px;
+    --font-size-caption: 20px;
+    --font-size-h6: 20px;
+    --font-size-h5: 24px;
+    --font-size-h4: 32px;
+    --font-size-h3: 40px;
+    --font-size-h2: 48px;
+    --font-size-h1: 64px;
+
+    /* Line-Heights */
+    --line-height-body1: 20px;
+    --line-height-caption: 20px;
+    --line-height-subtitle1: 22px;
+    --line-height-body2: 24px;
+    --line-height-subtitle2: 28px;
+    --line-height-h6: 32px;
+    --line-height-h5: 32px;
+    --line-height-h4: 42px;
+    --line-height-h3: 56px;
+    --line-height-h2: 72px;
+    --line-height-h1: 112px;
   }
 
   .dark {
@@ -152,7 +217,8 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    background: var(--background);
+    color: var(--foreground);
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -161,5 +227,35 @@
 
   p, a, button, input, label, select, textarea {
     font-family: 'Alpino-Regular';
+  }
+
+  h1 {
+    font-size: var(--font-size-h1);
+    line-height: var(--line-height-h1);
+  }
+
+  h2 {
+    font-size: var(--font-size-h2);
+    line-height: var(--line-height-h2);
+  }
+
+  h3 {
+    font-size: var(--font-size-h3);
+    line-height: var(--line-height-h3);
+  }
+
+  h4 {
+    font-size: var(--font-size-h4);
+    line-height: var(--line-height-h4);
+  }
+
+  h5 {
+    font-size: var(--font-size-h5);
+    line-height: var(--line-height-h5);
+  }
+
+  h6 {
+    font-size: var(--font-size-h6);
+    line-height: var(--line-height-h6);
   }
 }
