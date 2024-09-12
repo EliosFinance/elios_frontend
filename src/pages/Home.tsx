@@ -7,6 +7,17 @@ import {
     CardTitle
 } from "@/components/ui/card.tsx";
 import {
+    Drawer,
+    DrawerClose,
+    DrawerContent,
+    DrawerDescription,
+    DrawerFooter,
+    DrawerHeader,
+    DrawerTitle,
+    DrawerTrigger,
+} from "@/components/ui/drawer"
+
+import {
     Accordion,
     AccordionContent,
     AccordionItem,
@@ -16,6 +27,7 @@ import {columns} from "@/components/columnsTransaction.tsx";
 import {DataTable} from "@/components/DataTable.tsx";
 import {useGetConnection, useGetTransactions} from "@/api/allCall.tsx";
 import useDeviceDetection from "@/hook/useDeviceDetection.ts";
+import {Button} from "@/components/ui/button.tsx";
 
 const Home = () => {
     const listTransaction = useGetTransactions()
@@ -69,6 +81,22 @@ const Home = () => {
                     </Accordion>
                 </CardContent>
             </Card>
+            <Drawer>
+                <DrawerTrigger>Open</DrawerTrigger>
+                <DrawerContent>
+                    <DrawerHeader>
+                        <DrawerTitle>Are you absolutely sure?</DrawerTitle>
+                        <DrawerDescription>This action cannot be undone.</DrawerDescription>
+                    </DrawerHeader>
+                    <DrawerFooter>
+                        <Button>Submit</Button>
+                        <DrawerClose>
+                            <Button variant="outline">Cancel</Button>
+                        </DrawerClose>
+                    </DrawerFooter>
+                </DrawerContent>
+            </Drawer>
+
         </div>
     )
 }

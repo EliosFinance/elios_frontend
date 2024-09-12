@@ -36,7 +36,7 @@ const Login = () => {
 
     return (
         <>
-            <div className='sm:w-[50%] flex flex-col justify-center border-solid border-[1px] border-gray-200 rounded-lg p-4 shadow-md'>
+            <div className='w-[100%] sm:w-[100%] flex flex-col justify-center border-solid border-[1px] border-gray-200 rounded-lg p-4 shadow-md'>
                 <div className="mx-auto w-full text-left gap-4 flex flex-col">
                     <Label htmlFor="email" className="ml-2">Enter your email below:</Label>
                     <Input

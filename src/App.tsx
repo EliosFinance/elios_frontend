@@ -23,7 +23,7 @@ function App() {
                 <Route element={<PublicRoute />}>
                     { mobile === 'Desktop'
                         ? <Route path="/login" element={<Login />}/>
-                        : <Route path="/login" element={<LoginMobile />} />
+                        : <Route path="/login" element={<Login />}/>
                     }
 
                 </Route>
