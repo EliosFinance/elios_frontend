@@ -28,12 +28,35 @@ import {DataTable} from "@/components/DataTable.tsx";
 import {useGetConnection, useGetTransactions} from "@/api/allCall.tsx";
 import useDeviceDetection from "@/hook/useDeviceDetection.ts";
 import {Button} from "@/components/ui/button.tsx";
+import { useSearchParams } from "react-router-dom";
+import {userStore} from "@/store/UserStore.ts";
+import {useEffect} from "react";
 
 const Home = () => {
     const listTransaction = useGetTransactions()
     const listConnection = useGetConnection()
     const device = useDeviceDetection();
-    console.log(device)
+    const updateUser = userStore(state => state.updateUser)
+    const user = userStore(state => state.user)
+    const [searchParams] = useSearchParams()
+    const powensToken = searchParams.get('token')
+
+    useEffect(() => {
+        const urlParams = new URLSearchParams(window.location.search)
+        const powensToken = urlParams.get("token")
+
+        if (powensToken) {
+            const url = new URL(window.location);
+            urlParams.delete('token');
+            updateUser({
+                ...user,
+                powens_token: powensToken
+            })
+            window.history.replaceState({}, '', `${url.pathname}${urlParams.toString() ? '?' + urlParams.toString() : ''}`);
+        }
+
+
+    }, [])
 
     console.log(listConnection.data)
 
