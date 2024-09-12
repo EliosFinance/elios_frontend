@@ -5,6 +5,7 @@ import {
 import {To} from 'react-router-dom'
 import {userStore} from "../store/UserStore.ts";
 import { useAuth } from "../context/AuthProvider.tsx";
+import { ConnectionType } from "@/types/connectionType.ts";
 
 const BACK_API_URL = import.meta.env.VITE_URL_BACK
 
@@ -98,8 +99,8 @@ const getConnection = async () => {
     }
 }
 
-export const useGetConnection = (): UseQueryResult<any, AxiosError> => {
-    return useQuery<any, AxiosError>({
+export const useGetConnection = (): UseQueryResult<ConnectionType, AxiosError> => {
+    return useQuery<ConnectionType, AxiosError>({
         queryKey: ['getConnection'],
         queryFn: getConnection
     })

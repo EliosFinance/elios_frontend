@@ -1,8 +1,6 @@
 import {
     Card,
     CardContent,
-    CardDescription,
-    CardFooter,
     CardHeader,
     CardTitle
 } from "@/components/ui/card.tsx";
@@ -26,16 +24,17 @@ import {
 import {columns} from "@/components/columnsTransaction.tsx";
 import {DataTable} from "@/components/DataTable.tsx";
 import {useGetConnection, useGetTransactions} from "@/api/allCall.tsx";
-import useDeviceDetection from "@/hook/useDeviceDetection.ts";
+import {useDeviceDetection} from "@/hook/useDeviceDetection.ts";
 import {Button} from "@/components/ui/button.tsx";
 import { useSearchParams } from "react-router-dom";
 import {userStore} from "@/store/UserStore.ts";
 import {useEffect} from "react";
+import ButtonApp from "@/components/ButtonApp";
 
 const Home = () => {
     const listTransaction = useGetTransactions()
     const listConnection = useGetConnection()
-    const device = useDeviceDetection();
+    const { device } = useDeviceDetection();
     const updateUser = userStore(state => state.updateUser)
     const user = userStore(state => state.user)
     const [searchParams] = useSearchParams()
@@ -105,7 +104,7 @@ const Home = () => {
                 </CardContent>
             </Card>
             <Drawer>
-                <DrawerTrigger>Open</DrawerTrigger>
+                <DrawerTrigger><ButtonApp>Test</ButtonApp></DrawerTrigger>
                 <DrawerContent>
                     <DrawerHeader>
                         <DrawerTitle>Are you absolutely sure?</DrawerTitle>
@@ -119,6 +118,7 @@ const Home = () => {
                     </DrawerFooter>
                 </DrawerContent>
             </Drawer>
+            
 
         </div>
     )

@@ -5,11 +5,11 @@ import Login from "@/pages/Login.tsx";
 import Home from "@/pages/Home.tsx";
 import PublicRoute from "@/components/PublicRoute.tsx";
 import BankCheck from "@/components/BankCheck.tsx";
-import useDeviceDetection from "@/hook/useDeviceDetection.ts";
-import LoginMobile from "@/pages/mobile/LoginMobile.tsx";
+import {useDeviceDetection} from "@/hook/useDeviceDetection.ts";
+// import LoginMobile from "@/pages/mobile/LoginMobile.tsx";
 
 function App() {
-    const mobile = useDeviceDetection()
+    const {device: mobile} = useDeviceDetection()
 
   return (
     <>
