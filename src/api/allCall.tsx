@@ -99,8 +99,8 @@ const getConnection = async () => {
     }
 }
 
-export const useGetConnection = (): UseQueryResult<ConnectionType, AxiosError> => {
-    return useQuery<ConnectionType, AxiosError>({
+export const useGetConnection = (): UseQueryResult<ConnectionType[], AxiosError> => {
+    return useQuery<ConnectionType[], AxiosError>({
         queryKey: ['getConnection'],
         queryFn: getConnection
     })

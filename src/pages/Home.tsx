@@ -30,6 +30,8 @@ import { useSearchParams } from "react-router-dom";
 import {userStore} from "@/store/UserStore.ts";
 import {useEffect} from "react";
 import ButtonApp from "@/components/ButtonApp";
+import {StatusBar, Style} from "@capacitor/status-bar";
+import { Device } from "@capacitor/device";
 
 const Home = () => {
     const listTransaction = useGetTransactions()
@@ -45,6 +47,7 @@ const Home = () => {
         const powensToken = urlParams.get("token")
 
         if (powensToken) {
+            // @ts-ignore
             const url = new URL(window.location);
             urlParams.delete('token');
             updateUser({
@@ -58,6 +61,14 @@ const Home = () => {
     }, [])
 
     console.log(listConnection.data)
+
+    const setStatusBarStyleDark = async () => {
+        await StatusBar.show()
+        // await StatusBar.setStyle({ style: Style.Dark })
+        await StatusBar.setBackgroundColor({ color: "#fc0909" })
+    }
+
+    setStatusBarStyleDark()
 
     return (
         <div className="w-[100%]">
@@ -118,7 +129,7 @@ const Home = () => {
                     </DrawerFooter>
                 </DrawerContent>
             </Drawer>
-            
+
 
         </div>
     )

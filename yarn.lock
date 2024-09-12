@@ -224,6 +224,11 @@
     "@babel/helper-validator-identifier" "^7.24.7"
     to-fast-properties "^2.0.0"
 
+"@capacitor-community/safe-area@^6.0.0-alpha.7":
+  version "6.0.0-alpha.7"
+  resolved "https://registry.npmjs.org/@capacitor-community/safe-area/-/safe-area-6.0.0-alpha.7.tgz"
+  integrity sha512-hOPVxXGP7d76dJXm417+Wqe1hqS6/J7K8vSMcBcUooRLqy+OFQHetXpgh1DGxoUhcmIOJ+/q/0TOqk11rcW8Cw==
+
 "@capacitor/android@^6.1.1":
   version "6.1.1"
   resolved "https://registry.npmjs.org/@capacitor/android/-/android-6.1.1.tgz"
@@ -265,6 +270,11 @@
   dependencies:
     tslib "^2.1.0"
 
+"@capacitor/device@^6.0.1":
+  version "6.0.1"
+  resolved "https://registry.npmjs.org/@capacitor/device/-/device-6.0.1.tgz"
+  integrity sha512-Tlz67DAO5GKb5YAfupXiENZxDww6mHnG9iKI+8D5SVF82VLpEv5r9qwKtiounuQB2y2HWiHV8tlOk7DqnLVUqQ==
+
 "@capacitor/haptics@^6.0.0":
   version "6.0.0"
   resolved "https://registry.npmjs.org/@capacitor/haptics/-/haptics-6.0.0.tgz"
@@ -280,10 +290,10 @@
   resolved "https://registry.npmjs.org/@capacitor/keyboard/-/keyboard-6.0.1.tgz"
   integrity sha512-fBjqQaMc5uhFj6ycLnLa2hzQsR77pj/iuLLATkWihMUze3dD+IkwqFnEyOLsyk+52uoOYM7WkziSpNTquU1sZA==
 
-"@capacitor/status-bar@^6.0.0":
-  version "6.0.0"
-  resolved "https://registry.npmjs.org/@capacitor/status-bar/-/status-bar-6.0.0.tgz"
-  integrity sha512-Wo0ILugYlmENegKDgTzVCPjbvP8h1ObgHslLdgeVG643ViMS/diausHIq8e104WIKCXtKIELmQeYVp9mX7932g==
+"@capacitor/status-bar@^6.0.1":
+  version "6.0.1"
+  resolved "https://registry.npmjs.org/@capacitor/status-bar/-/status-bar-6.0.1.tgz"
+  integrity sha512-Usd9hZZQVAqy+jJfL7jRcYI7dcsxN09Na1yttwdl+F1bk3Ztoukk7CGPDm5VgKUSs53ihQBOy1+sczCACxhNiw==
 
 "@emotion/is-prop-valid@^0.7.3":
   version "0.7.3"
@@ -297,10 +307,10 @@
   resolved "https://registry.npmjs.org/@emotion/memoize/-/memoize-0.7.1.tgz"
   integrity sha512-Qv4LTqO11jepd5Qmlp3M1YEjBumoTHcHFdgPTQ+sFlIL5myi/7xu/POwP7IRu6odBdmLXdtIs1D6TuW6kbwbbg==
 
-"@esbuild/win32-x64@0.21.5":
+"@esbuild/darwin-arm64@0.21.5":
   version "0.21.5"
-  resolved "https://registry.npmjs.org/@esbuild/win32-x64/-/win32-x64-0.21.5.tgz"
-  integrity sha512-tQd/1efJuzPC6rCFwEvLtci/xNFcTZknmXs98FYDfGE4wP9ClFV98nyKrzJKVPMhdDnjzLhdUyMX4PsQAPjwIw==
+  resolved "https://registry.npmjs.org/@esbuild/darwin-arm64/-/darwin-arm64-0.21.5.tgz"
+  integrity sha512-DwqXqZyuk5AiWWf3UfLiRDJ5EDd49zg6O9wclZ7kUMv2WRFr4HKjXp/5t8JZ11QbQfUS6/cRCKGwYhtNAY88kQ==
 
 "@eslint-community/eslint-utils@^4.2.0", "@eslint-community/eslint-utils@^4.4.0":
   version "4.4.0"
@@ -885,10 +895,10 @@
   resolved "https://registry.npmjs.org/@remix-run/router/-/router-1.17.1.tgz"
   integrity sha512-mCOMec4BKd6BRGBZeSnGiIgwsbLGp3yhVqAD8H+PxiRNEHgDpZb8J1TnrSDlg97t0ySKMQJTHCWBCmBpSmkF6Q==
 
-"@rollup/rollup-win32-x64-msvc@4.18.1":
+"@rollup/rollup-darwin-arm64@4.18.1":
   version "4.18.1"
-  resolved "https://registry.npmjs.org/@rollup/rollup-win32-x64-msvc/-/rollup-win32-x64-msvc-4.18.1.tgz"
-  integrity sha512-yjk2MAkQmoaPYCSu35RLJ62+dz358nE83VfTePJRp8CG7aMg25mEJYpXFiD+NcevhX8LxD5OP5tktPXnXN7GDw==
+  resolved "https://registry.npmjs.org/@rollup/rollup-darwin-arm64/-/rollup-darwin-arm64-4.18.1.tgz"
+  integrity sha512-vk+ma8iC1ebje/ahpxpnrfVQJibTMyHdWpOGZ3JpQ7Mgn/3QNHmPq7YwjZbIE7km73dH5M1e6MRRsnEBW7v5CQ==
 
 "@tanstack/react-table@^8.20.1":
   version "8.20.1"
@@ -1300,6 +1310,11 @@ caniuse-lite@^1.0.30001599, caniuse-lite@^1.0.30001640:
   version "1.0.30001642"
   resolved "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001642.tgz"
   integrity sha512-3XQ0DoRgLijXJErLSl+bLnJ+Et4KqV1PY6JJBGAFlsNsz31zeAIncyeZfLCabHK/jtSh+671RM9YMldxjUPZtA==
+
+capacitor-plugin-safe-area@^3.0.3:
+  version "3.0.3"
+  resolved "https://registry.npmjs.org/capacitor-plugin-safe-area/-/capacitor-plugin-safe-area-3.0.3.tgz"
+  integrity sha512-pDM8GQIDC9xxKLZxoO4rrshDuzZqQo6jq7Ni18cYdp2JwmLvlhTYRrvriPAicY1En59UAZ574sIvGlgUBLH3Yw==
 
 chalk@^2.4.2:
   version "2.4.2"
@@ -1831,6 +1846,11 @@ fs.realpath@^1.0.0:
   version "1.0.0"
   resolved "https://registry.npmjs.org/fs.realpath/-/fs.realpath-1.0.0.tgz"
   integrity sha512-OO0pH2lK6a0hZnAdau5ItzHPI6pUlvI7jMVnxUQRtw4owF2wk8lOSabtGDCTP4Ggrg2MbGnWO9X8K1t4+fGMDw==
+
+fsevents@~2.3.2, fsevents@~2.3.3:
+  version "2.3.3"
+  resolved "https://registry.npmjs.org/fsevents/-/fsevents-2.3.3.tgz"
+  integrity sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw==
 
 function-bind@^1.1.2:
   version "1.1.2"
@@ -2731,13 +2751,15 @@ queue-microtask@^1.2.2:
   version "0.0.0"
   resolved "file:"
   dependencies:
+    "@capacitor-community/safe-area" "^6.0.0-alpha.7"
     "@capacitor/android" "^6.1.1"
     "@capacitor/app" "^6.0.0"
     "@capacitor/core" "^6.1.1"
+    "@capacitor/device" "^6.0.1"
     "@capacitor/haptics" "^6.0.0"
     "@capacitor/ios" "^6.1.1"
     "@capacitor/keyboard" "^6.0.1"
-    "@capacitor/status-bar" "^6.0.0"
+    "@capacitor/status-bar" "^6.0.1"
     "@heroicons/react" "^2.1.5"
     "@hookform/resolvers" "^3.9.0"
     "@radix-ui/react-accordion" "^1.2.0"

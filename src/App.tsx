@@ -7,6 +7,8 @@ import PublicRoute from "@/components/PublicRoute.tsx";
 import BankCheck from "@/components/BankCheck.tsx";
 import {useDeviceDetection} from "@/hook/useDeviceDetection.ts";
 // import LoginMobile from "@/pages/mobile/LoginMobile.tsx";
+import { SafeArea } from "capacitor-plugin-safe-area"
+import {useEffect} from "react";
 
 function App() {
     const {device: mobile} = useDeviceDetection()
