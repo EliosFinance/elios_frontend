@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {useAuth} from "../context/AuthProvider.tsx";
 import {Label} from "@/components/ui/label.tsx";
@@ -7,8 +7,10 @@ import {PasswordInput} from "@/components/PasswordInput.tsx";
 import {Button} from "@/components/ui/button.tsx";
 import {Alert, AlertDescription, AlertTitle} from "@/components/ui/alert.tsx";
 import {AlertCircle} from "lucide-react";
+import {GoogleLogin} from "react-google-login";
+import {gapi} from "gapi-script";
 
-const Login = () => {
+const Login = ({ VITE_GOOGLE_CLIENT_ID }) => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('');
     const [errorMsg, setErrorMsg] = useState('')
@@ -33,6 +35,24 @@ const Login = () => {
             setErrorMsg("An error occured")
         }
     }
+
+    const onSuccessGoogle = (response) => {
+        console.log(response)
+    }
+    const onFailureGoogle = (response) => {
+        console.log(response)
+    }
+
+    useEffect(() => {
+        function start() {
+            gapi.client.init({
+                clientId: VITE_GOOGLE_CLIENT_ID,
+                scope: ""
+            })
+        }
+        gapi.load('client:auth2', start)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     return (
         <>
@@ -65,6 +85,15 @@ const Login = () => {
                     {/*<div className="w-100 mt-2">*/}
                     {/*    New user? <Link to={"/register"}>Register</Link>*/}
                     {/*</div>*/}
+
+                    <GoogleLogin 
+                        clientId={VITE_GOOGLE_CLIENT_ID}
+                        buttonText="Login"
+                        onSuccess={onSuccessGoogle}
+                        onFailure={onFailureGoogle}
+                        cookiePolicy={'single_host_origin'}
+                        isSignedIn={true}
+                    />
                 </div>
             </div>
         </>
