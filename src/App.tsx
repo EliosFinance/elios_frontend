@@ -7,13 +7,21 @@ import PublicRoute from "@/components/PublicRoute.tsx";
 import BankCheck from "@/components/BankCheck.tsx";
 import {useDeviceDetection} from "@/hook/useDeviceDetection.ts";
 // import LoginMobile from "@/pages/mobile/LoginMobile.tsx";
-import { SafeArea } from "capacitor-plugin-safe-area"
+import { StatusBar, Style } from '@capacitor/status-bar';
 import {useEffect} from "react";
 
 function App() {
     const {device: mobile} = useDeviceDetection()
 
-  return (
+    const setStatusBarStyleDark = async () => {
+        await StatusBar.setStyle({ style: Style.Dark });
+        await StatusBar.show();
+    };
+
+    setStatusBarStyleDark();
+
+
+    return (
     <>
         <div className="min-w-[100dvw] min-h-[100dvh] flex">
             <Routes>
