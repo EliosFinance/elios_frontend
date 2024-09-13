@@ -5,11 +5,10 @@ import Login from "@/pages/Login.tsx";
 import Home from "@/pages/Home.tsx";
 import PublicRoute from "@/components/PublicRoute.tsx";
 import BankCheck from "@/components/BankCheck.tsx";
-import {useDeviceDetection} from "@/hook/useDeviceDetection.ts";
-// import LoginMobile from "@/pages/mobile/LoginMobile.tsx";
+import Auth from './pages/Auth/Auth.tsx';
+import Register from './pages/Auth/Register/Register.tsx';
 
 function App() {
-    const {device: mobile} = useDeviceDetection()
 
   return (
     <>
@@ -17,15 +16,13 @@ function App() {
             <Routes>
                 <Route element={<AuthRoute />}>
                     <Route element={<BankCheck /> } >
-                        <Route path="/" element={<Home />} />
+                        <Route path="/home" element={<Home />} />
                     </Route>
                 </Route>
                 <Route element={<PublicRoute />}>
-                    { mobile === 'Desktop'
-                        ? <Route path="/login" element={<Login />}/>
-                        : <Route path="/login" element={<Login />}/>
-                    }
-
+                    <Route path="/" element={<Auth />}/>
+                    <Route path="/login" element={<Login />}/>
+                    <Route path="/register" element={<Register />}/>
                 </Route>
             </Routes>
         </div>

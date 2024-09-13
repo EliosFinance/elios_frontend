@@ -25,7 +25,7 @@ const Login = () => {
         try {
             const success = await login(username, password);
             if (success) {
-                navigate('/')
+                navigate('/home')
             } else {
                 setErrorMsg("Incorrect username or password")
             }

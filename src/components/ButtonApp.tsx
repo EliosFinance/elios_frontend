@@ -88,6 +88,7 @@ const useStyles = createUseStyles({
     },
     text: {
         background: 'transparent',
+        border: 'none',
         color: 'var(--primary-500)',
         '&:hover': {
             background: 'var(--primary-100)',
@@ -98,12 +99,15 @@ const useStyles = createUseStyles({
     },
     small: {
         padding: '6px 16px',
+        width: '60%',
     },
     medium: {
         padding: '8px 24px',
+        width: '80%',
     },
     large: {
         padding: '10px 32px',
+        width: '100%',
     },
     default: {
         background: 'var(--neutral-200)',

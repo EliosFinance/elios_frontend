@@ -6,7 +6,7 @@ const PublicRoute = () => {
     const location = useLocation()
 
     return auth ? (
-        <Navigate to='/' replace state={{ path: location.pathname }} />
+        <Navigate to='/home' replace state={{ path: location.pathname }} />
     ) : (
         <Outlet />
     )
