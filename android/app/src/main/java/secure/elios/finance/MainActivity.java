@@ -1,4 +1,4 @@
-package com.example.app;
+package secure.elios.finance;
 
 import com.getcapacitor.BridgeActivity;
 

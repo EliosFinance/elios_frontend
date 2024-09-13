@@ -24,27 +24,25 @@ import {
 import {columns} from "@/components/columnsTransaction.tsx";
 import {DataTable} from "@/components/DataTable.tsx";
 import {useGetConnection, useGetTransactions} from "@/api/allCall.tsx";
-import {useDeviceDetection} from "@/hook/useDeviceDetection.ts";
 import {Button} from "@/components/ui/button.tsx";
-import { useSearchParams } from "react-router-dom";
 import {userStore} from "@/store/UserStore.ts";
 import {useEffect} from "react";
 import ButtonApp from "@/components/ButtonApp";
+import { ConnectionType } from "@/types/connectionType";
 
 const Home = () => {
     const listTransaction = useGetTransactions()
     const listConnection = useGetConnection()
-    const { device } = useDeviceDetection();
     const updateUser = userStore(state => state.updateUser)
     const user = userStore(state => state.user)
-    const [searchParams] = useSearchParams()
-    const powensToken = searchParams.get('token')
 
     useEffect(() => {
         const urlParams = new URLSearchParams(window.location.search)
         const powensToken = urlParams.get("token")
 
         if (powensToken) {
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-expect-error
             const url = new URL(window.location);
             urlParams.delete('token');
             updateUser({
@@ -57,7 +55,7 @@ const Home = () => {
 
     }, [])
 
-    console.log(listConnection.data)
+    console.log(listConnection)
 
     return (
         <div className="w-[100%]">
@@ -71,8 +69,8 @@ const Home = () => {
                             <AccordionTrigger>Comptes</AccordionTrigger>
                             <AccordionContent>
                                 {listConnection.data ? (
-                                    listConnection.data.map((connection: any, index) => {
-                                        const value = parseFloat(connection.balance)
+                                    listConnection.data.map((connection: ConnectionType, index: number) => {
+                                        const value = connection.balance
                                         const formatted = new Intl.NumberFormat('fr-FR', {
                                             style: 'currency',
                                             currency: "EUR",

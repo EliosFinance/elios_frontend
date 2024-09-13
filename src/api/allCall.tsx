@@ -1,11 +1,10 @@
-import axios, {Axios, AxiosError} from "axios";
+import axios, {AxiosError} from "axios";
 import {
     useQuery, UseQueryResult
 } from "react-query";
-import {To} from 'react-router-dom'
 import {userStore} from "../store/UserStore.ts";
-import { useAuth } from "../context/AuthProvider.tsx";
 import { ConnectionType } from "@/types/connectionType.ts";
+import { TransactionType } from "@/types/transactionType.ts";
 
 const BACK_API_URL = import.meta.env.VITE_URL_BACK
 
@@ -81,8 +80,8 @@ const getTransactions = async () => {
     }
 }
 
-export const useGetTransactions = (): UseQueryResult<any, AxiosError> => {
-    return useQuery<any, AxiosError>({
+export const useGetTransactions = (): UseQueryResult<TransactionType[], AxiosError> => {
+    return useQuery<TransactionType[], AxiosError>({
         queryKey: ['getTransactions'],
         queryFn: getTransactions
     })
@@ -99,8 +98,8 @@ const getConnection = async () => {
     }
 }
 
-export const useGetConnection = (): UseQueryResult<ConnectionType, AxiosError> => {
-    return useQuery<ConnectionType, AxiosError>({
+export const useGetConnection = (): UseQueryResult<ConnectionType[], AxiosError> => {
+    return useQuery<ConnectionType[], AxiosError>({
         queryKey: ['getConnection'],
         queryFn: getConnection
     })
