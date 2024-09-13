@@ -1,6 +1,6 @@
-import {Button} from "@/components/ui/button.tsx";
 import React from 'react';
 import { useNavigate } from 'react-router-dom'; // Importation de useNavigate
+import {Button} from "@/components/ui/button.tsx";
 
 const EmailVerification: React.FC = () => {
   const navigate = useNavigate(); // Utilisation de useNavigate
