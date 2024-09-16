@@ -1,4 +1,5 @@
 import {useAuth} from "@/context/AuthProvider.tsx";
+import { APP_ROUTES_ENUM } from "@/main";
 import {Navigate, Outlet, useLocation} from "react-router-dom";
 
 const PublicRoute = () => {
@@ -6,7 +7,7 @@ const PublicRoute = () => {
     const location = useLocation()
 
     return auth ? (
-        <Navigate to='/' replace state={{ path: location.pathname }} />
+        <Navigate to={APP_ROUTES_ENUM.HOME} replace state={{ path: location.pathname }} />
     ) : (
         <Outlet />
     )

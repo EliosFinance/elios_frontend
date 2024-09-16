@@ -9,6 +9,7 @@ import {Alert, AlertDescription, AlertTitle} from "@/components/ui/alert.tsx";
 import {AlertCircle} from "lucide-react";
 import {GoogleLogin} from "react-google-login";
 import {gapi} from "gapi-script";
+import { APP_ROUTES_ENUM } from "@/main.tsx";
 
 const Login = ({ VITE_GOOGLE_CLIENT_ID }) => {
     const [username, setUsername] = useState('')
@@ -27,7 +28,7 @@ const Login = ({ VITE_GOOGLE_CLIENT_ID }) => {
         try {
             const success = await login(username, password);
             if (success) {
-                navigate('/')
+                navigate(APP_ROUTES_ENUM.HOME)
             } else {
                 setErrorMsg("Incorrect username or password")
             }

@@ -6,10 +6,11 @@ import Home from "@/pages/Home.tsx";
 import PublicRoute from "@/components/PublicRoute.tsx";
 import BankCheck from "@/components/BankCheck.tsx";
 import {OsEnum, useDeviceDetection} from "@/hook/useDeviceDetection.ts";
-// import LoginMobile from "@/pages/mobile/LoginMobile.tsx";
+import Learn from './pages/Blog/Learn.tsx';
+import Article from './pages/Blog/Article.tsx';
 
 function App() {
-    const {device: mobile, os} = useDeviceDetection()
+    const {os} = useDeviceDetection()
     let googleId;
     
     switch (os) {
@@ -41,11 +42,9 @@ function App() {
                     </Route>
                 </Route>
                 <Route element={<PublicRoute />}>
-                    { mobile === 'Desktop'
-                        ? <Route path="/login" element={<Login VITE_GOOGLE_CLIENT_ID={googleId}/>}/>
-                        : <Route path="/login" element={<Login VITE_GOOGLE_CLIENT_ID={googleId}/>}/>
-                    }
-
+                    <Route path="/learn" element={<Learn />}/>
+                    <Route path="/article/:id" element={<Article />}/>
+                    <Route path="/login" element={<Login VITE_GOOGLE_CLIENT_ID={googleId}/>}/>
                 </Route>
             </Routes>
         </div>
