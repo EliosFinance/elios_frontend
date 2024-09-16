@@ -31,12 +31,21 @@ export enum categoriesEnum {
 }
 
 
+export enum cardTypesEnum {
+    PREVIEW = 'preview',
+    SMALL_PREVIEW = 'small_preview',
+
+    FULL = 'full',
+    FULL_ROUNDED_IMAGE = 'full_rounded_image',
+
+    PREMIUM = 'premium',
+}
+
 export enum contentTypesEnum {
     TEXT = 'text',
     LIST = 'list',
     IMAGE = 'image',
     VIDEO = 'video',
-    AUDIO = 'audio',
     QUOTE = 'quote',
 }
 
@@ -48,21 +57,24 @@ export type authorType = {
     company: string,
 }
 
+export type cardContentType = {
+    type: contentTypesEnum,
+    text?: string | string[],
+    quoteAuthor?: authorType,
+}
 export type cardType = {
     image: string,
+    title: string,
     readByUser: boolean,
     savedByUser: boolean,
-    content: {
-        type: contentTypesEnum,
-        text?: string | string[],
-        quoteAuthor?: authorType,
-    }[]
+    content: cardContentType[]
 }
 
 export type subjectType = {
     id: number,
     slug: string,
     title: string,
+    isPremium: boolean,
     category: categoriesEnum,
     readByUser: boolean,
     likedByUser: boolean,
@@ -79,6 +91,7 @@ export type subjectType = {
 export const subjects: subjectType[] = [ 
     {
         id: 1,
+        isPremium: false,
         slug: 'comment-bien-epargner-by-jean-dupont',
         title: 'Comment bien épargner ?',
         category: categoriesEnum.EPARGNE,
@@ -100,6 +113,7 @@ export const subjects: subjectType[] = [
         cards: [
             {
                 image: 'https://via.placeholder.com/150',
+                title: 'This is the title.',
                 readByUser: false,
                 savedByUser: false,
                 content: [
@@ -124,6 +138,7 @@ export const subjects: subjectType[] = [
             },
             {
                 image: 'https://via.placeholder.com/150',
+                title: 'This is the title.',
                 readByUser: false,
                 savedByUser: false,
                 content: [
@@ -142,6 +157,7 @@ export const subjects: subjectType[] = [
             },
             {
                 image: 'https://via.placeholder.com/150',
+                title: 'This is the title.',
                 readByUser: false,
                 savedByUser: false,
                 content: [
@@ -160,6 +176,7 @@ export const subjects: subjectType[] = [
     },
     {
         id: 2,
+        isPremium: false,
         slug: 'comment-bien-epargner-by-jean-dupont',
         title: 'Comment bien épargner ?',
         category: categoriesEnum.EPARGNE,
@@ -181,6 +198,7 @@ export const subjects: subjectType[] = [
         cards: [
             {
                 image: 'https://via.placeholder.com/150',
+                title: 'This is the title.',
                 readByUser: false,
                 savedByUser: false,
                 content: [
@@ -205,6 +223,7 @@ export const subjects: subjectType[] = [
             },
             {
                 image: 'https://via.placeholder.com/150',
+                title: 'This is the title.',
                 readByUser: false,
                 savedByUser: false,
                 content: [
@@ -223,6 +242,7 @@ export const subjects: subjectType[] = [
             },
             {
                 image: 'https://via.placeholder.com/150',
+                title: 'This is the title.',
                 readByUser: false,
                 savedByUser: false,
                 content: [
@@ -241,6 +261,7 @@ export const subjects: subjectType[] = [
     },
     {
         id: 3,
+        isPremium: false,
         slug: 'comment-bien-epargner-by-jean-dupont',
         title: 'Comment bien épargner ?',
         category: categoriesEnum.EPARGNE,
@@ -262,6 +283,7 @@ export const subjects: subjectType[] = [
         cards: [
             {
                 image: 'https://via.placeholder.com/150',
+                title: 'This is the title.',
                 readByUser: false,
                 savedByUser: false,
                 content: [
@@ -286,6 +308,7 @@ export const subjects: subjectType[] = [
             },
             {
                 image: 'https://via.placeholder.com/150',
+                title: 'This is the title.',
                 readByUser: false,
                 savedByUser: false,
                 content: [
@@ -304,6 +327,7 @@ export const subjects: subjectType[] = [
             },
             {
                 image: 'https://via.placeholder.com/150',
+                title: 'This is the title.',
                 readByUser: false,
                 savedByUser: false,
                 content: [
@@ -322,6 +346,7 @@ export const subjects: subjectType[] = [
     },
     {
         id: 4,
+        isPremium: false,
         slug: 'comment-bien-epargner-by-jean-dupont',
         title: 'Comment bien épargner ?',
         category: categoriesEnum.INVESTISSEMENT,
@@ -343,6 +368,7 @@ export const subjects: subjectType[] = [
         cards: [
             {
                 image: 'https://via.placeholder.com/150',
+                title: 'This is the title.',
                 readByUser: false,
                 savedByUser: false,
                 content: [
@@ -367,6 +393,7 @@ export const subjects: subjectType[] = [
             },
             {
                 image: 'https://via.placeholder.com/150',
+                title: 'This is the title.',
                 readByUser: false,
                 savedByUser: false,
                 content: [
@@ -385,6 +412,7 @@ export const subjects: subjectType[] = [
             },
             {
                 image: 'https://via.placeholder.com/150',
+                title: 'This is the title.',
                 readByUser: false,
                 savedByUser: false,
                 content: [
@@ -403,6 +431,7 @@ export const subjects: subjectType[] = [
     },
     {
         id: 5,
+        isPremium: false,
         slug: 'comment-bien-epargner-by-jean-dupont',
         title: 'Comment bien épargner ?',
         category: categoriesEnum.INVESTISSEMENT,
@@ -424,6 +453,7 @@ export const subjects: subjectType[] = [
         cards: [
             {
                 image: 'https://via.placeholder.com/150',
+                title: 'This is the title.',
                 readByUser: false,
                 savedByUser: false,
                 content: [
@@ -448,6 +478,7 @@ export const subjects: subjectType[] = [
             },
             {
                 image: 'https://via.placeholder.com/150',
+                title: 'This is the title.',
                 readByUser: false,
                 savedByUser: false,
                 content: [
@@ -466,6 +497,92 @@ export const subjects: subjectType[] = [
             },
             {
                 image: 'https://via.placeholder.com/150',
+                title: 'This is the title.',
+                readByUser: false,
+                savedByUser: false,
+                content: [
+                    {
+                        type: contentTypesEnum.LIST,
+                        text: [
+                            'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+                            'Nullam in tincidunt ex.',
+                            'Nulla facilisi.',
+                            'Proin nec vehicula leo.',
+                        ],
+                    }
+                ]
+            },
+        ]
+    },
+    {
+        id: 6,
+        isPremium: false,
+        slug: 'comment-bien-epargner-by-jean-dupont',
+        title: 'Comment bien épargner ?',
+        category: categoriesEnum.INVESTISSEMENT,
+        readByUser: false,
+        likedByUser: false,
+        readingTime: '15min',
+        categoryIcon: 'https://via.placeholder.com/150',
+        thumbnail: 'https://via.placeholder.com/150',
+        likes_count: 541,
+        reads_count: 10531,
+        author: {
+            firstName: 'Jean',
+            lastName: 'Dupont',
+            avatar: 'https://via.placeholder.com/150',
+            job: 'Conseiller en gestion de patrimoine',
+            company: 'Elios Patrimoine',
+        },
+        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in tincidunt ex. Nulla facilisi. Proin necvehicula leo. Nullam in tincidunt ex. Nulla facilisi. Proin nec vehicula leo. Nullam in tincidunt ex. Nulla facilisi.Proin nec vehicula leo. Nullam in tincidunt ex.',
+        cards: [
+            {
+                image: 'https://via.placeholder.com/150',
+                title: 'This is the title.',
+                readByUser: false,
+                savedByUser: false,
+                content: [
+                    {
+                        type: contentTypesEnum.TEXT,
+                        text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in tincidunt ex. Nulla facilisi. Proin nec vehicula leo. Nullam in tincidunt ex. Nulla facilisi. Proin nec vehicula leo. Nullam in tincidunt ex. Nulla facilisi.Proin nec vehicula leo. Nullam in tincidunt ex.',
+                    },
+                    {
+                        type: contentTypesEnum.TEXT,
+                        text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in tincidunt ex. Nulla facilisi. Proin nec vehicula leo. Nullam in tincidunt ex. Nulla facilisi. Proin nec vehicula leo. Nullam in tincidunt ex. Nulla facilisi.Proin nec vehicula leo. Nullam in tincidunt ex.',
+                    },
+                    {
+                        type: contentTypesEnum.LIST,
+                        text: [
+                            'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+                            'Nullam in tincidunt ex.',
+                            'Nulla facilisi.',
+                            'Proin nec vehicula leo.',
+                        ],
+                    }
+                ]
+            },
+            {
+                image: 'https://via.placeholder.com/150',
+                title: 'This is the title.',
+                readByUser: false,
+                savedByUser: false,
+                content: [
+                    {
+                        type: contentTypesEnum.QUOTE,
+                        quoteAuthor: {
+                            firstName: 'Jean',
+                            lastName: 'Dupont',
+                            avatar: 'https://via.placeholder.com/150',
+                            job: 'Conseiller en gestion de patrimoine',
+                            company: 'Elios Patrimoine',
+                        },
+                        text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in tincidunt ex. Nulla facilisi. Proin nec vehicula leo. Nullam in tincidunt ex. Nulla facilisi. Proin nec vehicula leo. Nullam in tincidunt ex. Nulla facilisi.Proin nec vehicula leo. Nullam in tincidunt ex.',
+                    }
+                ]
+            },
+            {
+                image: 'https://via.placeholder.com/150',
+                title: 'This is the title.',
                 readByUser: false,
                 savedByUser: false,
                 content: [
