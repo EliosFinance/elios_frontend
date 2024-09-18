@@ -101,6 +101,7 @@ const Carousel: React.FC<PropType> = (props) => {
                             project={project}
                             variant={props.cardVariant}
                             classNames={['embla__slide__number']}
+                            key={index}
                         />
                     </div>
                 ))}

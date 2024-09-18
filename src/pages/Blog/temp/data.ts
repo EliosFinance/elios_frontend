@@ -88,6 +88,12 @@ export type subjectType = {
     reads_count?: number,
 }
 
+export type categoryType = {
+    id: number,
+    title: categoriesEnum,
+    icon: string,
+}
+
 export const subjects: subjectType[] = [ 
     {
         id: 1,
@@ -600,3 +606,151 @@ export const subjects: subjectType[] = [
         ]
     },
 ]
+
+export const categories = [
+    {
+        id: 1,
+        title: categoriesEnum.EPARGNE,
+        icon: 'https://via.placeholder.com/150',
+    },
+    {
+        id: 2,
+        title: categoriesEnum.INVESTISSEMENT,
+        icon: 'https://via.placeholder.com/150',
+    },
+    {
+        id: 3,
+        title: categoriesEnum.VIDEOS,
+        icon: 'https://via.placeholder.com/150',
+    },
+    {
+        id: 4,
+        title: categoriesEnum.ACTUALITES,
+        icon: 'https://via.placeholder.com/150',
+    },
+    {
+        id: 5,
+        title: categoriesEnum.IMMOBILIER,
+        icon: 'https://via.placeholder.com/150',
+    },
+    {
+        id: 6,
+        title: categoriesEnum.CRYPTO,
+        icon: 'https://via.placeholder.com/150',
+    },
+    {
+        id: 7,
+        title: categoriesEnum.BOURSE,
+        icon: 'https://via.placeholder.com/150',
+    },
+    {
+        id: 8,
+        title: categoriesEnum.FISCAL,
+        icon: 'https://via.placeholder.com/150',
+    },
+    {
+        id: 9,
+        title: categoriesEnum.RETRAITE,
+        icon: 'https://via.placeholder.com/150',
+    },
+    {
+        id: 10,
+        title: categoriesEnum.ASSURANCE,
+        icon: 'https://via.placeholder.com/150',
+    },
+    {
+        id: 11,
+        title: categoriesEnum.BANQUE,
+        icon: 'https://via.placeholder.com/150',
+    },
+    {
+        id: 12,
+        title: categoriesEnum.CREDIT,
+        icon: 'https://via.placeholder.com/150',
+    },
+    {
+        id: 13,
+        title: categoriesEnum.BUDGET,
+        icon: 'https://via.placeholder.com/150',
+    },
+    {
+        id: 14,
+        title: categoriesEnum.EMPLOI,
+        icon: 'https://via.placeholder.com/150',
+    },
+    {
+        id: 15,
+        title: categoriesEnum.ENTREPRENEURIAT,
+        icon: 'https://via.placeholder.com/150',
+    },
+    {
+        id: 16,
+        title: categoriesEnum.LIVRES,
+        icon: 'https://via.placeholder.com/150',
+    },
+    {
+        id: 17,
+        title: categoriesEnum.FORMATION,
+        icon: 'https://via.placeholder.com/150',
+    },
+    {
+        id: 18,
+        title: categoriesEnum.WEBINAIRE,
+        icon: 'https://via.placeholder.com/150',
+    },
+    {
+        id: 19,
+        title: categoriesEnum.EVENEMENT,
+        icon: 'https://via.placeholder.com/150',
+    },
+    {
+        id: 20,
+        title: categoriesEnum.INTERVIEW,
+        icon: 'https://via.placeholder.com/150',
+    },
+    {
+        id: 21,
+        title: categoriesEnum.PODCAST,
+        icon: 'https://via.placeholder.com/150',
+    },
+    {
+        id: 22,
+        title: categoriesEnum.MINDSET,
+        icon: 'https://via.placeholder.com/150',
+    },
+    {
+        id: 23,
+        title: categoriesEnum.BIEN_ETRE,
+        icon: 'https://via.placeholder.com/150',
+    },
+    {
+        id: 24,
+        title: categoriesEnum.DEVELOPPEMENT_PERSONNEL,
+        icon: 'https://via.placeholder.com/150',
+    },
+    {
+        id: 25,
+        title: categoriesEnum.COACHING,
+        icon: 'https://via.placeholder.com/150',
+    },
+    {
+        id: 26,
+        title: categoriesEnum.SPIRITUALITE,
+        icon: 'https://via.placeholder.com/150',
+    },
+    {
+        id: 27,
+        title: categoriesEnum.RELATION,
+        icon: 'https://via.placeholder.com/150',
+    },
+    {
+        id: 28,
+        title: categoriesEnum.FAMILLE,
+        icon: 'https://via.placeholder.com/150',
+    },
+    {
+        id: 29,
+        title: categoriesEnum.EDUCATION,
+        icon: 'https://via.placeholder.com/150',
+    },
+];

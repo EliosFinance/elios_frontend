@@ -43,7 +43,7 @@ const Learn = () => {
 
       <div className='w-full flex justify-center items-start flex-col'>
         <h2 className='text-2xl font-black px-6'>Les plus populaires</h2>
-        <div className='w-full flex justify-between items-start flex-wrap mt-3 gap-y-4 gap-x-4'>
+        <div className='w-full flex justify-between items-start flex-wrap gap-y-4 gap-x-4'>
           <Carousel slides={subjects} options={{loop: false, containScroll: false}} cardVariant={cardTypesEnum.SMALL_PREVIEW} />
         </div>
       </div>

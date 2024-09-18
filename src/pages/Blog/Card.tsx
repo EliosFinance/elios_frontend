@@ -82,18 +82,18 @@ const Card = (props: CardProps) => {
                         <p className='w-full text-lg text-justify font-bold'>{props.project.cards[props.cardToDisplay].title}</p>
                           {
                             props.project.cards[props.cardToDisplay].content.map((content, index) => (
-                              <>
+                              <div key={index}>
                                 {content.type === contentTypesEnum.TEXT && (
-                                  <p key={index} className='w-full text-sm text-justify'>{content.text}</p>
+                                  <p className='w-full text-sm text-justify'>{content.text}</p>
                                 )}
                                 {content.type === contentTypesEnum.IMAGE && !Array.isArray(content.text) && (
-                                  <img key={index} src={content.text} alt="project thumbnail" className='h-auto w-[40%] rounded-[var(--border-radius-8)] shadow-lg' />
+                                  <img src={content.text} alt="project thumbnail" className='h-auto w-[40%] rounded-[var(--border-radius-8)] shadow-lg' />
                                 )}
                                 {content.type === contentTypesEnum.VIDEO && !Array.isArray(content.text) && (
-                                  <video key={index} src={content.text} className='h-auto w-[40%] rounded-[var(--border-radius-5)] shadow-lg' />
+                                  <video src={content.text} className='h-auto w-[40%] rounded-[var(--border-radius-5)] shadow-lg' />
                                 )}
                                 {content.type === contentTypesEnum.LIST && (
-                                  <ul key={index} className='w-full flex justify-center items-start flex-col list-disc list-outside'>
+                                  <ul className='w-full flex justify-center items-start flex-col list-disc list-outside'>
                                     {
                                       Array.isArray(content.text) ? 
                                       content.text.map((item, itemIndex) => (
@@ -104,11 +104,11 @@ const Card = (props: CardProps) => {
                                 )}
                                 {content.type === contentTypesEnum.QUOTE && (
                                     <>
-                                        <blockquote key={index} className='w-full text-sm text-justify'>{content.text}</blockquote>
+                                        <blockquote className='w-full text-sm text-justify'>{content.text}</blockquote>
                                         {content?.quoteAuthor && <p className='w-full text-sm text-justify'>{content.quoteAuthor.firstName} {content.quoteAuthor.lastName}</p>}                                       
                                     </>
                                 )}
-                              </>
+                              </div>
                             ))
                           }
                         </div>
