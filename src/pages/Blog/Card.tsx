@@ -79,7 +79,7 @@ const Card = (props: CardProps) => {
 
                         {/* body */}
                         <div className='w-full h-full flex justify-start items-center flex-col gap-y-4 px-8 mt-8'>
-                        <p className='w-full text-lg text-justify font-bold'>{props.project.cards[props.cardToDisplay].title}</p>
+                        <p className='w-full text-lg text-justify font-bold'>{props.project.cards[props.cardToDisplay]?.title}</p>
                           {
                             props.project.cards[props.cardToDisplay].content.map((content, index) => (
                               <div key={index}>

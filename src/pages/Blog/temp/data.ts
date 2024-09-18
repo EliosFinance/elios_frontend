@@ -62,12 +62,14 @@ export type cardContentType = {
     text?: string | string[],
     quoteAuthor?: authorType,
 }
+
 export type cardType = {
     image: string,
     title: string,
     readByUser: boolean,
     savedByUser: boolean,
-    content: cardContentType[]
+    content: cardContentType[],
+    type: cardTypesEnum
 }
 
 export type subjectType = {
@@ -84,8 +86,8 @@ export type subjectType = {
     author: authorType,
     description: string,
     cards: cardType[],
+    reads_count: number,
     likes_count?: number,
-    reads_count?: number,
 }
 
 export type categoryType = {
@@ -120,6 +122,7 @@ export const subjects: subjectType[] = [
             {
                 image: 'https://via.placeholder.com/150',
                 title: 'This is the title.',
+                type: cardTypesEnum.FULL,
                 readByUser: false,
                 savedByUser: false,
                 content: [
@@ -145,6 +148,7 @@ export const subjects: subjectType[] = [
             {
                 image: 'https://via.placeholder.com/150',
                 title: 'This is the title.',
+                type: cardTypesEnum.FULL,
                 readByUser: false,
                 savedByUser: false,
                 content: [
@@ -164,6 +168,7 @@ export const subjects: subjectType[] = [
             {
                 image: 'https://via.placeholder.com/150',
                 title: 'This is the title.',
+                type: cardTypesEnum.FULL,
                 readByUser: false,
                 savedByUser: false,
                 content: [
@@ -205,6 +210,7 @@ export const subjects: subjectType[] = [
             {
                 image: 'https://via.placeholder.com/150',
                 title: 'This is the title.',
+                type: cardTypesEnum.FULL,
                 readByUser: false,
                 savedByUser: false,
                 content: [
@@ -230,6 +236,7 @@ export const subjects: subjectType[] = [
             {
                 image: 'https://via.placeholder.com/150',
                 title: 'This is the title.',
+                type: cardTypesEnum.FULL,
                 readByUser: false,
                 savedByUser: false,
                 content: [
@@ -249,6 +256,7 @@ export const subjects: subjectType[] = [
             {
                 image: 'https://via.placeholder.com/150',
                 title: 'This is the title.',
+                type: cardTypesEnum.FULL,
                 readByUser: false,
                 savedByUser: false,
                 content: [
@@ -290,6 +298,7 @@ export const subjects: subjectType[] = [
             {
                 image: 'https://via.placeholder.com/150',
                 title: 'This is the title.',
+                type: cardTypesEnum.FULL,
                 readByUser: false,
                 savedByUser: false,
                 content: [
@@ -315,6 +324,7 @@ export const subjects: subjectType[] = [
             {
                 image: 'https://via.placeholder.com/150',
                 title: 'This is the title.',
+                type: cardTypesEnum.FULL,
                 readByUser: false,
                 savedByUser: false,
                 content: [
@@ -334,6 +344,7 @@ export const subjects: subjectType[] = [
             {
                 image: 'https://via.placeholder.com/150',
                 title: 'This is the title.',
+                type: cardTypesEnum.FULL,
                 readByUser: false,
                 savedByUser: false,
                 content: [
@@ -375,6 +386,7 @@ export const subjects: subjectType[] = [
             {
                 image: 'https://via.placeholder.com/150',
                 title: 'This is the title.',
+                type: cardTypesEnum.FULL,
                 readByUser: false,
                 savedByUser: false,
                 content: [
@@ -400,6 +412,7 @@ export const subjects: subjectType[] = [
             {
                 image: 'https://via.placeholder.com/150',
                 title: 'This is the title.',
+                type: cardTypesEnum.FULL,
                 readByUser: false,
                 savedByUser: false,
                 content: [
@@ -419,6 +432,7 @@ export const subjects: subjectType[] = [
             {
                 image: 'https://via.placeholder.com/150',
                 title: 'This is the title.',
+                type: cardTypesEnum.FULL,
                 readByUser: false,
                 savedByUser: false,
                 content: [
@@ -460,6 +474,7 @@ export const subjects: subjectType[] = [
             {
                 image: 'https://via.placeholder.com/150',
                 title: 'This is the title.',
+                type: cardTypesEnum.FULL,
                 readByUser: false,
                 savedByUser: false,
                 content: [
@@ -485,6 +500,7 @@ export const subjects: subjectType[] = [
             {
                 image: 'https://via.placeholder.com/150',
                 title: 'This is the title.',
+                type: cardTypesEnum.FULL,
                 readByUser: false,
                 savedByUser: false,
                 content: [
@@ -504,6 +520,7 @@ export const subjects: subjectType[] = [
             {
                 image: 'https://via.placeholder.com/150',
                 title: 'This is the title.',
+                type: cardTypesEnum.FULL,
                 readByUser: false,
                 savedByUser: false,
                 content: [
@@ -545,6 +562,7 @@ export const subjects: subjectType[] = [
             {
                 image: 'https://via.placeholder.com/150',
                 title: 'This is the title.',
+                type: cardTypesEnum.FULL,
                 readByUser: false,
                 savedByUser: false,
                 content: [
@@ -570,6 +588,7 @@ export const subjects: subjectType[] = [
             {
                 image: 'https://via.placeholder.com/150',
                 title: 'This is the title.',
+                type: cardTypesEnum.FULL,
                 readByUser: false,
                 savedByUser: false,
                 content: [
@@ -589,6 +608,7 @@ export const subjects: subjectType[] = [
             {
                 image: 'https://via.placeholder.com/150',
                 title: 'This is the title.',
+                type: cardTypesEnum.FULL,
                 readByUser: false,
                 savedByUser: false,
                 content: [
