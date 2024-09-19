@@ -2,7 +2,7 @@ import InputApp from '@/components/InputApp'
 import React, { useEffect, useState } from 'react'
 import { cardTypesEnum, categoriesEnum, subjects, subjectType } from './temp/data'
 import { APP_ROUTES_ENUM } from '@/main'
-import Carousel from './carousel/Carousel'
+import CarouselX from './carousel/CarouselX'
 import Card from './Card'
 
 
@@ -33,7 +33,7 @@ const Learn = () => {
           <div className='w-full flex justify-center items-center flex-col px-6'>
             <h2 className='text-2xl font-black'>Résultats de recherche</h2>
             <div className='w-full flex justify-between items-start flex-wrap gap-y-4 gap-x-4'>
-              <Carousel slides={filteredSubjects} options={{loop: false, containScroll: false}} cardVariant={cardTypesEnum.SMALL_PREVIEW} />
+              <CarouselX slides={filteredSubjects} options={{loop: false, containScroll: false}} cardVariant={cardTypesEnum.SMALL_PREVIEW} />
             </div>
           </div>
         ) : (
@@ -66,7 +66,7 @@ const Learn = () => {
             <div className='w-full flex justify-center items-start flex-col'>
               <h2 className='text-2xl font-black px-6'>Les plus populaires</h2>
               <div className='w-full flex justify-between items-start flex-wrap gap-y-4 gap-x-4'>
-                <Carousel slides={subjects} options={{loop: false, containScroll: false}} cardVariant={cardTypesEnum.SMALL_PREVIEW} />
+                <CarouselX slides={subjects} options={{loop: false, containScroll: false}} cardVariant={cardTypesEnum.SMALL_PREVIEW} />
               </div>
             </div>
             <Card project={subjects[0]} variant={cardTypesEnum.FULL_ROUNDED_IMAGE} cardToDisplay={0}/>

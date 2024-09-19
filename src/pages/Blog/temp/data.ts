@@ -153,6 +153,84 @@ export const subjects: subjectType[] = [
                 savedByUser: false,
                 content: [
                     {
+                        type: contentTypesEnum.TEXT,
+                        text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in tincidunt ex. Nulla facilisi. Proin nec vehicula leo. Nullam in tincidunt ex. Nulla facilisi. Proin nec vehicula leo. Nullam in tincidunt ex. Nulla facilisi.Proin nec vehicula leo. Nullam in tincidunt ex.',
+                    },
+                    {
+                        type: contentTypesEnum.TEXT,
+                        text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in tincidunt ex. Nulla facilisi. Proin nec vehicula leo. Nullam in tincidunt ex. Nulla facilisi. Proin nec vehicula leo. Nullam in tincidunt ex. Nulla facilisi.Proin nec vehicula leo. Nullam in tincidunt ex.',
+                    },
+                    {
+                        type: contentTypesEnum.LIST,
+                        text: [
+                            'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+                            'Nullam in tincidunt ex.',
+                            'Nulla facilisi.',
+                            'Proin nec vehicula leo.',
+                        ],
+                    }
+                ]
+            },
+            {
+                image: 'https://via.placeholder.com/150',
+                title: 'This is the title.',
+                type: cardTypesEnum.FULL,
+                readByUser: false,
+                savedByUser: false,
+                content: [
+                    {
+                        type: contentTypesEnum.TEXT,
+                        text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in tincidunt ex. Nulla facilisi. Proin nec vehicula leo. Nullam in tincidunt ex. Nulla facilisi. Proin nec vehicula leo. Nullam in tincidunt ex. Nulla facilisi.Proin nec vehicula leo. Nullam in tincidunt ex.',
+                    },
+                    {
+                        type: contentTypesEnum.TEXT,
+                        text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in tincidunt ex. Nulla facilisi. Proin nec vehicula leo. Nullam in tincidunt ex. Nulla facilisi. Proin nec vehicula leo. Nullam in tincidunt ex. Nulla facilisi.Proin nec vehicula leo. Nullam in tincidunt ex.',
+                    },
+                    {
+                        type: contentTypesEnum.LIST,
+                        text: [
+                            'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+                            'Nullam in tincidunt ex.',
+                            'Nulla facilisi.',
+                            'Proin nec vehicula leo.',
+                        ],
+                    }
+                ]
+            },
+            {
+                image: 'https://via.placeholder.com/150',
+                title: 'This is the title.',
+                type: cardTypesEnum.FULL,
+                readByUser: false,
+                savedByUser: false,
+                content: [
+                    {
+                        type: contentTypesEnum.TEXT,
+                        text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in tincidunt ex. Nulla facilisi. Proin nec vehicula leo. Nullam in tincidunt ex. Nulla facilisi. Proin nec vehicula leo. Nullam in tincidunt ex. Nulla facilisi.Proin nec vehicula leo. Nullam in tincidunt ex.',
+                    },
+                    {
+                        type: contentTypesEnum.TEXT,
+                        text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in tincidunt ex. Nulla facilisi. Proin nec vehicula leo. Nullam in tincidunt ex. Nulla facilisi. Proin nec vehicula leo. Nullam in tincidunt ex. Nulla facilisi.Proin nec vehicula leo. Nullam in tincidunt ex.',
+                    },
+                    {
+                        type: contentTypesEnum.LIST,
+                        text: [
+                            'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+                            'Nullam in tincidunt ex.',
+                            'Nulla facilisi.',
+                            'Proin nec vehicula leo.',
+                        ],
+                    }
+                ]
+            },
+            {
+                image: 'https://via.placeholder.com/150',
+                title: 'This is the title.',
+                type: cardTypesEnum.FULL,
+                readByUser: false,
+                savedByUser: false,
+                content: [
+                    {
                         type: contentTypesEnum.QUOTE,
                         quoteAuthor: {
                             firstName: 'Jean',

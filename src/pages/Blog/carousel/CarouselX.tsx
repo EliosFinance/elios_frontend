@@ -5,7 +5,7 @@ import {
   EmblaOptionsType
 } from 'embla-carousel'
 import useEmblaCarousel from 'embla-carousel-react'
-import '@/css/carousel.css'
+import '@/css/carousels/carousel-x.css'
 import Card from '../Card'
 import { cardTypesEnum, subjectType } from '../temp/data'
 const TWEEN_FACTOR_BASE = 0.52
@@ -18,7 +18,7 @@ type PropType = {
     options?: EmblaOptionsType
 }
 
-const Carousel: React.FC<PropType> = (props) => {
+const CarouselX: React.FC<PropType> = (props) => {
 
     const { slides, options } = props
     const [emblaRef, emblaApi] = useEmblaCarousel(options)
@@ -111,4 +111,4 @@ const Carousel: React.FC<PropType> = (props) => {
     )
 }
 
-export default Carousel
+export default CarouselX

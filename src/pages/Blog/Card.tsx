@@ -160,6 +160,8 @@ const useStyles = createUseStyles({
         alignItems: 'center',
         borderRadius: 'var(--border-radius-8)',
         boxShadow: 'var(--elevation-4)',
+        minHeight: '60vh',
+        maxHeight: '90vh',
         height: 'auto !important',
         width: '100%',
     },
