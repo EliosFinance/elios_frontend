@@ -3,15 +3,18 @@ import { cardType, cardTypesEnum, contentTypesEnum, subjectType } from './temp/d
 import icon from '@/assets/images/icons/google_icon.png';
 import icon2 from '@/assets/images/icons/twitter_icon.png';
 import { APP_ROUTES_ENUM } from '@/main';
+import { forwardRef } from 'react';
 
 type CardProps = {
     project: cardTypesEnum.SMALL_PREVIEW | cardTypesEnum.PREVIEW extends cardTypesEnum ? subjectType : cardType;
     variant: cardTypesEnum;
     classNames?: string[];
     cardToDisplay?: number;
+    id?: string;
+    onClick?: (e: React.MouseEvent<HTMLDivElement>) => void;
 }
 
-const Card = (props: CardProps) => {
+const Card = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
     const styles = useStyles(); 
     const isPreviewVariant = props.variant === cardTypesEnum.SMALL_PREVIEW || props.variant === cardTypesEnum.PREVIEW;
 
@@ -27,6 +30,7 @@ const Card = (props: CardProps) => {
                                 styles[props.variant],
                             ].join(' ')
                         }
+                        id={props.id!}
                     >
                         {/* header */}
                         <div className='w-full h-[7%] flex justify-between items-center mt-5 px-5'>
@@ -65,6 +69,9 @@ const Card = (props: CardProps) => {
                                 styles[props.variant],
                             ].join(' ')
                         }
+                        ref={ref}
+                        id={props.id!}
+                        onClick={props.onClick}
                     >
                         {/* header */}
                         {
@@ -115,7 +122,9 @@ const Card = (props: CardProps) => {
 
                         {/* footer */}
                         <div className='w-full h-[7%] flex justify-between items-center px-8 my-8'>
+                            {/* TODO: read cooldown */}
                             <img src={props.project.cards[props.cardToDisplay].readByUser ? icon2 : icon} alt="cardFooterIcon" className='h-[25px]'/>
+                            {/* TODO: save button */}
                             <img src={props.project.cards[props.cardToDisplay].savedByUser ? icon : icon2} alt="cardFooterIcon" className='h-[25px]'/>
                         </div>
                     </div>
@@ -123,7 +132,7 @@ const Card = (props: CardProps) => {
             }
         </>
     )
-}
+})
 
 export default Card
 
@@ -153,7 +162,7 @@ const useStyles = createUseStyles({
         width: '75dvw',
     },
     full: {
-        backgroundColor: '#e4e4e4',
+        // backgroundColor: '#e4e4e4',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-between',
