@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { cardTypesEnum, categoriesEnum, subjects, subjectType } from './temp/data'
 import { APP_ROUTES_ENUM } from '@/main'
 import CarouselX from './carousel/CarouselX'
-import Card from './Card'
+import { Card } from './Card'
 
 
 const Learn = () => {

@@ -1586,6 +1586,11 @@ concat-map@0.0.1:
   resolved "https://registry.npmjs.org/concat-map/-/concat-map-0.0.1.tgz"
   integrity sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==
 
+confettis@^0.3.4:
+  version "0.3.4"
+  resolved "https://registry.yarnpkg.com/confettis/-/confettis-0.3.4.tgz#1b1da892cddd813355bb5dd7f9dc0e269cc6ee76"
+  integrity sha512-VYu+5U+1+50A8eVJ+ZOhdL1pEsanaBI9mDOKGeNKMylG2VS3XKcAphIuxF43Ax75Xz4u6D9bTU6fTioV1dTL6g==
+
 convert-source-map@^2.0.0:
   version "2.0.0"
   resolved "https://registry.npmjs.org/convert-source-map/-/convert-source-map-2.0.0.tgz"
@@ -1735,7 +1740,8 @@ elementtree@^0.1.7:
     class-variance-authority "^0.7.0"
     clsx "^2.1.1"
     date-fns "^3.6.0"
-    elios_frontend "file:../../../../../AppData/Local/Yarn/Cache/v6/npm-elios-frontend-0.0.0-7e29c797-9d45-4723-a8a1-e2a200119430-1726429573970/node_modules/elios_frontend"
+    elios_frontend "file:../../../../../AppData/Local/Yarn/Cache/v6/npm-elios-frontend-0.0.0-85268515-bcc3-4eb6-b3b2-e1dc20104f3f-1727028575584/node_modules/elios_frontend"
+    embla-carousel "^8.3.0"
     embla-carousel-react "^8.3.0"
     gapi-script "^1.2.0"
     lucide-react "^0.408.0"

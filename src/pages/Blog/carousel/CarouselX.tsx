@@ -6,7 +6,7 @@ import {
 } from 'embla-carousel'
 import useEmblaCarousel from 'embla-carousel-react'
 import '@/css/carousels/carousel-x.css'
-import Card from '../Card'
+import { Card } from '../Card'
 import { cardTypesEnum, subjectType } from '../temp/data'
 const TWEEN_FACTOR_BASE = 0.52
 

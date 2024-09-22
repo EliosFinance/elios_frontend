@@ -1,8 +1,9 @@
 import { useParams } from 'react-router-dom';
 import { subjects, subjectType } from './temp/data';
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
-import Card from './Card';
+import {Card} from './Card';
 import BottomNav from './BottomNav';
+import useConfettis from '@/hook/useConfettis';
 
 const Article = () => {
   const [currentArticle, setCurrentArticle] = useState<subjectType | null>(null);
@@ -10,17 +11,15 @@ const Article = () => {
   const ref = useRef<HTMLDivElement | null>(null);
   const cardsRef = useRef<HTMLDivElement | null>(null);
   const cardElements = useRef<(HTMLDivElement | null)[]>([]);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [clickedCard, setClickedCard] = useState<number | null>(null);
-
-  const addClassList = (el: HTMLDivElement) => {
-    el?.classList.add('bg-red-500');
-    el?.classList.remove('filter', 'grayscale', 'opacity-50', 'transform', 'scale-[80%]');
-  };
+  const { throwConfettis } = useConfettis();
 
   const removeClassList = (el: HTMLDivElement) => {
-    el?.classList.remove('bg-red-500');
-    el?.classList.add('filter', 'grayscale', 'opacity-50', 'transform', 'scale-[80%]');
+    el?.classList.remove('filter', 'grayscale', 'opacity-50', 'transform', 'scale-[90%]');
+  };
+
+  const addClassList = (el: HTMLDivElement) => {
+    el?.classList.add('filter', 'grayscale', 'opacity-50', 'transform', 'scale-[90%]');
   };
 
   useLayoutEffect(() => {
@@ -51,12 +50,12 @@ const Article = () => {
 
             cardElements.current.forEach((el) => {
               if (el === targetElement) {
-                addClassList(el);
+                removeClassList(el);
                 if (clickedCard !== currentItemIndex) {
                   setClickedCard(currentItemIndex);
                 }
               } else {
-                removeClassList(el);
+                addClassList(el);
               }
             });
           }
@@ -76,6 +75,7 @@ const Article = () => {
       observer.disconnect();
       observer2.disconnect();
     };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentArticle, clickedCard]);
 
   const handleCardClick = (index: number) => {
@@ -88,9 +88,9 @@ const Article = () => {
         cardElements.current.forEach((el, i) => {
           if (el) {
             if (i === index) {
-              addClassList(el);
-            } else {
               removeClassList(el);
+            } else {
+              addClassList(el);
             }
           }
         });
@@ -106,7 +106,12 @@ const Article = () => {
         <div className='w-[90%] flex justify-center items-center flex-col'>
           {/* header */}
           <div className='w-full h-auto flex justify-center items-center flex-col gap-y-4 font-bold mt-12'>
-            <img src={currentArticle.thumbnail} alt="project thumbnail" className='h-auto w-[70%] rounded-[var(--border-radius-5)] shadow-lg' />
+            <img 
+              src={currentArticle.thumbnail} 
+              alt="project thumbnail" 
+              className='h-auto w-[70%] rounded-[var(--border-radius-5)] shadow-lg' 
+              onClick={throwConfettis}
+            />
             <div className='w-full h-auto flex justify-center items-center flex-col gap-y-2'>
               <p className='text-lg'>{currentArticle.title}</p>
               <div className='w-full flex justify-center items-center gap-x-1'>
@@ -143,6 +148,8 @@ const Article = () => {
                 key={i}
                 ref={(el) => (cardElements.current[i] = el)}
                 onClick={() => handleCardClick(i)}
+                cardFocused={clickedCard === i}
+                userHasRead={(a) => console.log('userHasRead', a)}
               />
             ))}
           </div>

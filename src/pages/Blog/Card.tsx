@@ -1,22 +1,51 @@
+/* eslint-disable react-refresh/only-export-components */
 import { createUseStyles } from 'react-jss';
 import { cardType, cardTypesEnum, contentTypesEnum, subjectType } from './temp/data';
 import icon from '@/assets/images/icons/google_icon.png';
 import icon2 from '@/assets/images/icons/twitter_icon.png';
 import { APP_ROUTES_ENUM } from '@/main';
-import { forwardRef } from 'react';
+import { forwardRef, useEffect, useRef, useState } from 'react';
+import SaveButton from './SaveButton';
 
 type CardProps = {
     project: cardTypesEnum.SMALL_PREVIEW | cardTypesEnum.PREVIEW extends cardTypesEnum ? subjectType : cardType;
     variant: cardTypesEnum;
+    cardToDisplay: number;
     classNames?: string[];
-    cardToDisplay?: number;
+    cardFocused?: boolean;
     id?: string;
     onClick?: (e: React.MouseEvent<HTMLDivElement>) => void;
+    userHasRead: (userHasRead: boolean) => void;
 }
 
-const Card = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
-    const styles = useStyles(); 
+export const Card = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
+    const [read, setRead] = useState<boolean>(props.project.cards[props.cardToDisplay].readByUser);
+    const coolDownTime = props.project.cards[props.cardToDisplay!].content.length * 1.5 // 1.5s per content
+    const styles = useCardStyles(coolDownTime); 
     const isPreviewVariant = props.variant === cardTypesEnum.SMALL_PREVIEW || props.variant === cardTypesEnum.PREVIEW;
+    const coolDownRef = useRef<HTMLDivElement>(null);
+    const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+
+    useEffect(() => {
+        
+        if (!props.cardFocused || !coolDownRef.current) {
+            if (timeoutRef.current) {
+                clearTimeout(timeoutRef.current);
+            }
+            return;
+        } else if (props.cardFocused && read) {
+            coolDownRef.current?.classList.remove(styles.coolDown);
+            return;
+        } else {
+            coolDownRef.current.classList.add(styles.coolDown);
+            timeoutRef.current = setTimeout(() => {
+                setRead(true);
+                props.userHasRead(true);
+            }, coolDownTime * 1000);
+        }
+
+    }, [coolDownTime, props, props.cardFocused, props.cardToDisplay, props.project.cards, read, styles.coolDown]);
 
     return (
         <>
@@ -26,6 +55,7 @@ const Card = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
                         href={`${APP_ROUTES_ENUM.ARTICLE}/${props.project.id}`}
                         className={
                             [
+                                styles.card,
                                 `${props.classNames && props.classNames.join(' ')}`, 
                                 styles[props.variant],
                             ].join(' ')
@@ -65,6 +95,7 @@ const Card = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
                     <div
                         className={
                             [
+                                styles.card,
                                 `${props.classNames && props.classNames.join(' ')}`, 
                                 styles[props.variant],
                             ].join(' ')
@@ -119,13 +150,23 @@ const Card = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
                             ))
                           }
                         </div>
-
+                        {/* cool down */}
+                        {
+                            props?.cardFocused && (
+                                <div className={styles.coolDown} ref={coolDownRef}></div>
+                            )
+                        }
                         {/* footer */}
                         <div className='w-full h-[7%] flex justify-between items-center px-8 my-8'>
-                            {/* TODO: read cooldown */}
-                            <img src={props.project.cards[props.cardToDisplay].readByUser ? icon2 : icon} alt="cardFooterIcon" className='h-[25px]'/>
-                            {/* TODO: save button */}
-                            <img src={props.project.cards[props.cardToDisplay].savedByUser ? icon : icon2} alt="cardFooterIcon" className='h-[25px]'/>
+
+                            {
+                                read ? (
+                                    <img src={icon} alt="cardHeaderIcon" className='h-[20px]'/>
+                                ) : (
+                                    <img src={icon2} alt="cardHeaderIcon" className='h-[20px]'/>
+                                )
+                            }                            
+                            <SaveButton saved={props.project.cards[props.cardToDisplay].savedByUser} isSaving={(a) => console.log(a)} />
                         </div>
                     </div>
                 )
@@ -134,55 +175,60 @@ const Card = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
     )
 })
 
-export default Card
-
-const useStyles = createUseStyles({
-    small_preview: {
-        backgroundColor: '#e4e4e4',
+export const useCardStyles = (coolDownTime: number) => createUseStyles({
+    '@keyframes readCoolDownAnim': {
+        'to': {
+            height: '0px',
+        },
+        '100%': {
+            backgroundColor: 'transparent'
+        }
+    },
+    // TODO: fix the glitch effect when the card is focused
+    coolDown: {
+        width: '100%',
+        height: '100%',
+        backgroundColor: '#ff000054',
+        borderBottomLeftRadius: 'var(--border-radius-8)',
+        borderBottomRightRadius: 'var(--border-radius-8)',
+        position: 'absolute',
+        bottom: 0,
+        zIndex: 1,
+        animation: `$readCoolDownAnim ${coolDownTime}s`,
+        transition: 'all 0.5s ease',
+        transitionDelay: '0.5s',
+    },
+    card: {
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-between',
         alignItems: 'center',
         borderRadius: 'var(--border-radius-8)',
         boxShadow: 'var(--elevation-4)',
+        position: 'relative',
+    },
+    small_preview: {
+        // backgroundColor: '#e4e4e4',
         padding: '5px',
         height: '75dvw',
         width: '75dvw',
     },
     preview: {
-        backgroundColor: '#e4e4e4',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        borderRadius: 'var(--border-radius-8)',
-        boxShadow: 'var(--elevation-4)',
+        // backgroundColor: '#e4e4e4',
         padding: '5px',
         height: '75dvw',
         width: '75dvw',
     },
     full: {
         // backgroundColor: '#e4e4e4',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        borderRadius: 'var(--border-radius-8)',
-        boxShadow: 'var(--elevation-4)',
         minHeight: '60vh',
         maxHeight: '90vh',
         height: 'auto !important',
         width: '100%',
     },
     full_rounded_image: {
-        backgroundColor: '#e4e4e4',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        borderRadius: 'var(--border-radius-8)',
-        boxShadow: 'var(--elevation-4)',
+        // backgroundColor: '#e4e4e4',
         height: 'auto !important',
         width: '100%',
     },
-})
+})();

@@ -1,5 +1,6 @@
 import { subjectType } from './temp/data'
 import LikeButton from './LikeButton';
+import SaveButton from './SaveButton';
 
 type props = {
   currentCard: number;
@@ -29,10 +30,8 @@ const BottomNav = ({ currentCard, article }: props) => {
                 onClick={() => window.history.back()}>
                     ←
             </a>
-            <LikeButton liked={false} likes={article.likes_count} isLiking={(a) => console.log(a)}  />
-              
-            {/* TODO: save button */}
-            <button>save</button>
+            <LikeButton liked={article.likedByUser} likes={article.likes_count} isLiking={(a) => console.log(a)}  />
+            <SaveButton saved={article.savedByUser} isSaving={(a) => console.log(a)} />
         </div>
     </div>
   );
