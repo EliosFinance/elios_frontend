@@ -1,28 +1,24 @@
-import { useEffect, useState } from 'react';
-import { cardType } from './temp/data'
+import { subjectType } from './temp/data'
+import LikeButton from './LikeButton';
 
 type props = {
-  cards: cardType[];
   currentCard: number;
+  article: subjectType;
 }
 
-const BottomNav = ({ cards, currentCard }: props) => {
-  const [localCurrentCard, setLocalCurrentCard] = useState<number>(currentCard);
+const BottomNav = ({ currentCard, article }: props) => {
 
-  useEffect(() => {
-    setLocalCurrentCard(currentCard);
-  }, [currentCard]);
 
   return (
     <div className='w-full h-[50px] flex justify-between items-center flex-col bg-gray-200 shadow-sm fixed bottom-0 px-4'>
         <div className='w-full flex justify-evenly items-center gap-x-2 mt-2'>
-            {cards.map((_card, index) => (
+            {article.cards.map((_card, index) => (
                 <div
                 key={index}
                 className={`
                     h-[3px] transition-all duration-300 rounded-full
                     w-min-[2%]
-                    ${localCurrentCard === index ? 'w-[25%] bg-black' : 'w-[10%] bg-gray-600'}
+                    ${currentCard === index ? 'w-[25%] bg-black' : 'w-[10%] bg-gray-600'}
                 `}
                 />
             ))}
@@ -33,8 +29,8 @@ const BottomNav = ({ cards, currentCard }: props) => {
                 onClick={() => window.history.back()}>
                     ←
             </a>
-            {/* TODO: like button */}
-            <button>like</button>
+            <LikeButton liked={false} likes={article.likes_count} isLiking={(a) => console.log(a)}  />
+              
             {/* TODO: save button */}
             <button>save</button>
         </div>

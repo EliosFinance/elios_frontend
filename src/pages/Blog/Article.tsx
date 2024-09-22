@@ -148,7 +148,7 @@ const Article = () => {
           </div>
         </div>
       </div>
-      <BottomNav cards={currentArticle.cards} currentCard={clickedCard || 0} />
+      <BottomNav article={currentArticle} currentCard={clickedCard || 0} />
     </>
   );
 };
