@@ -3,8 +3,6 @@ import React, { useEffect, useState } from 'react'
 import { cardTypesEnum, categoriesEnum, subjects, subjectType } from './temp/data'
 import { APP_ROUTES_ENUM } from '@/main'
 import CarouselX from './carousel/CarouselX'
-import { Card } from './Card'
-
 
 const Learn = () => {
   const [search, setSearch] = useState<string>('')
@@ -26,8 +24,16 @@ const Learn = () => {
     <div className='w-full flex justify-center items-center flex-col gap-y-12'>
       <div className='w-full flex justify-center items-start flex-col px-6'>
         <h2 className='text-2xl font-black'>EliosLearn</h2>
-        <InputApp type='text' placeholder='Recherchez une idée, un sujet, ...' value={search} onChange={(e) => setSearch(e.target.value)} endIcon />
+        <InputApp 
+          type='text' 
+          placeholder='Recherchez une idée, un sujet, ...' 
+          value={search} 
+          onChange={(e) => setSearch(e.target.value)} 
+          onClear={() => setSearch('')}
+          endIcon 
+        />
       </div>
+
       {
         isUserTyping ? (
           <div className='w-full flex justify-center items-center flex-col px-6'>
@@ -69,7 +75,6 @@ const Learn = () => {
                 <CarouselX slides={subjects} options={{loop: false, containScroll: false}} cardVariant={cardTypesEnum.SMALL_PREVIEW} />
               </div>
             </div>
-            <Card project={subjects[0]} variant={cardTypesEnum.FULL_ROUNDED_IMAGE} cardToDisplay={0}/>
           </>
         )
       }

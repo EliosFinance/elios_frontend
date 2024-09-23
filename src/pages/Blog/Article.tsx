@@ -4,6 +4,7 @@ import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import {Card} from './Card';
 import BottomNav from './BottomNav';
 import useConfettis from '@/hook/useConfettis';
+import { APP_ROUTES_ENUM } from '@/main';
 
 const Article = () => {
   const [currentArticle, setCurrentArticle] = useState<subjectType | null>(null);
@@ -11,6 +12,7 @@ const Article = () => {
   const ref = useRef<HTMLDivElement | null>(null);
   const cardsRef = useRef<HTMLDivElement | null>(null);
   const cardElements = useRef<(HTMLDivElement | null)[]>([]);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
   const [clickedCard, setClickedCard] = useState<number | null>(null);
   const { throwConfettis } = useConfettis();
 
@@ -48,14 +50,21 @@ const Article = () => {
             const targetElement = entry.target as HTMLDivElement;
             const currentItemIndex = Number(targetElement.id.split('_')[1]);
 
-            cardElements.current.forEach((el) => {
-              if (el === targetElement) {
-                removeClassList(el);
-                if (clickedCard !== currentItemIndex) {
-                  setClickedCard(currentItemIndex);
+            if (timeoutRef.current) {
+              clearTimeout(timeoutRef.current);
+            }
+
+            timeoutRef.current = setTimeout(() => {
+              setClickedCard(currentItemIndex);
+            }, 300);
+
+            cardElements.current.forEach((el, i) => {
+              if (el) {
+                if (i === currentItemIndex) {
+                  removeClassList(el);
+                } else {
+                  addClassList(el);
                 }
-              } else {
-                addClassList(el);
               }
             });
           }
@@ -102,7 +111,7 @@ const Article = () => {
 
   return (
     <>
-      <div ref={ref} className='w-full flex justify-center items-center flex-col'>
+      <div ref={ref} className='w-full flex justify-center items-center flex-col mb-10'>
         <div className='w-[90%] flex justify-center items-center flex-col'>
           {/* header */}
           <div className='w-full h-auto flex justify-center items-center flex-col gap-y-4 font-bold mt-12'>
@@ -155,7 +164,7 @@ const Article = () => {
           </div>
         </div>
       </div>
-      <BottomNav article={currentArticle} currentCard={clickedCard || 0} />
+      <BottomNav article={currentArticle} currentCard={clickedCard || 0} backUrl={APP_ROUTES_ENUM.LEARN} />
     </>
   );
 };

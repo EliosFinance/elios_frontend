@@ -7,6 +7,7 @@ type LikeButtonProps = {
     liked: boolean;
     likes: number;
     isLiking: (isLiking: boolean) => void;
+    disabled?: boolean;
 }
 
 const LikeButton = (props: LikeButtonProps) => {
@@ -14,24 +15,29 @@ const LikeButton = (props: LikeButtonProps) => {
     const ref = useRef<HTMLDivElement>(null);
 
     const handleClick = () => {
-        if (!ref.current) return;
+        if (!ref.current || props?.disabled) return;
+
         ref.current.classList.toggle(styles.liked);
         props.isLiking(ref.current.classList.contains(styles.liked));
     }
 
     return (
-        <div className={styles.like_button}>
+        <div className={[styles.like_button, props.disabled ? styles.disabled : ''].join(' ')}>
             <div className={styles.heart_bg}>
                 <div 
                     className={[styles.heart_icon, props.liked ? styles.liked : ''].join(' ')} 
                     ref={ref} 
                     onClick={handleClick}
                 />
-                <div 
-                    className={styles.like_amount}
-                >
-                    {props.likes}
-                </div>
+                {
+                    !props?.disabled && (
+                        <div 
+                            className={styles.like_amount}
+                        >
+                            {props.likes}
+                        </div>
+                    )
+                }
             </div>
         </div>
     )
@@ -81,5 +87,11 @@ const useStyles = createUseStyles({
         fontFamily: '"Roboto", sans-serif',
         color: '#888',
         fontWeight: '900',
+    },
+    disabled: {
+        pointerEvents: 'none',
+        cursor: 'default',
+        marginRight: '-60px',
+        // opacity: '0.5',
     }
 })

@@ -6,6 +6,7 @@ import icon2 from '@/assets/images/icons/twitter_icon.png';
 import { APP_ROUTES_ENUM } from '@/main';
 import { forwardRef, useEffect, useRef, useState } from 'react';
 import SaveButton from './SaveButton';
+import LikeButton from './LikeButton';
 
 type CardProps = {
     project: cardTypesEnum.SMALL_PREVIEW | cardTypesEnum.PREVIEW extends cardTypesEnum ? subjectType : cardType;
@@ -19,8 +20,8 @@ type CardProps = {
 }
 
 export const Card = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
-    const [read, setRead] = useState<boolean>(props.project.cards[props.cardToDisplay].readByUser);
-    const coolDownTime = props.project.cards[props.cardToDisplay!].content.length * 1.5 // 1.5s per content
+    const [read, setRead] = useState<boolean>(props.project?.cards?.[props.cardToDisplay]?.readByUser || false);
+    const coolDownTime = props.project?.cards?.[props.cardToDisplay]?.content.length * 1.5 // 1.5s per content
     const styles = useCardStyles(coolDownTime); 
     const isPreviewVariant = props.variant === cardTypesEnum.SMALL_PREVIEW || props.variant === cardTypesEnum.PREVIEW;
     const coolDownRef = useRef<HTMLDivElement>(null);
@@ -29,7 +30,7 @@ export const Card = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
 
     useEffect(() => {
         
-        if (!props.cardFocused || !coolDownRef.current) {
+        if (!props.cardFocused || !coolDownRef.current || !coolDownRef.current.classList) {
             if (timeoutRef.current) {
                 clearTimeout(timeoutRef.current);
             }
@@ -37,12 +38,11 @@ export const Card = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
         } else if (props.cardFocused && read) {
             coolDownRef.current?.classList.remove(styles.coolDown);
             return;
-        } else {
-            coolDownRef.current.classList.add(styles.coolDown);
+        } else {            
             timeoutRef.current = setTimeout(() => {
                 setRead(true);
                 props.userHasRead(true);
-            }, coolDownTime * 1000);
+            }, coolDownTime * 1000 + 500); // wait for the animation delay to be over
         }
 
     }, [coolDownTime, props, props.cardFocused, props.cardToDisplay, props.project.cards, read, styles.coolDown]);
@@ -72,7 +72,7 @@ export const Card = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
                                     </p>
                                 </div>
                             </div>
-                            <img src={props.project.likedByUser ? icon : icon2} alt="cardHeaderIcon" className='h-[20px]'/>
+                            <LikeButton liked={props.project.likedByUser} isLiking={(a) => console.log(a)} likes={0} disabled />
 
                         </div>
 
@@ -206,6 +206,7 @@ export const useCardStyles = (coolDownTime: number) => createUseStyles({
         borderRadius: 'var(--border-radius-8)',
         boxShadow: 'var(--elevation-4)',
         position: 'relative',
+        backgroundColor: '#eeeeee',
     },
     small_preview: {
         // backgroundColor: '#e4e4e4',
