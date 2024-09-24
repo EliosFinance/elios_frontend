@@ -12,6 +12,7 @@ const instance_back = axios.create({
     baseURL: BACK_API_URL
 })
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const login_api = async (username: string, password: string): Promise<any> => {
     try {
         const response = await instance_back.post('auth/sign-in', {
