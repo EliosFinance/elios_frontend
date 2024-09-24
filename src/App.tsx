@@ -6,10 +6,14 @@ import Home from "@/pages/Home.tsx";
 import PublicRoute from "@/components/PublicRoute.tsx";
 import BankCheck from "@/components/BankCheck.tsx";
 import {OsEnum, useDeviceDetection} from "@/hook/useDeviceDetection.ts";
-// import LoginMobile from "@/pages/mobile/LoginMobile.tsx";
+import Learn from './pages/Blog/Learn.tsx';
+import Article from './pages/Blog/Article.tsx';
+import { APP_ROUTES_ENUM } from './main.tsx';
+import AllArticleCategories from './pages/Blog/AllArticleCategories.tsx';
+import ArticleCategory from './pages/Blog/ArticleCategory.tsx';
 
 function App() {
-    const {device: mobile, os} = useDeviceDetection()
+    const {os} = useDeviceDetection()
     let googleId;
     
     switch (os) {
@@ -37,15 +41,15 @@ function App() {
             <Routes>
                 <Route element={<AuthRoute />}>
                     <Route element={<BankCheck /> } >
-                        <Route path="/" element={<Home />} />
+                        <Route path={APP_ROUTES_ENUM.HOME} element={<Home />} />
                     </Route>
                 </Route>
                 <Route element={<PublicRoute />}>
-                    { mobile === 'Desktop'
-                        ? <Route path="/login" element={<Login VITE_GOOGLE_CLIENT_ID={googleId}/>}/>
-                        : <Route path="/login" element={<Login VITE_GOOGLE_CLIENT_ID={googleId}/>}/>
-                    }
-
+                    <Route path={APP_ROUTES_ENUM.LEARN} element={<Learn />}/>
+                    <Route path={`${APP_ROUTES_ENUM.ARTICLE}/:id`} element={<Article />}/>
+                    <Route path={`${APP_ROUTES_ENUM.ARTICLE_CATEGORIES}`} element={<AllArticleCategories />}/>
+                    <Route path={`${APP_ROUTES_ENUM.ARTICLE_CATEGORY}/:id`} element={<ArticleCategory />}/>
+                    <Route path={APP_ROUTES_ENUM.LOGIN} element={<Login VITE_GOOGLE_CLIENT_ID={googleId}/>}/>
                 </Route>
             </Routes>
         </div>
