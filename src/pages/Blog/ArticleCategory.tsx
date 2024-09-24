@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { cardTypesEnum, categories, categoryType, subjects, subjectType } from './temp/data';
-import CarouselX from './carousel/CarouselX';
-import BottomNav from './BottomNav';
+import { cardTypesEnum, categories, categoryType, subjects, subjectType } from '../../temp/BlogData';
+import CarouselX from '../../components/CarouselX';
+import BlogBottomNav from '../../components/BlogBottomNav';
 import ButtonApp from '@/components/ButtonApp';
 import { APP_ROUTES_ENUM } from '@/main';
 
@@ -38,7 +38,7 @@ const ArticleCategory = () => {
                 <CarouselX slides={cards} options={{loop: false, containScroll: false}} cardVariant={cardTypesEnum.SMALL_PREVIEW} />
               </div>
 
-              <BottomNav disableActionButtons backUrl={APP_ROUTES_ENUM.LEARN}/>
+              <BlogBottomNav disableActionButtons backUrl={APP_ROUTES_ENUM.LEARN}/>
             </>
           ) : (
             <>

@@ -1,8 +1,8 @@
 import InputApp from '@/components/InputApp'
 import React, { useEffect, useState } from 'react'
-import { cardTypesEnum, categoriesEnum, subjects, subjectType } from './temp/data'
+import { cardTypesEnum, categoriesEnum, subjects, subjectType } from '../../temp/BlogData'
 import { APP_ROUTES_ENUM } from '@/main'
-import CarouselX from './carousel/CarouselX'
+import CarouselX from '../../components/CarouselX'
 
 const Learn = () => {
   const [search, setSearch] = useState<string>('')

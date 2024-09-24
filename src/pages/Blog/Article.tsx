@@ -1,8 +1,8 @@
 import { useParams } from 'react-router-dom';
-import { subjects, subjectType } from './temp/data';
+import { subjects, subjectType } from '../../temp/BlogData';
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
-import {Card} from './Card';
-import BottomNav from './BottomNav';
+import {Card} from '../../components/Card';
+import BlogBottomNav from '../../components/BlogBottomNav';
 import useConfettis from '@/hook/useConfettis';
 import { APP_ROUTES_ENUM } from '@/main';
 
@@ -164,7 +164,7 @@ const Article = () => {
           </div>
         </div>
       </div>
-      <BottomNav article={currentArticle} currentCard={clickedCard || 0} backUrl={APP_ROUTES_ENUM.LEARN} />
+      <BlogBottomNav article={currentArticle} currentCard={clickedCard || 0} backUrl={APP_ROUTES_ENUM.LEARN} />
     </>
   );
 };

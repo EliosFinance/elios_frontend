@@ -1,6 +1,6 @@
 /* eslint-disable react-refresh/only-export-components */
 import { createUseStyles } from 'react-jss';
-import { cardType, cardTypesEnum, contentTypesEnum, subjectType } from './temp/data';
+import { cardType, cardTypesEnum, contentTypesEnum, subjectType } from '../temp/BlogData';
 import icon from '@/assets/images/icons/google_icon.png';
 import icon2 from '@/assets/images/icons/twitter_icon.png';
 import { APP_ROUTES_ENUM } from '@/main';
@@ -42,7 +42,7 @@ export const Card = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
             timeoutRef.current = setTimeout(() => {
                 setRead(true);
                 props.userHasRead(true);
-            }, coolDownTime * 1000 + 500); // wait for the animation delay to be over
+            }, coolDownTime * 1000); // wait for the animation delay to be over
         }
 
     }, [coolDownTime, props, props.cardFocused, props.cardToDisplay, props.project.cards, read, styles.coolDown]);
@@ -184,7 +184,6 @@ export const useCardStyles = (coolDownTime: number) => createUseStyles({
             backgroundColor: 'transparent'
         }
     },
-    // TODO: fix the glitch effect when the card is focused
     coolDown: {
         width: '100%',
         height: '100%',

@@ -1,4 +1,4 @@
-import { subjectType } from './temp/data'
+import { subjectType } from '../temp/BlogData'
 import LikeButton from './LikeButton';
 import SaveButton from './SaveButton';
 
@@ -9,7 +9,7 @@ type props = {
   backUrl?: string;
 }
 
-const BottomNav = (props: props) => {
+const BlogBottomNav = (props: props) => {
 
 
   return (
@@ -50,4 +50,4 @@ const BottomNav = (props: props) => {
   );
 }
 
-export default BottomNav;
+export default BlogBottomNav;

@@ -6,8 +6,8 @@ import {
 } from 'embla-carousel'
 import useEmblaCarousel from 'embla-carousel-react'
 import '@/css/carousels/carousel-x.css'
-import { Card } from '../Card'
-import { cardTypesEnum, subjectType } from '../temp/data'
+import { Card } from './Card'
+import { cardTypesEnum, subjectType } from '../temp/BlogData'
 const TWEEN_FACTOR_BASE = 0.52
 
 const numberWithinRange = (number: number, min: number, max: number): number => Math.min(Math.max(number, min), max)
