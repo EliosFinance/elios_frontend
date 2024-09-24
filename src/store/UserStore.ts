@@ -1,4 +1,4 @@
-import {create, State} from 'zustand';
+import {create} from 'zustand';
 import {mountStoreDevtool} from "simple-zustand-devtools";
 import {createJSONStorage, persist} from "zustand/middleware";
 

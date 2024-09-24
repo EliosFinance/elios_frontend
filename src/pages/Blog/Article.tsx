@@ -84,7 +84,6 @@ const Article = () => {
       observer.disconnect();
       observer2.disconnect();
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentArticle, clickedCard]);
 
   const handleCardClick = (index: number) => {
