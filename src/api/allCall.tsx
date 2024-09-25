@@ -15,9 +15,13 @@ export const login_api = async (username: string, password: string): Promise<any
     try {
         const response = await instance_back.post('auth/sign-in', {
             username,
-            password,
+            password
         })
+
+
         return response.data
+
+        
     } catch (error) {
         const err = error as AxiosError
         console.error(err.message)
