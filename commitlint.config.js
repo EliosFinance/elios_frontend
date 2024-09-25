@@ -29,7 +29,7 @@ const Configuration = {
                 'sentence-case',
                 'snake-case',
                 'start-case',
-            ]
+            ],
         ],
         'scope-enum': [
             2,

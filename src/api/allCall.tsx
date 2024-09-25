@@ -30,7 +30,7 @@ export const login_api = async (username: string, password: string): Promise<any
 
 export const refresh_token_api = async (refreshToken: string) => {
     try {
-        
+
         const response = await instance_back.post(
             'auth/refresh_token',
             {
@@ -53,7 +53,7 @@ export const refresh_token_api = async (refreshToken: string) => {
 export const logout_api = async () => {
     try {
         const headers = userStore.getState().getAuth()
-        const response = await instance_back.post('auth/invalidate-token', {}, { headers })
+        const response = await instance_back.post("auth/invalidate-token", {}, { headers })
         return response.data
     } catch (error) {
         const err = error as AxiosError
