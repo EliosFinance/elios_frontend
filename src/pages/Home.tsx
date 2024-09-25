@@ -1,4 +1,4 @@
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card.tsx'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card.tsx';
 import {
     Drawer,
     DrawerClose,
@@ -8,48 +8,48 @@ import {
     DrawerHeader,
     DrawerTitle,
     DrawerTrigger,
-} from '@/components/ui/drawer'
+} from '@/components/ui/drawer';
 
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion.tsx'
-import { columns } from '@/components/columnsTransaction.tsx'
-import { DataTable } from '@/components/DataTable.tsx'
-import { useGetConnection, useGetTransactions } from '@/api/allCall.tsx'
-import { Button } from '@/components/ui/button.tsx'
-import { userStore } from '@/store/UserStore.ts'
-import { useEffect } from 'react'
-import ButtonApp from '@/components/ButtonApp'
-import { ConnectionType } from '@/types/connectionType'
+import { useGetConnection, useGetTransactions } from '@/api/allCall.tsx';
+import ButtonApp from '@/components/ButtonApp';
+import { DataTable } from '@/components/DataTable.tsx';
+import { columns } from '@/components/columnsTransaction.tsx';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion.tsx';
+import { Button } from '@/components/ui/button.tsx';
+import { userStore } from '@/store/UserStore.ts';
+import { ConnectionType } from '@/types/connectionType';
+import { useEffect } from 'react';
 
 const Home = () => {
-    const listTransaction = useGetTransactions()
-    const listConnection = useGetConnection()
-    const updateUser = userStore((state) => state.updateUser)
-    const user = userStore((state) => state.user)
+    const listTransaction = useGetTransactions();
+    const listConnection = useGetConnection();
+    const updateUser = userStore((state) => state.updateUser);
+    const user = userStore((state) => state.user);
 
     useEffect(() => {
-        const urlParams = new URLSearchParams(window.location.search)
-        const powensToken = urlParams.get('token')
+        const urlParams = new URLSearchParams(window.location.search);
+        const powensToken = urlParams.get('token');
 
         if (powensToken) {
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-expect-error
-            const url = new URL(window.location)
-            urlParams.delete('token')
+            const url = new URL(window.location);
+            urlParams.delete('token');
             updateUser({
                 ...user,
                 powens_token: powensToken,
-            })
+            });
             window.history.replaceState(
                 {},
                 '',
                 `${url.pathname}${urlParams.toString() ? '?' + urlParams.toString() : ''}`,
-            )
+            );
         }
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    }, []);
 
-    console.log(listConnection)
+    console.log(listConnection);
 
     return (
         <div className='w-[100%]'>
@@ -64,11 +64,11 @@ const Home = () => {
                             <AccordionContent>
                                 {listConnection.data ? (
                                     listConnection.data.map((connection: ConnectionType, index: number) => {
-                                        const value = connection.balance
+                                        const value = connection.balance;
                                         const formatted = new Intl.NumberFormat('fr-FR', {
                                             style: 'currency',
                                             currency: 'EUR',
-                                        }).format(value)
+                                        }).format(value);
                                         return (
                                             <div
                                                 key={index}
@@ -83,7 +83,7 @@ const Home = () => {
                                                 </div>
                                                 <p>{formatted}</p>
                                             </div>
-                                        )
+                                        );
                                     })
                                 ) : (
                                     <p>Vos comptes</p>
@@ -117,7 +117,7 @@ const Home = () => {
                 </DrawerContent>
             </Drawer>
         </div>
-    )
-}
+    );
+};
 
-export default Home
+export default Home;

@@ -1,17 +1,17 @@
-import { createUseStyles } from 'react-jss'
-import { Button } from '@/components/ui/button.tsx'
-import { get_powens_token } from '@/api/allCall.tsx'
+import { get_powens_token } from '@/api/allCall.tsx';
+import { Button } from '@/components/ui/button.tsx';
+import { createUseStyles } from 'react-jss';
 
 const BlurOverlay = () => {
-    const styles = useStyles()
+    const styles = useStyles();
     return (
         <div className={styles.primaryDiv}>
             <Button onClick={get_powens_token}>Link your bank account</Button>
         </div>
-    )
-}
+    );
+};
 
-export default BlurOverlay
+export default BlurOverlay;
 
 const useStyles = createUseStyles({
     primaryDiv: {
@@ -27,4 +27,4 @@ const useStyles = createUseStyles({
         justifyContent: 'center',
         zIndex: 9999,
     },
-})
+});

@@ -1,8 +1,6 @@
-'use client'
+'use client';
 
-import { ColumnDef } from '@tanstack/react-table'
-import { ArrowUpDown, MoreHorizontal } from 'lucide-react'
-import { Button } from '@/components/ui/button.tsx'
+import { Button } from '@/components/ui/button.tsx';
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -10,17 +8,19 @@ import {
     DropdownMenuLabel,
     DropdownMenuSeparator,
     DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu.tsx'
+} from '@/components/ui/dropdown-menu.tsx';
+import { ColumnDef } from '@tanstack/react-table';
+import { ArrowUpDown, MoreHorizontal } from 'lucide-react';
 
 export type Payment = {
-    id: number
-    value: string
-    type: string
-    wording: string
-    date: string
-    simplified_wording: string
-    original_wording: string
-}
+    id: number;
+    value: string;
+    type: string;
+    wording: string;
+    date: string;
+    simplified_wording: string;
+    original_wording: string;
+};
 
 export const columns: ColumnDef<Payment>[] = [
     {
@@ -31,7 +31,7 @@ export const columns: ColumnDef<Payment>[] = [
                     Date
                     <ArrowUpDown className='ml-2 h-4 w-4' />
                 </Button>
-            )
+            );
         },
     },
     {
@@ -42,7 +42,7 @@ export const columns: ColumnDef<Payment>[] = [
                     Titre
                     <ArrowUpDown className='ml-2 h-4 w-4' />
                 </Button>
-            )
+            );
         },
         cell: ({ row }) => {
             return (
@@ -53,26 +53,26 @@ export const columns: ColumnDef<Payment>[] = [
                           ? row.getValue('simplified_wording')
                           : row.getValue('original_wording')}
                 </div>
-            )
+            );
         },
     },
     {
         accessorKey: 'value',
         header: () => <div className='text-right'>Value</div>,
         cell: ({ row }) => {
-            const value = parseFloat(row.getValue('value'))
+            const value = parseFloat(row.getValue('value'));
             const formatted = new Intl.NumberFormat('fr-FR', {
                 style: 'currency',
                 currency: 'EUR',
-            }).format(value)
+            }).format(value);
 
-            return <div className='text-right font-medium'>{formatted}</div>
+            return <div className='text-right font-medium'>{formatted}</div>;
         },
     },
     {
         id: 'actions',
         cell: ({ row }) => {
-            const payment = row.original
+            const payment = row.original;
             return (
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
@@ -91,7 +91,7 @@ export const columns: ColumnDef<Payment>[] = [
                         <DropdownMenuItem>View payment details</DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
-            )
+            );
         },
     },
-]
+];

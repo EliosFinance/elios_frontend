@@ -1,24 +1,24 @@
-import React, { useRef } from 'react'
-import { createUseStyles } from 'react-jss'
-import heartIcon from '@/assets/images/icons/heart_icon.png'
+import heartIcon from '@/assets/images/icons/heart_icon.png';
+import React, { useRef } from 'react';
+import { createUseStyles } from 'react-jss';
 
 type LikeButtonProps = {
-    liked: boolean
-    likes: number
-    isLiking: (isLiking: boolean) => void
-    disabled?: boolean
-}
+    liked: boolean;
+    likes: number;
+    isLiking: (isLiking: boolean) => void;
+    disabled?: boolean;
+};
 
 const LikeButton = (props: LikeButtonProps) => {
-    const styles = useStyles()
-    const ref = useRef<HTMLDivElement>(null)
+    const styles = useStyles();
+    const ref = useRef<HTMLDivElement>(null);
 
     const handleClick = () => {
-        if (!ref.current || props?.disabled) return
+        if (!ref.current || props?.disabled) return;
 
-        ref.current.classList.toggle(styles.liked)
-        props.isLiking(ref.current.classList.contains(styles.liked))
-    }
+        ref.current.classList.toggle(styles.liked);
+        props.isLiking(ref.current.classList.contains(styles.liked));
+    };
 
     return (
         <div className={[styles.like_button, props.disabled ? styles.disabled : ''].join(' ')}>
@@ -31,10 +31,10 @@ const LikeButton = (props: LikeButtonProps) => {
                 {!props?.disabled && <div className={styles.like_amount}>{props.likes}</div>}
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default LikeButton
+export default LikeButton;
 
 const useStyles = createUseStyles({
     '@keyframes likeAnim': {
@@ -85,4 +85,4 @@ const useStyles = createUseStyles({
         marginRight: '-60px',
         // opacity: '0.5',
     },
-})
+});

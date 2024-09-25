@@ -1,37 +1,37 @@
-import './css/App.css'
-import { Route, Routes } from 'react-router-dom'
-import AuthRoute from './components/AuthRoute.tsx'
-import Login from '@/pages/Login.tsx'
-import Home from '@/pages/Home.tsx'
-import PublicRoute from '@/components/PublicRoute.tsx'
-import BankCheck from '@/components/BankCheck.tsx'
-import { OsEnum, useDeviceDetection } from '@/hook/useDeviceDetection.ts'
-import Learn from './pages/Blog/Learn.tsx'
-import Article from './pages/Blog/Article.tsx'
-import { APP_ROUTES_ENUM } from './main.tsx'
-import AllArticleCategories from './pages/Blog/AllArticleCategories.tsx'
-import ArticleCategory from './pages/Blog/ArticleCategory.tsx'
+import './css/App.css';
+import BankCheck from '@/components/BankCheck.tsx';
+import PublicRoute from '@/components/PublicRoute.tsx';
+import { OsEnum, useDeviceDetection } from '@/hook/useDeviceDetection.ts';
+import Home from '@/pages/Home.tsx';
+import Login from '@/pages/Login.tsx';
+import { Route, Routes } from 'react-router-dom';
+import AuthRoute from './components/AuthRoute.tsx';
+import { APP_ROUTES_ENUM } from './main.tsx';
+import AllArticleCategories from './pages/Blog/AllArticleCategories.tsx';
+import Article from './pages/Blog/Article.tsx';
+import ArticleCategory from './pages/Blog/ArticleCategory.tsx';
+import Learn from './pages/Blog/Learn.tsx';
 
 function App() {
-    const { os } = useDeviceDetection()
-    let googleId
+    const { os } = useDeviceDetection();
+    let googleId;
 
     switch (os) {
         case OsEnum.WEB:
-            googleId = import.meta.env.VITE_GOOGLE_CLIENT_ID_WEB
-            break
+            googleId = import.meta.env.VITE_GOOGLE_CLIENT_ID_WEB;
+            break;
 
         case OsEnum.ANDROID:
-            googleId = import.meta.env.VITE_GOOGLE_CLIENT_ID_ANDROID
-            break
+            googleId = import.meta.env.VITE_GOOGLE_CLIENT_ID_ANDROID;
+            break;
 
         case OsEnum.IOS:
-            googleId = import.meta.env.VITE_GOOGLE_CLIENT_ID_IOS
-            break
+            googleId = import.meta.env.VITE_GOOGLE_CLIENT_ID_IOS;
+            break;
 
         default:
-            googleId = null
-            break
+            googleId = null;
+            break;
     }
 
     return (
@@ -53,7 +53,7 @@ function App() {
                 </Routes>
             </div>
         </>
-    )
+    );
 }
 
-export default App
+export default App;

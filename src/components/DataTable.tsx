@@ -1,36 +1,36 @@
 import {
     ColumnDef,
-    flexRender,
-    getCoreRowModel,
-    getPaginationRowModel,
-    getSortedRowModel,
+    ColumnFiltersState,
     SortingState,
     VisibilityState,
-    ColumnFiltersState,
+    flexRender,
+    getCoreRowModel,
     getFilteredRowModel,
+    getPaginationRowModel,
+    getSortedRowModel,
     useReactTable,
-} from '@tanstack/react-table'
+} from '@tanstack/react-table';
 
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table.tsx'
+import { Button } from '@/components/ui/button.tsx';
 import {
     DropdownMenu,
     DropdownMenuCheckboxItem,
     DropdownMenuContent,
     DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu.tsx'
-import { Button } from '@/components/ui/button.tsx'
-import { Input } from '@/components/ui/input.tsx'
-import { useState } from 'react'
+} from '@/components/ui/dropdown-menu.tsx';
+import { Input } from '@/components/ui/input.tsx';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table.tsx';
+import { useState } from 'react';
 
 interface DataTableProps<TData, TValue> {
-    columns: ColumnDef<TData, TValue>[]
-    data: TData[]
+    columns: ColumnDef<TData, TValue>[];
+    data: TData[];
 }
 
 export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData, TValue>) {
-    const [sorting, setSorting] = useState<SortingState>([])
-    const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
-    const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
+    const [sorting, setSorting] = useState<SortingState>([]);
+    const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+    const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
 
     const table = useReactTable({
         data,
@@ -47,7 +47,7 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
             columnFilters,
             columnVisibility,
         },
-    })
+    });
 
     return (
         <div>
@@ -78,7 +78,7 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
                                     >
                                         {column.id}
                                     </DropdownMenuCheckboxItem>
-                                )
+                                );
                             })}
                     </DropdownMenuContent>
                 </DropdownMenu>
@@ -95,7 +95,7 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
                                                 ? null
                                                 : flexRender(header.column.columnDef.header, header.getContext())}
                                         </TableHead>
-                                    )
+                                    );
                                 })}
                             </TableRow>
                         ))}
@@ -135,5 +135,5 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
                 </Button>
             </div>
         </div>
-    )
+    );
 }

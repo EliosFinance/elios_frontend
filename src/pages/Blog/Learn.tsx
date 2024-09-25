@@ -1,23 +1,23 @@
-import InputApp from '@/components/InputApp'
-import React, { useEffect, useState } from 'react'
-import { cardTypesEnum, categoriesEnum, subjects, subjectType } from '../../temp/BlogData'
-import { APP_ROUTES_ENUM } from '@/main'
-import CarouselX from '../../components/CarouselX'
+import InputApp from '@/components/InputApp';
+import { APP_ROUTES_ENUM } from '@/main';
+import React, { useEffect, useState } from 'react';
+import CarouselX from '../../components/CarouselX';
+import { cardTypesEnum, categoriesEnum, subjectType, subjects } from '../../temp/BlogData';
 
 const Learn = () => {
-    const [search, setSearch] = useState<string>('')
-    const [filteredSubjects, setFilteredSubjects] = useState<subjectType[]>([])
-    const [isUserTyping, setIsUserTyping] = useState<boolean>(false)
+    const [search, setSearch] = useState<string>('');
+    const [filteredSubjects, setFilteredSubjects] = useState<subjectType[]>([]);
+    const [isUserTyping, setIsUserTyping] = useState<boolean>(false);
 
     useEffect(() => {
         if (search.length > 2) {
-            setIsUserTyping(true)
-            const filtered = subjects.filter((subject) => subject.title.toLowerCase().includes(search.toLowerCase()))
-            setFilteredSubjects(filtered)
+            setIsUserTyping(true);
+            const filtered = subjects.filter((subject) => subject.title.toLowerCase().includes(search.toLowerCase()));
+            setFilteredSubjects(filtered);
         } else {
-            setIsUserTyping(false)
+            setIsUserTyping(false);
         }
-    }, [search])
+    }, [search]);
 
     return (
         <div className='w-full flex justify-center items-center flex-col gap-y-12'>
@@ -82,7 +82,7 @@ const Learn = () => {
                 </>
             )}
         </div>
-    )
-}
+    );
+};
 
-export default Learn
+export default Learn;

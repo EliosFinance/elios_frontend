@@ -1,28 +1,28 @@
-import React from 'react'
-import { createUseStyles } from 'react-jss'
-import '../css/index.css'
-import { Button } from './ui/button'
-import { OsEnum, useDeviceDetection } from '@/hook/useDeviceDetection'
+import React from 'react';
+import { createUseStyles } from 'react-jss';
+import '../css/index.css';
+import { OsEnum, useDeviceDetection } from '@/hook/useDeviceDetection';
+import { Button } from './ui/button';
 
 type ButtonAppProps = {
-    children: React.ReactNode
-    size?: 'small' | 'medium' | 'large'
-    variant?: 'contained' | 'outlined' | 'text'
-    color?: 'default' | 'primary' | 'secondary'
-    action?: 'apple' | 'google'
-    bold?: boolean
-    disabled?: boolean
-    startIcon?: React.ReactNode
-    onClick?: () => void
-}
+    children: React.ReactNode;
+    size?: 'small' | 'medium' | 'large';
+    variant?: 'contained' | 'outlined' | 'text';
+    color?: 'default' | 'primary' | 'secondary';
+    action?: 'apple' | 'google';
+    bold?: boolean;
+    disabled?: boolean;
+    startIcon?: React.ReactNode;
+    onClick?: () => void;
+};
 
 function ButtonApp(props: ButtonAppProps) {
-    const styles = useStyles()
-    const { os } = useDeviceDetection()
+    const styles = useStyles();
+    const { os } = useDeviceDetection();
 
     if (os === OsEnum.ANDROID && props.action === 'apple') {
-        console.error('This button is not available on Android')
-        return
+        console.error('This button is not available on Android');
+        return;
     }
 
     return (
@@ -44,10 +44,10 @@ function ButtonApp(props: ButtonAppProps) {
 
             {props.children}
         </Button>
-    )
+    );
 }
 
-export default ButtonApp
+export default ButtonApp;
 
 const useStyles = createUseStyles({
     button: {
@@ -126,4 +126,4 @@ const useStyles = createUseStyles({
             background: 'var(--secondary-900)',
         },
     },
-})
+});

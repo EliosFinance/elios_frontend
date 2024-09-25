@@ -1,59 +1,59 @@
-import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { useAuth } from '../context/AuthProvider.tsx'
-import { Label } from '@/components/ui/label.tsx'
-import { Input } from '@/components/ui/input.tsx'
-import { PasswordInput } from '@/components/PasswordInput.tsx'
-import { Button } from '@/components/ui/button.tsx'
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert.tsx'
-import { AlertCircle } from 'lucide-react'
-import { GoogleLogin } from 'react-google-login'
-import { gapi } from 'gapi-script'
-import { APP_ROUTES_ENUM } from '@/main.tsx'
+import { PasswordInput } from '@/components/PasswordInput.tsx';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert.tsx';
+import { Button } from '@/components/ui/button.tsx';
+import { Input } from '@/components/ui/input.tsx';
+import { Label } from '@/components/ui/label.tsx';
+import { APP_ROUTES_ENUM } from '@/main.tsx';
+import { gapi } from 'gapi-script';
+import { AlertCircle } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { GoogleLogin } from 'react-google-login';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthProvider.tsx';
 
 const Login = ({ VITE_GOOGLE_CLIENT_ID }) => {
-    const [username, setUsername] = useState('')
-    const [password, setPassword] = useState('')
-    const [errorMsg, setErrorMsg] = useState('')
-    const navigate = useNavigate()
-    const { login } = useAuth()
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [errorMsg, setErrorMsg] = useState('');
+    const navigate = useNavigate();
+    const { login } = useAuth();
 
     const handleSubmit = async () => {
-        setErrorMsg('')
+        setErrorMsg('');
         if (!username || !password) {
-            setErrorMsg('Please fill in the fields')
-            return
+            setErrorMsg('Please fill in the fields');
+            return;
         }
 
         try {
-            const success = await login(username, password)
+            const success = await login(username, password);
             if (success) {
-                navigate(APP_ROUTES_ENUM.HOME)
+                navigate(APP_ROUTES_ENUM.HOME);
             } else {
-                setErrorMsg('Incorrect username or password')
+                setErrorMsg('Incorrect username or password');
             }
         } catch (error) {
-            setErrorMsg('An error occured')
+            setErrorMsg('An error occured');
         }
-    }
+    };
 
     const onSuccessGoogle = (response) => {
-        console.log(response)
-    }
+        console.log(response);
+    };
     const onFailureGoogle = (response) => {
-        console.log(response)
-    }
+        console.log(response);
+    };
 
     useEffect(() => {
         function start() {
             gapi.client.init({
                 clientId: VITE_GOOGLE_CLIENT_ID,
                 scope: '',
-            })
+            });
         }
-        gapi.load('client:auth2', start)
+        gapi.load('client:auth2', start);
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    }, []);
 
     return (
         <>
@@ -96,7 +96,7 @@ const Login = ({ VITE_GOOGLE_CLIENT_ID }) => {
                 </div>
             </div>
         </>
-    )
-}
+    );
+};
 
-export default Login
+export default Login;

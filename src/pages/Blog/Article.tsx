@@ -1,112 +1,112 @@
-import { useParams } from 'react-router-dom'
-import { subjects, subjectType } from '../../temp/BlogData'
-import { useEffect, useLayoutEffect, useRef, useState } from 'react'
-import { Card } from '../../components/Card'
-import BlogBottomNav from '../../components/BlogBottomNav'
-import useConfettis from '@/hook/useConfettis'
-import { APP_ROUTES_ENUM } from '@/main'
+import useConfettis from '@/hook/useConfettis';
+import { APP_ROUTES_ENUM } from '@/main';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import BlogBottomNav from '../../components/BlogBottomNav';
+import { Card } from '../../components/Card';
+import { subjectType, subjects } from '../../temp/BlogData';
 
 const Article = () => {
-    const [currentArticle, setCurrentArticle] = useState<subjectType | null>(null)
-    const { id } = useParams<{ id: string }>()
-    const ref = useRef<HTMLDivElement | null>(null)
-    const cardsRef = useRef<HTMLDivElement | null>(null)
-    const cardElements = useRef<(HTMLDivElement | null)[]>([])
-    const timeoutRef = useRef<NodeJS.Timeout | null>(null)
-    const [clickedCard, setClickedCard] = useState<number | null>(null)
-    const { throwConfettis } = useConfettis()
+    const [currentArticle, setCurrentArticle] = useState<subjectType | null>(null);
+    const { id } = useParams<{ id: string }>();
+    const ref = useRef<HTMLDivElement | null>(null);
+    const cardsRef = useRef<HTMLDivElement | null>(null);
+    const cardElements = useRef<(HTMLDivElement | null)[]>([]);
+    const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+    const [clickedCard, setClickedCard] = useState<number | null>(null);
+    const { throwConfettis } = useConfettis();
 
     const removeClassList = (el: HTMLDivElement) => {
-        el?.classList.remove('filter', 'grayscale', 'opacity-50', 'transform', 'scale-[90%]')
-    }
+        el?.classList.remove('filter', 'grayscale', 'opacity-50', 'transform', 'scale-[90%]');
+    };
 
     const addClassList = (el: HTMLDivElement) => {
-        el?.classList.add('filter', 'grayscale', 'opacity-50', 'transform', 'scale-[90%]')
-    }
+        el?.classList.add('filter', 'grayscale', 'opacity-50', 'transform', 'scale-[90%]');
+    };
 
     useLayoutEffect(() => {
-        setCurrentArticle(subjects.find((subject) => subject.id === Number(id)))
-    }, [id])
+        setCurrentArticle(subjects.find((subject) => subject.id === Number(id)));
+    }, [id]);
 
     useEffect(() => {
-        if (!currentArticle || !cardsRef.current) return
+        if (!currentArticle || !cardsRef.current) return;
         const observer = new IntersectionObserver(
             ([entry]) => {
                 if (entry.isIntersecting) {
-                    cardsRef.current?.classList.add('overflow-y-scroll')
-                    cardsRef.current?.classList.remove('overflow-y-hidden')
+                    cardsRef.current?.classList.add('overflow-y-scroll');
+                    cardsRef.current?.classList.remove('overflow-y-hidden');
                 } else {
-                    cardsRef.current?.classList.add('overflow-y-hidden')
-                    cardsRef.current?.classList.remove('overflow-y-scroll')
+                    cardsRef.current?.classList.add('overflow-y-hidden');
+                    cardsRef.current?.classList.remove('overflow-y-scroll');
                 }
             },
             { root: null, threshold: 0, rootMargin: '0px 0px -100% 0px' },
-        )
+        );
 
         const observer2 = new IntersectionObserver(
             (entries) => {
                 entries.forEach((entry) => {
                     if (entry.isIntersecting) {
-                        const targetElement = entry.target as HTMLDivElement
-                        const currentItemIndex = Number(targetElement.id.split('_')[1])
+                        const targetElement = entry.target as HTMLDivElement;
+                        const currentItemIndex = Number(targetElement.id.split('_')[1]);
 
                         if (timeoutRef.current) {
-                            clearTimeout(timeoutRef.current)
+                            clearTimeout(timeoutRef.current);
                         }
 
                         timeoutRef.current = setTimeout(() => {
-                            setClickedCard(currentItemIndex)
-                        }, 300)
+                            setClickedCard(currentItemIndex);
+                        }, 300);
 
                         cardElements.current.forEach((el, i) => {
                             if (el) {
                                 if (i === currentItemIndex) {
-                                    removeClassList(el)
+                                    removeClassList(el);
                                 } else {
-                                    addClassList(el)
+                                    addClassList(el);
                                 }
                             }
-                        })
+                        });
                     }
-                })
+                });
             },
             { root: cardsRef.current, threshold: 0.5 },
-        )
+        );
 
-        observer.observe(cardsRef.current)
+        observer.observe(cardsRef.current);
         cardElements.current.forEach((el) => {
             if (el) {
-                observer2.observe(el)
+                observer2.observe(el);
             }
-        })
+        });
 
         return () => {
-            observer.disconnect()
-            observer2.disconnect()
-        }
-    }, [currentArticle, clickedCard])
+            observer.disconnect();
+            observer2.disconnect();
+        };
+    }, [currentArticle, clickedCard]);
 
     const handleCardClick = (index: number) => {
-        const cardElement = cardElements.current[index]
+        const cardElement = cardElements.current[index];
         if (cardElement) {
-            cardElement.scrollIntoView({ behavior: 'smooth', block: 'center' })
+            cardElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
             // Gérer les classes après le scroll
             setTimeout(() => {
                 cardElements.current.forEach((el, i) => {
                     if (el) {
                         if (i === index) {
-                            removeClassList(el)
+                            removeClassList(el);
                         } else {
-                            addClassList(el)
+                            addClassList(el);
                         }
                     }
-                })
-            }, 300)
+                });
+            }, 300);
         }
-    }
+    };
 
-    if (!currentArticle) return <div>Loading...</div>
+    if (!currentArticle) return <div>Loading...</div>;
 
     return (
         <>
@@ -173,7 +173,7 @@ const Article = () => {
             </div>
             <BlogBottomNav article={currentArticle} currentCard={clickedCard || 0} backUrl={APP_ROUTES_ENUM.LEARN} />
         </>
-    )
-}
+    );
+};
 
-export default Article
+export default Article;

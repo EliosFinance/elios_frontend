@@ -1,13 +1,13 @@
-import { subjectType } from '../temp/BlogData'
-import LikeButton from './LikeButton'
-import SaveButton from './SaveButton'
+import { subjectType } from '../temp/BlogData';
+import LikeButton from './LikeButton';
+import SaveButton from './SaveButton';
 
 type props = {
-    currentCard?: number
-    article?: subjectType
-    disableActionButtons?: boolean
-    backUrl?: string
-}
+    currentCard?: number;
+    article?: subjectType;
+    disableActionButtons?: boolean;
+    backUrl?: string;
+};
 
 const BlogBottomNav = (props: props) => {
     return (
@@ -42,7 +42,7 @@ const BlogBottomNav = (props: props) => {
                 )}
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default BlogBottomNav
+export default BlogBottomNav;

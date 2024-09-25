@@ -1,6 +1,6 @@
-import { APP_ROUTES_ENUM } from '@/main'
-import { categories } from '../../temp/BlogData'
-import BlogBottomNav from '../../components/BlogBottomNav'
+import { APP_ROUTES_ENUM } from '@/main';
+import BlogBottomNav from '../../components/BlogBottomNav';
+import { categories } from '../../temp/BlogData';
 
 const AllArticleCategories = () => {
     return (
@@ -24,7 +24,7 @@ const AllArticleCategories = () => {
             </div>
             <BlogBottomNav disableActionButtons backUrl={APP_ROUTES_ENUM.LEARN} />
         </div>
-    )
-}
+    );
+};
 
-export default AllArticleCategories
+export default AllArticleCategories;

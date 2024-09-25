@@ -1,48 +1,48 @@
+import icon from '@/assets/images/icons/google_icon.png';
+import icon2 from '@/assets/images/icons/twitter_icon.png';
+import { APP_ROUTES_ENUM } from '@/main';
+import { forwardRef, useEffect, useRef, useState } from 'react';
 /* eslint-disable react-refresh/only-export-components */
-import { createUseStyles } from 'react-jss'
-import { cardType, cardTypesEnum, contentTypesEnum, subjectType } from '../temp/BlogData'
-import icon from '@/assets/images/icons/google_icon.png'
-import icon2 from '@/assets/images/icons/twitter_icon.png'
-import { APP_ROUTES_ENUM } from '@/main'
-import { forwardRef, useEffect, useRef, useState } from 'react'
-import SaveButton from './SaveButton'
-import LikeButton from './LikeButton'
+import { createUseStyles } from 'react-jss';
+import { cardType, cardTypesEnum, contentTypesEnum, subjectType } from '../temp/BlogData';
+import LikeButton from './LikeButton';
+import SaveButton from './SaveButton';
 
 type CardProps = {
-    project: cardTypesEnum.SMALL_PREVIEW | cardTypesEnum.PREVIEW extends cardTypesEnum ? subjectType : cardType
-    variant: cardTypesEnum
-    cardToDisplay: number
-    classNames?: string[]
-    cardFocused?: boolean
-    id?: string
-    onClick?: (e: React.MouseEvent<HTMLDivElement>) => void
-    userHasRead: (userHasRead: boolean) => void
-}
+    project: cardTypesEnum.SMALL_PREVIEW | cardTypesEnum.PREVIEW extends cardTypesEnum ? subjectType : cardType;
+    variant: cardTypesEnum;
+    cardToDisplay: number;
+    classNames?: string[];
+    cardFocused?: boolean;
+    id?: string;
+    onClick?: (e: React.MouseEvent<HTMLDivElement>) => void;
+    userHasRead: (userHasRead: boolean) => void;
+};
 
 export const Card = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
-    const [read, setRead] = useState<boolean>(props.project?.cards?.[props.cardToDisplay]?.readByUser || false)
-    const coolDownTime = props.project?.cards?.[props.cardToDisplay]?.content.length * 1.5 // 1.5s per content
-    const styles = useCardStyles(coolDownTime)
-    const isPreviewVariant = props.variant === cardTypesEnum.SMALL_PREVIEW || props.variant === cardTypesEnum.PREVIEW
-    const coolDownRef = useRef<HTMLDivElement>(null)
-    const timeoutRef = useRef<NodeJS.Timeout | null>(null)
+    const [read, setRead] = useState<boolean>(props.project?.cards?.[props.cardToDisplay]?.readByUser || false);
+    const coolDownTime = props.project?.cards?.[props.cardToDisplay]?.content.length * 1.5; // 1.5s per content
+    const styles = useCardStyles(coolDownTime);
+    const isPreviewVariant = props.variant === cardTypesEnum.SMALL_PREVIEW || props.variant === cardTypesEnum.PREVIEW;
+    const coolDownRef = useRef<HTMLDivElement>(null);
+    const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
     useEffect(() => {
         if (!props.cardFocused || !coolDownRef.current || !coolDownRef.current.classList) {
             if (timeoutRef.current) {
-                clearTimeout(timeoutRef.current)
+                clearTimeout(timeoutRef.current);
             }
-            return
+            return;
         } else if (props.cardFocused && read) {
-            coolDownRef.current?.classList.remove(styles.coolDown)
-            return
+            coolDownRef.current?.classList.remove(styles.coolDown);
+            return;
         } else {
             timeoutRef.current = setTimeout(() => {
-                setRead(true)
-                props.userHasRead(true)
-            }, coolDownTime * 1000) // wait for the animation delay to be over
+                setRead(true);
+                props.userHasRead(true);
+            }, coolDownTime * 1000); // wait for the animation delay to be over
         }
-    }, [coolDownTime, props, props.cardFocused, props.cardToDisplay, props.project.cards, read, styles.coolDown])
+    }, [coolDownTime, props, props.cardFocused, props.cardToDisplay, props.project.cards, read, styles.coolDown]);
 
     return (
         <>
@@ -196,8 +196,8 @@ export const Card = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
                 </div>
             )}
         </>
-    )
-})
+    );
+});
 
 export const useCardStyles = (coolDownTime: number) =>
     createUseStyles({
@@ -256,4 +256,4 @@ export const useCardStyles = (coolDownTime: number) =>
             height: 'auto !important',
             width: '100%',
         },
-    })()
+    })();

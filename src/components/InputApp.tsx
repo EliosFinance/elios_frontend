@@ -1,8 +1,8 @@
-import React from 'react'
-import { createUseStyles } from 'react-jss'
-import search_icon from '@/assets/images/icons/search_icon.png'
-import remove_text_icon from '@/assets/images/icons/remove_text_icon.png'
-import '@/css/index.css'
+import remove_text_icon from '@/assets/images/icons/remove_text_icon.png';
+import search_icon from '@/assets/images/icons/search_icon.png';
+import React from 'react';
+import { createUseStyles } from 'react-jss';
+import '@/css/index.css';
 
 type InputAppProps = {
     type?:
@@ -27,22 +27,22 @@ type InputAppProps = {
         | 'hidden'
         | 'image'
         | 'range'
-        | 'search'
-    placeholder: string
-    value: string
-    onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
-    endIcon?: boolean
-    onClear?: () => void
-}
+        | 'search';
+    placeholder: string;
+    value: string;
+    onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    endIcon?: boolean;
+    onClear?: () => void;
+};
 
 const InputApp = (props: InputAppProps) => {
-    const styles = useStyles()
+    const styles = useStyles();
 
     const removeText = () => {
         if (props.onClear) {
-            props.onClear()
+            props.onClear();
         }
-    }
+    };
 
     return (
         <div className={styles.inputAppContainer}>
@@ -63,10 +63,10 @@ const InputApp = (props: InputAppProps) => {
                 </span>
             )}
         </div>
-    )
-}
+    );
+};
 
-export default InputApp
+export default InputApp;
 
 const useStyles = createUseStyles({
     inputAppContainer: {
@@ -92,4 +92,4 @@ const useStyles = createUseStyles({
         top: '50%',
         transform: 'translateY(-50%)',
     },
-})
+});

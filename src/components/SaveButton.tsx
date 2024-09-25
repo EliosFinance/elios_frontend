@@ -1,18 +1,18 @@
-import { createUseStyles } from 'react-jss'
-import icon_empty from '@/assets/images/icons/save_icon_empty.png'
-import icon_filled from '@/assets/images/icons/save_icon_filled.png'
+import icon_empty from '@/assets/images/icons/save_icon_empty.png';
+import icon_filled from '@/assets/images/icons/save_icon_filled.png';
+import { createUseStyles } from 'react-jss';
 
 type SaveButtonProps = {
-    saved: boolean
-    isSaving: (isSaving: boolean) => void
-}
+    saved: boolean;
+    isSaving: (isSaving: boolean) => void;
+};
 
 const SaveButton = (props: SaveButtonProps) => {
-    const styles = useStyles()
+    const styles = useStyles();
 
     const handleClick = () => {
-        props.isSaving(!props.saved)
-    }
+        props.isSaving(!props.saved);
+    };
 
     return (
         <img
@@ -21,10 +21,10 @@ const SaveButton = (props: SaveButtonProps) => {
             className={styles.save_button}
             onClick={handleClick}
         />
-    )
-}
+    );
+};
 
-export default SaveButton
+export default SaveButton;
 const useStyles = createUseStyles({
     save_button: {
         height: '25px',
@@ -32,4 +32,4 @@ const useStyles = createUseStyles({
         alignItems: 'center',
         justifyContent: 'center',
     },
-})
+});

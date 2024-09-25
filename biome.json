@@ -46,7 +46,7 @@
                 "noUnsafeFinally": "error",
                 "noUnsafeOptionalChaining": "error",
                 "noUnusedLabels": "error",
-                "noUnusedVariables": "error",
+                "noUnusedVariables": "warn",
                 "useArrayLiterals": "off",
                 "useHookAtTopLevel": "error",
                 "useIsNan": "error",

@@ -1,22 +1,22 @@
-import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
-import { cardTypesEnum, categories, categoryType, subjects, subjectType } from '../../temp/BlogData'
-import CarouselX from '../../components/CarouselX'
-import BlogBottomNav from '../../components/BlogBottomNav'
-import ButtonApp from '@/components/ButtonApp'
-import { APP_ROUTES_ENUM } from '@/main'
+import ButtonApp from '@/components/ButtonApp';
+import { APP_ROUTES_ENUM } from '@/main';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import BlogBottomNav from '../../components/BlogBottomNav';
+import CarouselX from '../../components/CarouselX';
+import { cardTypesEnum, categories, categoryType, subjectType, subjects } from '../../temp/BlogData';
 
 const ArticleCategory = () => {
-    const { id } = useParams<{ id: string }>()
-    const [category, setCategory] = useState<categoryType | null>(null)
-    const [cards, setCards] = useState<subjectType[]>([])
+    const { id } = useParams<{ id: string }>();
+    const [category, setCategory] = useState<categoryType | null>(null);
+    const [cards, setCards] = useState<subjectType[]>([]);
 
     useEffect(() => {
-        setCategory(categories.find((category) => category.id === Number(id)))
+        setCategory(categories.find((category) => category.id === Number(id)));
         if (category) {
-            setCards(subjects.filter((subject) => subject.category === category.title))
+            setCards(subjects.filter((subject) => subject.category === category.title));
         }
-    }, [category, id])
+    }, [category, id]);
 
     return (
         <div className='w-full flex justify-center items-center flex-col mb-10'>
@@ -56,7 +56,7 @@ const ArticleCategory = () => {
                 )}
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default ArticleCategory
+export default ArticleCategory;
