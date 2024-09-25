@@ -1,15 +1,13 @@
-import axios, {AxiosError} from "axios";
-import {
-    useQuery, UseQueryResult
-} from "react-query";
-import {userStore} from "../store/UserStore.ts";
-import { ConnectionType } from "@/types/connectionType.ts";
-import { TransactionType } from "@/types/transactionType.ts";
+import axios, { AxiosError } from 'axios'
+import { useQuery, UseQueryResult } from 'react-query'
+import { userStore } from '../store/UserStore.ts'
+import { ConnectionType } from '@/types/connectionType.ts'
+import { TransactionType } from '@/types/transactionType.ts'
 
 const BACK_API_URL = import.meta.env.VITE_URL_BACK
 
 const instance_back = axios.create({
-    baseURL: BACK_API_URL
+    baseURL: BACK_API_URL,
 })
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -17,7 +15,7 @@ export const login_api = async (username: string, password: string): Promise<any
     try {
         const response = await instance_back.post('auth/sign-in', {
             username,
-            password
+            password,
         })
         return response.data
     } catch (error) {
@@ -28,21 +26,22 @@ export const login_api = async (username: string, password: string): Promise<any
 
 export const refresh_token_api = async (refreshToken: string) => {
     try {
-        const response = await instance_back.post('auth/refresh_token',
+        const response = await instance_back.post(
+            'auth/refresh_token',
             {
-                refresh_token: refreshToken
+                refresh_token: refreshToken,
             },
             {
                 headers: {
-                    Authorization: `Bearer ${refreshToken}`
-                }
-            }
-            );
+                    Authorization: `Bearer ${refreshToken}`,
+                },
+            },
+        )
         return response.data
     } catch (error) {
         const err = error as AxiosError
-        console.error(err.message);
-        throw err;
+        console.error(err.message)
+        throw err
     }
 }
 
@@ -84,7 +83,7 @@ const getTransactions = async () => {
 export const useGetTransactions = (): UseQueryResult<TransactionType[], AxiosError> => {
     return useQuery<TransactionType[], AxiosError>({
         queryKey: ['getTransactions'],
-        queryFn: getTransactions
+        queryFn: getTransactions,
     })
 }
 
@@ -102,8 +101,6 @@ const getConnection = async () => {
 export const useGetConnection = (): UseQueryResult<ConnectionType[], AxiosError> => {
     return useQuery<ConnectionType[], AxiosError>({
         queryKey: ['getConnection'],
-        queryFn: getConnection
+        queryFn: getConnection,
     })
 }
-
-

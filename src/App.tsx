@@ -1,60 +1,59 @@
 import './css/App.css'
-import {Route, Routes} from "react-router-dom";
-import AuthRoute from "./components/AuthRoute.tsx";
-import Login from "@/pages/Login.tsx";
-import Home from "@/pages/Home.tsx";
-import PublicRoute from "@/components/PublicRoute.tsx";
-import BankCheck from "@/components/BankCheck.tsx";
-import {OsEnum, useDeviceDetection} from "@/hook/useDeviceDetection.ts";
-import Learn from './pages/Blog/Learn.tsx';
-import Article from './pages/Blog/Article.tsx';
-import { APP_ROUTES_ENUM } from './main.tsx';
-import AllArticleCategories from './pages/Blog/AllArticleCategories.tsx';
-import ArticleCategory from './pages/Blog/ArticleCategory.tsx';
+import { Route, Routes } from 'react-router-dom'
+import AuthRoute from './components/AuthRoute.tsx'
+import Login from '@/pages/Login.tsx'
+import Home from '@/pages/Home.tsx'
+import PublicRoute from '@/components/PublicRoute.tsx'
+import BankCheck from '@/components/BankCheck.tsx'
+import { OsEnum, useDeviceDetection } from '@/hook/useDeviceDetection.ts'
+import Learn from './pages/Blog/Learn.tsx'
+import Article from './pages/Blog/Article.tsx'
+import { APP_ROUTES_ENUM } from './main.tsx'
+import AllArticleCategories from './pages/Blog/AllArticleCategories.tsx'
+import ArticleCategory from './pages/Blog/ArticleCategory.tsx'
 
 function App() {
-    const {os} = useDeviceDetection()
-    let googleId;
-    
+    const { os } = useDeviceDetection()
+    let googleId
+
     switch (os) {
         case OsEnum.WEB:
             googleId = import.meta.env.VITE_GOOGLE_CLIENT_ID_WEB
-            break;
-        
+            break
+
         case OsEnum.ANDROID:
             googleId = import.meta.env.VITE_GOOGLE_CLIENT_ID_ANDROID
-            break;
-    
+            break
+
         case OsEnum.IOS:
             googleId = import.meta.env.VITE_GOOGLE_CLIENT_ID_IOS
-            break;
-            
+            break
+
         default:
-            googleId = null;
-            break;
+            googleId = null
+            break
     }
 
-
-  return (
-    <>
-        <div className="min-w-[100dvw] min-h-[100dvh] flex">
-            <Routes>
-                <Route element={<AuthRoute />}>
-                    <Route element={<BankCheck /> } >
-                        <Route path={APP_ROUTES_ENUM.HOME} element={<Home />} />
+    return (
+        <>
+            <div className='min-w-[100dvw] min-h-[100dvh] flex'>
+                <Routes>
+                    <Route element={<AuthRoute />}>
+                        <Route element={<BankCheck />}>
+                            <Route path={APP_ROUTES_ENUM.HOME} element={<Home />} />
+                        </Route>
                     </Route>
-                </Route>
-                <Route element={<PublicRoute />}>
-                    <Route path={APP_ROUTES_ENUM.LEARN} element={<Learn />}/>
-                    <Route path={`${APP_ROUTES_ENUM.ARTICLE}/:id`} element={<Article />}/>
-                    <Route path={`${APP_ROUTES_ENUM.ARTICLE_CATEGORIES}`} element={<AllArticleCategories />}/>
-                    <Route path={`${APP_ROUTES_ENUM.ARTICLE_CATEGORY}/:id`} element={<ArticleCategory />}/>
-                    <Route path={APP_ROUTES_ENUM.LOGIN} element={<Login VITE_GOOGLE_CLIENT_ID={googleId}/>}/>
-                </Route>
-            </Routes>
-        </div>
-    </>
-  )
+                    <Route element={<PublicRoute />}>
+                        <Route path={APP_ROUTES_ENUM.LEARN} element={<Learn />} />
+                        <Route path={`${APP_ROUTES_ENUM.ARTICLE}/:id`} element={<Article />} />
+                        <Route path={`${APP_ROUTES_ENUM.ARTICLE_CATEGORIES}`} element={<AllArticleCategories />} />
+                        <Route path={`${APP_ROUTES_ENUM.ARTICLE_CATEGORY}/:id`} element={<ArticleCategory />} />
+                        <Route path={APP_ROUTES_ENUM.LOGIN} element={<Login VITE_GOOGLE_CLIENT_ID={googleId} />} />
+                    </Route>
+                </Routes>
+            </div>
+        </>
+    )
 }
 
 export default App

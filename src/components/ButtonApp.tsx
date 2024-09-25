@@ -1,33 +1,32 @@
 import React from 'react'
-import { createUseStyles } from 'react-jss';
-import '../css/index.css';
-import { Button } from './ui/button';
-import { OsEnum, useDeviceDetection } from '@/hook/useDeviceDetection';
+import { createUseStyles } from 'react-jss'
+import '../css/index.css'
+import { Button } from './ui/button'
+import { OsEnum, useDeviceDetection } from '@/hook/useDeviceDetection'
 
 type ButtonAppProps = {
-    children: React.ReactNode;
-    size?: 'small' | 'medium' | 'large';
-    variant?: 'contained' | 'outlined' | 'text';
-    color?: 'default' | 'primary' | 'secondary';
-    action?: 'apple' | 'google';
-    bold?: boolean;
-    disabled?: boolean;
-    startIcon?: React.ReactNode;
-    onClick?: () => void;
+    children: React.ReactNode
+    size?: 'small' | 'medium' | 'large'
+    variant?: 'contained' | 'outlined' | 'text'
+    color?: 'default' | 'primary' | 'secondary'
+    action?: 'apple' | 'google'
+    bold?: boolean
+    disabled?: boolean
+    startIcon?: React.ReactNode
+    onClick?: () => void
 }
 
 function ButtonApp(props: ButtonAppProps) {
-
-    const styles = useStyles();
-    const { os } = useDeviceDetection();
+    const styles = useStyles()
+    const { os } = useDeviceDetection()
 
     if (os === OsEnum.ANDROID && props.action === 'apple') {
-        console.error('This button is not available on Android');
-        return;
+        console.error('This button is not available on Android')
+        return
     }
 
     return (
-        <Button 
+        <Button
             className={`
                 ${styles.button} 
                 ${props?.size && !props?.action && styles[props.size]} 
@@ -39,17 +38,9 @@ function ButtonApp(props: ButtonAppProps) {
             onClick={() => props.onClick && props.onClick()}
             disabled={props.disabled}
         >
-            {props.startIcon && !props.action && (
-                <span className="mr-2 w-auto h-max">
-                    {props.startIcon}
-                </span>
-            )}
+            {props.startIcon && !props.action && <span className='mr-2 w-auto h-max'>{props.startIcon}</span>}
 
-            {props.action && (
-                <span className="mr-2 w-auto h-max">
-                    {props.startIcon}
-                </span>
-            )}
+            {props.action && <span className='mr-2 w-auto h-max'>{props.startIcon}</span>}
 
             {props.children}
         </Button>

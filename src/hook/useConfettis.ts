@@ -1,5 +1,5 @@
-import { useState, useCallback } from 'react';
 import * as confetti from 'confettis';
+import { useCallback, useState } from 'react';
 
 const useConfettis = () => {
     const [isCooldown, setIsCooldown] = useState(false);

@@ -65,12 +65,12 @@ export type ConnectorType = {
     account_usages: string[];
     payment_settings: UnknownType;
     products: string[];
-}
+};
 
 export type ConnectorLightType = {
     country_code: string;
     id_payment: string;
-}
+};
 
 export type ConnectionType = {
     id: string;
