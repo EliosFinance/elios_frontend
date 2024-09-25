@@ -16,7 +16,7 @@ export const login_api = async (username: string, password: string): Promise<any
         const response = await instance_back.post('auth/sign-in', {
             username,
             password
-        })
+        });
 
         return response.data;
     } catch (error) {
