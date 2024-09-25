@@ -6,7 +6,7 @@
     "scripts": {
         "dev": "vite",
         "build": "tsc -b && vite build",
-        "lint": "biome check --write --config-path=biome.json --stagged .",
+        "lint": "biome check --write --config-path=biome.json --staged .",
         "preview": "vite preview",
         "prepare": "husky install",
         "commit": "cz"

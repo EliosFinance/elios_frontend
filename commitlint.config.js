@@ -17,6 +17,20 @@ const Configuration = {
             'always',
             ['feat', 'fix', 'docs', 'style', 'refactor', 'perf', 'test', 'build', 'ci', 'chore', 'revert', 'config'],
         ],
+        'subject-case': [
+            2,
+            'always',
+            [
+                'lower-case',
+                'upper-case',
+                'camel-case',
+                'kebab-case',
+                'pascal-case',
+                'sentence-case',
+                'snake-case',
+                'start-case',
+            ]
+        ],
         'scope-enum': [
             2,
             'always',
