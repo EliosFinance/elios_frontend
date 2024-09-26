@@ -1,68 +1,62 @@
 @font-face {
-  font-family: 'Alpino-Thin';
-  src: url('../assets/fonts/Alpino/Alpino-Thin.woff2') format('woff2'),
-       url('../assets/fonts/Alpino/Alpino-Thin.woff') format('woff'),
-       url('../assets/fonts/Alpino/Alpino-Thin.ttf') format('truetype');
-  font-weight: 100;
-  font-display: swap;
-  font-style: normal;
+    font-family: "Alpino-Thin";
+    src: url("../assets/fonts/Alpino/Alpino-Thin.woff2") format("woff2"), url("../assets/fonts/Alpino/Alpino-Thin.woff")
+        format("woff"), url("../assets/fonts/Alpino/Alpino-Thin.ttf") format("truetype");
+    font-weight: 100;
+    font-display: swap;
+    font-style: normal;
 }
 @font-face {
-  font-family: 'Alpino-Light';
-  src: url('../assets/fonts/Alpino/Alpino-Light.woff2') format('woff2'),
-       url('../assets/fonts/Alpino/Alpino-Light.woff') format('woff'),
-       url('../assets/fonts/Alpino/Alpino-Light.ttf') format('truetype');
-  font-weight: 300;
-  font-display: swap;
-  font-style: normal;
+    font-family: "Alpino-Light";
+    src: url("../assets/fonts/Alpino/Alpino-Light.woff2") format("woff2"),
+        url("../assets/fonts/Alpino/Alpino-Light.woff") format("woff"), url("../assets/fonts/Alpino/Alpino-Light.ttf")
+        format("truetype");
+    font-weight: 300;
+    font-display: swap;
+    font-style: normal;
 }
 @font-face {
-  font-family: 'Alpino-Regular';
-  src: url('../assets/fonts/Alpino/Alpino-Regular.woff2') format('woff2'),
-       url('../assets/fonts/Alpino/Alpino-Regular.woff') format('woff'),
-       url('../assets/fonts/Alpino/Alpino-Regular.ttf') format('truetype');
-  font-weight: 400;
-  font-display: swap;
-  font-style: normal;
+    font-family: "Alpino-Regular";
+    src: url("../assets/fonts/Alpino/Alpino-Regular.woff2") format("woff2"),
+        url("../assets/fonts/Alpino/Alpino-Regular.woff") format("woff"),
+        url("../assets/fonts/Alpino/Alpino-Regular.ttf") format("truetype");
+    font-weight: 400;
+    font-display: swap;
+    font-style: normal;
 }
 @font-face {
-  font-family: 'Alpino-Medium';
-  src: url('../assets/fonts/Alpino/Alpino-Medium.woff2') format('woff2'),
-       url('../assets/fonts/Alpino/Alpino-Medium.woff') format('woff'),
-       url('../assets/fonts/Alpino/Alpino-Medium.ttf') format('truetype');
-  font-weight: 500;
-  font-display: swap;
-  font-style: normal;
+    font-family: "Alpino-Medium";
+    src: url("../assets/fonts/Alpino/Alpino-Medium.woff2") format("woff2"),
+        url("../assets/fonts/Alpino/Alpino-Medium.woff") format("woff"), url("../assets/fonts/Alpino/Alpino-Medium.ttf")
+        format("truetype");
+    font-weight: 500;
+    font-display: swap;
+    font-style: normal;
 }
 @font-face {
-  font-family: 'Alpino-Bold';
-  src: url('../assets/fonts/Alpino/Alpino-Bold.woff2') format('woff2'),
-       url('../assets/fonts/Alpino/Alpino-Bold.woff') format('woff'),
-       url('../assets/fonts/Alpino/Alpino-Bold.ttf') format('truetype');
-  font-weight: 700;
-  font-display: swap;
-  font-style: normal;
+    font-family: "Alpino-Bold";
+    src: url("../assets/fonts/Alpino/Alpino-Bold.woff2") format("woff2"), url("../assets/fonts/Alpino/Alpino-Bold.woff")
+        format("woff"), url("../assets/fonts/Alpino/Alpino-Bold.ttf") format("truetype");
+    font-weight: 700;
+    font-display: swap;
+    font-style: normal;
 }
 @font-face {
-  font-family: 'Alpino-Black';
-  src: url('../assets/fonts/Alpino/Alpino-Black.woff2') format('woff2'),
-       url('../assets/fonts/Alpino/Alpino-Black.woff') format('woff'),
-       url('../assets/fonts/Alpino/Alpino-Black.ttf') format('truetype');
-  font-weight: 900;
-  font-display: swap;
-  font-style: normal;
+    font-family: "Alpino-Black";
+    src: url("../assets/fonts/Alpino/Alpino-Black.woff2") format("woff2"),
+        url("../assets/fonts/Alpino/Alpino-Black.woff") format("woff"), url("../assets/fonts/Alpino/Alpino-Black.ttf")
+        format("truetype");
+    font-weight: 900;
+    font-display: swap;
+    font-style: normal;
 }
 
-
-
-
-
 @font-face {
-  font-family: 'Alpino-Variable';
-  src: url('../assets/fonts/Alpino/Alpino-Variable.woff2') format('woff2'),
-       url('../assets/fonts/Alpino/Alpino-Variable.woff') format('woff'),
-       url('../assets/fonts/Alpino/Alpino-Variable.ttf') format('truetype');
-  font-weight: 100 900;
-  font-display: swap;
-  font-style: normal;
+    font-family: "Alpino-Variable";
+    src: url("../assets/fonts/Alpino/Alpino-Variable.woff2") format("woff2"),
+        url("../assets/fonts/Alpino/Alpino-Variable.woff") format("woff"),
+        url("../assets/fonts/Alpino/Alpino-Variable.ttf") format("truetype");
+    font-weight: 100 900;
+    font-display: swap;
+    font-style: normal;
 }

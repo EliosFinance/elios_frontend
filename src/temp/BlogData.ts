@@ -30,7 +30,6 @@ export enum categoriesEnum {
     EDUCATION = 'Education',
 }
 
-
 export enum cardTypesEnum {
     PREVIEW = 'preview',
     SMALL_PREVIEW = 'small_preview',
@@ -50,54 +49,54 @@ export enum contentTypesEnum {
 }
 
 export type authorType = {
-    firstName: string,
-    lastName: string,
-    avatar: string,
-    job: string,
-    company: string,
-}
+    firstName: string;
+    lastName: string;
+    avatar: string;
+    job: string;
+    company: string;
+};
 
 export type cardContentType = {
-    type: contentTypesEnum,
-    text?: string | string[],
-    quoteAuthor?: authorType,
-}
+    type: contentTypesEnum;
+    text?: string | string[];
+    quoteAuthor?: authorType;
+};
 
 export type cardType = {
-    image: string,
-    title: string,
-    readByUser: boolean,
-    savedByUser: boolean,
-    content: cardContentType[],
-    type: cardTypesEnum
-}
+    image: string;
+    title: string;
+    readByUser: boolean;
+    savedByUser: boolean;
+    content: cardContentType[];
+    type: cardTypesEnum;
+};
 
 export type subjectType = {
-    id: number,
-    slug: string,
-    title: string,
-    isPremium: boolean,
-    category: categoriesEnum,
-    readByUser: boolean,
-    likedByUser: boolean,
-    savedByUser: boolean,
-    readingTime: string,
-    categoryIcon: string,
-    thumbnail: string,
-    author: authorType,
-    description: string,
-    cards: cardType[],
-    reads_count: number,
-    likes_count?: number,
-}
+    id: number;
+    slug: string;
+    title: string;
+    isPremium: boolean;
+    category: categoriesEnum;
+    readByUser: boolean;
+    likedByUser: boolean;
+    savedByUser: boolean;
+    readingTime: string;
+    categoryIcon: string;
+    thumbnail: string;
+    author: authorType;
+    description: string;
+    cards: cardType[];
+    reads_count: number;
+    likes_count?: number;
+};
 
 export type categoryType = {
-    id: number,
-    title: categoriesEnum,
-    icon: string,
-}
+    id: number;
+    title: categoriesEnum;
+    icon: string;
+};
 
-export const subjects: subjectType[] = [ 
+export const subjects: subjectType[] = [
     {
         id: 1,
         isPremium: false,
@@ -119,7 +118,8 @@ export const subjects: subjectType[] = [
             job: 'Conseiller en gestion de patrimoine',
             company: 'Elios Patrimoine',
         },
-        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in tincidunt ex. Nulla facilisi. Proin necvehicula leo. Nullam in tincidunt ex. Nulla facilisi. Proin nec vehicula leo. Nullam in tincidunt ex. Nulla facilisi.Proin nec vehicula leo. Nullam in tincidunt ex.',
+        description:
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in tincidunt ex. Nulla facilisi. Proin necvehicula leo. Nullam in tincidunt ex. Nulla facilisi. Proin nec vehicula leo. Nullam in tincidunt ex. Nulla facilisi.Proin nec vehicula leo. Nullam in tincidunt ex.',
         cards: [
             {
                 image: 'https://via.placeholder.com/150',
@@ -144,8 +144,8 @@ export const subjects: subjectType[] = [
                             'Nulla facilisi.',
                             'Proin nec vehicula leo.',
                         ],
-                    }
-                ]
+                    },
+                ],
             },
             {
                 image: 'https://via.placeholder.com/150',
@@ -170,8 +170,8 @@ export const subjects: subjectType[] = [
                             'Nulla facilisi.',
                             'Proin nec vehicula leo.',
                         ],
-                    }
-                ]
+                    },
+                ],
             },
             {
                 image: 'https://via.placeholder.com/150',
@@ -196,8 +196,8 @@ export const subjects: subjectType[] = [
                             'Nulla facilisi.',
                             'Proin nec vehicula leo.',
                         ],
-                    }
-                ]
+                    },
+                ],
             },
             {
                 image: 'https://via.placeholder.com/150',
@@ -222,8 +222,8 @@ export const subjects: subjectType[] = [
                             'Nulla facilisi.',
                             'Proin nec vehicula leo.',
                         ],
-                    }
-                ]
+                    },
+                ],
             },
             {
                 image: 'https://via.placeholder.com/150',
@@ -248,8 +248,8 @@ export const subjects: subjectType[] = [
                             'Nulla facilisi.',
                             'Proin nec vehicula leo.',
                         ],
-                    }
-                ]
+                    },
+                ],
             },
             {
                 image: 'https://via.placeholder.com/150',
@@ -274,8 +274,8 @@ export const subjects: subjectType[] = [
                             'Nulla facilisi.',
                             'Proin nec vehicula leo.',
                         ],
-                    }
-                ]
+                    },
+                ],
             },
             {
                 image: 'https://via.placeholder.com/150',
@@ -300,8 +300,8 @@ export const subjects: subjectType[] = [
                             'Nulla facilisi.',
                             'Proin nec vehicula leo.',
                         ],
-                    }
-                ]
+                    },
+                ],
             },
             {
                 image: 'https://via.placeholder.com/150',
@@ -326,8 +326,8 @@ export const subjects: subjectType[] = [
                             'Nulla facilisi.',
                             'Proin nec vehicula leo.',
                         ],
-                    }
-                ]
+                    },
+                ],
             },
             {
                 image: 'https://via.placeholder.com/150',
@@ -352,8 +352,8 @@ export const subjects: subjectType[] = [
                             'Nulla facilisi.',
                             'Proin nec vehicula leo.',
                         ],
-                    }
-                ]
+                    },
+                ],
             },
             {
                 image: 'https://via.placeholder.com/150',
@@ -378,8 +378,8 @@ export const subjects: subjectType[] = [
                             'Nulla facilisi.',
                             'Proin nec vehicula leo.',
                         ],
-                    }
-                ]
+                    },
+                ],
             },
             {
                 image: 'https://via.placeholder.com/150',
@@ -404,8 +404,8 @@ export const subjects: subjectType[] = [
                             'Nulla facilisi.',
                             'Proin nec vehicula leo.',
                         ],
-                    }
-                ]
+                    },
+                ],
             },
             {
                 image: 'https://via.placeholder.com/150',
@@ -430,8 +430,8 @@ export const subjects: subjectType[] = [
                             'Nulla facilisi.',
                             'Proin nec vehicula leo.',
                         ],
-                    }
-                ]
+                    },
+                ],
             },
             {
                 image: 'https://via.placeholder.com/150',
@@ -456,8 +456,8 @@ export const subjects: subjectType[] = [
                             'Nulla facilisi.',
                             'Proin nec vehicula leo.',
                         ],
-                    }
-                ]
+                    },
+                ],
             },
             {
                 image: 'https://via.placeholder.com/150',
@@ -482,8 +482,8 @@ export const subjects: subjectType[] = [
                             'Nulla facilisi.',
                             'Proin nec vehicula leo.',
                         ],
-                    }
-                ]
+                    },
+                ],
             },
             {
                 image: 'https://via.placeholder.com/150',
@@ -508,8 +508,8 @@ export const subjects: subjectType[] = [
                             'Nulla facilisi.',
                             'Proin nec vehicula leo.',
                         ],
-                    }
-                ]
+                    },
+                ],
             },
             {
                 image: 'https://via.placeholder.com/150',
@@ -534,8 +534,8 @@ export const subjects: subjectType[] = [
                             'Nulla facilisi.',
                             'Proin nec vehicula leo.',
                         ],
-                    }
-                ]
+                    },
+                ],
             },
             {
                 image: 'https://via.placeholder.com/150',
@@ -560,8 +560,8 @@ export const subjects: subjectType[] = [
                             'Nulla facilisi.',
                             'Proin nec vehicula leo.',
                         ],
-                    }
-                ]
+                    },
+                ],
             },
             {
                 image: 'https://via.placeholder.com/150',
@@ -586,8 +586,8 @@ export const subjects: subjectType[] = [
                             'Nulla facilisi.',
                             'Proin nec vehicula leo.',
                         ],
-                    }
-                ]
+                    },
+                ],
             },
             {
                 image: 'https://via.placeholder.com/150',
@@ -606,8 +606,8 @@ export const subjects: subjectType[] = [
                             company: 'Elios Patrimoine',
                         },
                         text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in tincidunt ex. Nulla facilisi. Proin nec vehicula leo. Nullam in tincidunt ex. Nulla facilisi. Proin nec vehicula leo. Nullam in tincidunt ex. Nulla facilisi.Proin nec vehicula leo. Nullam in tincidunt ex.',
-                    }
-                ]
+                    },
+                ],
             },
             {
                 image: 'https://via.placeholder.com/150',
@@ -624,10 +624,10 @@ export const subjects: subjectType[] = [
                             'Nulla facilisi.',
                             'Proin nec vehicula leo.',
                         ],
-                    }
-                ]
+                    },
+                ],
             },
-        ]
+        ],
     },
     {
         id: 2,
@@ -650,7 +650,8 @@ export const subjects: subjectType[] = [
             job: 'Conseiller en gestion de patrimoine',
             company: 'Elios Patrimoine',
         },
-        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in tincidunt ex. Nulla facilisi. Proin necvehicula leo. Nullam in tincidunt ex. Nulla facilisi. Proin nec vehicula leo. Nullam in tincidunt ex. Nulla facilisi.Proin nec vehicula leo. Nullam in tincidunt ex.',
+        description:
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in tincidunt ex. Nulla facilisi. Proin necvehicula leo. Nullam in tincidunt ex. Nulla facilisi. Proin nec vehicula leo. Nullam in tincidunt ex. Nulla facilisi.Proin nec vehicula leo. Nullam in tincidunt ex.',
         cards: [
             {
                 image: 'https://via.placeholder.com/150',
@@ -675,8 +676,8 @@ export const subjects: subjectType[] = [
                             'Nulla facilisi.',
                             'Proin nec vehicula leo.',
                         ],
-                    }
-                ]
+                    },
+                ],
             },
             {
                 image: 'https://via.placeholder.com/150',
@@ -695,8 +696,8 @@ export const subjects: subjectType[] = [
                             company: 'Elios Patrimoine',
                         },
                         text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in tincidunt ex. Nulla facilisi. Proin nec vehicula leo. Nullam in tincidunt ex. Nulla facilisi. Proin nec vehicula leo. Nullam in tincidunt ex. Nulla facilisi.Proin nec vehicula leo. Nullam in tincidunt ex.',
-                    }
-                ]
+                    },
+                ],
             },
             {
                 image: 'https://via.placeholder.com/150',
@@ -713,10 +714,10 @@ export const subjects: subjectType[] = [
                             'Nulla facilisi.',
                             'Proin nec vehicula leo.',
                         ],
-                    }
-                ]
+                    },
+                ],
             },
-        ]
+        ],
     },
     {
         id: 3,
@@ -739,7 +740,8 @@ export const subjects: subjectType[] = [
             job: 'Conseiller en gestion de patrimoine',
             company: 'Elios Patrimoine',
         },
-        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in tincidunt ex. Nulla facilisi. Proin necvehicula leo. Nullam in tincidunt ex. Nulla facilisi. Proin nec vehicula leo. Nullam in tincidunt ex. Nulla facilisi.Proin nec vehicula leo. Nullam in tincidunt ex.',
+        description:
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in tincidunt ex. Nulla facilisi. Proin necvehicula leo. Nullam in tincidunt ex. Nulla facilisi. Proin nec vehicula leo. Nullam in tincidunt ex. Nulla facilisi.Proin nec vehicula leo. Nullam in tincidunt ex.',
         cards: [
             {
                 image: 'https://via.placeholder.com/150',
@@ -764,8 +766,8 @@ export const subjects: subjectType[] = [
                             'Nulla facilisi.',
                             'Proin nec vehicula leo.',
                         ],
-                    }
-                ]
+                    },
+                ],
             },
             {
                 image: 'https://via.placeholder.com/150',
@@ -784,8 +786,8 @@ export const subjects: subjectType[] = [
                             company: 'Elios Patrimoine',
                         },
                         text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in tincidunt ex. Nulla facilisi. Proin nec vehicula leo. Nullam in tincidunt ex. Nulla facilisi. Proin nec vehicula leo. Nullam in tincidunt ex. Nulla facilisi.Proin nec vehicula leo. Nullam in tincidunt ex.',
-                    }
-                ]
+                    },
+                ],
             },
             {
                 image: 'https://via.placeholder.com/150',
@@ -802,10 +804,10 @@ export const subjects: subjectType[] = [
                             'Nulla facilisi.',
                             'Proin nec vehicula leo.',
                         ],
-                    }
-                ]
+                    },
+                ],
             },
-        ]
+        ],
     },
     {
         id: 4,
@@ -828,7 +830,8 @@ export const subjects: subjectType[] = [
             job: 'Conseiller en gestion de patrimoine',
             company: 'Elios Patrimoine',
         },
-        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in tincidunt ex. Nulla facilisi. Proin necvehicula leo. Nullam in tincidunt ex. Nulla facilisi. Proin nec vehicula leo. Nullam in tincidunt ex. Nulla facilisi.Proin nec vehicula leo. Nullam in tincidunt ex.',
+        description:
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in tincidunt ex. Nulla facilisi. Proin necvehicula leo. Nullam in tincidunt ex. Nulla facilisi. Proin nec vehicula leo. Nullam in tincidunt ex. Nulla facilisi.Proin nec vehicula leo. Nullam in tincidunt ex.',
         cards: [
             {
                 image: 'https://via.placeholder.com/150',
@@ -853,8 +856,8 @@ export const subjects: subjectType[] = [
                             'Nulla facilisi.',
                             'Proin nec vehicula leo.',
                         ],
-                    }
-                ]
+                    },
+                ],
             },
             {
                 image: 'https://via.placeholder.com/150',
@@ -873,8 +876,8 @@ export const subjects: subjectType[] = [
                             company: 'Elios Patrimoine',
                         },
                         text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in tincidunt ex. Nulla facilisi. Proin nec vehicula leo. Nullam in tincidunt ex. Nulla facilisi. Proin nec vehicula leo. Nullam in tincidunt ex. Nulla facilisi.Proin nec vehicula leo. Nullam in tincidunt ex.',
-                    }
-                ]
+                    },
+                ],
             },
             {
                 image: 'https://via.placeholder.com/150',
@@ -891,10 +894,10 @@ export const subjects: subjectType[] = [
                             'Nulla facilisi.',
                             'Proin nec vehicula leo.',
                         ],
-                    }
-                ]
+                    },
+                ],
             },
-        ]
+        ],
     },
     {
         id: 5,
@@ -917,7 +920,8 @@ export const subjects: subjectType[] = [
             job: 'Conseiller en gestion de patrimoine',
             company: 'Elios Patrimoine',
         },
-        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in tincidunt ex. Nulla facilisi. Proin necvehicula leo. Nullam in tincidunt ex. Nulla facilisi. Proin nec vehicula leo. Nullam in tincidunt ex. Nulla facilisi.Proin nec vehicula leo. Nullam in tincidunt ex.',
+        description:
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in tincidunt ex. Nulla facilisi. Proin necvehicula leo. Nullam in tincidunt ex. Nulla facilisi. Proin nec vehicula leo. Nullam in tincidunt ex. Nulla facilisi.Proin nec vehicula leo. Nullam in tincidunt ex.',
         cards: [
             {
                 image: 'https://via.placeholder.com/150',
@@ -942,8 +946,8 @@ export const subjects: subjectType[] = [
                             'Nulla facilisi.',
                             'Proin nec vehicula leo.',
                         ],
-                    }
-                ]
+                    },
+                ],
             },
             {
                 image: 'https://via.placeholder.com/150',
@@ -962,8 +966,8 @@ export const subjects: subjectType[] = [
                             company: 'Elios Patrimoine',
                         },
                         text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in tincidunt ex. Nulla facilisi. Proin nec vehicula leo. Nullam in tincidunt ex. Nulla facilisi. Proin nec vehicula leo. Nullam in tincidunt ex. Nulla facilisi.Proin nec vehicula leo. Nullam in tincidunt ex.',
-                    }
-                ]
+                    },
+                ],
             },
             {
                 image: 'https://via.placeholder.com/150',
@@ -980,10 +984,10 @@ export const subjects: subjectType[] = [
                             'Nulla facilisi.',
                             'Proin nec vehicula leo.',
                         ],
-                    }
-                ]
+                    },
+                ],
             },
-        ]
+        ],
     },
     {
         id: 6,
@@ -1006,7 +1010,8 @@ export const subjects: subjectType[] = [
             job: 'Conseiller en gestion de patrimoine',
             company: 'Elios Patrimoine',
         },
-        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in tincidunt ex. Nulla facilisi. Proin necvehicula leo. Nullam in tincidunt ex. Nulla facilisi. Proin nec vehicula leo. Nullam in tincidunt ex. Nulla facilisi.Proin nec vehicula leo. Nullam in tincidunt ex.',
+        description:
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in tincidunt ex. Nulla facilisi. Proin necvehicula leo. Nullam in tincidunt ex. Nulla facilisi. Proin nec vehicula leo. Nullam in tincidunt ex. Nulla facilisi.Proin nec vehicula leo. Nullam in tincidunt ex.',
         cards: [
             {
                 image: 'https://via.placeholder.com/150',
@@ -1031,8 +1036,8 @@ export const subjects: subjectType[] = [
                             'Nulla facilisi.',
                             'Proin nec vehicula leo.',
                         ],
-                    }
-                ]
+                    },
+                ],
             },
             {
                 image: 'https://via.placeholder.com/150',
@@ -1051,8 +1056,8 @@ export const subjects: subjectType[] = [
                             company: 'Elios Patrimoine',
                         },
                         text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in tincidunt ex. Nulla facilisi. Proin nec vehicula leo. Nullam in tincidunt ex. Nulla facilisi. Proin nec vehicula leo. Nullam in tincidunt ex. Nulla facilisi.Proin nec vehicula leo. Nullam in tincidunt ex.',
-                    }
-                ]
+                    },
+                ],
             },
             {
                 image: 'https://via.placeholder.com/150',
@@ -1069,12 +1074,12 @@ export const subjects: subjectType[] = [
                             'Nulla facilisi.',
                             'Proin nec vehicula leo.',
                         ],
-                    }
-                ]
+                    },
+                ],
             },
-        ]
+        ],
     },
-]
+];
 
 export const categories = [
     {

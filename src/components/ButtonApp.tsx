@@ -1,8 +1,8 @@
-import React from 'react'
+import React from 'react';
 import { createUseStyles } from 'react-jss';
 import '../css/index.css';
-import { Button } from './ui/button';
 import { OsEnum, useDeviceDetection } from '@/hook/useDeviceDetection';
+import { Button } from './ui/button';
 
 type ButtonAppProps = {
     children: React.ReactNode;
@@ -14,10 +14,9 @@ type ButtonAppProps = {
     disabled?: boolean;
     startIcon?: React.ReactNode;
     onClick?: () => void;
-}
+};
 
 function ButtonApp(props: ButtonAppProps) {
-
     const styles = useStyles();
     const { os } = useDeviceDetection();
 
@@ -27,7 +26,7 @@ function ButtonApp(props: ButtonAppProps) {
     }
 
     return (
-        <Button 
+        <Button
             className={`
                 ${styles.button} 
                 ${props?.size && !props?.action && styles[props.size]} 
@@ -39,24 +38,16 @@ function ButtonApp(props: ButtonAppProps) {
             onClick={() => props.onClick && props.onClick()}
             disabled={props.disabled}
         >
-            {props.startIcon && !props.action && (
-                <span className="mr-2 w-auto h-max">
-                    {props.startIcon}
-                </span>
-            )}
+            {props.startIcon && !props.action && <span className='mr-2 w-auto h-max'>{props.startIcon}</span>}
 
-            {props.action && (
-                <span className="mr-2 w-auto h-max">
-                    {props.startIcon}
-                </span>
-            )}
+            {props.action && <span className='mr-2 w-auto h-max'>{props.startIcon}</span>}
 
             {props.children}
         </Button>
-    )
+    );
 }
 
-export default ButtonApp
+export default ButtonApp;
 
 const useStyles = createUseStyles({
     button: {
@@ -135,4 +126,4 @@ const useStyles = createUseStyles({
             background: 'var(--secondary-900)',
         },
     },
-})
+});

@@ -1,9 +1,4 @@
-import {
-    Card,
-    CardContent,
-    CardHeader,
-    CardTitle
-} from "@/components/ui/card.tsx";
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card.tsx';
 import {
     Drawer,
     DrawerClose,
@@ -13,32 +8,27 @@ import {
     DrawerHeader,
     DrawerTitle,
     DrawerTrigger,
-} from "@/components/ui/drawer"
+} from '@/components/ui/drawer';
 
-import {
-    Accordion,
-    AccordionContent,
-    AccordionItem,
-    AccordionTrigger
-} from "@/components/ui/accordion.tsx";
-import {columns} from "@/components/columnsTransaction.tsx";
-import {DataTable} from "@/components/DataTable.tsx";
-import {useGetConnection, useGetTransactions} from "@/api/allCall.tsx";
-import {Button} from "@/components/ui/button.tsx";
-import {userStore} from "@/store/UserStore.ts";
-import {useEffect} from "react";
-import ButtonApp from "@/components/ButtonApp";
-import { ConnectionType } from "@/types/connectionType";
+import { useGetConnection, useGetTransactions } from '@/api/allCall.tsx';
+import ButtonApp from '@/components/ButtonApp';
+import { DataTable } from '@/components/DataTable.tsx';
+import { columns } from '@/components/columnsTransaction.tsx';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion.tsx';
+import { Button } from '@/components/ui/button.tsx';
+import { userStore } from '@/store/UserStore.ts';
+import { ConnectionType } from '@/types/connectionType';
+import { useEffect } from 'react';
 
 const Home = () => {
-    const listTransaction = useGetTransactions()
-    const listConnection = useGetConnection()
-    const updateUser = userStore(state => state.updateUser)
-    const user = userStore(state => state.user)
+    const listTransaction = useGetTransactions();
+    const listConnection = useGetConnection();
+    const updateUser = userStore((state) => state.updateUser);
+    const user = userStore((state) => state.user);
 
     useEffect(() => {
-        const urlParams = new URLSearchParams(window.location.search)
-        const powensToken = urlParams.get("token")
+        const urlParams = new URLSearchParams(window.location.search);
+        const powensToken = urlParams.get('token');
 
         if (powensToken) {
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -47,53 +37,60 @@ const Home = () => {
             urlParams.delete('token');
             updateUser({
                 ...user,
-                powens_token: powensToken
-            })
-            window.history.replaceState({}, '', `${url.pathname}${urlParams.toString() ? '?' + urlParams.toString() : ''}`);
+                powens_token: powensToken,
+            });
+            window.history.replaceState(
+                {},
+                '',
+                `${url.pathname}${urlParams.toString() ? '?' + urlParams.toString() : ''}`,
+            );
         }
 
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
-
-    console.log(listConnection)
+    console.log(listConnection);
 
     return (
-        <div className="w-[100%]">
+        <div className='w-[100%]'>
             <Card>
                 <CardHeader>
                     <CardTitle>Information du compte</CardTitle>
                 </CardHeader>
                 <CardContent>
-                    <Accordion type="single" collapsible className="p-4 rounded-sm bg-blue-50">
-                        <AccordionItem value="item-1">
+                    <Accordion type='single' collapsible className='p-4 rounded-sm bg-blue-50'>
+                        <AccordionItem value='item-1'>
                             <AccordionTrigger>Comptes</AccordionTrigger>
                             <AccordionContent>
                                 {listConnection.data ? (
                                     listConnection.data.map((connection: ConnectionType, index: number) => {
-                                        const value = connection.balance
+                                        const value = connection.balance;
                                         const formatted = new Intl.NumberFormat('fr-FR', {
                                             style: 'currency',
-                                            currency: "EUR",
-                                        }).format(value)
+                                            currency: 'EUR',
+                                        }).format(value);
                                         return (
-                                            <div key={index} className="flex items-center rounded bg-slate-400 text-white p-2 gap-2 justify-between">
-                                                <div className="flex items-center justify-center">
+                                            <div
+                                                key={index}
+                                                className='flex items-center rounded bg-slate-400 text-white p-2 gap-2 justify-between'
+                                            >
+                                                <div className='flex items-center justify-center'>
                                                     <img
                                                         src={`https://lperrenot-sandbox.biapi.pro/2.0/logos/${connection.connector_uuid}-thumbnail.webp`}
-                                                        alt=""/>
-                                                    <p className="font-bold text-lg">{connection.connector.name}</p>
+                                                        alt=''
+                                                    />
+                                                    <p className='font-bold text-lg'>{connection.connector.name}</p>
                                                 </div>
                                                 <p>{formatted}</p>
                                             </div>
-                                        )
+                                        );
                                     })
                                 ) : (
                                     <p>Vos comptes</p>
                                 )}
                             </AccordionContent>
                         </AccordionItem>
-                        <AccordionItem value="item-2">
+                        <AccordionItem value='item-2'>
                             <AccordionTrigger>Transactions</AccordionTrigger>
                             <AccordionContent>
                                 <DataTable columns={columns} data={listTransaction.data ?? []} />
@@ -103,7 +100,9 @@ const Home = () => {
                 </CardContent>
             </Card>
             <Drawer>
-                <DrawerTrigger><ButtonApp>Test</ButtonApp></DrawerTrigger>
+                <DrawerTrigger>
+                    <ButtonApp>Test</ButtonApp>
+                </DrawerTrigger>
                 <DrawerContent>
                     <DrawerHeader>
                         <DrawerTitle>Are you absolutely sure?</DrawerTitle>
@@ -112,15 +111,13 @@ const Home = () => {
                     <DrawerFooter>
                         <Button>Submit</Button>
                         <DrawerClose>
-                            <Button variant="outline">Cancel</Button>
+                            <Button variant='outline'>Cancel</Button>
                         </DrawerClose>
                     </DrawerFooter>
                 </DrawerContent>
             </Drawer>
-            
-
         </div>
-    )
-}
+    );
+};
 
 export default Home;

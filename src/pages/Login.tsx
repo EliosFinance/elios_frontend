@@ -1,95 +1,93 @@
-import {useEffect, useState} from "react";
-import {useNavigate} from "react-router-dom";
-import {useAuth} from "../context/AuthProvider.tsx";
-import {Label} from "@/components/ui/label.tsx";
-import {Input} from "@/components/ui/input.tsx";
-import {PasswordInput} from "@/components/PasswordInput.tsx";
-import {Button} from "@/components/ui/button.tsx";
-import {Alert, AlertDescription, AlertTitle} from "@/components/ui/alert.tsx";
-import {AlertCircle} from "lucide-react";
-import {GoogleLogin} from "react-google-login";
-import {gapi} from "gapi-script";
-import { APP_ROUTES_ENUM } from "@/main.tsx";
+import { PasswordInput } from '@/components/PasswordInput.tsx';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert.tsx';
+import { Button } from '@/components/ui/button.tsx';
+import { Input } from '@/components/ui/input.tsx';
+import { Label } from '@/components/ui/label.tsx';
+import { APP_ROUTES_ENUM } from '@/main.tsx';
+import { gapi } from 'gapi-script';
+import { AlertCircle } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { GoogleLogin } from 'react-google-login';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthProvider.tsx';
 
 const Login = ({ VITE_GOOGLE_CLIENT_ID }) => {
-    const [username, setUsername] = useState('')
+    const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [errorMsg, setErrorMsg] = useState('')
-    const navigate = useNavigate()
-    const { login } = useAuth()
+    const [errorMsg, setErrorMsg] = useState('');
+    const navigate = useNavigate();
+    const { login } = useAuth();
 
     const handleSubmit = async () => {
-        setErrorMsg("")
+        setErrorMsg('');
         if (!username || !password) {
-            setErrorMsg("Please fill in the fields");
+            setErrorMsg('Please fill in the fields');
             return;
         }
 
         try {
             const success = await login(username, password);
             if (success) {
-                navigate(APP_ROUTES_ENUM.HOME)
+                navigate(APP_ROUTES_ENUM.HOME);
             } else {
-                setErrorMsg("Incorrect username or password")
+                setErrorMsg('Incorrect username or password');
             }
         } catch (error) {
-            setErrorMsg("An error occured")
+            setErrorMsg('An error occured');
         }
-    }
+    };
 
     const onSuccessGoogle = (response) => {
-        console.log(response)
-    }
+        console.log(response);
+    };
     const onFailureGoogle = (response) => {
-        console.log(response)
-    }
+        console.log(response);
+    };
 
     useEffect(() => {
         function start() {
             gapi.client.init({
                 clientId: VITE_GOOGLE_CLIENT_ID,
-                scope: ""
-            })
+                scope: '',
+            });
         }
-        gapi.load('client:auth2', start)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        gapi.load('client:auth2', start);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (
         <>
             <div className='w-[100%] sm:w-[100%] flex flex-col justify-center border-solid border-[1px] border-gray-200 rounded-lg p-4 shadow-md'>
-                <div className="mx-auto w-full text-left gap-4 flex flex-col">
-                    <Label htmlFor="email" className="ml-2">Enter your email below:</Label>
+                <div className='mx-auto w-full text-left gap-4 flex flex-col'>
+                    <Label htmlFor='email' className='ml-2'>
+                        Enter your email below:
+                    </Label>
                     <Input
-                        type="email"
-                        placeholder="Your email:"
+                        type='email'
+                        placeholder='Your email:'
                         onChange={(e) => setUsername(e.target.value)}
                         value={username}
-                        id="email"
+                        id='email'
                     />
-                    <Label htmlFor="password" className="ml-2">Enter your password below:</Label>
-                    <PasswordInput
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        id="password"
-                    />
+                    <Label htmlFor='password' className='ml-2'>
+                        Enter your password below:
+                    </Label>
+                    <PasswordInput value={password} onChange={(e) => setPassword(e.target.value)} id='password' />
                     <Button onClick={handleSubmit}>Sign in</Button>
                     {errorMsg && (
-                        <Alert variant="destructive">
-                            <AlertCircle className="h-4 w-4" />
+                        <Alert variant='destructive'>
+                            <AlertCircle className='h-4 w-4' />
                             <AlertTitle>Error</AlertTitle>
-                            <AlertDescription>
-                                {errorMsg}
-                            </AlertDescription>
+                            <AlertDescription>{errorMsg}</AlertDescription>
                         </Alert>
                     )}
                     {/*<div className="w-100 mt-2">*/}
                     {/*    New user? <Link to={"/register"}>Register</Link>*/}
                     {/*</div>*/}
 
-                    <GoogleLogin 
+                    <GoogleLogin
                         clientId={VITE_GOOGLE_CLIENT_ID}
-                        buttonText="Login"
+                        buttonText='Login'
                         onSuccess={onSuccessGoogle}
                         onFailure={onFailureGoogle}
                         cookiePolicy={'single_host_origin'}
@@ -98,7 +96,7 @@ const Login = ({ VITE_GOOGLE_CLIENT_ID }) => {
                 </div>
             </div>
         </>
-    )
-}
+    );
+};
 
-export default Login
+export default Login;
