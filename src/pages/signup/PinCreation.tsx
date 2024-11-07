@@ -1,73 +1,82 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { setPin } from 'src/store/store.ts'; // Action Redux pour stocker le PIN
+import mainLogo from "./assets/images/corp/main_logo.png";
+import { Button } from "@/components/ui/button.tsx";
 
-const PinCreation: React.FC = () => {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const [pin, setPinInput] = useState<string>(''); // Stocke le code PIN
+type PinCreationProps = {
+  onNext: (pin: string) => void;
+  onBack: () => void;
+};
 
-  // Limiter la longueur du code PIN à 4 chiffres
-  const handleNumberClick = (num: string) => {
+const PinCreation: React.FC<PinCreationProps> = ({ onNext, onBack }) => {
+  const [pin, setPin] = useState('');
+
+  const handleNumberClick = (number: string) => {
     if (pin.length < 4) {
-      setPinInput((prevPin) => prevPin + num);
+      setPin(pin + number);
     }
   };
 
-  const handleNext = () => {
-    if (pin.length === 4) {
-      dispatch(setPin(pin)); // Stocker le PIN dans Redux
-      navigate('/confirm-pin');
-    }
+  const handleBackspace = () => {
+    setPin(pin.slice(0, -1));
   };
+
+  const isPinComplete = pin.length === 4;
 
   return (
-    <div className="flex items-center justify-center h-screen bg-gray-100">
-      <div className="bg-white rounded-lg shadow-lg p-6 max-w-sm w-full text-center relative">
-        {/* Back Button */}
-        <button
-          onClick={() => navigate(-1)}
-          className="absolute top-4 left-4 text-gray-600 hover:text-black"
-        >
-          ←
-        </button>
-
-        {/* Title */}
-        <h1 className="text-xl font-semibold mb-2">Créez votre code PIN</h1>
-
-        {/* PIN Display */}
-        <div className="flex justify-center space-x-2 mb-6">
-          {[...Array(4)].map((_, index) => (
-            <span
-              key={index}
-              className={`h-4 w-4 rounded-full ${pin.length > index ? 'bg-black' : 'bg-gray-300'}`}
-            />
-          ))}
-        </div>
-
-        {/* Keypad */}
-        <div className="grid grid-cols-3 gap-4 mb-6">
-          {['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'].map((num) => (
-            <button
-              key={num}
-              onClick={() => handleNumberClick(num)}
-              className="bg-gray-200 text-2xl w-16 h-16 rounded-full hover:bg-gray-300 transition"
-            >
-              {num}
-            </button>
-          ))}
-        </div>
-
-        {/* Submit Button */}
-        <button
-          onClick={handleNext}
-          className="w-full bg-indigo-600 text-white font-bold py-2 px-4 rounded-full hover:bg-indigo-700 transition duration-300"
-          disabled={pin.length !== 4}
-        >
-          Suivant
-        </button>
+    <div className="flex flex-col items-center justify-center min-h-screen p-6 bg-white">
+      {/* Back Icon */}
+      <div className="self-start mb-4 cursor-pointer" onClick={onBack}>
+        <span className="text-2xl">←</span>
       </div>
+
+      {/* Logo */}
+      <img
+        src={mainLogo}
+        alt="Elios Logo"
+        className="w-12 h-12 rounded-lg mb-4"
+      />
+
+      {/* Title */}
+      <h1 className="text-lg font-semibold text-center mb-6">
+        Créez votre <br /> code PIN
+      </h1>
+
+      {/* PIN Indicator */}
+      <div className="flex space-x-2 mb-8">
+        {[...Array(4)].map((_, i) => (
+          <div
+            key={i}
+            className={`w-3 h-3 rounded-full ${
+              i < pin.length ? 'bg-gray-800' : 'bg-gray-300'
+            }`}
+          />
+        ))}
+      </div>
+
+      {/* Numeric Keypad */}
+      <div className="grid grid-cols-3 gap-4 mb-8">
+        {[1, 2, 3, 4, 5, 6, 7, 8, 9, '', 0, '←'].map((item, index) => (
+          <button
+            key={index}
+            onClick={() =>
+              item === '←' ? handleBackspace() : handleNumberClick(String(item))
+            }
+            className="w-16 h-16 flex items-center justify-center rounded-full bg-gray-200 text-lg font-semibold text-gray-800"
+            disabled={item === ''}
+          >
+            {item}
+          </button>
+        ))}
+      </div>
+
+      {/* Next Button */}
+      <Button
+        onClick={() => onNext(pin)}
+        className="w-full max-w-xs bg-blue-500 text-white font-semibold py-2"
+        disabled={!isPinComplete}
+      >
+        Suivant
+      </Button>
     </div>
   );
 };

@@ -1,66 +1,81 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom'; // Importation de useNavigate
-import {Button} from "@/components/ui/button.tsx";
+import mailLogo from './assets/images/mail/mail_icon.png';
+import { Button } from "@/components/ui/button.tsx";
 
-const EmailVerification: React.FC = () => {
-  const navigate = useNavigate(); // Utilisation de useNavigate
+type EmailVerificationProps = {
+  userEmail: string;
+  onResend: () => void;
+  onOpenEmailApp: () => void;
+  onNext: () => void;
+  onBack: () => void;
+};
 
+const EmailVerification: React.FC<EmailVerificationProps> = ({
+  userEmail,
+  onResend,
+  onOpenEmailApp,
+  onNext,
+  onBack,
+}) => {
   return (
-    <div className="flex items-center justify-center h-screen bg-gray-100">
-      <div className="bg-white rounded-lg shadow-lg p-6 max-w-sm w-full text-center">
-        {/* Back Button */}
-        <button
-          onClick={() => navigate(-1)} // Utilisation de navigate pour revenir en arrière
-          className="absolute top-4 left-4 text-gray-600 hover:text-black"
-        >
-          ←
-        </button>
-
-        {/* Logo Image */}
-        <img
-          src="src\assets\images\corp\main_logo.png"
-          alt="Logo"
-          className="rounded-lg w-16 h-16 mx-auto mb-4"
-        />
-
-        {/* Email Icon */}
-        <img
-          src="src\assets\images\mail\mail_icon.png"
-          alt="Email Icon"
-          className="rounded-lg w-32 h-32 mx-auto mb-4"
-        />
-
-        {/* Title */}
-        <h1 className="text-xl font-semibold mb-2">Jetez un oeil à vos emails</h1>
-
-        {/* Instructions */}
-        <p className="text-gray-600 text-sm mb-4">
-          Cliquez sur le lien de vérification qui vient d'être envoyé à l'adresse <b>usertest@gmail.com</b>
-          <br />
-          Vous pourrez ensuite passer à la suite.
-        </p>
-
-        {/* Resend Email Link */}
-        <p className="text-gray-600 text-sm mb-6">
-          Vous n'avez pas reçu d'email ?{' '}
-          <a href="#" className="text-indigo-600 font-bold hover:underline">
-            Renvoyer
-          </a>
-        </p>
-
-        {/* Open Email App Button */}
-        <button className="w-full bg-indigo-600 text-white font-bold py-2 px-4 rounded-full hover:bg-indigo-700 transition duration-300 mb-4">
-          Ouvrir mon application d'email
-        </button>
-
-        {/* Suivant Button */}
-        <Button
-          onClick={() => navigate('/')} // Mettre une navigation vers l'autre étape de la connexion
-          className="w-full text-indigo-600 font-bold py-2 px-4 rounded-full hover:bg-gray-100"
-        >
-          Suivant
-        </Button>
+    <div className="flex flex-col items-center justify-center min-h-screen p-6 bg-white">
+      {/* Back Icon */}
+      <div className="self-start mb-4 cursor-pointer" onClick={onBack}>
+        <span className="text-2xl">←</span>
       </div>
+
+      {/* Logo */}
+      <img
+        src={mailLogo}
+        alt="Elios Logo"
+        className="w-12 h-12 rounded-lg mb-4"
+      />
+
+      {/* Email Image */}
+      <img
+        src="/path_to_email_image.png" // Remplace par le chemin de ton image d'email
+        alt="Check your email"
+        className="w-40 h-40 object-cover mb-6"
+      />
+
+      {/* Title */}
+      <h1 className="text-lg font-semibold text-center mb-2">
+        Jetez un oeil à vos emails
+      </h1>
+
+      {/* Message */}
+      <p className="text-center text-gray-600 mb-6">
+        Cliquez sur le lien de vérification qui vient d’être envoyé à l’adresse {userEmail}.
+        <br />
+        Vous pourrez ensuite passer à la suite.
+      </p>
+
+      {/* Resend Link */}
+      <p className="text-center text-gray-600 mb-6">
+        Vous n’avez pas reçu d’email ?{" "}
+        <span
+          onClick={onResend}
+          className="text-blue-500 cursor-pointer font-semibold"
+        >
+          Renvoyer
+        </span>
+      </p>
+
+      {/* Open Email App Button */}
+      <Button
+        onClick={onOpenEmailApp}
+        className="w-full max-w-xs bg-blue-500 text-white font-semibold py-2 mb-4"
+      >
+        Ouvrir mon application d'email
+      </Button>
+
+      {/* Next Button */}
+      <Button
+        onClick={onNext}
+        className="w-full max-w-xs bg-gray-200 text-black font-semibold py-2"
+      >
+        Suivant
+      </Button>
     </div>
   );
 };

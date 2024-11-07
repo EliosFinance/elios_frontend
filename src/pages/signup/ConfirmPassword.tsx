@@ -2,21 +2,27 @@ import React, { useState } from 'react';
 import mainLogo from "./assets/images/corp/main_logo.png";
 import { Button } from "@/components/ui/button.tsx";
 
-type CreatePasswordProps = {
-  onNext: () => void;
+type ConfirmPasswordProps = {
+  originalPassword: string;
+  onConfirm: () => void;
   onBack: () => void;
 };
 
-const CreatePassword: React.FC<CreatePasswordProps> = ({ onNext, onBack }) => {
-  const [password, setPassword] = useState('');
+const ConfirmPassword: React.FC<ConfirmPasswordProps> = ({
+  originalPassword,
+  onConfirm,
+  onBack,
+}) => {
+  const [confirmPassword, setConfirmPassword] = useState('');
 
   // Vérification des critères de mot de passe
   const criteria = [
-    { label: "Au moins 8 caractères", isValid: password.length >= 8 },
-    { label: "Au moins 1 nombre", isValid: /\d/.test(password) },
-    { label: "Au moins 1 caractère spécial", isValid: /[!@#$%^&*(),.?":{}|<>]/.test(password) },
-    { label: "Au moins 1 lettre majuscule", isValid: /[A-Z]/.test(password) },
-    { label: "Au moins 1 lettre minuscule", isValid: /[a-z]/.test(password) },
+    { label: "Au moins 8 caractères", isValid: confirmPassword.length >= 8 },
+    { label: "Au moins 1 nombre", isValid: /\d/.test(confirmPassword) },
+    { label: "Au moins 1 caractère spécial", isValid: /[!@#$%^&*(),.?":{}|<>]/.test(confirmPassword) },
+    { label: "Au moins 1 lettre majuscule", isValid: /[A-Z]/.test(confirmPassword) },
+    { label: "Au moins 1 lettre minuscule", isValid: /[a-z]/.test(confirmPassword) },
+    { label: "Correspond au mot de passe", isValid: confirmPassword === originalPassword },
   ];
 
   return (
@@ -35,17 +41,17 @@ const CreatePassword: React.FC<CreatePasswordProps> = ({ onNext, onBack }) => {
 
       {/* Title */}
       <h1 className="text-lg font-semibold text-center mb-6">
-        Créez votre <br /> mot de passe Elios
+        Confirmez votre <br /> mot de passe Elios
       </h1>
 
-      {/* Password Input */}
+      {/* Confirm Password Input */}
       <div className="w-full max-w-xs mb-4">
-        <label className="block text-gray-600 text-sm mb-1">Votre mot de passe</label>
+        <label className="block text-gray-600 text-sm mb-1">Confirmez votre mot de passe</label>
         <input
           type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="Votre mot de passe"
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
+          placeholder="Confirmez votre mot de passe"
           className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
         />
       </div>
@@ -62,9 +68,9 @@ const CreatePassword: React.FC<CreatePasswordProps> = ({ onNext, onBack }) => {
         ))}
       </div>
 
-      {/* Next Button */}
+      {/* Confirm Button */}
       <Button
-        onClick={onNext}
+        onClick={onConfirm}
         className="w-full max-w-xs bg-blue-500 text-white font-semibold py-2"
         disabled={!criteria.every((criterion) => criterion.isValid)}
       >
@@ -74,4 +80,4 @@ const CreatePassword: React.FC<CreatePasswordProps> = ({ onNext, onBack }) => {
   );
 };
 
-export default CreatePassword;
+export default ConfirmPassword;
