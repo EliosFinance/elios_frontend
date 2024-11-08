@@ -11,6 +11,7 @@ import AllArticleCategories from './pages/Blog/AllArticleCategories.tsx';
 import Article from './pages/Blog/Article.tsx';
 import ArticleCategory from './pages/Blog/ArticleCategory.tsx';
 import Learn from './pages/Blog/Learn.tsx';
+import SingleDefi from './pages/SingleDefi.tsx';
 
 function App() {
     const { os } = useDeviceDetection();
@@ -48,6 +49,7 @@ function App() {
                         <Route path={`${APP_ROUTES_ENUM.ARTICLE}/:id`} element={<Article />} />
                         <Route path={`${APP_ROUTES_ENUM.ARTICLE_CATEGORIES}`} element={<AllArticleCategories />} />
                         <Route path={`${APP_ROUTES_ENUM.ARTICLE_CATEGORY}/:id`} element={<ArticleCategory />} />
+                        <Route path={`${APP_ROUTES_ENUM.DEFI}/:id`} element={<SingleDefi />} />
                         <Route path={APP_ROUTES_ENUM.LOGIN} element={<Login VITE_GOOGLE_CLIENT_ID={googleId} />} />
                     </Route>
                 </Routes>
