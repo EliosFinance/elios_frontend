@@ -15,7 +15,7 @@ export const APP_ROUTES_ENUM = {
     ARTICLE_CATEGORIES: '/article-categories',
     ARTICLE_CATEGORY: '/article-category',
     LOGIN: '/login',
-    DEFI: '/defi',
+    DEFI: '/challenge',
 };
 
 const container = document.getElementById('root');
