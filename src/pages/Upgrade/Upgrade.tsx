@@ -62,7 +62,7 @@ const UpgradePlan: React.FC = () => {
                         <select style={styles.select}>
                             <option value='US'>United States</option>
                             <option value='FR'>France</option>
-                            <option value='DE'>Germany</option>
+                            <option value='DE'>Germany l</option>
                         </select>
 
                         <button type='submit' style={styles.payButton}>
