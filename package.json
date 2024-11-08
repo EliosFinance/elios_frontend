@@ -37,6 +37,7 @@
         "confettis": "^0.3.4",
         "date-fns": "^3.6.0",
         "echarts": "^5.5.1",
+        "echarts-for-react": "^3.0.2",
         "elios_frontend": "file:",
         "embla-carousel": "^8.3.0",
         "embla-carousel-react": "^8.3.0",
