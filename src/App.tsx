@@ -12,6 +12,8 @@ import Article from './pages/Blog/Article.tsx';
 import ArticleCategory from './pages/Blog/ArticleCategory.tsx';
 import Learn from './pages/Blog/Learn.tsx';
 
+import UpgradePlan from './pages/Upgrade/Upgrade.tsx';
+
 function App() {
     const { os } = useDeviceDetection();
     let googleId;
@@ -49,6 +51,7 @@ function App() {
                         <Route path={`${APP_ROUTES_ENUM.ARTICLE_CATEGORIES}`} element={<AllArticleCategories />} />
                         <Route path={`${APP_ROUTES_ENUM.ARTICLE_CATEGORY}/:id`} element={<ArticleCategory />} />
                         <Route path={APP_ROUTES_ENUM.LOGIN} element={<Login VITE_GOOGLE_CLIENT_ID={googleId} />} />
+                        <Route path={`${APP_ROUTES_ENUM.UPGRADE_PLAN}`} element={<UpgradePlan />} />
                     </Route>
                 </Routes>
             </div>
