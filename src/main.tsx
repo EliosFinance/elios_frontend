@@ -15,6 +15,7 @@ export const APP_ROUTES_ENUM = {
     ARTICLE_CATEGORIES: '/article-categories',
     ARTICLE_CATEGORY: '/article-category',
     LOGIN: '/login',
+    SUBSCRIPTION: ':subscription',
 };
 
 const container = document.getElementById('root');
