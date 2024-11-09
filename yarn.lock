@@ -2156,7 +2156,8 @@ elementtree@^0.1.7:
     commitizen "^4.3.0"
     confettis "^0.3.4"
     date-fns "^3.6.0"
-    elios_frontend "file:../../../../Users/sterlingarcher/Library/Caches/Yarn/v6/npm-elios-frontend-0.0.0-18e95276-105a-4b95-8636-1e3fc52215b6-1731074300454/node_modules/elios_frontend"
+    echarts "^5.5.1"
+    elios_frontend "file:../../../../Users/sterlingarcher/Library/Caches/Yarn/v6/npm-elios-frontend-0.0.0-74c36b43-04b5-45ad-bfdf-635b9df79e16-1731152051586/node_modules/elios_frontend"
     embla-carousel "^8.3.0"
     embla-carousel-react "^8.3.0"
     gapi-script "^1.2.0"
@@ -2394,6 +2395,13 @@ fraction.js@^4.3.7:
   version "4.3.7"
   resolved "https://registry.npmjs.org/fraction.js/-/fraction.js-4.3.7.tgz"
   integrity sha512-ZsDfxO51wGAXREY55a7la9LScWpwv9RxIrYABrlvOFBlH/ShPnrtsXeuUIfXKKOVicNxQ+o8JTbJvjS4M89yew==
+
+framer-motion@^11.11.11:
+  version "11.11.11"
+  resolved "https://registry.yarnpkg.com/framer-motion/-/framer-motion-11.11.11.tgz#3c058c97ec134afdce77caa20396f0fd82d63b7d"
+  integrity sha512-tuDH23ptJAKUHGydJQII9PhABNJBpB+z0P1bmgKK9QFIssHGlfPd6kxMq00LSKwE27WFsb2z0ovY0bpUyMvfRw==
+  dependencies:
+    tslib "^2.4.0"
 
 fs-extra@9.1.0, fs-extra@^9.0.0:
   version "9.1.0"
