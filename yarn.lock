@@ -1077,6 +1077,14 @@
   dependencies:
     "@radix-ui/react-slot" "1.1.0"
 
+"@radix-ui/react-progress@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@radix-ui/react-progress/-/react-progress-1.1.0.tgz#28c267885ec154fc557ec7a66cb462787312f7e2"
+  integrity sha512-aSzvnYpP725CROcxAOEBVZZSIQVQdHgBr2QQFKySsaD14u8dNT0batuXI+AAGDdAHfXH8rbnHmjYFqVJ21KkRg==
+  dependencies:
+    "@radix-ui/react-context" "1.1.0"
+    "@radix-ui/react-primitive" "2.0.0"
+
 "@radix-ui/react-roving-focus@1.1.0":
   version "1.1.0"
   resolved "https://registry.npmjs.org/@radix-ui/react-roving-focus/-/react-roving-focus-1.1.0.tgz"
@@ -2148,7 +2156,7 @@ elementtree@^0.1.7:
     commitizen "^4.3.0"
     confettis "^0.3.4"
     date-fns "^3.6.0"
-    elios_frontend "file:../../../../Library/Caches/Yarn/v6/npm-elios-frontend-0.0.0-495ab5e9-3961-4ec5-8584-88f8cda6df93-1727280722647/node_modules/elios_frontend"
+    elios_frontend "file:../../../Library/Caches/Yarn/v6/npm-elios-frontend-0.0.0-abbeca7c-adfc-48b3-87a2-192457344009-1731074316916/node_modules/elios_frontend"
     embla-carousel "^8.3.0"
     embla-carousel-react "^8.3.0"
     gapi-script "^1.2.0"
