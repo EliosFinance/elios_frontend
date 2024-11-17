@@ -6,6 +6,7 @@ import Home from '@/pages/Home.tsx';
 import Login from '@/pages/Login.tsx';
 import { Route, Routes } from 'react-router-dom';
 import AuthRoute from './components/AuthRoute.tsx';
+import PartnerChallenge from './components/PartnerChallenge.tsx';
 import { APP_ROUTES_ENUM } from './main.tsx';
 import AllArticleCategories from './pages/Blog/AllArticleCategories.tsx';
 import Article from './pages/Blog/Article.tsx';
@@ -14,6 +15,7 @@ import Learn from './pages/Blog/Learn.tsx';
 import SingleDefi from './pages/SingleDefi.tsx';
 import Friends from './pages/Friends.tsx';
 import SingleFriend from './pages/SingleFriends.tsx';
+import { challengeData } from './types/challengeType.ts';
 
 function App() {
     const { os } = useDeviceDetection();
@@ -43,12 +45,16 @@ function App() {
                 <Routes>
                     <Route element={<AuthRoute />}>
                         <Route element={<BankCheck />}>
+                            <Route path={APP_ROUTES_ENUM.LEARN} element={<Learn />} />
                             <Route path={APP_ROUTES_ENUM.HOME} element={<Home />} />
                         </Route>
                     </Route>
                     <Route element={<PublicRoute />}>
-                        <Route path={APP_ROUTES_ENUM.LEARN} element={<Learn />} />
                         <Route path={`${APP_ROUTES_ENUM.ARTICLE}/:id`} element={<Article />} />
+                        <Route
+                            path={`${APP_ROUTES_ENUM.TEST}`}
+                            element={<PartnerChallenge challenge={challengeData} />}
+                        />
                         <Route path={`${APP_ROUTES_ENUM.ARTICLE_CATEGORIES}`} element={<AllArticleCategories />} />
                         <Route path={`${APP_ROUTES_ENUM.ARTICLE_CATEGORY}/:id`} element={<ArticleCategory />} />
                         <Route path={`${APP_ROUTES_ENUM.DEFI}/:id`} element={<SingleDefi />} />

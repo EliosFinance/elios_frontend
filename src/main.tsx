@@ -19,6 +19,7 @@ export const APP_ROUTES_ENUM = {
     DEFI: '/challenge',
     Friends: '/friends',
     SINGLE_FRIEND: '/friends/:id',
+    TEST: '/test',
 };
 
 const container = document.getElementById('root');
