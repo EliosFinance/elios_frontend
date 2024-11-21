@@ -1,7 +1,7 @@
 export type FriendType = {
     id: string;
     name: string;
-    profileImage: string;
+    profilePicture: string;
     balance: string;
     lastConnected: string;
     score: number;
@@ -25,7 +25,7 @@ export const friendsData: FriendType[] = [
     {
         id: '1',
         name: 'Sarah',
-        profileImage: 'https://via.placeholder.com/150',
+        profilePicture: 'https://via.placeholder.com/150',
         balance: '$5.84',
         lastConnected: '12:23 AM',
         score: 78,
@@ -58,7 +58,7 @@ export const friendsData: FriendType[] = [
     {
         id: '2',
         name: 'Alex',
-        profileImage: 'https://via.placeholder.com/150',
+        profilePicture: 'https://via.placeholder.com/150',
         balance: '$10.50',
         lastConnected: '11:45 PM',
         score: 85,
