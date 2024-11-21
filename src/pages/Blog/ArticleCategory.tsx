@@ -14,20 +14,18 @@ const ArticleCategory = () => {
     useEffect(() => {
         setCategory(categories.find((category) => category.id === Number(id)));
         if (category) {
-            setCards(subjects.filter((subject) => subject.category === category.title));
+            setCards(subjects.filter((subject) => subject.category.title === category.title));
         }
     }, [category, id]);
 
     return (
-        <div className='w-full flex justify-center items-center flex-col mb-10'>
-            <div className='w-[90%] flex justify-center items-center flex-col gap-y-12'>
-                <div className='w-full mt-10 flex justify-center items-center flex-col'>
-                    <h1 className='text-3xl font-bold'>{category?.title}</h1>
-                </div>
+        <div className='w-full h-full flex justify-center items-center flex-col'>
+            <div className='w-full flex justify-center items-center flex-col gap-y-12 my-10'>
+                <h1 className='text-3xl font-bold w-[90%]'>{category?.title}</h1>
                 {cards.length > 0 && category ? (
                     <>
-                        <div className='w-full flex justify-between items-start flex-wrap gap-x-4'>
-                            <h2 className='text-2xl font-black'>Les plus populaires</h2>
+                        <div className='w-full flex justify-center items-center flex-wrap gap-x-4'>
+                            <h2 className='text-2xl font-black w-[90%]'>Les plus populaires</h2>
                             <CarouselX
                                 slides={cards}
                                 options={{ loop: false, containScroll: false }}
@@ -35,8 +33,8 @@ const ArticleCategory = () => {
                             />
                         </div>
 
-                        <div className='w-full flex justify-between items-start flex-wrap gap-x-4'>
-                            <h2 className='text-2xl font-black'>Les plus populaires</h2>
+                        <div className='w-full flex justify-center items-center flex-wrap gap-x-4'>
+                            <h2 className='text-2xl font-black w-[90%]'>Les plus populaires</h2>
                             <CarouselX
                                 slides={cards}
                                 options={{ loop: false, containScroll: false }}

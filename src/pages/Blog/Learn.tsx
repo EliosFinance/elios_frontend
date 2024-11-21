@@ -34,7 +34,7 @@ const Learn = () => {
             </div>
 
             {isUserTyping ? (
-                <div className='w-full flex justify-center items-center flex-col px-6'>
+                <div className='w-full h-[70%] flex justify-center items-center flex-col'>
                     <h2 className='text-2xl font-black'>Résultats de recherche</h2>
                     <div className='w-full flex justify-between items-start flex-wrap gap-y-4 gap-x-4'>
                         <CarouselX

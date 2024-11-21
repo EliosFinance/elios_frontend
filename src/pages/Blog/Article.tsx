@@ -1,3 +1,4 @@
+import { Skeleton } from '@/components/ui/skeleton';
 import useConfettis from '@/hook/useConfettis';
 import { APP_ROUTES_ENUM } from '@/main';
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
@@ -40,7 +41,7 @@ const Article = () => {
                     cardsRef.current?.classList.remove('overflow-y-scroll');
                 }
             },
-            { root: null, threshold: 0, rootMargin: '0px 0px -100% 0px' },
+            { root: null, threshold: 0 },
         );
 
         const observer2 = new IntersectionObserver(
@@ -48,9 +49,11 @@ const Article = () => {
                 entries.forEach((entry) => {
                     if (entry.isIntersecting) {
                         const targetElement = entry.target as HTMLDivElement;
+                        console.log('targetElement', targetElement.id);
+
                         const currentItemIndex = Number(targetElement.id.split('_')[1]);
 
-                        if (timeoutRef.current) {
+                        if (timeoutRef.current || targetElement.id === 'header') {
                             clearTimeout(timeoutRef.current);
                         }
 
@@ -70,7 +73,7 @@ const Article = () => {
                     }
                 });
             },
-            { root: cardsRef.current, threshold: 0.5 },
+            { root: cardsRef.current, threshold: 0.6 },
         );
 
         observer.observe(cardsRef.current);
@@ -112,55 +115,58 @@ const Article = () => {
         <>
             <div ref={ref} className='w-full flex justify-center items-center flex-col mb-10'>
                 <div className='w-[90%] flex justify-center items-center flex-col'>
-                    {/* header */}
-                    <div className='w-full h-auto flex justify-center items-center flex-col gap-y-4 font-bold mt-12'>
-                        <img
-                            src={currentArticle.thumbnail}
-                            alt='project thumbnail'
-                            className='h-auto w-[70%] rounded-[var(--border-radius-5)] shadow-lg'
-                            onClick={throwConfettis}
-                        />
-                        <div className='w-full h-auto flex justify-center items-center flex-col gap-y-2'>
-                            <p className='text-lg'>{currentArticle.title}</p>
-                            <div className='w-full flex justify-center items-center gap-x-1'>
-                                <img
-                                    src={currentArticle.thumbnail}
-                                    alt='project thumbnail'
-                                    className='h-auto w-[20px]'
-                                />
-                                <p className='text-sm'>~{currentArticle.readingTime}</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* separator */}
-                    <span className='w-[70%] h-[2px] bg-black rounded-full mt-12'></span>
-
-                    {/* content */}
-                    <div className='w-full h-auto flex justify-center items-center flex-col mt-12'>
-                        <p className='text-justify'>{currentArticle.description}</p>
-                    </div>
-
-                    {/* card container */}
-                    <div className='w-full h-auto flex justify-between items-center font-bold mt-12'>
-                        <p>{currentArticle.cards.length} ideas</p>
-                        <p>{currentArticle.reads_count}k lectures</p>
-                    </div>
                     <div
-                        className='w-[100vw] h-[100vh] flex justify-center items-center flex-wrap snap-y snap-mandatory overflow-y-hidden scrollbars-hidden mt-4 px-4'
+                        className='w-[100vw] h-[100vh] flex justify-center items-center flex-wrap snap-y snap-mandatory overflow-y-hidden scrollbars-hidden mt-4 px-4 mb-12'
                         ref={cardsRef}
                     >
+                        {/* header */}
+                        <div
+                            className='w-full h-auto flex justify-center items-center flex-col gap-y-8 font-bold mt-24 snap-center'
+                            id='header'
+                        >
+                            <Skeleton className='h-[70px] w-[70px] rounded-[var(--border-radius-5)]' />
+                            <img
+                                src={currentArticle.thumbnail}
+                                alt='project thumbnail'
+                                className='h-auto w-[70%] rounded-[var(--border-radius-5)] shadow-lg'
+                                onClick={throwConfettis}
+                                loading='lazy'
+                            />
+                            <div className='w-full h-auto flex justify-center items-center flex-col gap-y-2'>
+                                <p className='text-lg'>{currentArticle.title}</p>
+                                <div className='w-full flex justify-center items-center gap-x-1'>
+                                    <img
+                                        src={currentArticle.thumbnail}
+                                        alt='project thumbnail'
+                                        className='h-auto w-[20px]'
+                                    />
+                                    <p className='text-sm'>~{currentArticle.readingTime}</p>
+                                </div>
+                            </div>
+                            <div className='w-full h-auto flex justify-center items-center flex-col gap-y-2'>
+                                {/* separator */}
+                                <span className='w-[70%] h-[2px] bg-black rounded-full mt-12'></span>
+
+                                {/* content */}
+                                <div className='w-full h-auto flex justify-center items-center flex-col mt-12'>
+                                    <p className='text-justify'>{currentArticle.description}</p>
+                                </div>
+
+                                {/* card container */}
+                                <div className='w-full h-auto flex justify-between items-center font-bold mt-12'>
+                                    <p>{currentArticle.cards.length} ideas</p>
+                                    <p>{currentArticle.reads_count}k lectures</p>
+                                </div>
+                            </div>
+                        </div>
+
                         {currentArticle.cards.map((card, i) => (
                             <Card
                                 id={`card_${i}`}
                                 project={currentArticle}
                                 variant={card.type}
                                 cardToDisplay={i}
-                                classNames={[
-                                    i !== currentArticle.cards.length - 1 ? 'snap-center' : 'snap-end  mb-36',
-                                    'transition-all',
-                                    'duration-300',
-                                ]}
+                                classNames={['transition-all', 'duration-300', 'snap-center', 'my-4']}
                                 key={i}
                                 ref={(el) => (cardElements.current[i] = el)}
                                 onClick={() => handleCardClick(i)}
