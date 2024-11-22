@@ -1,12 +1,12 @@
 import './css/App.css'
 import {Route, Routes, Navigate} from "react-router-dom";
 import AuthRoute from "./components/AuthRoute.tsx";
-import Login from "@/pages/Login.tsx";
+//import Login from "@/pages/Login.tsx";
 import Home from "@/pages/Home.tsx";
 import PublicRoute from "@/components/PublicRoute.tsx";
 import BankCheck from "@/components/BankCheck.tsx";
-import Auth from './pages/Auth/Auth.tsx';
-import Register from './pages/Auth/Register/Register.tsx';
+//import Auth from './pages/Auth/Auth.tsx';
+//import Register from './pages/Auth/Register/Register.tsx';
 import Welcome from './pages/signup/Welcome.tsx';
 import SignUpScreen from './pages/signup/Signup.tsx';
 import EmailVerification from './pages/signup/EmailVerification.tsx';

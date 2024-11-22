@@ -16,20 +16,20 @@ const CreatePassword: React.FC = () => {
     navigate("/confirm-password"); // Navigue vers la confirmation du mot de passe
   };
 
-  // Fonction pour valider les conditions du mot de passe
-  const validatePassword = () => {
-    const conditions = [
-      password.length >= 8, // Au moins 8 caractères
-      /[0-9]/.test(password), // Au moins 1 nombre
-      /[;_/!@#$%^&*(),.?":{}|<>]/.test(password), // Au moins 1 caractère spécial
-      /[A-Z]/.test(password), // Au moins 1 lettre majuscule
-      /[a-z]/.test(password), // Au moins 1 lettre minuscule
-    ];
-    setIsValid(conditions.every((condition) => condition)); // Vérifie si toutes les conditions sont remplies
-  };
-
   // Valide dynamiquement à chaque changement de mot de passe
   useEffect(() => {
+    // Fonction pour valider les conditions du mot de passe
+    const validatePassword = () => {
+      const conditions = [
+        password.length >= 8, // Au moins 8 caractères
+        /[0-9]/.test(password), // Au moins 1 nombre
+        /[;_/!@#$%^&*(),.?":{}|<>]/.test(password), // Au moins 1 caractère spécial
+        /[A-Z]/.test(password), // Au moins 1 lettre majuscule
+        /[a-z]/.test(password), // Au moins 1 lettre minuscule
+      ];
+      setIsValid(conditions.every((condition) => condition)); // Vérifie si toutes les conditions sont remplies
+    };
+
     validatePassword();
   }, [password]);
 
