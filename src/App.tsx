@@ -16,6 +16,7 @@ import Friends from './pages/Friends.tsx';
 import SingleDefi from './pages/SingleDefi.tsx';
 import SingleFriend from './pages/SingleFriends.tsx';
 import { challengeData } from './types/challengeType.ts';
+import Account from './pages/Account.tsx';
 
 function App() {
     const { os } = useDeviceDetection();
@@ -53,10 +54,8 @@ function App() {
                         </Route>
                     </Route>
                     <Route element={<PublicRoute />}>
-                        <Route
-                            path={`${APP_ROUTES_ENUM.TEST}`}
-                            element={<PartnerChallenge challenge={challengeData} />}
-                        />
+                        <Route path={`${APP_ROUTES_ENUM.TEST}`} element={<PartnerChallenge challenge={challengeData} />} />
+                        <Route path={APP_ROUTES_ENUM.ACCOUNT} element={<Account />} />
                         <Route path={`${APP_ROUTES_ENUM.DEFI}/:id`} element={<SingleDefi />} />
                         <Route path={APP_ROUTES_ENUM.Friends} element={<Friends />} />
                         <Route path={`${APP_ROUTES_ENUM.Friends}/:id`} element={<SingleFriend />} />

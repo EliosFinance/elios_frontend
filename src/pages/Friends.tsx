@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeftIcon, EyeIcon, ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/outline';
 import { friendsData } from '../temp/FriendsData';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
+import Subscription from '@/components/UpgradePlan';
 
 const Friends = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [expandedFriend, setExpandedFriend] = useState<string | null>(null);
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const navigate = useNavigate();
 
     const filteredFriends = friendsData.filter(friend =>
@@ -15,6 +17,10 @@ const Friends = () => {
 
     const toggleExpand = (name: string) => {
         setExpandedFriend(expandedFriend === name ? null : name);
+    };
+
+    const toggleModal = () => {
+        setIsModalOpen(!isModalOpen);
     };
 
     return (
@@ -100,10 +106,45 @@ const Friends = () => {
                                 >
                                     Plus d'infos
                                 </button>
+                                {/* C'est pour la modal de subscription */}
+                                {/* <button
+                                    onClick={toggleModal}
+                                    className="mt-4 px-4 py-2 bg-black text-white rounded"
+                                >
+                                    Upgrade Plan
+                                </button> */}
                             </motion.div>
                         )}
                     </div>
                 ))}
+            {/* C'est pour la modal de subscription */}
+            {/* <AnimatePresence>
+                {isModalOpen && (
+                    <motion.div
+                        className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        onClick={toggleModal}
+                    >
+                        <motion.div
+                            className="bg-white rounded-lg overflow-hidden shadow-lg w-full max-w-md"
+                            initial={{ y: 50, opacity: 0 }}
+                            animate={{ y: 0, opacity: 1 }}
+                            exit={{ y: 50, opacity: 0 }}
+                            transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+                            drag="y"
+                            dragConstraints={{ top: 0, bottom: 0 }}
+                            onDragEnd={(event, info) => {
+                                if (info.offset.y > 100) toggleModal();
+                            }}
+                            onClick={(e) => e.stopPropagation()}
+                        >
+                            <Subscription />
+                        </motion.div>
+                    </motion.div>
+                )}
+            </AnimatePresence> */}
             </section>
         </div>
     );
