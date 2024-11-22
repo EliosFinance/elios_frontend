@@ -110,3 +110,26 @@ const Subscription = () => {
 };
 
 export default Subscription;
+
+
+
+
+                {/* C'est pour de drawer de subscription */}
+                // import { Drawer, DrawerTrigger, DrawerContent, DrawerHeader, DrawerTitle, DrawerClose } from '@/components/ui/drawer';
+                {/* <div>
+                    <Drawer>
+                        <DrawerTrigger asChild>
+                            <button className="bg-blue-500 text-white py-2 px-4 rounded">
+                                Open Subscription
+                            </button>
+                        </DrawerTrigger>
+                        <DrawerContent>
+                            <DrawerHeader>
+                                <DrawerClose className="absolute top-4 right-4">
+                                    <button className="text-gray-500">Close</button>
+                                </DrawerClose>
+                            </DrawerHeader>
+                            <Subscription />
+                        </DrawerContent>
+                    </Drawer>
+                </div> */}
