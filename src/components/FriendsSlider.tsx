@@ -4,16 +4,16 @@ import {
   CarouselItem,
 } from "@/components/ui/carousel";
 import ButtonApp from '@/components/ButtonApp';
-import { friendType } from '@/types/friendType';
+import { userType } from "@/types/challengeType";
 import { createUseStyles } from 'react-jss';
 import { Link, useNavigate } from "react-router-dom";
 
 
-type FriendsListProps = {
-    friends: friendType[];
+type UsersListProps = {
+    users: userType[];
 };
 
-const FriendsSlider = (props: FriendsListProps) => {
+const FriendsSlider = (props: UsersListProps) => {
     const styles = useStyles();
     const navigate = useNavigate();
     return (
@@ -30,16 +30,16 @@ const FriendsSlider = (props: FriendsListProps) => {
             </div>
             <Carousel>
                 <CarouselContent className="ml-0">
-                    {props.friends.map((friend) => (
-                        <CarouselItem key={friend.id} className="basis-1/2 pl-0 pr-5">
-                            <Link to={`/friends/${friend.id}`} className={styles.cardLink}>
+                    {props.users.map((user) => (
+                        <CarouselItem key={user.id} className="basis-1/2 pl-0 pr-5">
+                            <Link to={`/friends/${user.id}`} className={styles.cardLink}>
                                 <div
                                 className={styles.card}
-                                style={{ backgroundImage: `url(${friend.profilePicture})` }}
+                                style={{ backgroundImage: `url(${user.profilePicture})` }}
                                 >
                                 <div className={styles.cardContent}>
-                                    <p className={styles.name}>{friend.name}</p>
-                                    <p className={styles.score}>{friend.score} ec</p>
+                                    <p className={styles.name}>{user.username}</p>
+                                    <p className={styles.score}>{user.score} ec</p>
                                 </div>
                                 </div>
                             </Link>

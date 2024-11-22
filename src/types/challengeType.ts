@@ -14,6 +14,8 @@ export type userType = {
     id: number;
     username: string;
     password: string;
+    score: number;
+    profilePicture: string;
     powens_token: string;
     transactions: TransactionType[];
     friends: userType[];
