@@ -1,42 +1,42 @@
-import { configureStore, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { create } from "zustand";
+import { persist, createJSONStorage } from "zustand/middleware";
+import { mountStoreDevtool } from "simple-zustand-devtools";
 
-// État initial
-interface AuthState {
-  password: string;
-  pin: string;
+// Définition de l'état global
+interface StoreState {
+  token: string;
+  email: string;
+  password: string; // Ajout du password
+  pinCode: string; // Ajout du pinCode
+  setToken: (token: string) => void;
+  setEmail: (email: string) => void;
+  setPassword: (password: string) => void; // Setter pour password
+  setPinCode: (pinCode: string) => void; // Setter pour pinCode
 }
 
-const initialState: AuthState = {
-  password: '',
-  pin: '',
-};
+// Configuration du store Zustand
+const useStore = create<StoreState>()(
+  persist(
+    (set) => ({
+      token: "",
+      email: "",
+      password: "", // Initialisation du password
+      pinCode: "", // Initialisation du pinCode
+      setToken: (token) => set({ token }),
+      setEmail: (email) => set({ email }),
+      setPassword: (password) => set({ password }), // Setter pour password
+      setPinCode: (pinCode) => set({ pinCode }), // Setter pour pinCode
+    }),
+    {
+      name: "app-storage", // Nom dans le localStorage
+      storage: createJSONStorage(() => localStorage), // Utilisation de localStorage
+    }
+  )
+);
 
-// Création d'un slice pour gérer le mot de passe et le PIN
-const authSlice = createSlice({
-  name: 'auth',
-  initialState,
-  reducers: {
-    setPassword: (state, action: PayloadAction<string>) => {
-      state.password = action.payload;
-    },
-    setPin: (state, action: PayloadAction<string>) => {
-      state.pin = action.payload;
-    },
-  },
-});
+// Intégration de `mountStoreDevtool` uniquement en développement
+if (process.env.NODE_ENV === "development") {
+  mountStoreDevtool("Zustand Store", useStore);
+}
 
-// Export des actions pour les utiliser dans les composants
-export const { setPassword, setPin } = authSlice.actions;
-
-// Configuration du store
-const store = configureStore({
-  reducer: {
-    auth: authSlice.reducer,
-  },
-});
-
-// Types pour le dispatch et l'état
-export type RootState = ReturnType<typeof store.getState>;
-export type AppDispatch = typeof store.dispatch;
-
-export default store;
+export default useStore;
