@@ -20,6 +20,7 @@ export const APP_ROUTES_ENUM = {
     Friends: '/friends',
     SINGLE_FRIEND: '/friends/:id',
     TEST: '/test',
+    PARTNERS: '/partners',
 };
 
 const container = document.getElementById('root');
