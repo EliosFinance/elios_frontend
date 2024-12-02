@@ -13,6 +13,7 @@ import Article from './pages/Blog/Article.tsx';
 import ArticleCategory from './pages/Blog/ArticleCategory.tsx';
 import Learn from './pages/Blog/Learn.tsx';
 import Friends from './pages/Friends.tsx';
+import Partners from './pages/Partners.tsx';
 import SingleDefi from './pages/SingleDefi.tsx';
 import SingleFriend from './pages/SingleFriends.tsx';
 import { challengeData } from './types/challengeType.ts';
@@ -45,6 +46,7 @@ function App() {
                 <Routes>
                     <Route element={<AuthRoute />}>
                         <Route element={<BankCheck />}>
+                            <Route path={APP_ROUTES_ENUM.PARTNERS} element={<Partners />} />
                             <Route path={APP_ROUTES_ENUM.LEARN} element={<Learn />} />
                             <Route path={APP_ROUTES_ENUM.HOME} element={<Home />} />
                             <Route path={`${APP_ROUTES_ENUM.ARTICLE}/:id`} element={<Article />} />
