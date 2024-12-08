@@ -10,12 +10,21 @@ const queryClient = new QueryClient();
 
 export const APP_ROUTES_ENUM = {
     HOME: '/',
+    ACCOUNT: '/account',
     LEARN: '/learn',
     ARTICLE: '/article',
     ARTICLE_CATEGORIES: '/article-categories',
     ARTICLE_CATEGORY: '/article-category',
     LOGIN: '/login',
+
     SUBSCRIPTION: ':subscription',
+
+    DEFI: '/challenge',
+    Friends: '/friends',
+    SINGLE_FRIEND: '/friends/:id',
+    REWARDS: '/rewards',
+    TEST: '/test',
+    PARTNERS: '/partners',
 };
 
 const container = document.getElementById('root');

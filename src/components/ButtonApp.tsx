@@ -13,6 +13,7 @@ type ButtonAppProps = {
     bold?: boolean;
     disabled?: boolean;
     startIcon?: React.ReactNode;
+    sx?: string;
     onClick?: () => void;
 };
 
@@ -28,7 +29,8 @@ function ButtonApp(props: ButtonAppProps) {
     return (
         <Button
             className={`
-                ${styles.button} 
+                ${styles.button}
+                ${props?.sx}
                 ${props?.size && !props?.action && styles[props.size]} 
                 ${props?.variant && !props?.action && styles[props.variant]} 
                 ${props?.color && !props?.action ? styles[props.color] : styles.default}

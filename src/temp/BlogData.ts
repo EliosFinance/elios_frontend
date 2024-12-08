@@ -59,7 +59,6 @@ export type authorType = {
 export type cardContentType = {
     type: contentTypesEnum;
     text?: string | string[];
-    quoteAuthor?: authorType;
 };
 
 export type cardType = {
@@ -76,12 +75,11 @@ export type subjectType = {
     slug: string;
     title: string;
     isPremium: boolean;
-    category: categoriesEnum;
+    category: categoryType;
     readByUser: boolean;
     likedByUser: boolean;
     savedByUser: boolean;
     readingTime: string;
-    categoryIcon: string;
     thumbnail: string;
     author: authorType;
     description: string;
@@ -93,6 +91,7 @@ export type subjectType = {
 export type categoryType = {
     id: number;
     title: categoriesEnum;
+    description: string;
     icon: string;
 };
 
@@ -102,7 +101,13 @@ export const subjects: subjectType[] = [
         isPremium: false,
         slug: 'comment-bien-epargner-by-jean-dupont',
         title: 'Comment bien épargner ?',
-        category: categoriesEnum.EPARGNE,
+        category: {
+            id: 1,
+            title: categoriesEnum.EPARGNE,
+            description:
+                'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in tincidunt ex. Nulla facilisi. Proin nec vehicula leo.',
+            icon: 'https://via.placeholder.com/150',
+        },
         readByUser: false,
         likedByUser: false,
         savedByUser: false,
@@ -634,12 +639,17 @@ export const subjects: subjectType[] = [
         isPremium: false,
         slug: 'comment-bien-epargner-by-jean-dupont',
         title: 'Comment bien épargner ?',
-        category: categoriesEnum.INVESTISSEMENT,
+        category: {
+            id: 2,
+            title: categoriesEnum.INVESTISSEMENT,
+            description:
+                'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in tincidunt ex. Nulla facilisi. Proin nec vehicula leo.',
+            icon: 'https://via.placeholder.com/150',
+        },
         readByUser: false,
         likedByUser: false,
         savedByUser: false,
         readingTime: '15min',
-        categoryIcon: 'https://via.placeholder.com/150',
         thumbnail: 'https://via.placeholder.com/150',
         likes_count: 541,
         reads_count: 10531,
@@ -688,13 +698,6 @@ export const subjects: subjectType[] = [
                 content: [
                     {
                         type: contentTypesEnum.QUOTE,
-                        quoteAuthor: {
-                            firstName: 'Jean',
-                            lastName: 'Dupont',
-                            avatar: 'https://via.placeholder.com/150',
-                            job: 'Conseiller en gestion de patrimoine',
-                            company: 'Elios Patrimoine',
-                        },
                         text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in tincidunt ex. Nulla facilisi. Proin nec vehicula leo. Nullam in tincidunt ex. Nulla facilisi. Proin nec vehicula leo. Nullam in tincidunt ex. Nulla facilisi.Proin nec vehicula leo. Nullam in tincidunt ex.',
                     },
                 ],
@@ -724,12 +727,17 @@ export const subjects: subjectType[] = [
         isPremium: false,
         slug: 'comment-bien-epargner-by-jean-dupont',
         title: 'Comment bien épargner ?',
-        category: categoriesEnum.EPARGNE,
+        category: {
+            id: 3,
+            title: categoriesEnum.EPARGNE,
+            description:
+                'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in tincidunt ex. Nulla facilisi. Proin nec vehicula leo.',
+            icon: 'https://via.placeholder.com/150',
+        },
         readByUser: false,
         likedByUser: false,
         savedByUser: false,
         readingTime: '15min',
-        categoryIcon: 'https://via.placeholder.com/150',
         thumbnail: 'https://via.placeholder.com/150',
         likes_count: 541,
         reads_count: 10531,
@@ -778,13 +786,6 @@ export const subjects: subjectType[] = [
                 content: [
                     {
                         type: contentTypesEnum.QUOTE,
-                        quoteAuthor: {
-                            firstName: 'Jean',
-                            lastName: 'Dupont',
-                            avatar: 'https://via.placeholder.com/150',
-                            job: 'Conseiller en gestion de patrimoine',
-                            company: 'Elios Patrimoine',
-                        },
                         text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in tincidunt ex. Nulla facilisi. Proin nec vehicula leo. Nullam in tincidunt ex. Nulla facilisi. Proin nec vehicula leo. Nullam in tincidunt ex. Nulla facilisi.Proin nec vehicula leo. Nullam in tincidunt ex.',
                     },
                 ],
@@ -814,12 +815,16 @@ export const subjects: subjectType[] = [
         isPremium: false,
         slug: 'comment-bien-epargner-by-jean-dupont',
         title: 'Comment bien épargner ?',
-        category: categoriesEnum.INVESTISSEMENT,
-        readByUser: false,
+        category: {
+            id: 3,
+            title: categoriesEnum.EPARGNE,
+            description:
+                'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in tincidunt ex. Nulla facilisi. Proin nec vehicula leo.',
+            icon: 'https://via.placeholder.com/150',
+        },
         likedByUser: false,
         savedByUser: false,
         readingTime: '15min',
-        categoryIcon: 'https://via.placeholder.com/150',
         thumbnail: 'https://via.placeholder.com/150',
         likes_count: 541,
         reads_count: 10531,
@@ -868,13 +873,6 @@ export const subjects: subjectType[] = [
                 content: [
                     {
                         type: contentTypesEnum.QUOTE,
-                        quoteAuthor: {
-                            firstName: 'Jean',
-                            lastName: 'Dupont',
-                            avatar: 'https://via.placeholder.com/150',
-                            job: 'Conseiller en gestion de patrimoine',
-                            company: 'Elios Patrimoine',
-                        },
                         text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in tincidunt ex. Nulla facilisi. Proin nec vehicula leo. Nullam in tincidunt ex. Nulla facilisi. Proin nec vehicula leo. Nullam in tincidunt ex. Nulla facilisi.Proin nec vehicula leo. Nullam in tincidunt ex.',
                     },
                 ],
@@ -898,18 +896,24 @@ export const subjects: subjectType[] = [
                 ],
             },
         ],
+        readByUser: false,
     },
     {
         id: 5,
         isPremium: false,
         slug: 'comment-bien-epargner-by-jean-dupont',
         title: 'Comment bien épargner ?',
-        category: categoriesEnum.INVESTISSEMENT,
+        category: {
+            id: 3,
+            title: categoriesEnum.EPARGNE,
+            description:
+                'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in tincidunt ex. Nulla facilisi. Proin nec vehicula leo.',
+            icon: 'https://via.placeholder.com/150',
+        },
         readByUser: false,
         likedByUser: false,
         savedByUser: false,
         readingTime: '15min',
-        categoryIcon: 'https://via.placeholder.com/150',
         thumbnail: 'https://via.placeholder.com/150',
         likes_count: 541,
         reads_count: 10531,
@@ -958,13 +962,6 @@ export const subjects: subjectType[] = [
                 content: [
                     {
                         type: contentTypesEnum.QUOTE,
-                        quoteAuthor: {
-                            firstName: 'Jean',
-                            lastName: 'Dupont',
-                            avatar: 'https://via.placeholder.com/150',
-                            job: 'Conseiller en gestion de patrimoine',
-                            company: 'Elios Patrimoine',
-                        },
                         text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in tincidunt ex. Nulla facilisi. Proin nec vehicula leo. Nullam in tincidunt ex. Nulla facilisi. Proin nec vehicula leo. Nullam in tincidunt ex. Nulla facilisi.Proin nec vehicula leo. Nullam in tincidunt ex.',
                     },
                 ],
@@ -994,12 +991,17 @@ export const subjects: subjectType[] = [
         isPremium: false,
         slug: 'comment-bien-epargner-by-jean-dupont',
         title: 'Comment bien épargner ?',
-        category: categoriesEnum.INVESTISSEMENT,
+        category: {
+            id: 3,
+            title: categoriesEnum.EPARGNE,
+            description:
+                'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in tincidunt ex. Nulla facilisi. Proin nec vehicula leo.',
+            icon: 'https://via.placeholder.com/150',
+        },
         readByUser: false,
         likedByUser: false,
         savedByUser: false,
         readingTime: '15min',
-        categoryIcon: 'https://via.placeholder.com/150',
         thumbnail: 'https://via.placeholder.com/150',
         likes_count: 541,
         reads_count: 10531,
@@ -1048,13 +1050,6 @@ export const subjects: subjectType[] = [
                 content: [
                     {
                         type: contentTypesEnum.QUOTE,
-                        quoteAuthor: {
-                            firstName: 'Jean',
-                            lastName: 'Dupont',
-                            avatar: 'https://via.placeholder.com/150',
-                            job: 'Conseiller en gestion de patrimoine',
-                            company: 'Elios Patrimoine',
-                        },
                         text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in tincidunt ex. Nulla facilisi. Proin nec vehicula leo. Nullam in tincidunt ex. Nulla facilisi. Proin nec vehicula leo. Nullam in tincidunt ex. Nulla facilisi.Proin nec vehicula leo. Nullam in tincidunt ex.',
                     },
                 ],
@@ -1086,145 +1081,203 @@ export const categories = [
         id: 1,
         title: categoriesEnum.EPARGNE,
         icon: 'https://via.placeholder.com/150',
+        description:
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in tincidunt ex. Nulla facilisi. Proin nec vehicula leo.',
     },
     {
         id: 2,
         title: categoriesEnum.INVESTISSEMENT,
         icon: 'https://via.placeholder.com/150',
+        description:
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in tincidunt ex. Nulla facilisi. Proin nec vehicula leo.',
     },
     {
         id: 3,
         title: categoriesEnum.VIDEOS,
         icon: 'https://via.placeholder.com/150',
+        description:
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in tincidunt ex. Nulla facilisi. Proin nec vehicula leo.',
     },
     {
         id: 4,
         title: categoriesEnum.ACTUALITES,
         icon: 'https://via.placeholder.com/150',
+        description:
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in tincidunt ex. Nulla facilisi. Proin nec vehicula leo.',
     },
     {
         id: 5,
         title: categoriesEnum.IMMOBILIER,
         icon: 'https://via.placeholder.com/150',
+        description:
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in tincidunt ex. Nulla facilisi. Proin nec vehicula leo.',
     },
     {
         id: 6,
         title: categoriesEnum.CRYPTO,
         icon: 'https://via.placeholder.com/150',
+        description:
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in tincidunt ex. Nulla facilisi. Proin nec vehicula leo.',
     },
     {
         id: 7,
         title: categoriesEnum.BOURSE,
         icon: 'https://via.placeholder.com/150',
+        description:
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in tincidunt ex. Nulla facilisi. Proin nec vehicula leo.',
     },
     {
         id: 8,
         title: categoriesEnum.FISCAL,
         icon: 'https://via.placeholder.com/150',
+        description:
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in tincidunt ex. Nulla facilisi. Proin nec vehicula leo.',
     },
     {
         id: 9,
         title: categoriesEnum.RETRAITE,
         icon: 'https://via.placeholder.com/150',
+        description:
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in tincidunt ex. Nulla facilisi. Proin nec vehicula leo.',
     },
     {
         id: 10,
         title: categoriesEnum.ASSURANCE,
         icon: 'https://via.placeholder.com/150',
+        description:
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in tincidunt ex. Nulla facilisi. Proin nec vehicula leo.',
     },
     {
         id: 11,
         title: categoriesEnum.BANQUE,
         icon: 'https://via.placeholder.com/150',
+        description:
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in tincidunt ex. Nulla facilisi. Proin nec vehicula leo.',
     },
     {
         id: 12,
         title: categoriesEnum.CREDIT,
         icon: 'https://via.placeholder.com/150',
+        description:
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in tincidunt ex. Nulla facilisi. Proin nec vehicula leo.',
     },
     {
         id: 13,
         title: categoriesEnum.BUDGET,
         icon: 'https://via.placeholder.com/150',
+        description:
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in tincidunt ex. Nulla facilisi. Proin nec vehicula leo.',
     },
     {
         id: 14,
         title: categoriesEnum.EMPLOI,
         icon: 'https://via.placeholder.com/150',
+        description:
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in tincidunt ex. Nulla facilisi. Proin nec vehicula leo.',
     },
     {
         id: 15,
         title: categoriesEnum.ENTREPRENEURIAT,
         icon: 'https://via.placeholder.com/150',
+        description:
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in tincidunt ex. Nulla facilisi. Proin nec vehicula leo.',
     },
     {
         id: 16,
         title: categoriesEnum.LIVRES,
         icon: 'https://via.placeholder.com/150',
+        description:
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in tincidunt ex. Nulla facilisi. Proin nec vehicula leo.',
     },
     {
         id: 17,
         title: categoriesEnum.FORMATION,
         icon: 'https://via.placeholder.com/150',
+        description:
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in tincidunt ex. Nulla facilisi. Proin nec vehicula leo.',
     },
     {
         id: 18,
         title: categoriesEnum.WEBINAIRE,
         icon: 'https://via.placeholder.com/150',
+        description:
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in tincidunt ex. Nulla facilisi. Proin nec vehicula leo.',
     },
     {
         id: 19,
         title: categoriesEnum.EVENEMENT,
         icon: 'https://via.placeholder.com/150',
+        description:
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in tincidunt ex. Nulla facilisi. Proin nec vehicula leo.',
     },
     {
         id: 20,
         title: categoriesEnum.INTERVIEW,
         icon: 'https://via.placeholder.com/150',
+        description:
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in tincidunt ex. Nulla facilisi. Proin nec vehicula leo.',
     },
     {
         id: 21,
         title: categoriesEnum.PODCAST,
         icon: 'https://via.placeholder.com/150',
+        description:
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in tincidunt ex. Nulla facilisi. Proin nec vehicula leo.',
     },
     {
         id: 22,
         title: categoriesEnum.MINDSET,
         icon: 'https://via.placeholder.com/150',
+        description:
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in tincidunt ex. Nulla facilisi. Proin nec vehicula leo.',
     },
     {
         id: 23,
         title: categoriesEnum.BIEN_ETRE,
         icon: 'https://via.placeholder.com/150',
+        description:
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in tincidunt ex. Nulla facilisi. Proin nec vehicula leo.',
     },
     {
         id: 24,
         title: categoriesEnum.DEVELOPPEMENT_PERSONNEL,
         icon: 'https://via.placeholder.com/150',
+        description:
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in tincidunt ex. Nulla facilisi. Proin nec vehicula leo.',
     },
     {
         id: 25,
         title: categoriesEnum.COACHING,
         icon: 'https://via.placeholder.com/150',
+        description:
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in tincidunt ex. Nulla facilisi. Proin nec vehicula leo.',
     },
     {
         id: 26,
         title: categoriesEnum.SPIRITUALITE,
         icon: 'https://via.placeholder.com/150',
+        description:
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in tincidunt ex. Nulla facilisi. Proin nec vehicula leo.',
     },
     {
         id: 27,
         title: categoriesEnum.RELATION,
         icon: 'https://via.placeholder.com/150',
+        description:
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in tincidunt ex. Nulla facilisi. Proin nec vehicula leo.',
     },
     {
         id: 28,
         title: categoriesEnum.FAMILLE,
         icon: 'https://via.placeholder.com/150',
+        description:
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in tincidunt ex. Nulla facilisi. Proin nec vehicula leo.',
     },
     {
         id: 29,
         title: categoriesEnum.EDUCATION,
         icon: 'https://via.placeholder.com/150',
+        description:
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in tincidunt ex. Nulla facilisi. Proin nec vehicula leo.',
     },
 ];

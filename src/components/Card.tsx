@@ -166,16 +166,6 @@ export const Card = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
                                         )}
                                     </ul>
                                 )}
-                                {content.type === contentTypesEnum.QUOTE && (
-                                    <>
-                                        <blockquote className='w-full text-sm text-justify'>{content.text}</blockquote>
-                                        {content?.quoteAuthor && (
-                                            <p className='w-full text-sm text-justify'>
-                                                {content.quoteAuthor.firstName} {content.quoteAuthor.lastName}
-                                            </p>
-                                        )}
-                                    </>
-                                )}
                             </div>
                         ))}
                     </div>
