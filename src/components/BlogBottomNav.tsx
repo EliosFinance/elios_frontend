@@ -1,10 +1,10 @@
-import { subjectType } from '../temp/BlogData';
+import { ArticleType } from '../types/BlogType';
 import LikeButton from './LikeButton';
 import SaveButton from './SaveButton';
 
 type props = {
     currentCard?: number;
-    article?: subjectType;
+    article?: ArticleType;
     disableActionButtons?: boolean;
     backUrl?: string;
 };

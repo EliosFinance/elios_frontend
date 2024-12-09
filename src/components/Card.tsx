@@ -4,13 +4,15 @@ import { APP_ROUTES_ENUM } from '@/main';
 import { forwardRef, useEffect, useRef, useState } from 'react';
 /* eslint-disable react-refresh/only-export-components */
 import { createUseStyles } from 'react-jss';
-import { cardType, cardTypesEnum, contentTypesEnum, subjectType } from '../temp/BlogData';
+import { ArticleContentType, ArticleType, ArticleTypesEnum, ContentTypesEnum } from '../types/BlogType';
 import LikeButton from './LikeButton';
 import SaveButton from './SaveButton';
 
 type CardProps = {
-    project: cardTypesEnum.SMALL_PREVIEW | cardTypesEnum.PREVIEW extends cardTypesEnum ? subjectType : cardType;
-    variant: cardTypesEnum;
+    project: ArticleTypesEnum.SMALL_PREVIEW | ArticleTypesEnum.PREVIEW extends ArticleTypesEnum
+        ? ArticleType
+        : ArticleContentType;
+    variant: ArticleTypesEnum;
     cardToDisplay: number;
     classNames?: string[];
     cardFocused?: boolean;
@@ -23,7 +25,8 @@ export const Card = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
     const [read, setRead] = useState<boolean>(props.project?.cards?.[props.cardToDisplay]?.readByUser || false);
     const coolDownTime = props.project?.cards?.[props.cardToDisplay]?.content.length * 1.5; // 1.5s per content
     const styles = useCardStyles(coolDownTime);
-    const isPreviewVariant = props.variant === cardTypesEnum.SMALL_PREVIEW || props.variant === cardTypesEnum.PREVIEW;
+    const isPreviewVariant =
+        props.variant === ArticleTypesEnum.SMALL_PREVIEW || props.variant === ArticleTypesEnum.PREVIEW;
     const coolDownRef = useRef<HTMLDivElement>(null);
     const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -114,7 +117,7 @@ export const Card = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
                     onClick={props.onClick}
                 >
                     {/* header */}
-                    {props.variant === cardTypesEnum.FULL_ROUNDED_IMAGE ? (
+                    {props.variant === ArticleTypesEnum.FULL_ROUNDED_IMAGE ? (
                         <div className='w-full h-[150px] flex justify-center items-center mt-8'>
                             <img
                                 src={props.project.thumbnail}
@@ -137,23 +140,23 @@ export const Card = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
                         </p>
                         {props.project.cards[props.cardToDisplay].content.map((content, index) => (
                             <div key={index}>
-                                {content.type === contentTypesEnum.TEXT && (
+                                {content.type === ContentTypesEnum.TEXT && (
                                     <p className='w-full text-sm text-justify'>{content.text}</p>
                                 )}
-                                {content.type === contentTypesEnum.IMAGE && !Array.isArray(content.text) && (
+                                {content.type === ContentTypesEnum.IMAGE && !Array.isArray(content.text) && (
                                     <img
                                         src={content.text}
                                         alt='project thumbnail'
                                         className='h-auto w-[40%] rounded-[var(--border-radius-8)] shadow-lg'
                                     />
                                 )}
-                                {content.type === contentTypesEnum.VIDEO && !Array.isArray(content.text) && (
+                                {content.type === ContentTypesEnum.VIDEO && !Array.isArray(content.text) && (
                                     <video
                                         src={content.text}
                                         className='h-auto w-[40%] rounded-[var(--border-radius-5)] shadow-lg'
                                     />
                                 )}
-                                {content.type === contentTypesEnum.LIST && (
+                                {content.type === ContentTypesEnum.LIST && (
                                     <ul className='w-full flex justify-center items-start flex-col list-disc list-outside'>
                                         {Array.isArray(content.text) ? (
                                             content.text.map((item, itemIndex) => (

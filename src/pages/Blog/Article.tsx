@@ -1,14 +1,15 @@
+import { getSingleArticle } from '@/api';
+import BlogBottomNav from '@/components/BlogBottomNav';
+import { Card } from '@/components/Card';
 import { Skeleton } from '@/components/ui/skeleton';
 import useConfettis from '@/hook/useConfettis';
 import { APP_ROUTES_ENUM } from '@/main';
+import { ArticleType } from '@/types/BlogType';
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import BlogBottomNav from '../../components/BlogBottomNav';
-import { Card } from '../../components/Card';
-import { subjectType, subjects } from '../../temp/BlogData';
 
 const Article = () => {
-    const [currentArticle, setCurrentArticle] = useState<subjectType | null>(null);
+    const [currentArticle, setCurrentArticle] = useState<ArticleType | null>(null);
     const { id } = useParams<{ id: string }>();
     const ref = useRef<HTMLDivElement | null>(null);
     const cardsRef = useRef<HTMLDivElement | null>(null);
@@ -26,7 +27,12 @@ const Article = () => {
     };
 
     useLayoutEffect(() => {
-        setCurrentArticle(subjects.find((subject) => subject.id === Number(id)));
+        const loadDatas = async () => {
+            if (!id) return;
+            const response = await getSingleArticle(Number(id));
+            setCurrentArticle(response);
+        };
+        loadDatas();
     }, [id]);
 
     useEffect(() => {
