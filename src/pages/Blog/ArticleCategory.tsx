@@ -2,7 +2,7 @@ import { getArticles, getSingleArticleCategory } from '@/api';
 import ButtonApp from '@/components/ButtonApp';
 import { APP_ROUTES_ENUM } from '@/main';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import BlogBottomNav from '../../components/BlogBottomNav';
 import CarouselX from '../../components/CarouselX';
 import { ArticleCategoryType, ArticleType, ArticleTypesEnum } from '../../types/BlogType';
@@ -11,11 +11,15 @@ const ArticleCategory = () => {
     const { id } = useParams<{ id: string }>();
     const [category, setCategory] = useState<ArticleCategoryType | null>(null);
     const [cards, setCards] = useState<ArticleType[]>([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const loadDatas = async () => {
             if (!id) return;
             const category = await getSingleArticleCategory(Number(id));
+            if (category.id === undefined) {
+                navigate(APP_ROUTES_ENUM.LEARN);
+            }
             setCategory(category);
         };
         loadDatas();

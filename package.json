@@ -6,7 +6,8 @@
     "scripts": {
         "dev": "vite",
         "build": "tsc -b && vite build",
-        "lint": "biome check --write --config-path=./biome.json --staged .",
+        "lint": "biome lint --fix",
+        "foramt": "biome format --fix",
         "preview": "vite preview",
         "prepare": "husky install",
         "commit": "cz"
@@ -52,7 +53,7 @@
         "react-hook-form": "^7.52.1",
         "react-jss": "^10.10.0",
         "react-query": "^3.39.3",
-        "react-router-dom": "^6.24.1",
+        "react-router-dom": "^7.0.2",
         "recharts": "^2.12.7",
         "tailwind-merge": "^2.4.0",
         "tailwindcss-animate": "^1.0.7",
@@ -80,6 +81,22 @@
     "config": {
         "commitizen": {
             "path": "@commitlint/cz-commitlint"
+        },
+        "commitlint": {
+            "extends": ["@commitlint/config-conventional"]
+        },
+        "husky": {
+            "hooks": {
+                "pre-commit": "build && biome lint --fix && biome format --fix"
+            }
+        },
+        "biome": {
+            "lint": {
+                "extends": ["biome-config-standard"]
+            },
+            "format": {
+                "extends": ["biome-config-standard"]
+            }
         }
     }
 }

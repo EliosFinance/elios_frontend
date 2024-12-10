@@ -1,16 +1,16 @@
-import { getArticles } from '@/api';
+import { getArticleCategories, getArticles } from '@/api';
 import InputApp from '@/components/InputApp';
 import { APP_ROUTES_ENUM } from '@/main';
-import { sub } from 'date-fns';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import CarouselX from '../../components/CarouselX';
-import { ArticleCategoriesEnum, ArticleType, ArticleTypesEnum } from '../../types/BlogType';
+import { ArticleCategoryType, ArticleType, ArticleTypesEnum } from '../../types/BlogType';
 
 const Learn = () => {
     const [search, setSearch] = useState<string>('');
     const [filteredSubjects, setFilteredSubjects] = useState<ArticleType[]>([]);
     const [isUserTyping, setIsUserTyping] = useState<boolean>(false);
     const [articles, setArticles] = useState<ArticleType[]>([]);
+    const [articlesCategories, setArticlesCategories] = useState<ArticleCategoryType[]>([]);
 
     useEffect(() => {
         if (search.length > 2 && articles.length > 0) {
@@ -24,9 +24,14 @@ const Learn = () => {
 
     useEffect(() => {
         const loadDatas = async () => {
-            if (articles.length > 0) return;
-            const subjects = await getArticles();
-            setArticles(subjects);
+            if (articles.length === 0) {
+                const articles = await getArticles();
+                setArticles(articles);
+            }
+            if (articlesCategories.length === 0) {
+                const articleCategories = await getArticleCategories();
+                setArticlesCategories(articleCategories);
+            }
         };
         loadDatas();
     }, []);
@@ -75,7 +80,7 @@ const Learn = () => {
                                     href={`${APP_ROUTES_ENUM.ARTICLE_CATEGORY}/${i}`}
                                     key={i}
                                 >
-                                    {Object.values(ArticleCategoriesEnum)[i]}
+                                    {articlesCategories[i]?.title}
                                 </a>
                             ))}
                         </div>

@@ -10,7 +10,7 @@ import {
     DrawerTrigger,
 } from '@/components/ui/drawer';
 
-import { useGetConnection, useGetTransactions } from '@/api/allCall.tsx';
+import { useGetConnection, useGetTransactions } from '@/api';
 import ButtonApp from '@/components/ButtonApp';
 import { DataTable } from '@/components/DataTable.tsx';
 import { columns } from '@/components/columnsTransaction.tsx';
