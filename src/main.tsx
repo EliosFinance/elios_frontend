@@ -10,14 +10,24 @@ const queryClient = new QueryClient();
 
 export const APP_ROUTES_ENUM = {
     HOME: '/',
-    LEARN: '/ ',
+
+    ACCOUNT: '/account',
+    LEARN: '/learn',
+
     ARTICLE: '/article',
     ARTICLE_CATEGORIES: '/article-categories',
     ARTICLE_CATEGORY: '/article-category',
     LOGIN: '/login',
     UPGRADE_PLAN: '/upgrade',
     UPGRADE_PAYEMENT:'/upgrade-payement',
-    USER_ACCOUNT:'/user-account'
+    USER_ACCOUNT:'/user-account',
+    DEFI: '/challenge',
+    Friends: '/friends',
+    SINGLE_FRIEND: '/friends/:id',
+    REWARDS: '/rewards',
+    TEST: '/test',
+    PARTNERS: '/partners',
+
 };
 
 const container = document.getElementById('root');

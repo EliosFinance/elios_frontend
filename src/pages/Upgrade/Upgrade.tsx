@@ -1,226 +1,346 @@
-import React from 'react';
-
-import premium_logo_full_torso from '@/assets/images/corp/premium_logo_full_torso.png';
-import premium_logo_mini from '@/assets/images/corp/premium_logo_mini.png';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import premiumImage from "@/assets/images/corp/premium_logo_full_torso.png"; 
+import { FiCheck } from 'react-icons/fi';
+import UpgradePayement from './Upgrade_payement';
 
 const UpgradePlan: React.FC = () => {
-    return (
-        <div style={styles.pageContainer}>
-            <div style={styles.upgradePlan}>
-                <div style={styles.subscriptionCard}>
-                    <button style={styles.backButton}>←</button>
-                    <img src={premium_logo_full_torso} alt='Subscription Plan' style={styles.mainImage} />
+  const navigate = useNavigate();
+  const [selectedPlan, setSelectedPlan] = useState("annual");
+  const [isModalOpen, setIsModalOpen] = useState(false); 
+  
 
-                    <h2>Abonnement</h2>
-                    <p>Qu’est-ce que ça change?</p>
+  const handleUpgradeClick = () => {
+     console.log("Clic détecté pour ouvrir le modal");
+  setIsModalOpen(true);
+  console.log("isModalOpen :", true);
+  };
 
-                    <ul style={styles.featuresList}>
-                        <li>✔️ De super améliorations</li>
-                        <li>✔️ De super améliorations</li>
-                        <li>✔️ De super améliorations</li>
-                        <li>✔️ De super améliorations</li>
-                    </ul>
+  const closeModal = () => {
+    setIsModalOpen(false); // Ferme 
+  };
 
-                    <div style={styles.priceOptions}>
-                        <label style={styles.optionLabel}>
-                            <input type='radio' name='plan' value='annual' defaultChecked />
-                            <span>
-                                Annuel <strong>47,99€</strong> /an
-                            </span>
-                            <span style={styles.discount}>Économisez 20%</span>
-                        </label>
+ 
 
-                        <label style={styles.optionLabel}>
-                            <input type='radio' name='plan' value='monthly' />
-                            <span>
-                                Mensuel <strong>4,99€</strong> /mois
-                            </span>
-                        </label>
-                    </div>
+  return (
+    <div style={styles.container}>
+      
+      <button
+        style={{...styles.backButton,}}
+          onClick={() => navigate(-1)}>
+                       ←
+      </button>
 
-                    <button style={styles.premiumButton}>Je deviens Premium</button>
-                </div>
-
-                <div style={styles.paymentModal}>
-                    <button style={styles.closeButton}>×</button>
-                    <img src={premium_logo_mini} alt='Premium Icon' style={styles.iconImage} />
-
-                    <h3>XX€/mois Devenir Premium</h3>
-
-                    <div style={styles.paymentOptions}>
-                        <button style={{ ...styles.paymentOption, ...styles.activePaymentOption }}>💳 Card</button>
-                        <button style={styles.paymentOption}>🏦 EPS</button>
-                        <button style={styles.paymentOption}>💰 Giropay</button>
-                    </div>
-
-                    <form style={styles.paymentForm}>
-                        <input type='text' placeholder='Card number' style={styles.input} />
-                        <input type='text' placeholder='MM / YY' style={styles.input} />
-                        <input type='text' placeholder='CVC' style={styles.input} />
-                        <input type='text' placeholder='Postal code' style={styles.input} />
-
-                        <select style={styles.select}>
-                            <option value='US'>United States</option>
-                            <option value='FR'>France</option>
-                            <option value='DE'>Germany l</option>
-                        </select>
-
-                        <button type='submit' style={styles.payButton}>
-                            Payer
-                        </button>
-                    </form>
-                </div>
-            </div>
+     
+      <div style={styles.card}>
+      
+        <div style={styles.imageContainer}>
+          <img src={premiumImage} alt="Plan Premium" style={styles.image} />
+          <div style={styles.gradient}></div>
+          <span style={styles.badge}>Deviens Premium</span>
+          <h1 style={styles.title}>Abonnement</h1>
         </div>
-    );
-};
 
+
+
+        
+        <div style={styles.sectionHeader}>
+          <p style={styles.question}>Qu’est-ce que ça change ?</p>
+          <hr style={styles.separator} />
+        </div>
+
+       
+        <ul style={styles.featuresList}>
+           <li style={styles.featureItem}>
+           <FiCheck style={styles.featureIcon} />
+                  De super améliorations
+           </li>
+           <li style={styles.featureItem}>
+           <FiCheck style={styles.featureIcon} />
+                 De super améliorations
+           </li>
+           <li style={styles.featureItem}>
+           <FiCheck style={styles.featureIcon} />
+                   De super améliorations
+           </li>
+           <li style={styles.featureItem}>
+           <FiCheck style={styles.featureIcon} />
+                  De super améliorations
+           </li>
+        </ul>
+
+        
+        <div style={styles.pricing}>
+  <label
+    style={{
+      ...styles.priceOption,
+      ...(selectedPlan === "annual" ? styles.selectedOption : {}),
+    }}
+  >
+    <div style={styles.radioGroup}>
+      <input
+        type="radio"
+        name="plan"
+        value="annual"
+        checked={selectedPlan === "annual"}
+        onChange={() => setSelectedPlan("annual")}
+        style={styles.radioInput}
+      />
+      <div>
+        <span style={styles.planTitle}>Annuel</span>
+        <span style={styles.discount}>Économisez 20%</span>
+      </div>
+    </div>
+    <div style={styles.priceDetails}>
+      <strong style={styles.price}>47,99€</strong> /an
+    </div>
+  </label>
+
+  <label
+    style={{
+      ...styles.priceOption,
+      ...(selectedPlan === "monthly" ? styles.selectedOption : {}),
+    }}
+  >
+    <div style={styles.radioGroup}>
+      <input
+        type="radio"
+        name="plan"
+        value="monthly"
+        checked={selectedPlan === "monthly"}
+        onChange={() => setSelectedPlan("monthly")}
+        style={styles.radioInput}
+      />
+      <span style={styles.planTitle}>Mensuel</span>
+    </div>
+    <div style={styles.priceDetails}>
+      <strong style={styles.price}>4,99€</strong> /mois
+    </div>
+  </label>
+</div>
+
+
+
+        <button style={styles.ctaButton} onClick={handleUpgradeClick}>
+          Je deviens Premium
+        </button>
+      </div> 
+      {isModalOpen && <UpgradePayement closeModal={closeModal} />}
+    </div>
+  );
+};
 const styles = {
-    pageContainer: {
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        minHeight: '100vh',
-        padding: '20px',
-        backgroundColor: '#f0f0f0',
+    container: {
+        fontFamily: "'Inter', Arial, sans-serif",
+        backgroundColor: "#f9f9f9",
+        padding: "20px", 
+        minHeight: "100vh",
+        display: "flex",
+        flexDirection: "column" as const,
+        alignItems: "center",
+        position: "relative", 
+      },
+      backButton: {
+        position: "absolute",
+        top: "20px", 
+        left: "20px", 
+        fontSize: "18px",
+        background: "none",
+        border: "none",
+        cursor: "pointer",
+        zIndex: 10, 
+      },
+    card: {
+      backgroundColor: "#fff",
+      borderRadius: "16px",
+      padding: "40px", 
+      boxShadow: "0 8px 24px rgba(0, 0, 0, 0.1)", 
+      textAlign: "center" as const,
+      maxWidth: "600px",
+      width: "100%",
     },
-    upgradePlan: {
-        display: 'flex',
-        flexDirection: 'column' as const,
-        gap: '20px',
-        width: '100%',
-        maxWidth: '600px',
-        fontFamily: 'Arial, sans-serif',
+    imageContainer: {
+      position: "relative" as const,
+      marginBottom: "40px", 
+      width: "100%",
+      height: "300px", 
+      overflow: "hidden",
     },
-    subscriptionCard: {
-        backgroundColor: '#fff',
-        borderRadius: '8px',
-        padding: '20px',
-        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+    image: {
+      width: "100%",
+      height: "100%",
+      objectFit: "cover",
+      position: "absolute" as const,
+      top: 0,
+      left: 0,
     },
-    paymentModal: {
-        backgroundColor: '#f9f9f9',
-        padding: '20px',
-        borderRadius: '8px',
-        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+    gradient: {
+      position: "absolute" as const,
+      bottom: 0,
+      left: 0,
+      width: "100%",
+      height: "50%",
+      background: "linear-gradient(transparent, #ffffff)",
     },
-
-    upgradeTitle: {
-        textAlign: 'center' as const,
-        fontSize: '24px',
-        color: '#333',
+    badge: {
+      position: "absolute" as const,
+      left: "1px",
+      bottom: "35px",
+      backgroundColor: "#EDEDED",
+      color: "#000",
+      padding: "8px 16px",
+      borderRadius: "6px",
+      fontSize: "10px",
+      fontWeight: "bold" as const,
     },
-
-    backButton: {
-        background: 'none',
-        border: 'none',
-        fontSize: '18px',
-        color: '#333',
-        cursor: 'pointer',
+    title: {
+      position: "absolute" as const,
+      bottom: "-40px",
+      left: "1px",
+      fontSize: "28px", 
+      color: "#000",
+      fontWeight: "bold" as const,
     },
-    mainImage: {
-        width: '80%',
-        borderRadius: '8px',
-        margin: '10px auto',
-        display: 'block',
+    sectionHeader: {
+      marginBottom: "30px",
     },
+    question: {
+      fontSize: "20px", 
+      color: "#333",
+      fontWeight: "bold" as const,
+      marginBottom: "15px",
+    },
+    separator: {
+      border: "none",
+      borderTop: "1px solid #ddd",
+      margin: "0 auto",
+      width: "85%", 
+    },
+  
     featuresList: {
-        listStyle: 'none',
+        listStyleType: "none",
         padding: 0,
-        fontSize: '16px',
-        color: '#666',
-        textAlign: 'left',
-        lineHeight: '1.5',
-    },
+        margin: "20px 0",
+        fontSize: "16px",
+        lineHeight: "1.8",
+        textAlign: "left" as const,
+        color: "#333",
+      },
+      featureItem: {
+        display: "flex",
+        alignItems: "center",
+        gap: "10px", 
+        marginBottom: "10px",
+      },
+      featureIcon: {
+        color: "#1A1A1A", 
+        fontSize: "18px", 
+      },
 
-    priceOptions: {
-        display: 'flex',
-        flexDirection: 'column' as const,
-        marginTop: '20px',
-    },
-    optionLabel: {
-        display: 'flex',
-        alignItems: 'center',
-        marginBottom: '10px',
-        cursor: 'pointer',
-        padding: '5px',
-        border: '1px solid #ddd',
-        borderRadius: '5px',
-    },
-
-    discount: {
-        color: '#ff5722',
-        fontSize: '14px',
-        marginLeft: '10px',
-    },
-    premiumButton: {
-        width: '100%',
-        backgroundColor: '#007bff',
-        color: 'white',
-        padding: '12px',
-        fontSize: '16px',
-        border: 'none',
-        borderRadius: '8px',
-        cursor: 'pointer',
-        marginTop: '20px',
-    },
-
-    closeButton: {
-        background: 'none',
-        border: 'none',
-        fontSize: '18px',
-        color: '#333',
-        cursor: 'pointer',
-        float: 'right' as const,
-    },
-    iconImage: {
-        width: '50px',
-        height: '50px',
-        borderRadius: '50%',
-        marginBottom: '10px',
-    },
-    paymentOptions: {
-        display: 'flex',
-        justifyContent: 'space-around' as const,
-        margin: '20px 0',
-    },
-    paymentOption: {
-        backgroundColor: '#e0e0e0',
-        padding: '10px',
-        borderRadius: '8px',
-        cursor: 'pointer',
-    },
-    activePaymentOption: {
-        backgroundColor: '#007bff',
-        color: 'white',
-    },
-    paymentForm: {
-        display: 'flex',
-        flexDirection: 'column' as const,
-    },
-    input: {
-        marginBottom: '10px',
-        padding: '10px',
-        fontSize: '16px',
-        border: '1px solid #ccc',
-        borderRadius: '8px',
-    },
-    select: {
-        marginBottom: '10px',
-        padding: '10px',
-        fontSize: '16px',
-        border: '1px solid #ccc',
-        borderRadius: '8px',
-    },
-    payButton: {
-        backgroundColor: '#007bff',
-        color: 'white',
-        padding: '12px',
-        fontSize: '16px',
-        border: 'none',
-        borderRadius: '8px',
-        cursor: 'pointer',
-    },
-};
-
+    ctaButton: {
+      width: "350px",
+      height:"50px",
+      fontSize: "18px",
+      backgroundColor: "#4361EE",
+      color: "#fff",
+      border: "none",
+      borderRadius: "50px", 
+      cursor: "pointer",
+      fontWeight: "bold" as const,
+      marginTop: "20px",
+    }, 
+  
+      
+    pricing: {
+        marginTop: "20px",
+        marginBottom: "20px",
+        display: "flex",
+        flexDirection: "column" as const,
+        gap: "10px", 
+      },
+      priceOption: {
+        display: "flex",
+        alignItems: "flex-start", 
+        justifyContent: "space-between",
+        padding: "10px 15px", 
+        border: "1px solid #ddd",
+        borderRadius: "10px",
+        cursor: "pointer",
+        backgroundColor: "#f9f9f9",
+        minHeight: "60px", 
+        height: "auto", 
+        boxSizing: "border-box", 
+      },
+      selectedOption: {
+        backgroundColor: "#EDEDED",
+        borderColor: "#B3B3B3",
+      },
+      radioGroup: {
+        display: "flex",
+        alignItems: "flex-start", 
+        gap: "10px",
+        width: "200px",
+      },
+      radioInput: {
+        marginTop: "4px",
+        width: "20px",
+        height: "20px",
+      },
+      planContent: {
+        display: "flex",
+        flexDirection: "column" as const,
+        gap: "2px", 
+      },
+      planTitle: {
+        fontSize: "14px", 
+        fontWeight: "bold" as const,
+        color: "#000",
+      },
+      discount: {
+        fontSize: "10px", 
+        color: "#555",
+        backgroundColor: "#F3F3F3",
+        padding: "2px 6px", 
+        borderRadius: "4px",
+        marginTop: "2px",
+        display: "inline-block",
+      },
+      price: {
+        fontSize: "14px", 
+        fontWeight: "bold" as const,
+        color: "#000",
+        textAlign: "right" as const,
+      },
+    
+      overlay: {
+        position: "fixed",
+        top: 0,
+        left: 0,
+        width: "100%",
+        height: "100%",
+        backgroundColor: "rgba(0, 0, 0, 0.5)",
+        zIndex: 999,
+      },
+      modalBackdrop: {
+        position: "fixed",
+        top: 0,
+        left: 0,
+        width: "100%",
+        height: "75%",
+        backgroundColor: "rgba(0, 0, 0, 0.5)",
+        zIndex: 999,
+      },
+      label: { display: "block", fontSize: "14px", marginBottom: "4px" },
+      input: {
+        width: "100%",
+        padding: "10px",
+        border: "1px solid #ddd",
+        borderRadius: "8px",
+        fontSize: "14px",
+      },
+      
+  };
+  
+  
+  
 export default UpgradePlan;
