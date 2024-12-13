@@ -1,22 +1,40 @@
+import { getArticles, getSingleArticleCategory } from '@/api';
 import ButtonApp from '@/components/ButtonApp';
 import { APP_ROUTES_ENUM } from '@/main';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import BlogBottomNav from '../../components/BlogBottomNav';
 import CarouselX from '../../components/CarouselX';
-import { cardTypesEnum, categories, categoryType, subjectType, subjects } from '../../temp/BlogData';
+import { ArticleCategoryType, ArticleType, ArticleTypesEnum } from '../../types/BlogType';
 
 const ArticleCategory = () => {
     const { id } = useParams<{ id: string }>();
-    const [category, setCategory] = useState<categoryType | null>(null);
-    const [cards, setCards] = useState<subjectType[]>([]);
+    const [category, setCategory] = useState<ArticleCategoryType | null>(null);
+    const [cards, setCards] = useState<ArticleType[]>([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
-        setCategory(categories.find((category) => category.id === Number(id)));
-        if (category) {
+
+        const loadDatas = async () => {
+            if (!id) return;
+            const category = await getSingleArticleCategory(Number(id));
+            if (category.id === undefined) {
+                navigate(APP_ROUTES_ENUM.LEARN);
+            }
+            setCategory(category);
+        };
+        loadDatas();
+    }, [id]);
+
+    useEffect(() => {
+        const loadDatas = async () => {
+            if (!category) return;
+            const subjects = await getArticles();
             setCards(subjects.filter((subject) => subject.category.title === category.title));
-        }
-    }, [category, id]);
+        };
+        loadDatas();
+    }, [category]);
+
 
     return (
         <div className='w-full h-full flex justify-center items-center flex-col'>
@@ -29,7 +47,7 @@ const ArticleCategory = () => {
                             <CarouselX
                                 slides={cards}
                                 options={{ loop: false, containScroll: false }}
-                                cardVariant={cardTypesEnum.SMALL_PREVIEW}
+                                cardVariant={ArticleTypesEnum.SMALL_PREVIEW}
                             />
                         </div>
 
@@ -38,7 +56,7 @@ const ArticleCategory = () => {
                             <CarouselX
                                 slides={cards}
                                 options={{ loop: false, containScroll: false }}
-                                cardVariant={cardTypesEnum.SMALL_PREVIEW}
+                                cardVariant={ArticleTypesEnum.SMALL_PREVIEW}
                             />
                         </div>
 

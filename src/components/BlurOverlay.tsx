@@ -1,4 +1,4 @@
-import { get_powens_token } from '@/api/allCall.tsx';
+import { get_powens_token } from '@/api';
 import { Button } from '@/components/ui/button.tsx';
 import { createUseStyles } from 'react-jss';
 

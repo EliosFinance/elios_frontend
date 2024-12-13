@@ -11,6 +11,7 @@ const queryClient = new QueryClient();
 export const APP_ROUTES_ENUM = {
     HOME: '/',
 
+
     ACCOUNT: '/account',
     LEARN: '/learn',
 
@@ -18,6 +19,7 @@ export const APP_ROUTES_ENUM = {
     ARTICLE_CATEGORIES: '/article-categories',
     ARTICLE_CATEGORY: '/article-category',
     LOGIN: '/login',
+
     UPGRADE_PLAN: '/upgrade',
     UPGRADE_PAYEMENT:'/upgrade-payement',
     USER_ACCOUNT:'/user-account',

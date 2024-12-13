@@ -1,20 +1,28 @@
-import { subjectType } from '../temp/BlogData';
+import { likeArticle, saveArticle } from '@/api';
+import { ArticleType } from '../types/BlogType';
 import LikeButton from './LikeButton';
 import SaveButton from './SaveButton';
 
 type props = {
     currentCard?: number;
-    article?: subjectType;
+    article?: ArticleType;
     disableActionButtons?: boolean;
     backUrl?: string;
 };
 
 const BlogBottomNav = (props: props) => {
+    const handleSaveAction = async () => {
+        if (props?.article?.id) await saveArticle(props.article.id);
+    };
+    const handleLikeAction = async () => {
+        if (props?.article?.id) await likeArticle(props.article.id);
+    };
+
     return (
         <div className='w-full h-[50px] flex justify-between items-center flex-col bg-gray-200 shadow-sm fixed bottom-0 px-4'>
             {!props.disableActionButtons && (
                 <div className='w-full flex justify-evenly items-center gap-x-2 mt-2'>
-                    {props.article.cards.map((_card, index) => (
+                    {props?.article?.cards?.map((_card, index) => (
                         <div
                             key={index}
                             className={`
@@ -33,11 +41,11 @@ const BlogBottomNav = (props: props) => {
                 {!props.disableActionButtons && (
                     <>
                         <LikeButton
-                            liked={props.article.likedByUser}
-                            likes={props.article.likes_count}
-                            isLiking={(a) => console.log(a)}
+                            liked={props?.article?.likedByUser || false}
+                            likes={props?.article?.likes_count || 0}
+                            isLiking={handleLikeAction}
                         />
-                        <SaveButton saved={props.article.savedByUser} isSaving={(a) => console.log(a)} />
+                        <SaveButton saved={props.article.savedByUser} isSaving={handleSaveAction} />
                     </>
                 )}
             </div>

@@ -2,15 +2,15 @@ import { EmblaCarouselType, EmblaEventType, EmblaOptionsType } from 'embla-carou
 import useEmblaCarousel from 'embla-carousel-react';
 import React, { useCallback, useEffect, useRef } from 'react';
 import '@/css/carousels/carousel-x.css';
-import { cardTypesEnum, subjectType } from '../temp/BlogData';
+import { ArticleType, ArticleTypesEnum } from '../types/BlogType';
 import { Card } from './Card';
 const TWEEN_FACTOR_BASE = 0.52;
 
 const numberWithinRange = (number: number, min: number, max: number): number => Math.min(Math.max(number, min), max);
 
 type PropType = {
-    slides: subjectType[];
-    cardVariant: cardTypesEnum;
+    slides: ArticleType[];
+    cardVariant: ArticleTypesEnum;
     options?: EmblaOptionsType;
 };
 
@@ -89,10 +89,10 @@ const CarouselX: React.FC<PropType> = (props) => {
         <div className='embla'>
             <div className='embla__viewport' ref={emblaRef}>
                 <div className='embla__container'>
-                    {slides.map((project: subjectType, index: number) => (
+                    {slides.map((project: ArticleType, index: number) => (
                         <div className='embla__slide' key={index}>
                             <Card
-                                project={project}
+                                article={project}
                                 variant={props.cardVariant}
                                 classNames={['embla__slide__number']}
                                 key={index}
