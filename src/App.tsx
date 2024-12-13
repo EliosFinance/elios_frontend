@@ -24,13 +24,7 @@ import PaymentPage from './pages/Upgrade/Upgrade_payement.tsx'
 import UserAccount from './pages/UseAccount/User_Account.tsx'
 
 import UpgradePlan from './pages/Upgrade/Upgrade.tsx';
-import Friends from './pages/Friends.tsx';
-import Partners from './pages/Partners.tsx';
-import SingleDefi from './pages/SingleDefi.tsx';
-import SingleFriend from './pages/SingleFriends.tsx';
-import { challengeData } from './types/challengeType.ts';
-import Account from './pages/Account.tsx';
-import Rewards from './pages/Rewards.tsx';
+
 
 
 function App() {
