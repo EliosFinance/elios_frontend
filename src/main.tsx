@@ -18,9 +18,11 @@ export const APP_ROUTES_ENUM = {
     ARTICLE_CATEGORIES: '/article-categories',
     ARTICLE_CATEGORY: '/article-category',
     LOGIN: '/login',
+
     UPGRADE_PLAN: '/upgrade',
     UPGRADE_PAYEMENT:'/upgrade-payement',
     USER_ACCOUNT:'/user-account',
+
     DEFI: '/challenge',
     Friends: '/friends',
     SINGLE_FRIEND: '/friends/:id',

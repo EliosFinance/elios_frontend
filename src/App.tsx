@@ -12,6 +12,13 @@ import AllArticleCategories from './pages/Blog/AllArticleCategories.tsx';
 import Article from './pages/Blog/Article.tsx';
 import ArticleCategory from './pages/Blog/ArticleCategory.tsx';
 import Learn from './pages/Blog/Learn.tsx';
+import Friends from './pages/Friends.tsx';
+import Partners from './pages/Partners.tsx';
+import SingleDefi from './pages/SingleDefi.tsx';
+import SingleFriend from './pages/SingleFriends.tsx';
+import { challengeData } from './types/challengeType.ts';
+import Account from './pages/Account.tsx';
+import Rewards from './pages/Rewards.tsx';
 
 import PaymentPage from './pages/Upgrade/Upgrade_payement.tsx'
 import UserAccount from './pages/UseAccount/User_Account.tsx'
