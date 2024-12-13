@@ -2144,7 +2144,7 @@ elementtree@^0.1.7:
     commitizen "^4.3.0"
     confettis "^0.3.4"
     date-fns "^3.6.0"
-    elios_frontend "file:../../../Library/Caches/Yarn/v6/npm-elios-frontend-0.0.0-bbccd0a5-dbb3-4162-826b-ab5e9bd04406-1731058161321/node_modules/elios_frontend"
+    elios_frontend "file:../../../Library/Caches/Yarn/v6/npm-elios-frontend-0.0.0-21cb7c3a-be7b-4b18-b94f-b8677eadfff4-1732273171063/node_modules/elios_frontend"
     embla-carousel "^8.3.0"
     embla-carousel-react "^8.3.0"
     gapi-script "^1.2.0"
@@ -2156,6 +2156,7 @@ elementtree@^0.1.7:
     react-feather "^2.0.10"
     react-google-login "^5.2.2"
     react-hook-form "^7.52.1"
+    react-icons "^5.3.0"
     react-jss "^10.10.0"
     react-query "^3.39.3"
     react-router-dom "^6.24.1"
@@ -3531,6 +3532,11 @@ react-hook-form@^7.52.1:
   resolved "https://registry.npmjs.org/react-hook-form/-/react-hook-form-7.52.1.tgz"
   integrity sha512-uNKIhaoICJ5KQALYZ4TOaOLElyM+xipord+Ha3crEFhTntdLvWZqVY49Wqd/0GiVCA/f9NjemLeiNPjG7Hpurg==
 
+react-icons@^5.3.0:
+  version "5.3.0"
+  resolved "https://registry.yarnpkg.com/react-icons/-/react-icons-5.3.0.tgz#ccad07a30aebd40a89f8cfa7d82e466019203f1c"
+  integrity sha512-DnUk8aFbTyQPSkCfF8dbX6kQjXA9DktMeJqfjrg6cK9vwQVMxmcA3BfP4QoiztVmEHtwlTgLFsPuH2NskKT6eg==
+
 react-is@^16.13.1, react-is@^16.7.0:
   version "16.13.1"
   resolved "https://registry.npmjs.org/react-is/-/react-is-16.13.1.tgz"
@@ -4240,7 +4246,7 @@ victory-vendor@^36.6.8:
 
 vite@^5.4.10:
   version "5.4.10"
-  resolved "https://registry.yarnpkg.com/vite/-/vite-5.4.10.tgz#d358a7bd8beda6cf0f3b7a450a8c7693a4f80c18"
+  resolved "https://registry.npmjs.org/vite/-/vite-5.4.10.tgz"
   integrity sha512-1hvaPshuPUtxeQ0hsVH3Mud0ZanOLwVTneA1EgbAM5LhaZEqyPWGRQ7BtaMvUrTDeEaC8pxtj6a6jku3x4z6SQ==
   dependencies:
     esbuild "^0.21.3"

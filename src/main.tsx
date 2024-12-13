@@ -16,6 +16,8 @@ export const APP_ROUTES_ENUM = {
     ARTICLE_CATEGORY: '/article-category',
     LOGIN: '/login',
     UPGRADE_PLAN: '/upgrade',
+    UPGRADE_PAYEMENT:'/upgrade-payement',
+    USER_ACCOUNT:'/user-account'
 };
 
 const container = document.getElementById('root');
