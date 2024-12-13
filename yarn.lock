@@ -2107,6 +2107,7 @@ elementtree@^0.1.7:
     "@radix-ui/react-dropdown-menu" "^2.1.1"
     "@radix-ui/react-label" "^2.1.0"
     "@radix-ui/react-progress" "^1.1.0"
+    "@radix-ui/react-slider" "^1.2.1"
     "@radix-ui/react-slot" "^1.1.0"
     "@radix-ui/react-toast" "^1.2.1"
     "@tanstack/react-table" "^8.20.1"
@@ -2117,7 +2118,7 @@ elementtree@^0.1.7:
     confettis "^0.3.4"
     date-fns "^3.6.0"
     echarts "^5.5.1"
-    elios_frontend "file:../../../../AppData/Local/Yarn/Cache/v6/npm-elios-frontend-0.0.0-74fa1b9b-95b3-4d2b-b406-3caa48418604-1734025639175/node_modules/elios_frontend"
+    elios_frontend "file:../../../../AppData/Local/Yarn/Cache/v6/npm-elios-frontend-0.0.0-1c869228-585f-4b99-824a-2cc2d557c81e-1734085443218/node_modules/elios_frontend"
     embla-carousel "^8.3.0"
     embla-carousel-react "^8.3.0"
     framer-motion "^11.11.11"
@@ -3596,6 +3597,11 @@ react-style-singleton@^2.2.1:
     get-nonce "^1.0.0"
     invariant "^2.2.4"
     tslib "^2.0.0"
+
+react-swipeable@^7.0.2:
+  version "7.0.2"
+  resolved "https://registry.yarnpkg.com/react-swipeable/-/react-swipeable-7.0.2.tgz#ef8858096a47144ba7060675af1cd672e00ecc12"
+  integrity sha512-v1Qx1l+aC2fdxKa9aKJiaU/ZxmJ5o98RMoFwUqAAzVWUcxgfHFXDDruCKXhw6zIYXm6V64JiHgP9f6mlME5l8w==
 
 react-transition-group@^4.4.5:
   version "4.4.5"

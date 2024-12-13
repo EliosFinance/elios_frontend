@@ -3,6 +3,7 @@ import { widgetStore } from '@/store/WidgetStore';
 import { WidgetType } from '@/temp/WidgetData';
 import { Eye, EyeOff, Plus, X } from 'lucide-react';
 import React, { useEffect, useState } from 'react';
+import { useSwipeable } from 'react-swipeable';
 import Widget from './Widget';
 
 const defaultWidgets: WidgetType[] = [
@@ -72,8 +73,8 @@ const defaultWidgets: WidgetType[] = [
     },
 ];
 
-const WidgetGrid = ({ widgets }: { widgets: WidgetType[] }) => (
-    <div className='grid grid-cols-2 gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3'>
+const WidgetGrid = ({ widgets }) => (
+    <div className='grid grid-cols-2 gap-4'>
         {widgets.map(
             (widget) =>
                 widget.display && (
@@ -91,39 +92,29 @@ const WidgetGrid = ({ widgets }: { widgets: WidgetType[] }) => (
     </div>
 );
 
-const WidgetPagination = ({
-    currentPage,
-    totalPages,
-    onPageChange,
-}: {
-    currentPage: number;
-    totalPages: number;
-    onPageChange: (page: number) => void;
-}) => {
-    return (
-        <div className='flex justify-center items-center space-x-2 mt-4'>
-            {totalPages === 0 ? (
-                <span className='text-sm text-gray-500'>No widgets. Click on the Plus button to add widgets.</span>
-            ) : (
-                <>
-                    <button
-                        onClick={() => onPageChange(currentPage - 1)}
-                        disabled={currentPage <= 1}
-                        className={`w-6 h-1 rounded-full ${currentPage <= 1 ? 'bg-gray-300' : 'bg-black'}`}
-                    />
-                    <span className='text-lg font-semibold'>
-                        {currentPage} / {totalPages}
-                    </span>
-                    <button
-                        onClick={() => onPageChange(currentPage + 1)}
-                        disabled={currentPage >= totalPages}
-                        className={`w-6 h-1 rounded-full ${currentPage >= totalPages ? 'bg-gray-300' : 'bg-black'}`}
-                    />
-                </>
-            )}
-        </div>
-    );
-};
+const WidgetPagination = ({ currentPage, totalPages, onPageChange }) => (
+    <div className='flex justify-center items-center space-x-2 mt-4'>
+        {totalPages === 0 ? (
+            <span className='text-sm text-gray-500'>No widgets. Click on the Plus button to add widgets.</span>
+        ) : (
+            <>
+                <button
+                    onClick={() => onPageChange(currentPage - 1)}
+                    disabled={currentPage <= 1}
+                    className={`w-6 h-1 rounded-full ${currentPage <= 1 ? 'bg-gray-300' : 'bg-black'}`}
+                />
+                <span className='text-lg font-semibold'>
+                    {currentPage} / {totalPages}
+                </span>
+                <button
+                    onClick={() => onPageChange(currentPage + 1)}
+                    disabled={currentPage >= totalPages}
+                    className={`w-6 h-1 rounded-full ${currentPage >= totalPages ? 'bg-gray-300' : 'bg-black'}`}
+                />
+            </>
+        )}
+    </div>
+);
 
 const WidgetContainer = () => {
     const { widgets, toggleWidgetDisplay, setWidgets } = widgetStore((state) => ({
@@ -145,20 +136,25 @@ const WidgetContainer = () => {
     const totalPages =
         widgets.filter((widget) => widget.display).length === 0
             ? 0
-            : widgets.filter((widget) => widget.display).length <= 4
-              ? 1
-              : Math.ceil(widgets.filter((widget) => widget.display).length / itemsPerPage);
+            : Math.ceil(widgets.filter((widget) => widget.display).length / itemsPerPage);
 
-    const getDisplayedWidgets = (currentPage: number) => {
+    const getDisplayedWidgets = (currentPage) => {
         const visibleWidgets = widgets.filter((widget) => widget.display);
         return visibleWidgets.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
     };
 
-    const handlePageChange = (page: number) => {
+    const handlePageChange = (page) => {
         if (page >= 1 && page <= totalPages) {
             setCurrentPage(page);
         }
     };
+
+    const handlers = useSwipeable({
+        onSwipedLeft: () => handlePageChange(currentPage + 1),
+        onSwipedRight: () => handlePageChange(currentPage - 1),
+        preventScrollOnSwipe: true,
+        trackMouse: true,
+    });
 
     return (
         <div className='p-6 space-y-6'>
@@ -171,7 +167,35 @@ const WidgetContainer = () => {
                     <Plus className='text-black w-4 h-4' />
                 </button>
             </div>
-            <WidgetGrid widgets={getDisplayedWidgets(currentPage)} />
+            <div className='relative overflow-hidden' {...handlers}>
+                <div
+                    className='flex transition-transform duration-500 ease-in-out'
+                    style={{
+                        transform: `translateX(-${(currentPage - 1) * 100}%)`,
+                    }}
+                >
+                    {Array.from({ length: totalPages }, (_, i) => {
+                        const displayedWidgets = getDisplayedWidgets(i + 1);
+
+                        return (
+                            <div
+                                key={i}
+                                className='flex-shrink-0 w-full'
+                                style={{
+                                    flexBasis: '100%',
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    transition: 'transform 0.5s ease-in-out',
+                                    paddingBottom: displayedWidgets.length < 3 ? '70%' : '0',
+                                }}
+                            >
+                                <WidgetGrid widgets={displayedWidgets} />
+                            </div>
+                        );
+                    })}
+                </div>
+            </div>
+
             <WidgetPagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
 
             <Drawer open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
@@ -189,21 +213,19 @@ const WidgetContainer = () => {
                                     <h3 className='text-lg font-semibold'>{widget.title}</h3>
                                     <p className='text-sm text-muted-foreground'>{widget.description}</p>
                                 </div>
-                                <label className='flex items-center space-x-2 cursor-pointer'>
-                                    <button
-                                        onClick={(e) => {
-                                            e.preventDefault();
-                                            toggleWidgetDisplay(widget.id);
-                                        }}
-                                        className='flex items-center focus:outline-none'
-                                    >
-                                        {widget.display ? (
-                                            <Eye className='h-5 w-5 text-gray-800' />
-                                        ) : (
-                                            <EyeOff className='h-5 w-5 text-gray-800' />
-                                        )}
-                                    </button>
-                                </label>
+                                <button
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        toggleWidgetDisplay(widget.id);
+                                    }}
+                                    className='flex items-center focus:outline-none'
+                                >
+                                    {widget.display ? (
+                                        <Eye className='h-5 w-5 text-gray-800' />
+                                    ) : (
+                                        <EyeOff className='h-5 w-5 text-gray-800' />
+                                    )}
+                                </button>
                             </div>
                         ))}
                     </div>
