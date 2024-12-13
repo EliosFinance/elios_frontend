@@ -1,6 +1,7 @@
+import { Drawer, DrawerClose, DrawerContent, DrawerHeader, DrawerTitle } from '@/components/ui/drawer';
 import { widgetStore } from '@/store/WidgetStore';
 import { WidgetType } from '@/temp/WidgetData';
-import { Plus } from 'lucide-react';
+import { Eye, EyeOff, Plus, X } from 'lucide-react';
 import React, { useEffect, useState } from 'react';
 import Widget from './Widget';
 
@@ -101,19 +102,25 @@ const WidgetPagination = ({
 }) => {
     return (
         <div className='flex justify-center items-center space-x-2 mt-4'>
-            <button
-                onClick={() => onPageChange(currentPage - 1)}
-                disabled={currentPage <= 1}
-                className={`w-6 h-1 rounded-full ${currentPage <= 1 ? 'bg-gray-300' : 'bg-black'}`}
-            />
-            <span className='text-lg font-semibold'>
-                {currentPage} / {totalPages}
-            </span>
-            <button
-                onClick={() => onPageChange(currentPage + 1)}
-                disabled={currentPage >= totalPages}
-                className={`w-6 h-1 rounded-full ${currentPage >= totalPages ? 'bg-gray-300' : 'bg-black'}`}
-            />
+            {totalPages === 0 ? (
+                <span className='text-sm text-gray-500'>No widgets. Click on the Plus button to add widgets.</span>
+            ) : (
+                <>
+                    <button
+                        onClick={() => onPageChange(currentPage - 1)}
+                        disabled={currentPage <= 1}
+                        className={`w-6 h-1 rounded-full ${currentPage <= 1 ? 'bg-gray-300' : 'bg-black'}`}
+                    />
+                    <span className='text-lg font-semibold'>
+                        {currentPage} / {totalPages}
+                    </span>
+                    <button
+                        onClick={() => onPageChange(currentPage + 1)}
+                        disabled={currentPage >= totalPages}
+                        className={`w-6 h-1 rounded-full ${currentPage >= totalPages ? 'bg-gray-300' : 'bg-black'}`}
+                    />
+                </>
+            )}
         </div>
     );
 };
@@ -127,6 +134,7 @@ const WidgetContainer = () => {
 
     const itemsPerPage = 4;
     const [currentPage, setCurrentPage] = useState(1);
+    const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
     useEffect(() => {
         if (widgets.length === 0) {
@@ -135,9 +143,11 @@ const WidgetContainer = () => {
     }, [widgets, setWidgets]);
 
     const totalPages =
-        widgets.filter((widget) => widget.display).length <= 4
-            ? 1
-            : Math.ceil(widgets.filter((widget) => widget.display).length / itemsPerPage);
+        widgets.filter((widget) => widget.display).length === 0
+            ? 0
+            : widgets.filter((widget) => widget.display).length <= 4
+              ? 1
+              : Math.ceil(widgets.filter((widget) => widget.display).length / itemsPerPage);
 
     const getDisplayedWidgets = (currentPage: number) => {
         const visibleWidgets = widgets.filter((widget) => widget.display);
@@ -152,17 +162,53 @@ const WidgetContainer = () => {
 
     return (
         <div className='p-6 space-y-6'>
-            <div className='flex justify-between items-center'>
+            <div className='flex items-center justify-between w-full'>
                 <h2 className='text-2xl font-bold'>Custom widgets</h2>
                 <button
-                    className='bg-blue-500 text-black rounded-xl w-10 h-9 flex items-center justify-center'
-                    onClick={() => toggleWidgetDisplay(1)}
+                    className='bg-blue-500 text-black rounded-xl w-10 h-9 flex items-center justify-center absolute right-6'
+                    onClick={() => setIsDrawerOpen(true)}
                 >
                     <Plus className='text-black w-4 h-4' />
                 </button>
             </div>
             <WidgetGrid widgets={getDisplayedWidgets(currentPage)} />
             <WidgetPagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
+
+            <Drawer open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
+                <DrawerContent>
+                    <DrawerHeader>
+                        <DrawerTitle>Manage Widgets</DrawerTitle>
+                        <DrawerClose className='absolute right-4 top-4'>
+                            <X />
+                        </DrawerClose>
+                    </DrawerHeader>
+                    <div className='p-4 space-y-4'>
+                        {widgets.map((widget) => (
+                            <div key={widget.id} className='flex justify-between items-center border-b py-2'>
+                                <div>
+                                    <h3 className='text-lg font-semibold'>{widget.title}</h3>
+                                    <p className='text-sm text-muted-foreground'>{widget.description}</p>
+                                </div>
+                                <label className='flex items-center space-x-2 cursor-pointer'>
+                                    <button
+                                        onClick={(e) => {
+                                            e.preventDefault();
+                                            toggleWidgetDisplay(widget.id);
+                                        }}
+                                        className='flex items-center focus:outline-none'
+                                    >
+                                        {widget.display ? (
+                                            <Eye className='h-5 w-5 text-gray-800' />
+                                        ) : (
+                                            <EyeOff className='h-5 w-5 text-gray-800' />
+                                        )}
+                                    </button>
+                                </label>
+                            </div>
+                        ))}
+                    </div>
+                </DrawerContent>
+            </Drawer>
         </div>
     );
 };
