@@ -50,7 +50,6 @@ const navbarStyle: React.CSSProperties = {
   padding: '8px 0',
   width: '100%',
   maxWidth: '320px',
-  borderRadius: '8px',
   zIndex: 9999,
 };
 

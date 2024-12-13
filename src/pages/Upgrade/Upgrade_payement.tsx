@@ -143,7 +143,7 @@ const styles: { [key: string]: React.CSSProperties } = {
   modalContainer: {
     position: "fixed",
     bottom: 0,
-    left: "235px",
+    left: "214px",
     transform: "translateX(-50%)",
     width: "100%",
     maxWidth: "420px",

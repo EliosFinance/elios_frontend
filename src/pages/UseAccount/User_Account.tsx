@@ -3,12 +3,12 @@ import { FaUser, FaChevronRight } from "react-icons/fa";
 import avatarImage from "@/assets/images/icons/User Icon.png";
 import eyeImage from "@/assets/images/icons/Icon.png";
 import warningImage from "@/assets/images/icons/Group 2041.png";
-import Navbar from "@/components/NavBar";
 
 const AccountPage: React.FC = () => {
   return (
     
-    <div style={styles.container}>
+    <div style={styles.container}> 
+   
    
       <div style={styles.headerContainer}>
         <button style={styles.backButton} onClick={() => window.history.back()}>
@@ -94,7 +94,6 @@ const styles: { [key: string]: React.CSSProperties } = {
   container: {
     fontFamily: "'Inter', Arial, sans-serif",
     backgroundColor: "#f9f9f9",
-    padding: "20px",
     minHeight: "100vh",
     display: "flex",
     flexDirection: "column" as const,
@@ -133,7 +132,7 @@ const styles: { [key: string]: React.CSSProperties } = {
   },
   card: {
     background: "linear-gradient(135deg, #ffffff 0%, #f8faff 100%)",
-    borderRadius: "16px",
+  
     padding: "40px",
     boxShadow: "0 8px 24px rgba(0, 0, 0, 0.1)",
     textAlign: "center" as const,
