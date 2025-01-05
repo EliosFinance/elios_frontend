@@ -7,33 +7,37 @@ import favorisIcon from "@/assets/images/icons/book-marked.png";
 import profilIcon from "@/assets/images/icons/li_user.png"; 
 
 
-
 const Navbar: React.FC = () => {
   return (
     <nav style={navbarStyle}>
-      <NavItem iconSrc={homeIcon} label="Accueil" />
-      <NavItem iconSrc={dollarIcon} label="Transactions" />
-      <NavItem iconSrc={favorisIcon} label="Favoris" />
-      <NavItem iconSrc={profilIcon} label="Profil" />
+      <NavItem link="/accueil" iconSrc={homeIcon} label="Accueil" />
+      <NavItem link="/transactions" iconSrc={dollarIcon} label="Transactions" />
+      <NavItem link="/favoris" iconSrc={favorisIcon} label="Favoris" />
+      <NavItem link="/profil" iconSrc={profilIcon} label="Profil" />
     </nav>
   );
 };
 
+
 interface NavItemProps {
+  link: string;
   iconSrc: string;
   label: string;
 }
 
-const NavItem: React.FC<NavItemProps> = ({ iconSrc, label }) => {
+
+const NavItem: React.FC<NavItemProps> = ({ link, iconSrc, label }) => {
   return (
-    <div style={navItemContainerStyle}>
-      <img 
-        src={iconSrc} 
-        alt={label} 
-        style={navItemIconStyle} 
-      />
-      <span style={navItemLabelStyle}>{label}</span>
-    </div>
+    <a href={link} style={anchorStyle}>
+      <div style={navItemContainerStyle}>
+        <img 
+          src={iconSrc} 
+          alt={label} 
+          style={navItemIconStyle} 
+        />
+        <span style={navItemLabelStyle}>{label}</span>
+      </div>
+    </a>
   );
 };
 
@@ -51,6 +55,11 @@ const navbarStyle: React.CSSProperties = {
   width: '100%',
   maxWidth: '320px',
   zIndex: 9999,
+};
+
+const anchorStyle: React.CSSProperties = {
+  textDecoration: 'none',
+  color: 'inherit',
 };
 
 const navItemContainerStyle: React.CSSProperties = {

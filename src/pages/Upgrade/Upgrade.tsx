@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import premiumImage from "@/assets/images/corp/premium_logo_full_torso.png"; 
 import { FiCheck } from 'react-icons/fi';
 import UpgradePayement from './Upgrade_payement';
+import Navbar from "@/components/NavBar";
 
 const UpgradePlan: React.FC = () => {
   const navigate = useNavigate();
@@ -19,18 +20,19 @@ const UpgradePlan: React.FC = () => {
   const closeModal = () => {
     setIsModalOpen(false); // Ferme 
   };
-
+  
  
 
   return (
+  
     <div style={styles.container}>
-      
+    
       <button
         style={{...styles.backButton,}}
           onClick={() => navigate(-1)}>
                        ←
       </button>
-
+      
      
       <div style={styles.card}>
       
