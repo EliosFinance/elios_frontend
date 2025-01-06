@@ -6,7 +6,7 @@ import {
     InformationCircleIcon,
 } from '@heroicons/react/24/outline';
 import * as echarts from 'echarts';
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { challenges } from '../temp/DefiData';
 
@@ -68,13 +68,13 @@ const SingleDefi = () => {
                 </div>
                 <div className='relative flex items-center mb-4 z-10 mt-16'>
                     <img
-                        src={defi.companyLogo}
-                        alt={`${defi.sponsor} logo`}
+                        src={defi.company.logo}
+                        alt={`${defi.company.name}logo`}
                         className='w-16 h-16 rounded-full bg-white p-1'
                     />
                 </div>
                 <h1 className='relative text-4xl font-bold z-10'>{defi.title}</h1>
-                <p className='relative text-2xl z-10'>{defi.reward}</p>
+                <p className='relative text-2xl z-10'>{defi.rewards.join(', ')}</p>
                 <p className='relative text-sm mt-2 z-10'>Se termine dans 2 jours</p>
             </header>
 
@@ -82,11 +82,11 @@ const SingleDefi = () => {
                 <h2 className='text-xl font-bold mb-2'>À propos de ce défi</h2>
                 <div className='flex items-center mb-2'>
                     <CurrencyDollarIcon className='w-5 h-5 mr-2' />
-                    <p>Gagnez {defi.reward}</p>
+                    <p>Gagnez {defi.rewards.join(', ')}</p>
                 </div>
                 <div className='flex items-center mb-2'>
                     <BuildingOfficeIcon className='w-5 h-5 mr-2' />
-                    <p>Proposé par {defi.sponsor}</p>
+                    <p>Proposé par {defi.company.name}</p>
                 </div>
                 <div className='flex items-center'>
                     <BookOpenIcon className='w-5 h-5 mr-2' />
@@ -113,7 +113,7 @@ const SingleDefi = () => {
                             className='text-sm flex justify-between items-center bg-gray-100 p-2 rounded mb-2'
                         >
                             <span>
-                                #{entry.rank} {entry.name}
+                                #{entry.rank} {entry.user.username}
                             </span>
                             <span>{entry.score}%</span>
                         </li>

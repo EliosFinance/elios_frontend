@@ -1,16 +1,19 @@
+import { likeArticle, saveArticle, saveArticleContent } from '@/api';
 import icon from '@/assets/images/icons/google_icon.png';
 import icon2 from '@/assets/images/icons/twitter_icon.png';
 import { APP_ROUTES_ENUM } from '@/main';
 import { forwardRef, useEffect, useRef, useState } from 'react';
 /* eslint-disable react-refresh/only-export-components */
 import { createUseStyles } from 'react-jss';
-import { cardType, cardTypesEnum, contentTypesEnum, subjectType } from '../temp/BlogData';
+import { ArticleContentType, ArticleType, ArticleTypesEnum, ContentTypesEnum } from '../types/BlogType';
 import LikeButton from './LikeButton';
 import SaveButton from './SaveButton';
 
 type CardProps = {
-    project: cardTypesEnum.SMALL_PREVIEW | cardTypesEnum.PREVIEW extends cardTypesEnum ? subjectType : cardType;
-    variant: cardTypesEnum;
+    article: ArticleTypesEnum.SMALL_PREVIEW | ArticleTypesEnum.PREVIEW extends ArticleTypesEnum
+        ? ArticleType
+        : ArticleContentType;
+    variant: ArticleTypesEnum;
     cardToDisplay: number;
     classNames?: string[];
     cardFocused?: boolean;
@@ -20,10 +23,11 @@ type CardProps = {
 };
 
 export const Card = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
-    const [read, setRead] = useState<boolean>(props.project?.cards?.[props.cardToDisplay]?.readByUser || false);
-    const coolDownTime = props.project?.cards?.[props.cardToDisplay]?.content.length * 1.5; // 1.5s per content
+    const [read, setRead] = useState<boolean>(props.article?.cards?.[props.cardToDisplay]?.readByUser || false);
+    const coolDownTime = props.article?.cards?.[props.cardToDisplay]?.content.length * 1.5; // 1.5s per content
     const styles = useCardStyles(coolDownTime);
-    const isPreviewVariant = props.variant === cardTypesEnum.SMALL_PREVIEW || props.variant === cardTypesEnum.PREVIEW;
+    const isPreviewVariant =
+        props.variant === ArticleTypesEnum.SMALL_PREVIEW || props.variant === ArticleTypesEnum.PREVIEW;
     const coolDownRef = useRef<HTMLDivElement>(null);
     const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -42,13 +46,28 @@ export const Card = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
                 props.userHasRead(true);
             }, coolDownTime * 1000); // wait for the animation delay to be over
         }
-    }, [coolDownTime, props, props.cardFocused, props.cardToDisplay, props.project.cards, read, styles.coolDown]);
+    }, [coolDownTime, props, props.cardFocused, props.cardToDisplay, props.article.cards, read, styles.coolDown]);
+
+    const handleSaveAction = async () => {
+        if (!props?.article?.id) return;
+
+        if (isPreviewVariant) {
+            await saveArticle(props.cardToDisplay);
+        } else {
+            await saveArticleContent(props.cardToDisplay);
+        }
+    };
+    const handleLikeAction = async () => {
+        if (!props?.article?.id || !isPreviewVariant) return;
+
+        await likeArticle(props.cardToDisplay);
+    };
 
     return (
         <>
             {isPreviewVariant && (
                 <a
-                    href={`${APP_ROUTES_ENUM.ARTICLE}/${props.project.id}`}
+                    href={`${APP_ROUTES_ENUM.ARTICLE}/${props.article.id}`}
                     className={[
                         styles.card,
                         `${props.classNames && props.classNames.join(' ')}`,
@@ -60,43 +79,38 @@ export const Card = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
                     <div className='w-full h-[7%] flex justify-between items-center mt-5 px-5'>
                         <div className='w-auto h-full flex justify-start items-center text-sm font-light gap-x-2 text-center'>
                             <img
-                                src={props.project.readByUser ? icon2 : icon}
+                                src={props.article.readByUser ? icon2 : icon}
                                 alt='cardHeaderIcon'
                                 className='h-[20px] w-auto'
                             />
                             <div>
                                 <p>
-                                    {props.project.cards.length} ideas by{' '}
+                                    {props.article.cards.length} ideas by{' '}
                                     <span className='font-bold'>
-                                        {props.project.author.firstName} {props.project.author.lastName.split('')[0]}.
+                                        {props.article.author.firstName} {props.article.author.lastName.split('')[0]}.
                                     </span>
                                 </p>
                             </div>
                         </div>
-                        <LikeButton
-                            liked={props.project.likedByUser}
-                            isLiking={(a) => console.log(a)}
-                            likes={0}
-                            disabled
-                        />
+                        <LikeButton liked={props.article.likedByUser} isLiking={handleLikeAction} likes={0} disabled />
                     </div>
 
                     {/* body */}
                     <div className='w-full h-full flex justify-center items-center flex-col gap-y-4'>
                         <img
-                            src={props.project.thumbnail}
+                            src={props.article.thumbnail}
                             alt='project thumbnail'
                             className='h-auto w-[40%] rounded-[var(--border-radius-5)] shadow-lg'
                         />
                         <div className='w-full h-auto flex justify-center items-center flex-col gap-y-2'>
-                            <p className='text-lg'>{props.project.title}</p>
+                            <p className='text-lg'>{props.article.title}</p>
                             <div className='w-full flex justify-center items-center gap-x-1'>
                                 <img
-                                    src={props.project.thumbnail}
+                                    src={props.article.thumbnail}
                                     alt='project thumbnail'
                                     className='h-auto w-[20px]'
                                 />
-                                <p className='text-sm'>~{props.project.readingTime}</p>
+                                <p className='text-sm'>~{props.article.readingTime}</p>
                             </div>
                         </div>
                     </div>
@@ -114,17 +128,17 @@ export const Card = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
                     onClick={props.onClick}
                 >
                     {/* header */}
-                    {props.variant === cardTypesEnum.FULL_ROUNDED_IMAGE ? (
+                    {props.variant === ArticleTypesEnum.FULL_ROUNDED_IMAGE ? (
                         <div className='w-full h-[150px] flex justify-center items-center mt-8'>
                             <img
-                                src={props.project.thumbnail}
+                                src={props.article.thumbnail}
                                 alt='cardHeaderIcon'
                                 className='h-[80%] w-auto relative top-0 rounded-full object-cover object-center'
                             />
                         </div>
                     ) : (
                         <img
-                            src={props.project.thumbnail}
+                            src={props.article.thumbnail}
                             alt='cardHeaderIcon'
                             className='h-[150px] w-full relative top-0 rounded-t-[var(--border-radius-8)] object-cover object-center'
                         />
@@ -133,27 +147,27 @@ export const Card = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
                     {/* body */}
                     <div className='w-full h-full flex justify-start items-center flex-col gap-y-4 px-8 mt-8'>
                         <p className='w-full text-lg text-justify font-bold'>
-                            {props.project.cards[props.cardToDisplay]?.title}
+                            {props.article.cards[props.cardToDisplay]?.title}
                         </p>
-                        {props.project.cards[props.cardToDisplay].content.map((content, index) => (
+                        {props.article.cards[props.cardToDisplay].content.map((content, index) => (
                             <div key={index}>
-                                {content.type === contentTypesEnum.TEXT && (
+                                {content.type === ContentTypesEnum.TEXT && (
                                     <p className='w-full text-sm text-justify'>{content.text}</p>
                                 )}
-                                {content.type === contentTypesEnum.IMAGE && !Array.isArray(content.text) && (
+                                {content.type === ContentTypesEnum.IMAGE && !Array.isArray(content.text) && (
                                     <img
                                         src={content.text}
                                         alt='project thumbnail'
                                         className='h-auto w-[40%] rounded-[var(--border-radius-8)] shadow-lg'
                                     />
                                 )}
-                                {content.type === contentTypesEnum.VIDEO && !Array.isArray(content.text) && (
+                                {content.type === ContentTypesEnum.VIDEO && !Array.isArray(content.text) && (
                                     <video
                                         src={content.text}
                                         className='h-auto w-[40%] rounded-[var(--border-radius-5)] shadow-lg'
                                     />
                                 )}
-                                {content.type === contentTypesEnum.LIST && (
+                                {content.type === ContentTypesEnum.LIST && (
                                     <ul className='w-full flex justify-center items-start flex-col list-disc list-outside'>
                                         {Array.isArray(content.text) ? (
                                             content.text.map((item, itemIndex) => (
@@ -179,8 +193,8 @@ export const Card = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
                             <img src={icon2} alt='cardHeaderIcon' className='h-[20px]' />
                         )}
                         <SaveButton
-                            saved={props.project.cards[props.cardToDisplay].savedByUser}
-                            isSaving={(a) => console.log(a)}
+                            saved={props.article.cards[props.cardToDisplay].savedByUser}
+                            isSaving={handleSaveAction}
                         />
                     </div>
                 </div>

@@ -1,14 +1,15 @@
+import { getSingleArticle } from '@/api';
+import BlogBottomNav from '@/components/BlogBottomNav';
+import { Card } from '@/components/Card';
 import { Skeleton } from '@/components/ui/skeleton';
 import useConfettis from '@/hook/useConfettis';
 import { APP_ROUTES_ENUM } from '@/main';
+import { ArticleType } from '@/types/BlogType';
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import BlogBottomNav from '../../components/BlogBottomNav';
-import { Card } from '../../components/Card';
-import { subjectType, subjects } from '../../temp/BlogData';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const Article = () => {
-    const [currentArticle, setCurrentArticle] = useState<subjectType | null>(null);
+    const [currentArticle, setCurrentArticle] = useState<ArticleType | null>(null);
     const { id } = useParams<{ id: string }>();
     const ref = useRef<HTMLDivElement | null>(null);
     const cardsRef = useRef<HTMLDivElement | null>(null);
@@ -16,6 +17,7 @@ const Article = () => {
     const timeoutRef = useRef<NodeJS.Timeout | null>(null);
     const [clickedCard, setClickedCard] = useState<number | null>(null);
     const { throwConfettis } = useConfettis();
+    const navigate = useNavigate();
 
     const removeClassList = (el: HTMLDivElement) => {
         el?.classList.remove('filter', 'grayscale', 'opacity-50', 'transform', 'scale-[90%]');
@@ -26,7 +28,17 @@ const Article = () => {
     };
 
     useLayoutEffect(() => {
-        setCurrentArticle(subjects.find((subject) => subject.id === Number(id)));
+        const loadDatas = async () => {
+            if (!id) return;
+            const response = await getSingleArticle(Number(id));
+
+            if (response.id === undefined) {
+                navigate(APP_ROUTES_ENUM.LEARN);
+            }
+
+            setCurrentArticle(response);
+        };
+        loadDatas();
     }, [id]);
 
     useEffect(() => {
@@ -154,16 +166,16 @@ const Article = () => {
 
                                 {/* card container */}
                                 <div className='w-full h-auto flex justify-between items-center font-bold mt-12'>
-                                    <p>{currentArticle.cards.length} ideas</p>
-                                    <p>{currentArticle.reads_count}k lectures</p>
+                                    <p>{currentArticle.cards?.length || 0} ideas</p>
+                                    <p>{currentArticle?.reads_count || 0}k lectures</p>
                                 </div>
                             </div>
                         </div>
 
-                        {currentArticle.cards.map((card, i) => (
+                        {currentArticle?.cards?.map((card, i) => (
                             <Card
                                 id={`card_${i}`}
-                                project={currentArticle}
+                                article={currentArticle}
                                 variant={card.type}
                                 cardToDisplay={i}
                                 classNames={['transition-all', 'duration-300', 'snap-center', 'my-4']}
@@ -177,7 +189,13 @@ const Article = () => {
                     </div>
                 </div>
             </div>
-            <BlogBottomNav article={currentArticle} currentCard={clickedCard || 0} backUrl={APP_ROUTES_ENUM.LEARN} />
+            {currentArticle && (
+                <BlogBottomNav
+                    article={currentArticle}
+                    currentCard={clickedCard || 0}
+                    backUrl={APP_ROUTES_ENUM.LEARN}
+                />
+            )}
         </>
     );
 };

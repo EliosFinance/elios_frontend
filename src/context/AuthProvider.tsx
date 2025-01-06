@@ -1,5 +1,5 @@
+import { login_api, logout_api, refresh_token_api } from '@/api';
 import { createContext, useContext, useEffect, useState } from 'react';
-import { login_api, logout_api, refresh_token_api } from '../api/allCall.tsx';
 import { userStore } from '../store/UserStore.ts';
 
 interface AuthContextType {

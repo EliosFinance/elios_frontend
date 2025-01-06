@@ -1,4 +1,4 @@
-import { categoriesEnum, categoryType, subjectType } from '@/temp/BlogData';
+import { ArticleCategoriesEnum, ArticleCategoryType, ArticleType } from '@/types/BlogType';
 import { TransactionType } from '@/types/transactionType';
 
 export type companyType = {
@@ -14,11 +14,13 @@ export type userType = {
     id: number;
     username: string;
     password: string;
+    score: number;
+    profilePicture: string;
     powens_token: string;
     transactions: TransactionType[];
     friends: userType[];
-    articles: subjectType[];
-    likedArticles: subjectType[];
+    articles: ArticleType[];
+    likedArticles: ArticleType[];
     challenges: challengeType[];
 };
 
@@ -28,7 +30,7 @@ export type challengeType = {
     description: string;
     image: string;
     company: companyType;
-    category: categoryType;
+    category: ArticleCategoryType;
     users: userType[];
 };
 
@@ -47,7 +49,7 @@ export const challengeData: challengeType = {
     },
     category: {
         id: 1,
-        title: categoriesEnum.BUDGET,
+        title: ArticleCategoriesEnum.BUDGET,
         description: 'Description 1',
         icon: 'https://via.placeholder.com/150',
     },

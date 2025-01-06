@@ -13,7 +13,7 @@ const SingleFriend = () => {
     }
 
     return (
-        <div className='flex flex-col items-center'>
+        <div className='flex flex-col items-center w-full'>
             <header className='w-full h-20 bg-gray-200 flex items-center justify-between px-6 relative'>
                 <div className='absolute top-4 left-4 flex items-center z-10'>
                     <ArrowLeftIcon className='w-8 h-8 cursor-pointer' onClick={() => navigate(-1)} />

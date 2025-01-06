@@ -33,7 +33,7 @@ const Login = ({ VITE_GOOGLE_CLIENT_ID }) => {
                 setErrorMsg('Incorrect username or password');
             }
         } catch (error) {
-            setErrorMsg('An error occured');
+            setErrorMsg('An error occured: ' + error.message);
         }
     };
 

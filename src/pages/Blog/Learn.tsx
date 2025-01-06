@@ -1,23 +1,40 @@
+import { getArticleCategories, getArticles } from '@/api';
 import InputApp from '@/components/InputApp';
 import { APP_ROUTES_ENUM } from '@/main';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import CarouselX from '../../components/CarouselX';
-import { cardTypesEnum, categoriesEnum, subjectType, subjects } from '../../temp/BlogData';
+import { ArticleCategoryType, ArticleType, ArticleTypesEnum } from '../../types/BlogType';
 
 const Learn = () => {
     const [search, setSearch] = useState<string>('');
-    const [filteredSubjects, setFilteredSubjects] = useState<subjectType[]>([]);
+    const [filteredSubjects, setFilteredSubjects] = useState<ArticleType[]>([]);
     const [isUserTyping, setIsUserTyping] = useState<boolean>(false);
+    const [articles, setArticles] = useState<ArticleType[]>([]);
+    const [articlesCategories, setArticlesCategories] = useState<ArticleCategoryType[]>([]);
 
     useEffect(() => {
-        if (search.length > 2) {
+        if (search.length > 2 && articles.length > 0) {
             setIsUserTyping(true);
-            const filtered = subjects.filter((subject) => subject.title.toLowerCase().includes(search.toLowerCase()));
+            const filtered = articles.filter((subject) => subject.title.toLowerCase().includes(search.toLowerCase()));
             setFilteredSubjects(filtered);
         } else {
             setIsUserTyping(false);
         }
     }, [search]);
+
+    useEffect(() => {
+        const loadDatas = async () => {
+            if (articles.length === 0) {
+                const articles = await getArticles();
+                setArticles(articles);
+            }
+            if (articlesCategories.length === 0) {
+                const articleCategories = await getArticleCategories();
+                setArticlesCategories(articleCategories);
+            }
+        };
+        loadDatas();
+    }, []);
 
     return (
         <div className='w-full flex justify-center items-center flex-col gap-y-12'>
@@ -40,7 +57,7 @@ const Learn = () => {
                         <CarouselX
                             slides={filteredSubjects}
                             options={{ loop: false, containScroll: false }}
-                            cardVariant={cardTypesEnum.SMALL_PREVIEW}
+                            cardVariant={ArticleTypesEnum.SMALL_PREVIEW}
                         />
                     </div>
                 </div>
@@ -63,7 +80,7 @@ const Learn = () => {
                                     href={`${APP_ROUTES_ENUM.ARTICLE_CATEGORY}/${i}`}
                                     key={i}
                                 >
-                                    {Object.values(categoriesEnum)[i]}
+                                    {articlesCategories[i]?.title}
                                 </a>
                             ))}
                         </div>
@@ -73,9 +90,9 @@ const Learn = () => {
                         <h2 className='text-2xl font-black px-6'>Les plus populaires</h2>
                         <div className='w-full flex justify-between items-start flex-wrap gap-y-4 gap-x-4'>
                             <CarouselX
-                                slides={subjects}
+                                slides={articles}
                                 options={{ loop: false, containScroll: false }}
-                                cardVariant={cardTypesEnum.SMALL_PREVIEW}
+                                cardVariant={ArticleTypesEnum.SMALL_PREVIEW}
                             />
                         </div>
                     </div>
