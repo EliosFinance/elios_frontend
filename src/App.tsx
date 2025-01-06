@@ -15,6 +15,7 @@ import ArticleCategory from './pages/Blog/ArticleCategory.tsx';
 import Learn from './pages/Blog/Learn.tsx';
 import Friends from './pages/Friends.tsx';
 import Landing from './pages/Landing.tsx';
+import Landing from './pages/Landing.tsx';
 import Partners from './pages/Partners.tsx';
 import Rewards from './pages/Rewards.tsx';
 import SingleDefi from './pages/SingleDefi.tsx';
