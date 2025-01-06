@@ -9,7 +9,8 @@ import { BrowserRouter } from 'react-router-dom';
 const queryClient = new QueryClient();
 
 export const APP_ROUTES_ENUM = {
-    HOME: '/',
+    HOME: '/home',
+    LANDING: '/landing',
     ACCOUNT: '/account',
     LEARN: '/learn',
     ARTICLE: '/article',
@@ -17,7 +18,7 @@ export const APP_ROUTES_ENUM = {
     ARTICLE_CATEGORY: '/article-category',
     LOGIN: '/login',
     DEFI: '/challenge',
-    Friends: '/friends',
+    FRIENDS: '/friends',
     SINGLE_FRIEND: '/friends/:id',
     REWARDS: '/rewards',
     TEST: '/test',
