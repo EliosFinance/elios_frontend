@@ -1,5 +1,5 @@
-import { useEffect, useRef } from 'react';
 import * as echarts from 'echarts';
+import { useEffect, useRef } from 'react';
 
 const WeekChart = () => {
     const chartRef = useRef(null);
@@ -55,9 +55,7 @@ const WeekChart = () => {
                         color: 'rgba(50, 168, 82, 0.1)',
                     },
                     markPoint: {
-                        data: [
-                            { type: 'max', name: 'Max', symbol: 'circle', symbolSize: 8, label: { show: false } },
-                        ],
+                        data: [{ type: 'max', name: 'Max', symbol: 'circle', symbolSize: 8, label: { show: false } }],
                     },
                 },
             ],
@@ -71,7 +69,7 @@ const WeekChart = () => {
     }, []);
 
     return (
-        <div className="w-full bg-white shadow-lg rounded-lg mb-4">
+        <div className='w-full bg-white shadow-lg rounded-lg mb-4'>
             <div ref={chartRef} style={{ width: '100%', height: '300px' }} />
         </div>
     );
