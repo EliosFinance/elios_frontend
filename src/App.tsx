@@ -15,7 +15,6 @@ import ArticleCategory from './pages/Blog/ArticleCategory.tsx';
 import Learn from './pages/Blog/Learn.tsx';
 import Friends from './pages/Friends.tsx';
 import Landing from './pages/Landing.tsx';
-import Landing from './pages/Landing.tsx';
 import Partners from './pages/Partners.tsx';
 import Rewards from './pages/Rewards.tsx';
 import SingleDefi from './pages/SingleDefi.tsx';
@@ -50,25 +49,30 @@ function App() {
                 <Routes>
                     <Route element={<AuthRoute />}>
                         <Route element={<BankCheck />}>
+                            <Route path={APP_ROUTES_ENUM.HOME} element={<Landing />} />
                             <Route path={APP_ROUTES_ENUM.PARTNERS} element={<Partners />} />
+                            <Route path={APP_ROUTES_ENUM.LANDING} element={<Home />} />
+
+                            {/* Learn */}
                             <Route path={APP_ROUTES_ENUM.LEARN} element={<Learn />} />
-                            <Route path={APP_ROUTES_ENUM.HOME} element={<Home />} />
                             <Route path={`${APP_ROUTES_ENUM.ARTICLE}/:id`} element={<Article />} />
                             <Route path={`${APP_ROUTES_ENUM.ARTICLE_CATEGORIES}`} element={<AllArticleCategories />} />
                             <Route path={`${APP_ROUTES_ENUM.ARTICLE_CATEGORY}/:id`} element={<ArticleCategory />} />
+                            {/* End Learn */}
+
+                            <Route path={APP_ROUTES_ENUM.ACCOUNT} element={<Account />} />
+                            <Route path={APP_ROUTES_ENUM.REWARDS} element={<Rewards />} />
+                            <Route path={`${APP_ROUTES_ENUM.DEFI}/:id`} element={<SingleDefi />} />
+                            <Route path={APP_ROUTES_ENUM.FRIENDS} element={<Friends />} />
+                            <Route path={`${APP_ROUTES_ENUM.FRIENDS}/:id`} element={<SingleFriend />} />
                         </Route>
                     </Route>
+
                     <Route element={<PublicRoute />}>
-                        <Route path={APP_ROUTES_ENUM.LANDING} element={<Landing />} />
                         <Route
                             path={`${APP_ROUTES_ENUM.TEST}`}
                             element={<PartnerChallenge challenge={challengeData} />}
                         />
-                        <Route path={APP_ROUTES_ENUM.ACCOUNT} element={<Account />} />
-                        <Route path={APP_ROUTES_ENUM.REWARDS} element={<Rewards />} />
-                        <Route path={`${APP_ROUTES_ENUM.DEFI}/:id`} element={<SingleDefi />} />
-                        <Route path={APP_ROUTES_ENUM.FRIENDS} element={<Friends />} />
-                        <Route path={`${APP_ROUTES_ENUM.FRIENDS}/:id`} element={<SingleFriend />} />
                         <Route path={APP_ROUTES_ENUM.LOGIN} element={<Login VITE_GOOGLE_CLIENT_ID={googleId} />} />
                     </Route>
                 </Routes>
