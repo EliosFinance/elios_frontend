@@ -1,11 +1,11 @@
 import { getArticles, getSingleArticleCategory } from '@/api';
+import BlogBottomNav from '@/components/BlogBottomNav';
 import ButtonApp from '@/components/ButtonApp';
+import CarouselX from '@/components/CarouselX';
 import { APP_ROUTES_ENUM } from '@/main';
+import { ArticleCategoryType, ArticleType, ArticleTypesEnum } from '@/types/BlogType';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import BlogBottomNav from '../../components/BlogBottomNav';
-import CarouselX from '../../components/CarouselX';
-import { ArticleCategoryType, ArticleType, ArticleTypesEnum } from '../../types/BlogType';
 
 const ArticleCategory = () => {
     const { id } = useParams<{ id: string }>();

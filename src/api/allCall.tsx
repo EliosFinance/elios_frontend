@@ -1,5 +1,5 @@
+import { userStore } from '@/store/UserStore.ts';
 import { AxiosError } from 'axios';
-import { userStore } from '../store/UserStore.ts';
 import { instance_back } from './const.tsx';
 
 export const fetchPartners = async () => {

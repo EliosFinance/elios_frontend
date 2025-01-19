@@ -1,3 +1,4 @@
+import { challenges } from '@/temp/DefiData';
 import {
     ArrowLeftIcon,
     BookOpenIcon,
@@ -8,7 +9,6 @@ import {
 import * as echarts from 'echarts';
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { challenges } from '../temp/DefiData';
 
 const SingleDefi = () => {
     const { id } = useParams<{ id: string }>();

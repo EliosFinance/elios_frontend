@@ -2,10 +2,10 @@ import { likeArticle, saveArticle, saveArticleContent } from '@/api';
 import icon from '@/assets/images/icons/google_icon.png';
 import icon2 from '@/assets/images/icons/twitter_icon.png';
 import { APP_ROUTES_ENUM } from '@/main';
+import { ArticleContentType, ArticleType, ArticleTypesEnum, ContentTypesEnum } from '@/types/BlogType';
 import { forwardRef, useEffect, useRef, useState } from 'react';
 /* eslint-disable react-refresh/only-export-components */
 import { createUseStyles } from 'react-jss';
-import { ArticleContentType, ArticleType, ArticleTypesEnum, ContentTypesEnum } from '../types/BlogType';
 import LikeButton from './LikeButton';
 import SaveButton from './SaveButton';
 

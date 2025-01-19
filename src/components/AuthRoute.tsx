@@ -1,5 +1,5 @@
+import { useAuth } from '@/context/AuthProvider.tsx';
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
-import { useAuth } from '../context/AuthProvider.tsx';
 
 const AuthRoute = () => {
     const { auth } = useAuth();

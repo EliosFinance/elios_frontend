@@ -2,7 +2,7 @@ import { EmblaCarouselType, EmblaEventType, EmblaOptionsType } from 'embla-carou
 import useEmblaCarousel from 'embla-carousel-react';
 import React, { useCallback, useEffect, useRef } from 'react';
 import '@/css/carousels/carousel-x.css';
-import { ArticleType, ArticleTypesEnum } from '../types/BlogType';
+import { ArticleType, ArticleTypesEnum } from '@/types/BlogType';
 import { Card } from './Card';
 const TWEEN_FACTOR_BASE = 0.52;
 

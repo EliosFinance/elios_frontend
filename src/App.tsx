@@ -10,6 +10,15 @@ import AuthRoute from './components/AuthRoute.tsx';
 import PartnerChallenge from './components/PartnerChallenge.tsx';
 import { APP_ROUTES_ENUM } from './main.tsx';
 import Account from './pages/Account.tsx';
+import Authenticate from './pages/Auth/Authenticate.tsx';
+import FirstTimerView from './pages/Auth/FirstTimerView.tsx';
+import EmailVerification from './pages/Auth/Register/views/1_EmailVerification.tsx';
+import CreateUsername from './pages/Auth/Register/views/2_Username.tsx';
+import CreatePassword from './pages/Auth/Register/views/3_CreatePassword.tsx';
+import ConfirmPassword from './pages/Auth/Register/views/4_ConfirmPassword.tsx';
+import PINCodeScreen from './pages/Auth/Register/views/5_CreatePINCodeScreen.tsx';
+import ConfirmPIN from './pages/Auth/Register/views/6_ConfirmPin.tsx';
+import TermsAndConditions from './pages/Auth/Register/views/7_TermsAndConditions.tsx';
 import AllArticleCategories from './pages/Blog/AllArticleCategories.tsx';
 import Article from './pages/Blog/Article.tsx';
 import ArticleCategory from './pages/Blog/ArticleCategory.tsx';
@@ -20,14 +29,6 @@ import Partners from './pages/Partners.tsx';
 import Rewards from './pages/Rewards.tsx';
 import SingleDefi from './pages/SingleDefi.tsx';
 import SingleFriend from './pages/SingleFriends.tsx';
-import ConfirmPassword from './pages/signup/ConfirmPassword.tsx';
-import ConfirmPIN from './pages/signup/ConfirmPin.tsx';
-import CreatePassword from './pages/signup/CreatePassword.tsx';
-import EmailVerification from './pages/signup/EmailVerification.tsx';
-import PINCodeScreen from './pages/signup/PINCodeScreen.tsx';
-import SignUpScreen from './pages/signup/Signup.tsx';
-import TermsAndConditions from './pages/signup/TermsAndConditions.tsx';
-import Welcome from './pages/signup/Welcome.tsx';
 import { challengeData } from './types/challengeType.ts';
 function App() {
     const { os } = useDeviceDetection();
@@ -82,18 +83,20 @@ function App() {
                             element={<PartnerChallenge challenge={challengeData} />}
                         />
                         {/* Login */}
-                        <Route path='/signup' element={<SignUpScreen />} />
-                        <Route path='/verify-email' element={<EmailVerification />} />
-                        <Route path='/create-password' element={<CreatePassword />} />
-                        <Route path='/confirm-password' element={<ConfirmPassword />} />
-                        <Route path='/create-pin' element={<PINCodeScreen />} />
-                        <Route path='/confirm-pin' element={<ConfirmPIN />} />
-                        <Route path='/terms' element={<TermsAndConditions />} />
-                        <Route path='/pin' element={<Pin />} />
+                        <Route path={APP_ROUTES_ENUM.REGISTER} element={<Authenticate />} />
+                        <Route path={APP_ROUTES_ENUM.VERIFY_EMAIL} element={<EmailVerification />} />
+                        <Route path={APP_ROUTES_ENUM.CREATE_USERNAME} element={<CreateUsername />} />
+                        <Route path={APP_ROUTES_ENUM.CREATE_PASSWORD} element={<CreatePassword />} />
+                        <Route path={APP_ROUTES_ENUM.CONFIRM_PASSWORD} element={<ConfirmPassword />} />
+                        <Route path={APP_ROUTES_ENUM.CREATE_PIN} element={<PINCodeScreen />} />
+                        <Route path={APP_ROUTES_ENUM.CONFIRM_PIN} element={<ConfirmPIN />} />
+                        <Route path={APP_ROUTES_ENUM.TERMS} element={<TermsAndConditions />} />
+                        <Route path={APP_ROUTES_ENUM.PIN} element={<Pin />} />
                         {/* End Login */}
 
-                        <Route path={'*'} element={<Welcome />} />
-                        <Route path={APP_ROUTES_ENUM.LOGIN} element={<Login VITE_GOOGLE_CLIENT_ID={googleId} />} />
+                        <Route path={'*'} element={<FirstTimerView />} />
+                        {/* <Route path={APP_ROUTES_ENUM.LOGIN} element={<Login VITE_GOOGLE_CLIENT_ID={googleId} />} /> */}
+                        <Route path={APP_ROUTES_ENUM.LOGIN} element={<Authenticate />} />
                     </Route>
                 </Routes>
             </div>
