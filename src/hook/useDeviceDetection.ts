@@ -1,17 +1,17 @@
-import {useEffect, useState} from "react";
 import { Capacitor } from '@capacitor/core';
+import { useEffect, useState } from 'react';
 
 export enum DeviceEnum {
     MOBILE = 'Mobile',
     TABLET = 'Tablet',
     DESKTOP = 'Desktop',
-    UNKNOWN = ''
+    UNKNOWN = '',
 }
 export enum OsEnum {
     IOS = 'IOS',
     ANDROID = 'Android',
     WEB = 'Web',
-    UNKNOWN = ''
+    UNKNOWN = '',
 }
 
 export const useDeviceDetection = (): { device: DeviceEnum; os: OsEnum } => {
@@ -30,7 +30,7 @@ export const useDeviceDetection = (): { device: DeviceEnum; os: OsEnum } => {
                 case isMobile:
                     setDevice(DeviceEnum.MOBILE);
                     break;
-            
+
                 case isTablet:
                     setDevice(DeviceEnum.TABLET);
                     break;
@@ -38,7 +38,7 @@ export const useDeviceDetection = (): { device: DeviceEnum; os: OsEnum } => {
                 case !isTablet && !isMobile:
                     setDevice(DeviceEnum.DESKTOP);
                     break;
-            
+
                 default:
                     setDevice(DeviceEnum.UNKNOWN);
                     console.error('Device not detected');
@@ -49,15 +49,15 @@ export const useDeviceDetection = (): { device: DeviceEnum; os: OsEnum } => {
                 case 'ios':
                     setOs(OsEnum.IOS);
                     break;
-                
+
                 case 'android':
                     setOs(OsEnum.ANDROID);
                     break;
-                
+
                 case 'web':
                     setOs(OsEnum.WEB);
                     break;
-            
+
                 default:
                     setOs(OsEnum.UNKNOWN);
                     console.error('OS not detected');
@@ -65,13 +65,13 @@ export const useDeviceDetection = (): { device: DeviceEnum; os: OsEnum } => {
             }
         };
 
-        handleDeviceDetection()
+        handleDeviceDetection();
         window.addEventListener('resize', handleDeviceDetection);
 
         return () => {
             window.removeEventListener('resize', handleDeviceDetection);
-        }
-    }, [])
+        };
+    }, []);
 
-    return {device, os};
-}
+    return { device, os };
+};

@@ -1,17 +1,16 @@
-import {useAuth} from "@/context/AuthProvider.tsx";
-import {Navigate, Outlet, useLocation} from "react-router-dom";
-import BlurOverlay from "@/components/BlurOverlay.tsx";
+import BlurOverlay from '@/components/BlurOverlay.tsx';
+import { useAuth } from '@/context/AuthProvider.tsx';
+import { Outlet } from 'react-router-dom';
 
 const BankCheck = () => {
-    const { user } = useAuth()
-    const location = useLocation()
+    const { user } = useAuth();
 
     return (
         <>
-            { !user.powens_token && <BlurOverlay />}
+            {!user.powens_token && <BlurOverlay />}
             <Outlet />
         </>
-    )
-}
+    );
+};
 
-export default BankCheck
+export default BankCheck;
