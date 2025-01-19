@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import { createUseStyles } from 'react-jss';
-import '../css/index.css';
+import '@/css/index.css';
+import appleIcon from '@/assets/images/icons/apple_icon.png';
+import googleIcon from '@/assets/images/icons/google_icon.png';
 import { OsEnum, useDeviceDetection } from '@/hook/useDeviceDetection';
 import { Button } from './ui/button';
 
@@ -17,17 +19,18 @@ type ButtonAppProps = {
     onClick?: () => void;
 };
 
-function ButtonApp(props: ButtonAppProps) {
+const ButtonApp = forwardRef<HTMLButtonElement, ButtonAppProps>((props, ref) => {
     const styles = useStyles();
     const { os } = useDeviceDetection();
 
     if (os === OsEnum.ANDROID && props.action === 'apple') {
         console.error('This button is not available on Android');
-        return;
+        return null;
     }
 
     return (
         <Button
+            ref={ref}
             className={`
                 ${styles.button}
                 ${props?.sx}
@@ -35,19 +38,19 @@ function ButtonApp(props: ButtonAppProps) {
                 ${props?.variant && !props?.action && styles[props.variant]} 
                 ${props?.color && !props?.action ? styles[props.color] : styles.default}
                 ${props?.bold && 'font-bold'}
-                ${props?.action && styles.outlined}
             `}
             onClick={() => props.onClick && props.onClick()}
             disabled={props.disabled}
         >
             {props.startIcon && !props.action && <span className='mr-2 w-auto h-max'>{props.startIcon}</span>}
 
-            {props.action && <span className='mr-2 w-auto h-max'>{props.startIcon}</span>}
+            {props?.action === 'apple' && <img src={appleIcon} alt='AppleIcon' className='w-auto h-4 mr-3' />}
+            {props?.action === 'google' && <img src={googleIcon} alt='GoogleIcon' className='w-auto h-4 mr-3' />}
 
             {props.children}
         </Button>
     );
-}
+});
 
 export default ButtonApp;
 
@@ -81,6 +84,7 @@ const useStyles = createUseStyles({
     },
     text: {
         background: 'transparent',
+        border: 'none',
         color: 'var(--primary-500)',
         '&:hover': {
             background: 'var(--primary-100)',
@@ -91,12 +95,15 @@ const useStyles = createUseStyles({
     },
     small: {
         padding: '6px 16px',
+        width: '60%',
     },
     medium: {
         padding: '8px 24px',
+        width: '80%',
     },
     large: {
         padding: '10px 32px',
+        width: '100%',
     },
     default: {
         background: 'var(--neutral-200)',

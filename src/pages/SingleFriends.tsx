@@ -1,7 +1,7 @@
+import { friendsData } from '@/temp/FriendsData';
 import { ArrowLeftIcon } from '@heroicons/react/24/outline';
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { friendsData } from '../temp/FriendsData';
 
 const SingleFriend = () => {
     const { id } = useParams<{ id: string }>();

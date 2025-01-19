@@ -23,6 +23,15 @@ export const APP_ROUTES_ENUM = {
     REWARDS: '/rewards',
     TEST: '/test',
     PARTNERS: '/partners',
+    REGISTER: '/signup',
+    VERIFY_EMAIL: '/verify-email',
+    CREATE_USERNAME: '/create_username',
+    CREATE_PASSWORD: '/create-password',
+    CONFIRM_PASSWORD: '/confirm-password',
+    CREATE_PIN: '/create-pin',
+    CONFIRM_PIN: '/confirm-pin',
+    TERMS: '/terms',
+    PIN: '/pin',
 };
 
 const container = document.getElementById('root');

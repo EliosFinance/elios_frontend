@@ -1,8 +1,8 @@
+import { friendsData } from '@/temp/FriendsData';
 import { ArrowLeftIcon, ChevronDownIcon, ChevronUpIcon, EyeIcon } from '@heroicons/react/24/outline';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { friendsData } from '../temp/FriendsData';
 
 const Friends = () => {
     const [searchTerm, setSearchTerm] = useState('');

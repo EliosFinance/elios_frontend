@@ -1,5 +1,5 @@
 import { likeArticle, saveArticle } from '@/api';
-import { ArticleType } from '../types/BlogType';
+import { ArticleType } from '@/types/BlogType';
 import LikeButton from './LikeButton';
 import SaveButton from './SaveButton';
 

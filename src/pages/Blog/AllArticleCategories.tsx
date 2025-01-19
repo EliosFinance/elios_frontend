@@ -1,8 +1,8 @@
 import { getArticleCategories } from '@/api';
+import BlogBottomNav from '@/components/BlogBottomNav';
 import { APP_ROUTES_ENUM } from '@/main';
+import { ArticleCategoryType } from '@/types/BlogType';
 import { useEffect, useState } from 'react';
-import BlogBottomNav from '../../components/BlogBottomNav';
-import { ArticleCategoryType } from '../../types/BlogType';
 
 const AllArticleCategories = () => {
     const [articleCategories, setArticleCategories] = useState<ArticleCategoryType[]>([]);

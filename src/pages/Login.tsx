@@ -3,13 +3,13 @@ import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert.tsx';
 import { Button } from '@/components/ui/button.tsx';
 import { Input } from '@/components/ui/input.tsx';
 import { Label } from '@/components/ui/label.tsx';
+import { useAuth } from '@/context/AuthProvider.tsx';
 import { APP_ROUTES_ENUM } from '@/main.tsx';
 import { gapi } from 'gapi-script';
 import { AlertCircle } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { GoogleLogin } from 'react-google-login';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthProvider.tsx';
 
 const Login = ({ VITE_GOOGLE_CLIENT_ID }) => {
     const [username, setUsername] = useState('');

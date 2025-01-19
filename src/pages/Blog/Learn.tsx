@@ -1,9 +1,9 @@
 import { getArticleCategories, getArticles } from '@/api';
+import CarouselX from '@/components/CarouselX';
 import InputApp from '@/components/InputApp';
 import { APP_ROUTES_ENUM } from '@/main';
+import { ArticleCategoryType, ArticleType, ArticleTypesEnum } from '@/types/BlogType';
 import { useEffect, useState } from 'react';
-import CarouselX from '../../components/CarouselX';
-import { ArticleCategoryType, ArticleType, ArticleTypesEnum } from '../../types/BlogType';
 
 const Learn = () => {
     const [search, setSearch] = useState<string>('');

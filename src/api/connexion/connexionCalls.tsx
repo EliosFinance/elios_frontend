@@ -4,6 +4,13 @@ import { AxiosError } from 'axios';
 import { UseQueryResult, useQuery } from 'react-query';
 import { instance_back } from '../const';
 
+export type LoginType = {
+    access_token: string;
+    refresh_token: string;
+    username: string;
+    powens_token: string;
+};
+
 const getConnection = async () => {
     try {
         const headers = userStore.getState().getAuth();
@@ -23,10 +30,26 @@ export const useGetConnection = (): UseQueryResult<ConnectionType[], AxiosError>
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const login_api = async (username: string, password: string): Promise<any> => {
+export const login_api = async (username: string, password: string): Promise<LoginType | null> => {
     try {
         const response = await instance_back.post('auth/sign-in', {
             username,
+            password,
+        });
+
+        return response.data;
+    } catch (error) {
+        const err = error as AxiosError;
+        console.error(err.message);
+    }
+};
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const register_api = async (username: string, email: string, password: string): Promise<LoginType | null> => {
+    try {
+        const response = await instance_back.post('auth/sign-up', {
+            username,
+            email,
             password,
         });
 

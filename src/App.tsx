@@ -4,11 +4,21 @@ import PublicRoute from '@/components/PublicRoute.tsx';
 import { OsEnum, useDeviceDetection } from '@/hook/useDeviceDetection.ts';
 import Home from '@/pages/Home.tsx';
 import Login from '@/pages/Login.tsx';
+import { Pin } from 'lucide-react';
 import { Route, Routes } from 'react-router-dom';
 import AuthRoute from './components/AuthRoute.tsx';
 import PartnerChallenge from './components/PartnerChallenge.tsx';
 import { APP_ROUTES_ENUM } from './main.tsx';
 import Account from './pages/Account.tsx';
+import Authenticate from './pages/Auth/Authenticate.tsx';
+import FirstTimerView from './pages/Auth/FirstTimerView.tsx';
+import EmailVerification from './pages/Auth/Register/views/1_EmailVerification.tsx';
+import CreateUsername from './pages/Auth/Register/views/2_Username.tsx';
+import CreatePassword from './pages/Auth/Register/views/3_CreatePassword.tsx';
+import ConfirmPassword from './pages/Auth/Register/views/4_ConfirmPassword.tsx';
+import PINCodeScreen from './pages/Auth/Register/views/5_CreatePINCodeScreen.tsx';
+import ConfirmPIN from './pages/Auth/Register/views/6_ConfirmPin.tsx';
+import TermsAndConditions from './pages/Auth/Register/views/7_TermsAndConditions.tsx';
 import AllArticleCategories from './pages/Blog/AllArticleCategories.tsx';
 import Article from './pages/Blog/Article.tsx';
 import ArticleCategory from './pages/Blog/ArticleCategory.tsx';
@@ -20,7 +30,6 @@ import Rewards from './pages/Rewards.tsx';
 import SingleDefi from './pages/SingleDefi.tsx';
 import SingleFriend from './pages/SingleFriends.tsx';
 import { challengeData } from './types/challengeType.ts';
-
 function App() {
     const { os } = useDeviceDetection();
     let googleId;
@@ -73,7 +82,21 @@ function App() {
                             path={`${APP_ROUTES_ENUM.TEST}`}
                             element={<PartnerChallenge challenge={challengeData} />}
                         />
-                        <Route path={APP_ROUTES_ENUM.LOGIN} element={<Login VITE_GOOGLE_CLIENT_ID={googleId} />} />
+                        {/* Login */}
+                        <Route path={APP_ROUTES_ENUM.REGISTER} element={<Authenticate />} />
+                        <Route path={APP_ROUTES_ENUM.VERIFY_EMAIL} element={<EmailVerification />} />
+                        <Route path={APP_ROUTES_ENUM.CREATE_USERNAME} element={<CreateUsername />} />
+                        <Route path={APP_ROUTES_ENUM.CREATE_PASSWORD} element={<CreatePassword />} />
+                        <Route path={APP_ROUTES_ENUM.CONFIRM_PASSWORD} element={<ConfirmPassword />} />
+                        <Route path={APP_ROUTES_ENUM.CREATE_PIN} element={<PINCodeScreen />} />
+                        <Route path={APP_ROUTES_ENUM.CONFIRM_PIN} element={<ConfirmPIN />} />
+                        <Route path={APP_ROUTES_ENUM.TERMS} element={<TermsAndConditions />} />
+                        <Route path={APP_ROUTES_ENUM.PIN} element={<Pin />} />
+                        {/* End Login */}
+
+                        <Route path={'*'} element={<FirstTimerView />} />
+                        {/* <Route path={APP_ROUTES_ENUM.LOGIN} element={<Login VITE_GOOGLE_CLIENT_ID={googleId} />} /> */}
+                        <Route path={APP_ROUTES_ENUM.LOGIN} element={<Authenticate />} />
                     </Route>
                 </Routes>
             </div>
