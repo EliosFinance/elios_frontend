@@ -27,6 +27,7 @@ import Friends from './pages/Friends.tsx';
 import Landing from './pages/Landing.tsx';
 import Partners from './pages/Partners.tsx';
 import Rewards from './pages/Rewards.tsx';
+import SettingsHome from './pages/Settings/SettingsHome.tsx';
 import SingleDefi from './pages/SingleDefi.tsx';
 import SingleFriend from './pages/SingleFriends.tsx';
 import { challengeData } from './types/challengeType.ts';
@@ -71,9 +72,13 @@ function App() {
 
                             <Route path={APP_ROUTES_ENUM.ACCOUNT} element={<Account />} />
                             <Route path={APP_ROUTES_ENUM.REWARDS} element={<Rewards />} />
-                            <Route path={`${APP_ROUTES_ENUM.DEFI}/:id`} element={<SingleDefi />} />
+                            <Route path={`${APP_ROUTES_ENUM.CHALLENGE}/:id`} element={<SingleDefi />} />
                             <Route path={APP_ROUTES_ENUM.FRIENDS} element={<Friends />} />
                             <Route path={`${APP_ROUTES_ENUM.FRIENDS}/:id`} element={<SingleFriend />} />
+
+                            {/* Settings */}
+                            <Route path={APP_ROUTES_ENUM.SETTINGS} element={<SettingsHome />} />
+                            {/* End Settings */}
                         </Route>
                     </Route>
 

@@ -17,7 +17,7 @@ export const APP_ROUTES_ENUM = {
     ARTICLE_CATEGORIES: '/article-categories',
     ARTICLE_CATEGORY: '/article-category',
     LOGIN: '/login',
-    DEFI: '/challenge',
+    CHALLENGE: '/challenge',
     FRIENDS: '/friends',
     SINGLE_FRIEND: '/friends/:id',
     REWARDS: '/rewards',
@@ -32,6 +32,7 @@ export const APP_ROUTES_ENUM = {
     CONFIRM_PIN: '/confirm-pin',
     TERMS: '/terms',
     PIN: '/pin',
+    SETTINGS: '/settings',
 };
 
 const container = document.getElementById('root');
