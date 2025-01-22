@@ -52,6 +52,7 @@ function App() {
             googleId = null;
             break;
     }
+    console.log('googleId', googleId);
 
     return (
         <>
