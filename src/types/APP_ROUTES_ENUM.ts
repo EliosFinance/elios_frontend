@@ -1,18 +1,20 @@
 const APP_ROUTES_ENUM = {
+    // Authenticated routes
     HOME: '/home',
-    LANDING: '/landing',
     ACCOUNT: '/account',
     LEARN: '/learn',
     ARTICLE: '/article',
     ARTICLE_CATEGORIES: '/article-categories',
     ARTICLE_CATEGORY: '/article-category',
-    LOGIN: '/login',
     CHALLENGE: '/challenge',
     FRIENDS: '/friends',
     SINGLE_FRIEND: '/friends/:id',
     REWARDS: '/rewards',
-    TEST: '/test',
     PARTNERS: '/partners',
+
+    // Login routes
+    LOGIN: '/login',
+    TEST: '/test',
     REGISTER: '/signup',
     VERIFY_EMAIL: '/verify-email',
     CREATE_USERNAME: '/create_username',
@@ -22,7 +24,29 @@ const APP_ROUTES_ENUM = {
     CONFIRM_PIN: '/confirm-pin',
     TERMS: '/terms',
     PIN: '/pin',
+
+    // Settings routes
     SETTINGS: '/settings',
+    SETTINGS_PROFILE: '/settings/profile',
+    SETTINGS_BANK_ACCOUNTS: '/settings/bank-accounts',
+    SETTINGS_SUBSCRIPTIONS: '/settings/subscriptions',
+    SETTINGS_REWARDS: '/settings/rewards',
+    SETTINGS_REFERRALS: '/settings/referrals',
+    SETTINGS_NOTIFICATIONS: '/settings/notifications',
+    SETTINGS_ACCESS_CODES: '/settings/access-codes',
+    SETTINGS_2FA: '/settings/2fa',
+    SETTINGS_DEVICES_MANAGEMENT: '/settings/devices-management',
+    SETTINGS_SHARE_MY_ACTIVITY: '/settings/share-my-activity',
+    SETTINGS_FOLLOW_OUR_SOCIAL_NETWORKS: '/settings/follow-our-social-networks',
+    SETTINGS_FAQ: '/settings/faq',
+    SETTINGS_CONTACT_US: '/settings/contact-us',
+    SETTINGS_OUR_HISTORY: '/settings/our-history',
+    SETTINGS_OUR_TEAM: '/settings/our-team',
+    SETTINGS_OUR_PARTNERS: '/settings/our-partners',
+    SETTINGS_LEGAL_MENTIONS: '/settings/legal-mentions',
+    SETTINGS_PRIVACY_POLICY: '/settings/privacy-policy',
+    SETTINGS_CHANGE_LOG: '/settings/change-log',
+    SETTINGS_TERMS_OF_USE: '/settings/terms-of-use',
 };
 
 export default APP_ROUTES_ENUM;

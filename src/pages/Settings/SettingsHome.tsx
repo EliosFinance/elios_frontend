@@ -27,19 +27,19 @@ const SettingsHome = () => {
 
             {/* Body */}
             <div>
-                {SETTINGS_MAP.map((settingCategory) => (
-                    <div>
+                {SETTINGS_MAP.map((settingCategory, key) => (
+                    <div key={key}>
                         <h2>{settingCategory.title}</h2>
-                        <div>
-                            {settingCategory.children?.map((setting) => (
-                                <div>
-                                    <div>
+                        <ul>
+                            {settingCategory.children?.map((setting, index) => (
+                                <li key={index}>
+                                    <a href={setting.route}>
+                                        <span>{setting.icon}</span> &nbsp;
                                         <span>{setting.title}</span>
-                                        <span>{setting.icon}</span>
-                                    </div>
-                                </div>
+                                    </a>
+                                </li>
                             ))}
-                        </div>
+                        </ul>
                     </div>
                 ))}
             </div>
