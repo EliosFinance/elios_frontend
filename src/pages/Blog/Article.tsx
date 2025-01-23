@@ -3,7 +3,7 @@ import BlogBottomNav from '@/components/BlogBottomNav';
 import { Card } from '@/components/Card';
 import { Skeleton } from '@/components/ui/skeleton';
 import useConfettis from '@/hook/useConfettis';
-import { APP_ROUTES_ENUM } from '@/main';
+import APP_ROUTES_ENUM from '@/types/APP_ROUTES_ENUM';
 import { ArticleType } from '@/types/BlogType';
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';

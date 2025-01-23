@@ -3,13 +3,11 @@ import BankCheck from '@/components/BankCheck.tsx';
 import PublicRoute from '@/components/PublicRoute.tsx';
 import { OsEnum, useDeviceDetection } from '@/hook/useDeviceDetection.ts';
 import Home from '@/pages/Home.tsx';
-import Login from '@/pages/Login.tsx';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { Pin } from 'lucide-react';
 import { Route, Routes } from 'react-router-dom';
 import AuthRoute from './components/AuthRoute.tsx';
 import PartnerChallenge from './components/PartnerChallenge.tsx';
-import { APP_ROUTES_ENUM } from './main.tsx';
 import Account from './pages/Account.tsx';
 import Authenticate from './pages/Auth/Authenticate.tsx';
 import FirstTimerView from './pages/Auth/FirstTimerView.tsx';
@@ -31,6 +29,7 @@ import Rewards from './pages/Rewards.tsx';
 import SettingsHome from './pages/Settings/SettingsHome.tsx';
 import SingleDefi from './pages/SingleDefi.tsx';
 import SingleFriend from './pages/SingleFriends.tsx';
+import APP_ROUTES_ENUM from './types/APP_ROUTES_ENUM.ts';
 import { challengeData } from './types/challengeType.ts';
 
 function App() {

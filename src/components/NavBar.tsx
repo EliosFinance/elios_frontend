@@ -1,5 +1,4 @@
-import { APP_ROUTES_ENUM } from '@/main';
-import React from 'react';
+import APP_ROUTES_ENUM from '@/types/APP_ROUTES_ENUM';
 
 const NavBar = () => {
     const iconStyle = 'w-[50%] h-auto';

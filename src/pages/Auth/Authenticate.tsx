@@ -1,12 +1,9 @@
-'use client';
-
 import mainLogo from '@/assets/images/corp/main_logo.png';
 import appleIcon from '@/assets/images/icons/apple_icon.png';
-import googleIcon from '@/assets/images/icons/google_icon.png';
 import { Button } from '@/components/ui/button.tsx';
 import { Drawer, DrawerClose, DrawerContent, DrawerTitle, DrawerTrigger } from '@/components/ui/drawer';
 import { OsEnum, useDeviceDetection } from '@/hook/useDeviceDetection';
-import { APP_ROUTES_ENUM } from '@/main';
+import APP_ROUTES_ENUM from '@/types/APP_ROUTES_ENUM';
 import { GoogleLogin } from '@react-oauth/google';
 import React, { useState } from 'react';
 import { createSearchParams, useNavigate } from 'react-router-dom';

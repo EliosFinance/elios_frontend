@@ -1,0 +1,28 @@
+const APP_ROUTES_ENUM = {
+    HOME: '/home',
+    LANDING: '/landing',
+    ACCOUNT: '/account',
+    LEARN: '/learn',
+    ARTICLE: '/article',
+    ARTICLE_CATEGORIES: '/article-categories',
+    ARTICLE_CATEGORY: '/article-category',
+    LOGIN: '/login',
+    CHALLENGE: '/challenge',
+    FRIENDS: '/friends',
+    SINGLE_FRIEND: '/friends/:id',
+    REWARDS: '/rewards',
+    TEST: '/test',
+    PARTNERS: '/partners',
+    REGISTER: '/signup',
+    VERIFY_EMAIL: '/verify-email',
+    CREATE_USERNAME: '/create_username',
+    CREATE_PASSWORD: '/create-password',
+    CONFIRM_PASSWORD: '/confirm-password',
+    CREATE_PIN: '/create-pin',
+    CONFIRM_PIN: '/confirm-pin',
+    TERMS: '/terms',
+    PIN: '/pin',
+    SETTINGS: '/settings',
+};
+
+export default APP_ROUTES_ENUM;

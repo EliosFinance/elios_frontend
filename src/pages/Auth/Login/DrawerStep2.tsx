@@ -1,6 +1,6 @@
 import { login_api } from '@/api';
 import { Button } from '@/components/ui/button.tsx';
-import { APP_ROUTES_ENUM } from '@/main';
+import APP_ROUTES_ENUM from '@/types/APP_ROUTES_ENUM';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 

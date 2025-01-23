@@ -1,5 +1,5 @@
 import { useAuth } from '@/context/AuthProvider.tsx';
-import { APP_ROUTES_ENUM } from '@/main';
+import APP_ROUTES_ENUM from '@/types/APP_ROUTES_ENUM';
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
 
 const PublicRoute = () => {

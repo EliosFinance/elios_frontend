@@ -1,6 +1,6 @@
 import { getArticleCategories } from '@/api';
 import BlogBottomNav from '@/components/BlogBottomNav';
-import { APP_ROUTES_ENUM } from '@/main';
+import APP_ROUTES_ENUM from '@/types/APP_ROUTES_ENUM';
 import { ArticleCategoryType } from '@/types/BlogType';
 import { useEffect, useState } from 'react';
 

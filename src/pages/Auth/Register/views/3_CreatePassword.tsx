@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button.tsx';
-import { APP_ROUTES_ENUM } from '@/main';
 import { useRegisterUsersStore } from '@/store/RegisterUser';
+import APP_ROUTES_ENUM from '@/types/APP_ROUTES_ENUM';
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import RegisterHeader from '../components/RegisterHeader';
