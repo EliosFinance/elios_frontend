@@ -4,6 +4,7 @@ import PublicRoute from '@/components/PublicRoute.tsx';
 import { OsEnum, useDeviceDetection } from '@/hook/useDeviceDetection.ts';
 import Home from '@/pages/Home.tsx';
 import Login from '@/pages/Login.tsx';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 import { Pin } from 'lucide-react';
 import { Route, Routes } from 'react-router-dom';
 import AuthRoute from './components/AuthRoute.tsx';
@@ -31,6 +32,7 @@ import SettingsHome from './pages/Settings/SettingsHome.tsx';
 import SingleDefi from './pages/SingleDefi.tsx';
 import SingleFriend from './pages/SingleFriends.tsx';
 import { challengeData } from './types/challengeType.ts';
+
 function App() {
     const { os } = useDeviceDetection();
     let googleId;
@@ -52,10 +54,9 @@ function App() {
             googleId = null;
             break;
     }
-    console.log('googleId', googleId);
 
     return (
-        <>
+        <GoogleOAuthProvider clientId={googleId}>
             <div className='min-w-[100dvw] min-h-[100dvh] max-h-[100dvh] flex'>
                 <Routes>
                     <Route element={<AuthRoute />}>
@@ -106,7 +107,7 @@ function App() {
                     </Route>
                 </Routes>
             </div>
-        </>
+        </GoogleOAuthProvider>
     );
 }
 

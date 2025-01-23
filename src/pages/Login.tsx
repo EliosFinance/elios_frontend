@@ -5,10 +5,10 @@ import { Input } from '@/components/ui/input.tsx';
 import { Label } from '@/components/ui/label.tsx';
 import { useAuth } from '@/context/AuthProvider.tsx';
 import { APP_ROUTES_ENUM } from '@/main.tsx';
+import { GoogleLogin } from '@react-oauth/google';
 import { gapi } from 'gapi-script';
 import { AlertCircle } from 'lucide-react';
 import { useEffect, useState } from 'react';
-import { GoogleLogin } from 'react-google-login';
 import { useNavigate } from 'react-router-dom';
 
 const Login = ({ VITE_GOOGLE_CLIENT_ID }) => {
@@ -84,15 +84,16 @@ const Login = ({ VITE_GOOGLE_CLIENT_ID }) => {
                     {/*<div className="w-100 mt-2">*/}
                     {/*    New user? <Link to={"/register"}>Register</Link>*/}
                     {/*</div>*/}
-
                     <GoogleLogin
-                        clientId={VITE_GOOGLE_CLIENT_ID}
-                        buttonText='Login'
-                        onSuccess={onSuccessGoogle}
-                        onFailure={onFailureGoogle}
-                        cookiePolicy={'single_host_origin'}
-                        isSignedIn={true}
+                        onSuccess={(credentialResponse) => {
+                            console.log(credentialResponse);
+                        }}
+                        onError={() => {
+                            console.log('Login Failed');
+                        }}
+                        useOneTap
                     />
+                    ;
                 </div>
             </div>
         </>
