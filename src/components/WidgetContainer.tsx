@@ -1,7 +1,8 @@
+import { Button } from '@/components/ui/button';
 import { Drawer, DrawerClose, DrawerContent, DrawerHeader, DrawerTitle } from '@/components/ui/drawer';
 import { widgetStore } from '@/store/WidgetStore';
 import { WidgetType } from '@/temp/WidgetData';
-import { Eye, EyeOff, Plus, X } from 'lucide-react';
+import { EyeIcon, EyeSlashIcon, PlusIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import React, { useEffect, useState } from 'react';
 import { useSwipeable } from 'react-swipeable';
 import Widget from './Widget';
@@ -101,15 +102,12 @@ const WidgetPagination = ({ currentPage, totalPages, onPageChange }) => (
                 <button
                     onClick={() => onPageChange(currentPage - 1)}
                     disabled={currentPage <= 1}
-                    className={`w-6 h-1 rounded-full ${currentPage <= 1 ? 'bg-gray-300' : 'bg-black'}`}
+                    className={`w-6 h-1 rounded-full ${currentPage === 1 ? 'bg-black' : 'bg-gray-300'}`}
                 />
-                <span className='text-lg font-semibold'>
-                    {currentPage} / {totalPages}
-                </span>
                 <button
                     onClick={() => onPageChange(currentPage + 1)}
                     disabled={currentPage >= totalPages}
-                    className={`w-6 h-1 rounded-full ${currentPage >= totalPages ? 'bg-gray-300' : 'bg-black'}`}
+                    className={`w-6 h-1 rounded-full ${currentPage === 2 ? 'bg-black' : 'bg-gray-300'}`}
                 />
             </>
         )}
@@ -157,15 +155,17 @@ const WidgetContainer = () => {
     });
 
     return (
-        <div className='p-6 space-y-6'>
+        <div className='w-full'>
             <div className='flex items-center justify-between w-full'>
-                <h2 className='text-2xl font-bold'>Custom widgets</h2>
-                <button
-                    className='bg-blue-500 text-black rounded-xl w-10 h-9 flex items-center justify-center absolute right-6'
+                <h2 className='text-xl font-bold'>Custom widgets</h2>
+                <Button
+                    variant='ghost'
+                    size='icon'
                     onClick={() => setIsDrawerOpen(true)}
+                    className='rounded-xl hover:bg-gray-100'
                 >
-                    <Plus className='text-black w-4 h-4' />
-                </button>
+                    <PlusIcon className='h-5 w-5' />
+                </Button>
             </div>
             <div className='relative overflow-hidden' {...handlers}>
                 <div
@@ -199,14 +199,14 @@ const WidgetContainer = () => {
             <WidgetPagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
 
             <Drawer open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
-                <DrawerContent>
+                <DrawerContent className='z-[100000]'>
                     <DrawerHeader>
                         <DrawerTitle>Manage Widgets</DrawerTitle>
                         <DrawerClose className='absolute right-4 top-4'>
-                            <X />
+                            <XMarkIcon />
                         </DrawerClose>
                     </DrawerHeader>
-                    <div className='p-4 space-y-4'>
+                    <div className='p-4 space-y-4 z-[100000]'>
                         {widgets.map((widget) => (
                             <div key={widget.id} className='flex justify-between items-center border-b py-2'>
                                 <div>
@@ -221,9 +221,9 @@ const WidgetContainer = () => {
                                     className='flex items-center focus:outline-none'
                                 >
                                     {widget.display ? (
-                                        <Eye className='h-5 w-5 text-gray-800' />
+                                        <EyeIcon className='h-5 w-5 text-gray-800' />
                                     ) : (
-                                        <EyeOff className='h-5 w-5 text-gray-800' />
+                                        <EyeSlashIcon className='h-5 w-5 text-gray-800' />
                                     )}
                                 </button>
                             </div>

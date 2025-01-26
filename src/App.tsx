@@ -22,6 +22,7 @@ import Article from './pages/Blog/Article.tsx';
 import ArticleCategory from './pages/Blog/ArticleCategory.tsx';
 import Learn from './pages/Blog/Learn.tsx';
 import Friends from './pages/Friends.tsx';
+import Home from './pages/Home.tsx';
 import Landing from './pages/Landing.tsx';
 import Partners from './pages/Partners.tsx';
 import Rewards from './pages/Rewards.tsx';
@@ -78,7 +79,7 @@ function App() {
                 <Routes>
                     <Route element={<AuthRoute />}>
                         <Route element={<Layout />}>
-                            <Route path={APP_ROUTES_ENUM.HOME} element={<Landing />} />
+                            <Route path={APP_ROUTES_ENUM.HOME} element={<Home />} />
                             <Route path={APP_ROUTES_ENUM.PARTNERS} element={<Partners />} />
 
                             {/* Learn */}

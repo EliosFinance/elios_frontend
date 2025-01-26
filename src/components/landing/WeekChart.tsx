@@ -70,6 +70,7 @@ const WeekChart = () => {
 
     return (
         <div className='w-full bg-white shadow-lg rounded-lg mb-4'>
+            <h2 className='text-xl font-bold mb-4'>Last Week</h2>
             <div ref={chartRef} style={{ width: '100%', height: '300px' }} />
         </div>
     );

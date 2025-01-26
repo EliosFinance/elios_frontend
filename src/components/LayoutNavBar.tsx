@@ -8,10 +8,10 @@ const LayoutNavBar = () => {
 
     const LinkComponent = ({ route, icon }: { route: string; icon: React.JSX.Element }) => {
         return (
-            <div className='w-[25%] flex flex-col items-center justify-around gap-2 transition-all ease duration-150'>
+            <div className='w-[25%] flex flex-col items-center justify-around gap-2 transition-all duration-150 ease'>
                 <Link
                     to={route}
-                    className={`w-full flex items-center justify-center ${currentRoute === route ? 'text-blue-500' : 'text-gray-500'} transition-all ease duration-150`}
+                    className={`w-full flex items-center justify-center ${currentRoute === route ? 'text-blue-500' : 'text-gray-500'} transition-all duration-150 ease`}
                     onClick={() => {
                         setCurrentRoute(route.toLowerCase());
                     }}
@@ -19,7 +19,7 @@ const LayoutNavBar = () => {
                     {icon}
                 </Link>
                 {currentRoute === route && (
-                    <span className='w-[25%] h-1 bg-blue-500 rounded-2 transition-all ease duration-150'></span>
+                    <span className='w-[25%] h-1 bg-blue-500 rounded-2 transition-all duration-150 ease'></span>
                 )}
             </div>
         );
