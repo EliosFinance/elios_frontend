@@ -61,7 +61,6 @@ const Article = () => {
                 entries.forEach((entry) => {
                     if (entry.isIntersecting) {
                         const targetElement = entry.target as HTMLDivElement;
-                        console.log('targetElement', targetElement.id);
 
                         const currentItemIndex = Number(targetElement.id.split('_')[1]);
 
@@ -166,13 +165,13 @@ const Article = () => {
 
                                 {/* card container */}
                                 <div className='w-full h-auto flex justify-between items-center font-bold mt-12'>
-                                    <p>{currentArticle.cards?.length || 0} ideas</p>
+                                    <p>{currentArticle.articleContent?.length || 0} ideas</p>
                                     <p>{currentArticle?.reads_count || 0}k lectures</p>
                                 </div>
                             </div>
                         </div>
 
-                        {currentArticle?.cards?.map((card, i) => (
+                        {currentArticle?.articleContent?.map((card, i) => (
                             <Card
                                 id={`card_${i}`}
                                 article={currentArticle}

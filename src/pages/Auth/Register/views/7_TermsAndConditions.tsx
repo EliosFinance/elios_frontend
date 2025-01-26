@@ -19,7 +19,6 @@ const TermsAndConditions: React.FC = () => {
 
         const response = await register_api(username, email, password);
         if (response) {
-            alert('Inscription réussie');
             clear();
             navigate(APP_ROUTES_ENUM.HOME);
         }

@@ -1,4 +1,4 @@
-import { getArticles, getSingleArticleCategory } from '@/api';
+import { getArticles, getSingleArticle, getSingleArticleCategory } from '@/api';
 import BlogBottomNav from '@/components/BlogBottomNav';
 import ButtonApp from '@/components/ButtonApp';
 import CarouselX from '@/components/CarouselX';
@@ -28,8 +28,11 @@ const ArticleCategory = () => {
     useEffect(() => {
         const loadDatas = async () => {
             if (!category) return;
-            const subjects = await getArticles();
-            setCards(subjects.filter((subject) => subject.category.title === category.title));
+            const articles: ArticleType[] = [];
+            for (const article of category.articles) {
+                articles.push(await getSingleArticle(article.id));
+            }
+            setCards(articles);
         };
         loadDatas();
     }, [category]);

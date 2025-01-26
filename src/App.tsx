@@ -79,7 +79,7 @@ function App() {
                 <Routes>
                     <Route element={<AuthRoute />}>
                         <Route element={<Layout />}>
-                            <Route path={APP_ROUTES_ENUM.HOME} element={<Home />} />
+                            <Route path={APP_ROUTES_ENUM.HOME} element={<Landing />} />
                             <Route path={APP_ROUTES_ENUM.PARTNERS} element={<Partners />} />
 
                             {/* Learn */}

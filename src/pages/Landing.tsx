@@ -22,7 +22,7 @@ const Landing = () => {
         <div className='flex flex-col items-center w-full px-4 space-y-8 pt-8 !mb-32'>
             <div className='w-full flex flex-col items-start gap-4'>
                 <LandingHeader />
-                <h1 className='text-2xl font-bold mb-4'>
+                <h1 className='text-2xl font-bold mb-4 mt-4'>
                     Bienvenue, {user.username.charAt(0).toUpperCase() + user.username.slice(1)}
                 </h1>
             </div>

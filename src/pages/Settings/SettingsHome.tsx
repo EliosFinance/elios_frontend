@@ -96,7 +96,7 @@ const SettingsHome = () => {
             >
                 Déconnexion
             </ButtonApp>
-            <div className='mt-6 w-full h-1 opacity-0'>spacer</div>
+            <div className='mt-12 w-full h-1 opacity-0'>spacer</div>
         </div>
     );
 };

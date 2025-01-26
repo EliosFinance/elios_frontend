@@ -33,7 +33,7 @@ export const useGetConnection = (): UseQueryResult<ConnectionType[], AxiosError>
 export const login_api = async (username: string, password: string): Promise<LoginType | null> => {
     try {
         const response = await instance_back.post('auth/sign-in', {
-            username,
+            usernameOrEmail: username,
             password,
         });
 

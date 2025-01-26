@@ -66,7 +66,7 @@ export type ArticleContentType = {
     title: string;
     readByUser: boolean;
     savedByUser: boolean;
-    content: ContentType[];
+    contentType: ContentType[];
     type: ArticleTypesEnum;
 };
 
@@ -83,7 +83,7 @@ export type ArticleType = {
     thumbnail: string;
     author: ArticleAuthorType;
     description: string;
-    cards: ArticleContentType[];
+    articleContent: ArticleContentType[];
     reads_count: number;
     likes_count?: number;
 };
@@ -93,6 +93,7 @@ export type ArticleCategoryType = {
     title: ArticleCategoriesEnum;
     description: string;
     icon: string;
+    articles: ArticleType[];
 };
 
 // export const subjects: ArticleType[] = [
