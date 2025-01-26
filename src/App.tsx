@@ -1,5 +1,5 @@
 import './css/App.css';
-import BankCheck from '@/components/BankCheck.tsx';
+import Layout from '@/components/Layout.tsx';
 import PublicRoute from '@/components/PublicRoute.tsx';
 import { OsEnum, useDeviceDetection } from '@/hook/useDeviceDetection.ts';
 import { GoogleOAuthProvider } from '@react-oauth/google';
@@ -77,7 +77,7 @@ function App() {
             <div className='min-w-[100dvw] min-h-[100dvh] max-h-[100dvh] flex'>
                 <Routes>
                     <Route element={<AuthRoute />}>
-                        <Route element={<BankCheck />}>
+                        <Route element={<Layout />}>
                             <Route path={APP_ROUTES_ENUM.HOME} element={<Landing />} />
                             <Route path={APP_ROUTES_ENUM.PARTNERS} element={<Partners />} />
 

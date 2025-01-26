@@ -10,7 +10,7 @@ const EmailVerification: React.FC = () => {
     const navigate = useNavigate();
     const params = new URLSearchParams(window.location.search);
     const userEmail = decodeURIComponent(params.get('email')) || '';
-    const { email, setEmail } = useRegisterUsersStore();
+    const { setEmail } = useRegisterUsersStore();
 
     const handleNext = () => {
         navigate(APP_ROUTES_ENUM.CREATE_USERNAME);

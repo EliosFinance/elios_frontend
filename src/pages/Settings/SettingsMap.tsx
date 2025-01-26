@@ -1,49 +1,75 @@
 import APP_ROUTES_ENUM from '@/types/APP_ROUTES_ENUM';
+import {
+    AcademicCapIcon,
+    BanknotesIcon,
+    BellAlertIcon,
+    BookOpenIcon,
+    BriefcaseIcon,
+    ChatBubbleLeftRightIcon,
+    ComputerDesktopIcon,
+    CreditCardIcon,
+    EnvelopeIcon,
+    GiftIcon,
+    HandRaisedIcon,
+    HeartIcon,
+    LockClosedIcon,
+    MegaphoneIcon,
+    NewspaperIcon,
+    NumberedListIcon,
+    ShareIcon,
+    ShieldExclamationIcon,
+    StarIcon,
+    TagIcon,
+    UserGroupIcon,
+    UserIcon,
+    UserPlusIcon,
+} from '@heroicons/react/24/outline';
 
 export type SettingMapObject = {
-    icon?: string;
+    icon?: any;
     title: string;
     children?: SettingsMapItemType[];
 };
 
 export type SettingsMapItemType = {
     title: string;
-    icon: string;
+    icon: any;
     route: string;
 };
 
+const globalIconStyle = 'w-6 h-6 object-cover object-center text-blue-500';
 export const SETTINGS_MAP: SettingMapObject[] = [
     {
         title: 'Mon Elios',
         children: [
             {
                 title: 'Mon profil',
-                icon: 'user',
+                icon: <UserIcon className={globalIconStyle} />,
                 route: APP_ROUTES_ENUM.SETTINGS_PROFILE,
             },
             {
                 title: 'Mes Comptes bancaires',
-                icon: 'credit-card',
+                icon: <BanknotesIcon className={globalIconStyle} />,
                 route: APP_ROUTES_ENUM.SETTINGS_BANK_ACCOUNTS,
             },
             {
                 title: 'Mon abonnement',
-                icon: 'credit-card',
+                icon: <CreditCardIcon className={globalIconStyle} />,
                 route: APP_ROUTES_ENUM.SETTINGS_SUBSCRIPTIONS,
             },
             {
                 title: 'Mes récompenses',
-                icon: 'gift',
+                icon: <GiftIcon className={globalIconStyle} />,
                 route: APP_ROUTES_ENUM.SETTINGS_REWARDS,
             },
             {
                 title: 'Mes parrainages',
-                icon: 'briefcase',
+                icon: <BriefcaseIcon className={globalIconStyle} />,
                 route: APP_ROUTES_ENUM.SETTINGS_REFERRALS,
             },
             {
                 title: 'Mes notifications',
-                icon: 'cog',
+                icon: <BellAlertIcon className={globalIconStyle} />,
                 route: APP_ROUTES_ENUM.SETTINGS_NOTIFICATIONS,
             },
         ],
@@ -53,17 +79,17 @@ export const SETTINGS_MAP: SettingMapObject[] = [
         children: [
             {
                 title: "Mes codes d'accès",
-                icon: 'lock',
+                icon: <LockClosedIcon className={globalIconStyle} />,
                 route: APP_ROUTES_ENUM.SETTINGS_ACCESS_CODES,
             },
             {
                 title: 'Authentification à deux facteurs',
-                icon: 'shield',
+                icon: <ShieldExclamationIcon className={globalIconStyle} />,
                 route: APP_ROUTES_ENUM.SETTINGS_2FA,
             },
             {
                 title: 'Gestion des appareils',
-                icon: 'mobile',
+                icon: <ComputerDesktopIcon className={globalIconStyle} />,
                 route: APP_ROUTES_ENUM.SETTINGS_DEVICES_MANAGEMENT,
             },
         ],
@@ -73,27 +99,27 @@ export const SETTINGS_MAP: SettingMapObject[] = [
         children: [
             {
                 title: 'Partager mon activité',
-                icon: 'share',
+                icon: <ShareIcon className={globalIconStyle} />,
                 route: APP_ROUTES_ENUM.SETTINGS_SHARE_MY_ACTIVITY,
             },
             {
                 title: 'Mes amis',
-                icon: 'users',
+                icon: <UserGroupIcon className={globalIconStyle} />,
                 route: APP_ROUTES_ENUM.FRIENDS,
             },
             {
                 title: "Noter l'application",
-                icon: 'star',
+                icon: <StarIcon className={globalIconStyle} />,
                 route: 'TODO',
             },
             {
                 title: 'Parraîner un ami',
-                icon: 'gift',
+                icon: <UserPlusIcon className={globalIconStyle} />,
                 route: 'TODO',
             },
             {
                 title: 'Nous suivre sur les réseaux',
-                icon: 'twitter',
+                icon: <MegaphoneIcon className={globalIconStyle} />,
                 route: APP_ROUTES_ENUM.SETTINGS_FOLLOW_OUR_SOCIAL_NETWORKS,
             },
         ],
@@ -103,12 +129,12 @@ export const SETTINGS_MAP: SettingMapObject[] = [
         children: [
             {
                 title: 'FAQ',
-                icon: 'question',
+                icon: <ChatBubbleLeftRightIcon className={globalIconStyle} />,
                 route: APP_ROUTES_ENUM.SETTINGS_FAQ,
             },
             {
                 title: 'Nous contacter',
-                icon: 'envelope',
+                icon: <EnvelopeIcon className={globalIconStyle} />,
                 route: APP_ROUTES_ENUM.SETTINGS_CONTACT_US,
             },
         ],
@@ -118,7 +144,7 @@ export const SETTINGS_MAP: SettingMapObject[] = [
         children: [
             {
                 title: 'EliosLearn',
-                icon: 'newspaper',
+                icon: <AcademicCapIcon className={globalIconStyle} />,
                 route: APP_ROUTES_ENUM.LEARN,
             },
         ],
@@ -128,37 +154,37 @@ export const SETTINGS_MAP: SettingMapObject[] = [
         children: [
             {
                 title: 'Notre histoire',
-                icon: 'book',
+                icon: <BookOpenIcon className={globalIconStyle} />,
                 route: APP_ROUTES_ENUM.SETTINGS_OUR_HISTORY,
             },
             {
                 title: 'Notre équipe',
-                icon: 'users',
+                icon: <UserGroupIcon className={globalIconStyle} />,
                 route: APP_ROUTES_ENUM.SETTINGS_OUR_TEAM,
             },
             {
                 title: 'Nos partenaires',
-                icon: 'briefcase',
+                icon: <HeartIcon className={globalIconStyle} />,
                 route: APP_ROUTES_ENUM.SETTINGS_OUR_PARTNERS,
             },
             {
                 title: 'Mentions légales',
-                icon: 'book',
+                icon: <NewspaperIcon className={globalIconStyle} />,
                 route: APP_ROUTES_ENUM.SETTINGS_LEGAL_MENTIONS,
             },
             {
                 title: 'Politique de confidentialité',
-                icon: 'lock',
+                icon: <HandRaisedIcon className={globalIconStyle} />,
                 route: APP_ROUTES_ENUM.SETTINGS_PRIVACY_POLICY,
             },
             {
                 title: 'Change Log',
-                icon: 'book',
+                icon: <TagIcon className={globalIconStyle} />,
                 route: APP_ROUTES_ENUM.SETTINGS_CHANGE_LOG,
             },
             {
                 title: 'CGU',
-                icon: 'book',
+                icon: <NumberedListIcon className={globalIconStyle} />,
                 route: APP_ROUTES_ENUM.SETTINGS_TERMS_OF_USE,
             },
         ],
