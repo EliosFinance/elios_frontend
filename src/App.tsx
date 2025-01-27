@@ -17,6 +17,8 @@ import ConfirmPassword from './pages/Auth/Register/views/4_ConfirmPassword.tsx';
 import PINCodeScreen from './pages/Auth/Register/views/5_CreatePINCodeScreen.tsx';
 import ConfirmPIN from './pages/Auth/Register/views/6_ConfirmPin.tsx';
 import TermsAndConditions from './pages/Auth/Register/views/7_TermsAndConditions.tsx';
+import ConnectBankAccount from './pages/Bank/ConnectBankAccount.tsx';
+import DisplaySingleConnector from './pages/Bank/DisplaySingleConnector.tsx';
 import AllArticleCategories from './pages/Blog/AllArticleCategories.tsx';
 import Article from './pages/Blog/Article.tsx';
 import ArticleCategory from './pages/Blog/ArticleCategory.tsx';
@@ -94,6 +96,11 @@ function App() {
                             <Route path={`${APP_ROUTES_ENUM.CHALLENGE}/:id`} element={<SingleDefi />} />
                             <Route path={APP_ROUTES_ENUM.FRIENDS} element={<Friends />} />
                             <Route path={`${APP_ROUTES_ENUM.FRIENDS}/:id`} element={<SingleFriend />} />
+                            <Route path={APP_ROUTES_ENUM.CONNECT_BANK_ACCOUNT} element={<ConnectBankAccount />} />
+                            <Route
+                                path={`${APP_ROUTES_ENUM.DISPLAY_SINGLE_CONNECTOR}/:uuid`}
+                                element={<DisplaySingleConnector />}
+                            />
 
                             {/* Settings */}
                             <Route path={APP_ROUTES_ENUM.SETTINGS} element={<SettingsHome />} />

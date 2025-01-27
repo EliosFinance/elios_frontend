@@ -1,22 +1,31 @@
+import { useGetConnections } from '@/api';
 import AppDrawer from '@/components/AppDrawer';
 import GetPremium from '@/components/GetPremium';
 import Subscription from '@/components/UpgradePlan';
+import { ConnectionType } from '@/types/connectionType';
 import { ArrowPathRoundedSquareIcon, TvIcon } from '@heroicons/react/24/outline';
 import { useState } from 'react';
 import SettingsPageHeader from '../SettingsPageHeader';
 
 const MyBankAccounts = () => {
     const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
+    const connections = useGetConnections();
 
-    const BankAccount = (_bankAccount: any) => {
+    const BankAccount = (key: number, bankAccount: ConnectionType) => {
         return (
-            <div className='w-full flex flex-col gap-4 items-start justify-center rounded-4 border-solid border-2 border-gray-200 p-4'>
+            <div
+                className='w-full flex flex-col gap-4 items-start justify-center rounded-4 border-solid border-2 border-gray-200 p-4'
+                key={key}
+            >
                 <div className='w-full flex items-center justify-between'>
                     <div className='w-full flex items-center justify-start gap-2'>
-                        <TvIcon className='w-6 h-6 object-cover object-center' />
-                        <span>Bank Name</span>
+                        <img
+                            src={`https://lperrenot-sandbox.biapi.pro/2.0/logos/${bankAccount.connector_uuid}-thumbnail.webp`}
+                            alt={`${bankAccount.connector.name} logo`}
+                        />
+                        <span>{bankAccount.connector.name}</span>
                     </div>
-                    <p>16446€</p>
+                    <p className='text-xl'>{bankAccount.balance + '€'}</p>
                 </div>
 
                 <div className='w-full flex items-center justify-start border-solid border-2 bg-blue-500 p-2 rounded-2 gap-2 text-white'>
@@ -32,9 +41,10 @@ const MyBankAccounts = () => {
             <SettingsPageHeader />
 
             <div className='w-full flex flex-col gap-4 items-start justify-center'>
-                {[1, 2, 3].map((bankAccount, index) => (
-                    <BankAccount key={index} bankAccount={bankAccount} />
-                ))}
+                {connections.data &&
+                    connections.data.map((bankAccount: ConnectionType, index: number) =>
+                        BankAccount(index, bankAccount),
+                    )}
             </div>
 
             <GetPremium onTopUpClick={() => setIsDrawerOpen(true)} />

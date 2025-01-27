@@ -11,6 +11,8 @@ const APP_ROUTES_ENUM = {
     SINGLE_FRIEND: '/friends/:id',
     REWARDS: '/rewards',
     PARTNERS: '/partners',
+    CONNECT_BANK_ACCOUNT: '/connect-bank-account',
+    DISPLAY_SINGLE_CONNECTOR: '/display-single-connector',
 
     // Login routes
     LOGIN: '/login',
