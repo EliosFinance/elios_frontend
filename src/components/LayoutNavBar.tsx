@@ -36,7 +36,7 @@ const LayoutNavBar = () => {
                 icon: <HomeIcon className='w-6 h-6 object-cover object-center' />,
             })}
             {LinkComponent({
-                route: '/TODO:',
+                route: APP_ROUTES_ENUM.BALANCE,
                 icon: <CurrencyDollarIcon className='w-6 h-6 object-cover object-center' />,
             })}
             {LinkComponent({

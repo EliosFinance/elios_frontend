@@ -2,6 +2,7 @@ const APP_ROUTES_ENUM = {
     // Authenticated routes
     HOME: '/home',
     ACCOUNT: '/account',
+    BALANCE: '/balance',
     LEARN: '/learn',
     ARTICLE: '/article',
     ARTICLE_CATEGORIES: '/article-categories',
