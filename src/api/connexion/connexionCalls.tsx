@@ -63,7 +63,7 @@ export const register_api = async (username: string, email: string, password: st
 export const refresh_token_api = async (refreshToken: string) => {
     try {
         const response = await instance_back.post(
-            'auth/refresh_token',
+            'auth/refresh-token',
             {
                 refresh_token: refreshToken,
             },

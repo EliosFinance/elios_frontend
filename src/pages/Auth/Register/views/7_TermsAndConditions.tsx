@@ -1,5 +1,5 @@
-import { register_api } from '@/api';
 import { Button } from '@/components/ui/button';
+import { useAuth } from '@/context/AuthProvider';
 import { useRegisterUsersStore } from '@/store/RegisterUser';
 import APP_ROUTES_ENUM from '@/types/APP_ROUTES_ENUM';
 import React, { useState } from 'react';
@@ -9,6 +9,7 @@ import RegisterHeader from '../components/RegisterHeader';
 const TermsAndConditions: React.FC = () => {
     const [isAccepted, setIsAccepted] = useState(false); // État pour gérer l'acceptation
     const navigate = useNavigate();
+    const { authenticate } = useAuth();
     const { email, username, password2: password, pin2, clear } = useRegisterUsersStore();
 
     const handleNext = async () => {
@@ -17,10 +18,11 @@ const TermsAndConditions: React.FC = () => {
             return;
         }
 
-        const response = await register_api(username, email, password);
-        if (response) {
-            clear();
+        const canRegister = await authenticate('register', username, password, email);
+        if (canRegister) {
             navigate(APP_ROUTES_ENUM.HOME);
+        } else {
+            alert("Erreur lors de l'inscription");
         }
     };
 
