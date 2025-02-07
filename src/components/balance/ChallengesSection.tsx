@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { instance_back } from '@/api/const';
+import { userStore } from '@/store/UserStore';
 
 type Challenge = {
   id: number;
@@ -6,12 +8,22 @@ type Challenge = {
   description: string;
 };
 
-const challenges: Challenge[] = [
-  { id: 1, title: "Moins de cafés", description: "Réduis tes cafés à 3 par semaine pour économiser" },
-  { id: 2, title: "Test du week-end sans achats", description: "Essaie de passer un week-end sans achats impulsifs" },
-];
-
 const ChallengesSection: React.FC = () => {
+  const [challenges, setChallenges] = useState<Challenge[]>([]);
+
+  useEffect(() => {
+    async function fetchChallenges() {
+      try {
+        const headers = userStore.getState().getAuth();
+        const response = await instance_back.get('powens/challenges', { headers });
+        setChallenges(response.data);
+      } catch (error) {
+        console.error("Erreur lors de la récupération des défis:", error);
+      }
+    }
+    fetchChallenges();
+  }, []);
+
   return (
     <div className="p-4 bg-purple-50 rounded shadow my-4">
       <h2 className="text-xl font-bold">Défis</h2>

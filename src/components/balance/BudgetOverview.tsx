@@ -1,10 +1,30 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useGetConnections } from '@/api/powens';
+import { ConnectionType } from '@/types/connectionType';
 
 const BudgetOverview: React.FC = () => {
-  // Exemple de données budgétaires
-  const budget = 2000; // budget mensuel
-  const currentSpending = 1250; // dépenses déjà réalisées
-  const remaining = budget - currentSpending;
+  const { data: connections, error, isLoading } = useGetConnections();
+  
+  const [budget, setBudget] = useState<number>(0);
+  const [spending, setSpending] = useState<number>(0);
+
+  useEffect(() => {
+    if (connections) {
+  
+      const totalSpending = connections.reduce((acc: number, connection: ConnectionType) => {
+        return acc + (connection.balance || 0);
+      }, 0);
+      
+  
+      setBudget(totalSpending + 2000);
+      setSpending(totalSpending);
+    }
+  }, [connections]);
+
+  if (isLoading) return <p>Chargement du budget...</p>;
+  if (error) return <p>Erreur lors du chargement du budget.</p>;
+
+  const remaining = budget - spending;
 
   return (
     <div className="p-4 bg-green-50 rounded shadow my-4">
@@ -13,31 +33,21 @@ const BudgetOverview: React.FC = () => {
         <p>
           Budget mensuel :{' '}
           <span className="font-semibold">
-            {budget.toLocaleString('fr-FR', {
-              style: 'currency',
-              currency: 'EUR'
-            })}
+            {budget.toLocaleString('fr-FR', { style: 'currency', currency: 'EUR' })}
           </span>
         </p>
         <p>
           Dépenses réalisées :{' '}
           <span className="font-semibold">
-            {currentSpending.toLocaleString('fr-FR', {
-              style: 'currency',
-              currency: 'EUR'
-            })}
+            {spending.toLocaleString('fr-FR', { style: 'currency', currency: 'EUR' })}
           </span>
         </p>
         <p>
           Reste à dépenser :{' '}
           <span className="font-semibold">
-            {remaining.toLocaleString('fr-FR', {
-              style: 'currency',
-              currency: 'EUR'
-            })}
+            {remaining.toLocaleString('fr-FR', { style: 'currency', currency: 'EUR' })}
           </span>
         </p>
-        {/* Vous pouvez ajouter ici des graphiques ou des visuels créatifs */}
       </div>
     </div>
   );

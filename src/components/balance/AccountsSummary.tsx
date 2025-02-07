@@ -1,18 +1,26 @@
 import React, { useEffect, useState } from 'react';
+import { useGetConnections } from '@/api/powens';
+import { ConnectionType } from '@/types/connectionType';
 
 export interface AccountsSummaryProps {
   date: Date;
 }
 
 const AccountsSummary: React.FC<AccountsSummaryProps> = ({ date }) => {
+  const { data: connections, error, isLoading } = useGetConnections();
   const [total, setTotal] = useState<number>(0);
 
   useEffect(() => {
-    // Simuler la récupération du total des comptes pour la date sélectionnée
-    // Remplacez ceci par une requête API selon le backend.
-    const simulatedTotal = Math.floor(Math.random() * 10000);
-    setTotal(simulatedTotal);
-  }, [date]);
+    if (connections) {
+      const sum = connections.reduce((acc: number, connection: ConnectionType) => {
+        return acc + (connection.balance || 0);
+      }, 0);
+      setTotal(sum);
+    }
+  }, [connections, date]);
+
+  if (isLoading) return <p>Chargement des comptes...</p>;
+  if (error) return <p>Erreur lors du chargement des comptes.</p>;
 
   return (
     <div className="p-4 bg-white rounded shadow my-4">

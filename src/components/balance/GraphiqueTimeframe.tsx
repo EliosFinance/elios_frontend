@@ -1,10 +1,13 @@
-import React, { useEffect, useRef } from 'react';
+
+import React, { useEffect, useRef, useState } from 'react';
 import * as echarts from 'echarts';
+import { instance_back } from '@/api/const';
+import { userStore } from '@/store/UserStore';
 
 export interface GraphiqueTimeframeProps {
   timeframe: 'day' | 'week' | 'month';
   onTimeframeChange: (newTimeframe: 'day' | 'week' | 'month') => void;
-  onDateSelected: (date: Date) => void; // Lorsque l'utilisateur sélectionne un jour
+  onDateSelected: (date: Date) => void;
 }
 
 const GraphiqueTimeframe: React.FC<GraphiqueTimeframeProps> = ({
@@ -13,25 +16,46 @@ const GraphiqueTimeframe: React.FC<GraphiqueTimeframeProps> = ({
   onDateSelected,
 }) => {
   const chartRef = useRef<HTMLDivElement | null>(null);
+  const [xAxisData, setXAxisData] = useState<string[]>([]);
+  const [seriesData, setSeriesData] = useState<number[]>([]);
+
+  useEffect(() => {
+    async function fetchChartData() {
+      try {
+        const headers = userStore.getState().getAuth();
+        const response = await instance_back.get(
+          `powens/transactions/statistics?timeframe=${timeframe}`,
+          { headers }
+        );
+        setXAxisData(response.data.xAxis);
+        setSeriesData(response.data.series);
+      } catch (error) {
+        console.error('Erreur lors de la récupération des données du graphique:', error);
+        if (timeframe === 'day') {
+          setXAxisData(['2025-02-07T08:00:00Z', '2025-02-07T12:00:00Z', '2025-02-07T16:00:00Z', '2025-02-07T20:00:00Z']);
+          setSeriesData([150, 300, 200, 400]);
+        } else if (timeframe === 'week') {
+          setXAxisData(['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim']);
+          setSeriesData([120, 200, 150, 80, 70, 110, 130]);
+        } else if (timeframe === 'month') {
+          setXAxisData(['2025-02-01','2025-02-08','2025-02-15','2025-02-22','2025-02-28']);
+          setSeriesData([500, 750, 600, 900, 800]);
+        }
+      }
+    }
+    fetchChartData();
+  }, [timeframe]);
 
   useEffect(() => {
     if (!chartRef.current) return;
     const chartInstance = echarts.init(chartRef.current);
-
-    // Exemple de données selon le timeframe
-    const data = timeframe === 'day'
-      ? ['08:00', '12:00', '16:00', '20:00']
-      : timeframe === 'week'
-      ? ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim']
-      : ['S1', 'S2', 'S3', 'S4'];
-
     const option = {
       tooltip: { trigger: 'axis' },
-      xAxis: { type: 'category', data },
+      xAxis: { type: 'category', data: xAxisData },
       yAxis: { type: 'value' },
       series: [
         {
-          data: data.map(() => Math.floor(Math.random() * 1000)),
+          data: seriesData,
           type: 'line',
           smooth: true,
         },
@@ -40,14 +64,16 @@ const GraphiqueTimeframe: React.FC<GraphiqueTimeframeProps> = ({
 
     chartInstance.setOption(option);
 
-    // Exemple simple : lorsque l'utilisateur clique sur une barre ou un point, on renvoie une date fictive
     chartInstance.on('click', (params: any) => {
-      // Ici vous pouvez calculer la date sélectionnée en fonction de params
-      onDateSelected(new Date());
+      const dateStr = params.name;
+      let date = new Date(dateStr);
+      if (isNaN(date.getTime())) {
+      }
+      onDateSelected(date);
     });
 
     return () => chartInstance.dispose();
-  }, [timeframe, onDateSelected]);
+  }, [xAxisData, seriesData, onDateSelected]);
 
   return (
     <div>

@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { instance_back } from '@/api/const';
+import { userStore } from '@/store/UserStore';
 
 type Subscription = {
   id: number;
@@ -6,14 +8,24 @@ type Subscription = {
   monthlyCost: number;
 };
 
-const subscriptions: Subscription[] = [
-  { id: 1, name: 'Netflix', monthlyCost: 13.99 },
-  { id: 2, name: 'Spotify', monthlyCost: 9.99 },
-  { id: 3, name: 'Amazon Prime', monthlyCost: 5.99 },
-];
-
 const SubscriptionsSection: React.FC = () => {
-  const totalRecurring = subscriptions.reduce((total, sub) => total + sub.monthlyCost, 0);
+  const [subscriptions, setSubscriptions] = useState<Subscription[]>([]);
+  const [totalRecurring, setTotalRecurring] = useState<number>(0);
+
+  useEffect(() => {
+    async function fetchSubscriptions() {
+      try {
+        const headers = userStore.getState().getAuth();
+        const response = await instance_back.get('powens/subscriptions', { headers });
+        setSubscriptions(response.data);
+        const total = response.data.reduce((acc: number, sub: Subscription) => acc + sub.monthlyCost, 0);
+        setTotalRecurring(total);
+      } catch (error) {
+        console.error("Erreur lors de la récupération des abonnements:", error);
+      }
+    }
+    fetchSubscriptions();
+  }, []);
 
   return (
     <div className="p-4 bg-white rounded shadow my-4">

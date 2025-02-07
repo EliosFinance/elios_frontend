@@ -21,7 +21,7 @@ const CentralExpensesPage: React.FC = () => {
         onDateSelected={setSelectedDate}
       />
       <AccountsSummary date={selectedDate} />
-      <IAAdvice />
+      {/* <IAAdvice /> */}
       <SubscriptionsSection />
       <BudgetOverview />
       <ChallengesSection />
