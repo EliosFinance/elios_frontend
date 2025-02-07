@@ -96,3 +96,21 @@ export const getWebViewUrl = async (connector_uuids: string): Promise<{ url: str
         console.error(err.message);
     }
 };
+
+export const getWebViewRefreshUrl = async (
+    connection_id?: string
+): Promise<{ url: string }> => {
+    try {
+        const headers = userStore.getState().getAuth();
+        const payload: { [key: string]: string} = {};
+
+        if (connection_id !== undefined) {
+            payload.connection_id = connection_id;
+        }
+        const response = await instance_back.post('powens/refresh/connection', payload, { headers });
+        return response.data;
+    } catch (error) {
+        const err = error as AxiosError;
+        console.error(err.message);
+    }
+};
