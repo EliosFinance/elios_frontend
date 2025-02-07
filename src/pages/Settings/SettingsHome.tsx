@@ -92,7 +92,7 @@ const SettingsHome = () => {
                     await logout_api();
                 }}
                 sx='!bg-red-500 !text-white !mt-0'
-                size='small'
+                size='large'
             >
                 Déconnexion
             </ButtonApp>
