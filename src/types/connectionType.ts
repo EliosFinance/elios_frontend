@@ -88,6 +88,7 @@ export type ConnectionType = {
     id_user: string;
     id_connector: string;
     state: string | null;
+    error: string | null;
     error_message: string | null;
     fields: ConnectorLightType[] | null;
     last_update: Date | null;
@@ -101,4 +102,5 @@ export type ConnectionType = {
     connector?: ConnectorType;
     accounts?: ConnectionAccountType[];
     subscriptions?: ConnectionSubscriptionType[];
+
 };
