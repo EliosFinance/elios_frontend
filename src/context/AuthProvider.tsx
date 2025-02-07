@@ -1,10 +1,15 @@
-import { login_api, logout_api, refresh_token_api } from '@/api';
+import { login_api, logout_api, refresh_token_api, register_api } from '@/api';
 import { userStore } from '@/store/UserStore.ts';
 import { createContext, useContext, useEffect, useState } from 'react';
 
 interface AuthContextType {
     user: User;
-    login: (username: string, password: string) => Promise<boolean>;
+    authenticate: (
+        action: 'login' | 'register',
+        username: string,
+        password: string,
+        email?: string,
+    ) => Promise<boolean>;
     signOut: () => Promise<void>;
     auth: boolean;
     powensToken: string | null;
@@ -32,10 +37,24 @@ const AuthProvider = ({ children }) => {
     const [loading, setLoading] = useState(true);
     const user = userStore((state) => state.user);
     const updateUser = userStore((state) => state.updateUser);
+    const removeUser = userStore((state) => state.removeUser);
 
-    const login = async (username: string, password: string) => {
+    const authenticate = async (action: 'login' | 'register', username: string, password: string, email?: string) => {
         try {
-            const data = await login_api(username, password);
+            let data: {
+                access_token: any;
+                refresh_token: any;
+                powens_token: any;
+                username?: string;
+            } | null = null;
+
+            if (action === 'login') {
+                data = await login_api(username, password);
+            } else {
+                if (!email) throw new Error('Email is required for registration');
+                data = await register_api(username, email, password);
+            }
+
             if (data && data.access_token) {
                 updateUser({
                     username: username,
@@ -47,14 +66,14 @@ const AuthProvider = ({ children }) => {
             }
             return false;
         } catch (error) {
-            console.error('Login failed:', error);
+            console.error('Authentication failed:', error);
             return false;
         }
     };
 
     const signOut = async () => {
         await logout_api();
-        updateUser(null);
+        removeUser();
     };
 
     const refreshToken = async () => {
@@ -94,7 +113,9 @@ const AuthProvider = ({ children }) => {
     }, [user]);
 
     return (
-        <AuthContext.Provider value={{ user, login, signOut, auth: !!user, powensToken: user?.powens_token || null }}>
+        <AuthContext.Provider
+            value={{ user, authenticate, signOut, auth: !!user, powensToken: user?.powens_token || null }}
+        >
             {!loading && children}
         </AuthContext.Provider>
     );

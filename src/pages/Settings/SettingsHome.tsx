@@ -1,5 +1,6 @@
 import { logout_api } from '@/api';
 import ButtonApp from '@/components/ButtonApp';
+import { useAuth } from '@/context/AuthProvider';
 import APP_ROUTES_ENUM from '@/types/APP_ROUTES_ENUM';
 import { ArrowUturnLeftIcon, ChevronRightIcon, QuestionMarkCircleIcon } from '@heroicons/react/24/outline';
 import { useNavigate } from 'react-router-dom';
@@ -8,6 +9,7 @@ import { SETTINGS_MAP } from './SettingsMap';
 
 const SettingsHome = () => {
     const navigate = useNavigate();
+    const { signOut } = useAuth();
     return (
         <div className='px-4 py-8 w-full gap-10 flex flex-col'>
             {/* Header */}
@@ -88,8 +90,10 @@ const SettingsHome = () => {
 
             {/* Footer */}
             <ButtonApp
-                onClick={async () => {
-                    await logout_api();
+                onClick={() => {
+                    console.log('signOut');
+
+                    signOut();
                 }}
                 sx='!bg-red-500 !text-white !mt-0'
                 size='large'

@@ -13,6 +13,7 @@ type UserState = {
     user: User | null;
     updateUser: (user: User | null) => void;
     getAuth: () => { Authorization?: string };
+    removeUser: () => void;
 };
 
 export const userStore = create<UserState>()(
@@ -22,6 +23,10 @@ export const userStore = create<UserState>()(
             updateUser: (user) =>
                 set((state) => ({
                     user: { ...state.user, ...user },
+                })),
+            removeUser: () =>
+                set((state) => ({
+                    user: null,
                 })),
             getAuth: () => {
                 const { user } = get();

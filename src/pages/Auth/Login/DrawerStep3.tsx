@@ -16,7 +16,7 @@ const DrawerStep3: React.FC<PinCodeScreenProps> = ({ email, password }) => {
     const [error, setError] = useState<boolean>(false);
     const [errorCount, setErrorCount] = useState<number>(0);
     const navigate = useNavigate();
-    const { login } = useAuth();
+    const { authenticate } = useAuth();
 
     const handlePinInput = (digit: string) => {
         if (pin.length < 4) {
@@ -32,7 +32,7 @@ const DrawerStep3: React.FC<PinCodeScreenProps> = ({ email, password }) => {
 
     const handleLoginUser = async () => {
         // TODO: add a verification in backend for pin code
-        const canLogIn = await login(email, password);
+        const canLogIn = await authenticate('login', email, password);
 
         if (canLogIn) {
             navigate(APP_ROUTES_ENUM.HOME);
