@@ -1,10 +1,9 @@
 import { likeArticle, saveArticle, saveArticleContent } from '@/api';
 import icon from '@/assets/images/icons/google_icon.png';
 import icon2 from '@/assets/images/icons/twitter_icon.png';
-import { APP_ROUTES_ENUM } from '@/main';
+import APP_ROUTES_ENUM from '@/types/APP_ROUTES_ENUM';
 import { ArticleContentType, ArticleType, ArticleTypesEnum, ContentTypesEnum } from '@/types/BlogType';
 import { forwardRef, useEffect, useRef, useState } from 'react';
-/* eslint-disable react-refresh/only-export-components */
 import { createUseStyles } from 'react-jss';
 import LikeButton from './LikeButton';
 import SaveButton from './SaveButton';
@@ -23,8 +22,10 @@ type CardProps = {
 };
 
 export const Card = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
-    const [read, setRead] = useState<boolean>(props.article?.cards?.[props.cardToDisplay]?.readByUser || false);
-    const coolDownTime = props.article?.cards?.[props.cardToDisplay]?.content.length * 1.5; // 1.5s per content
+    const [read, setRead] = useState<boolean>(
+        props.article?.articleContent?.[props.cardToDisplay]?.readByUser || false,
+    );
+    const coolDownTime = props.article?.articleContent?.[props.cardToDisplay]?.contentType.length * 1.5; // 1.5s per contentType
     const styles = useCardStyles(coolDownTime);
     const isPreviewVariant =
         props.variant === ArticleTypesEnum.SMALL_PREVIEW || props.variant === ArticleTypesEnum.PREVIEW;
@@ -46,7 +47,15 @@ export const Card = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
                 props.userHasRead(true);
             }, coolDownTime * 1000); // wait for the animation delay to be over
         }
-    }, [coolDownTime, props, props.cardFocused, props.cardToDisplay, props.article.cards, read, styles.coolDown]);
+    }, [
+        coolDownTime,
+        props,
+        props.cardFocused,
+        props.cardToDisplay,
+        props.article.articleContent,
+        read,
+        styles.coolDown,
+    ]);
 
     const handleSaveAction = async () => {
         if (!props?.article?.id) return;
@@ -85,9 +94,9 @@ export const Card = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
                             />
                             <div>
                                 <p>
-                                    {props.article.cards.length} ideas by{' '}
+                                    {props.article.articleContent?.length} ideas by{' '}
                                     <span className='font-bold'>
-                                        {props.article.author.firstName} {props.article.author.lastName.split('')[0]}.
+                                        {props.article.author?.firstName} {props.article.author?.lastName.split('')[0]}.
                                     </span>
                                 </p>
                             </div>
@@ -147,36 +156,36 @@ export const Card = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
                     {/* body */}
                     <div className='w-full h-full flex justify-start items-center flex-col gap-y-4 px-8 mt-8'>
                         <p className='w-full text-lg text-justify font-bold'>
-                            {props.article.cards[props.cardToDisplay]?.title}
+                            {props.article.articleContent[props.cardToDisplay]?.title}
                         </p>
-                        {props.article.cards[props.cardToDisplay].content.map((content, index) => (
+                        {props.article.articleContent[props.cardToDisplay].contentType.map((contentType, index) => (
                             <div key={index}>
-                                {content.type === ContentTypesEnum.TEXT && (
-                                    <p className='w-full text-sm text-justify'>{content.text}</p>
+                                {contentType.type === ContentTypesEnum.TEXT && (
+                                    <p className='w-full text-sm text-justify'>{contentType.text}</p>
                                 )}
-                                {content.type === ContentTypesEnum.IMAGE && !Array.isArray(content.text) && (
+                                {contentType.type === ContentTypesEnum.IMAGE && !Array.isArray(contentType.text) && (
                                     <img
-                                        src={content.text}
+                                        src={contentType.text}
                                         alt='project thumbnail'
                                         className='h-auto w-[40%] rounded-[var(--border-radius-8)] shadow-lg'
                                     />
                                 )}
-                                {content.type === ContentTypesEnum.VIDEO && !Array.isArray(content.text) && (
+                                {contentType.type === ContentTypesEnum.VIDEO && !Array.isArray(contentType.text) && (
                                     <video
-                                        src={content.text}
+                                        src={contentType.text}
                                         className='h-auto w-[40%] rounded-[var(--border-radius-5)] shadow-lg'
                                     />
                                 )}
-                                {content.type === ContentTypesEnum.LIST && (
+                                {contentType.type === ContentTypesEnum.LIST && (
                                     <ul className='w-full flex justify-center items-start flex-col list-disc list-outside'>
-                                        {Array.isArray(content.text) ? (
-                                            content.text.map((item, itemIndex) => (
+                                        {Array.isArray(contentType.text) ? (
+                                            contentType.text.map((item, itemIndex) => (
                                                 <li key={itemIndex} className='text-sm text-justify ml-4'>
                                                     {item}
                                                 </li>
                                             ))
                                         ) : (
-                                            <li className='text-sm'>{content.text}</li>
+                                            <li className='text-sm'>{contentType.text}</li>
                                         )}
                                     </ul>
                                 )}
@@ -193,7 +202,7 @@ export const Card = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
                             <img src={icon2} alt='cardHeaderIcon' className='h-[20px]' />
                         )}
                         <SaveButton
-                            saved={props.article.cards[props.cardToDisplay].savedByUser}
+                            saved={props.article.articleContent[props.cardToDisplay].savedByUser}
                             isSaving={handleSaveAction}
                         />
                     </div>

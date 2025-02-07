@@ -1,7 +1,7 @@
 import { register_api } from '@/api';
 import { Button } from '@/components/ui/button';
-import { APP_ROUTES_ENUM } from '@/main';
 import { useRegisterUsersStore } from '@/store/RegisterUser';
+import APP_ROUTES_ENUM from '@/types/APP_ROUTES_ENUM';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import RegisterHeader from '../components/RegisterHeader';
@@ -19,7 +19,6 @@ const TermsAndConditions: React.FC = () => {
 
         const response = await register_api(username, email, password);
         if (response) {
-            alert('Inscription réussie');
             clear();
             navigate(APP_ROUTES_ENUM.HOME);
         }

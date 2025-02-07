@@ -16,21 +16,26 @@ const Subscription = () => {
     return (
         <div className='flex flex-col items-center w-full'>
             <section className='w-full px-6 mt-6'>
-                <div className='relative text-center mb-6'>
+                <div className='relative text-center mb-2 overflow-hidden'>
                     <div className='relative'>
-                        <img src={B4} alt='Premium' className='w-full h-auto object-cover' />
+                        <img
+                            src={B4}
+                            alt='Premium'
+                            className='w-full h-full relative right-[-60px] top-8 object-cover transform scale-[170%]'
+                        />
                         <div
                             className='absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-white h-full'
-                            style={{ top: '50%', height: '50%' }}
+                            style={{ top: '40%', height: '60%' }}
                         ></div>
-                        <span className='absolute top-4 left-4 bg-gray-300 text-sm px-2 py-1 rounded-full'>
-                            Deviens Premium
-                        </span>
-                        <h1 className='absolute bottom-4 left-4 text-3xl font-bold text-black'>Abonnement</h1>
+                        <div
+                            className='absolute -right-44 inset-0 bg-gradient-to-b from-transparent via-transparent to-white h-full -rotate-90'
+                            style={{ height: '100%' }}
+                        ></div>
                     </div>
+                    <h1 className='absolute bottom-4 text-4xl font-bold text-black'>Abonnement</h1>
                 </div>
 
-                <h2 className='text-xl font-semibold mb-4'>Qu’est-ce que ça change?</h2>
+                <h2 className='text-xl font-semibold mb-4'>Qu'est-ce que ça change?</h2>
                 <ul className='list-none mb-6'>
                     {improvements.map((item, index) => (
                         <li key={index} className='flex items-center mb-2'>

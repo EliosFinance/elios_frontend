@@ -1,7 +1,7 @@
 import { getArticleCategories, getArticles } from '@/api';
 import CarouselX from '@/components/CarouselX';
 import InputApp from '@/components/InputApp';
-import { APP_ROUTES_ENUM } from '@/main';
+import APP_ROUTES_ENUM from '@/types/APP_ROUTES_ENUM';
 import { ArticleCategoryType, ArticleType, ArticleTypesEnum } from '@/types/BlogType';
 import { useEffect, useState } from 'react';
 

@@ -1,8 +1,8 @@
-import { getArticles, getSingleArticleCategory } from '@/api';
+import { getArticles, getSingleArticle, getSingleArticleCategory } from '@/api';
 import BlogBottomNav from '@/components/BlogBottomNav';
 import ButtonApp from '@/components/ButtonApp';
 import CarouselX from '@/components/CarouselX';
-import { APP_ROUTES_ENUM } from '@/main';
+import APP_ROUTES_ENUM from '@/types/APP_ROUTES_ENUM';
 import { ArticleCategoryType, ArticleType, ArticleTypesEnum } from '@/types/BlogType';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -28,8 +28,11 @@ const ArticleCategory = () => {
     useEffect(() => {
         const loadDatas = async () => {
             if (!category) return;
-            const subjects = await getArticles();
-            setCards(subjects.filter((subject) => subject.category.title === category.title));
+            const articles: ArticleType[] = [];
+            for (const article of category.articles) {
+                articles.push(await getSingleArticle(article.id));
+            }
+            setCards(articles);
         };
         loadDatas();
     }, [category]);

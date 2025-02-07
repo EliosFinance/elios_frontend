@@ -1,10 +1,8 @@
-'use client';
-
 import mainLogo from '@/assets/images/corp/main_logo.png';
 import abstract1 from '@/assets/images/shapes/abstract_shape_1.png';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/context/AuthProvider';
-import { APP_ROUTES_ENUM } from '@/main';
+import APP_ROUTES_ENUM from '@/types/APP_ROUTES_ENUM';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 

@@ -1,12 +1,10 @@
-'use client';
-
 import mainLogo from '@/assets/images/corp/main_logo.png';
 import appleIcon from '@/assets/images/icons/apple_icon.png';
-import googleIcon from '@/assets/images/icons/google_icon.png';
 import { Button } from '@/components/ui/button.tsx';
 import { Drawer, DrawerClose, DrawerContent, DrawerTitle, DrawerTrigger } from '@/components/ui/drawer';
 import { OsEnum, useDeviceDetection } from '@/hook/useDeviceDetection';
-import { APP_ROUTES_ENUM } from '@/main';
+import APP_ROUTES_ENUM from '@/types/APP_ROUTES_ENUM';
+import { GoogleLogin } from '@react-oauth/google';
 import React, { useState } from 'react';
 import { createSearchParams, useNavigate } from 'react-router-dom';
 import DrawerStep1 from './Login/DrawerStep1';
@@ -108,10 +106,21 @@ const Authenticate: React.FC = () => {
 
             {/* Login choice buttons */}
             <div className='flex flex-col w-full max-w-sm space-y-2'>
-                <Button className='flex items-center justify-center w-full border-solid border-[1.5px] border-gray-200 text-gray-800 rounded-full bg-transparent hover:bg-gray-300'>
-                    <img src={googleIcon} alt='Google' className='w-auto h-4 mr-3' />
-                    <span className='text-sm'>Continuer avec Google</span>
-                </Button>
+                <GoogleLogin
+                    onSuccess={(credentialResponse) => {
+                        console.log(credentialResponse);
+                    }}
+                    onError={() => {
+                        console.log('Login Failed');
+                    }}
+                    size='large'
+                    shape='pill'
+                    text='continue_with'
+                    type='standard'
+                    logo_alignment='center'
+                    width={window.innerWidth - 47}
+                    // useOneTap
+                />
                 {os === OsEnum.IOS ||
                     (os === OsEnum.WEB && (
                         <Button className='flex items-center justify-center w-full border-solid border-[1.5px] border-gray-200 text-gray-800 rounded-full bg-transparent hover:bg-gray-300'>

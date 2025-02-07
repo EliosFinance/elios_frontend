@@ -1,4 +1,5 @@
 import { userStore } from '@/store/UserStore';
+import { ConnectionType, ConnectorType } from '@/types/connectionType';
 import { TransactionType } from '@/types/transactionType';
 import { AxiosError } from 'axios';
 import { UseQueryResult, useQuery } from 'react-query';
@@ -33,4 +34,65 @@ export const useGetTransactions = (): UseQueryResult<TransactionType[], AxiosErr
         queryKey: ['getTransactions'],
         queryFn: getTransactions,
     });
+};
+
+const getConnectors = async () => {
+    try {
+        const headers = userStore.getState().getAuth();
+        const response = await instance_back.get('powens/connectors', { headers });
+        return response.data;
+    } catch (error) {
+        const err = error as AxiosError;
+        console.error(err.message);
+    }
+};
+
+export const useGetConnectors = (): UseQueryResult<ConnectorType[], AxiosError> => {
+    return useQuery<ConnectorType[], AxiosError>({
+        queryKey: ['getConnectors'],
+        queryFn: getConnectors,
+    });
+};
+
+export const getSingleConnector = async (connector_uuid: string) => {
+    try {
+        const headers = userStore.getState().getAuth();
+        const response = await instance_back.get('powens/connector', {
+            params: { uuid: connector_uuid },
+            headers,
+        });
+        return response.data;
+    } catch (error) {
+        const err = error as AxiosError;
+        console.error(err.message);
+    }
+};
+
+const getConnections = async () => {
+    try {
+        const headers = userStore.getState().getAuth();
+        const response = await instance_back.get('powens/connections', { headers });
+        return response.data;
+    } catch (error) {
+        const err = error as AxiosError;
+        console.error(err.message);
+    }
+};
+
+export const useGetConnections = (): UseQueryResult<ConnectionType[], AxiosError> => {
+    return useQuery<ConnectionType[], AxiosError>({
+        queryKey: ['getConnections'],
+        queryFn: getConnections,
+    });
+};
+
+export const getWebViewUrl = async (connector_uuids: string): Promise<{ url: string }> => {
+    try {
+        const headers = userStore.getState().getAuth();
+        const response = await instance_back.post('powens/add/connection', { connector_uuids }, { headers });
+        return response.data;
+    } catch (error) {
+        const err = error as AxiosError;
+        console.error(err.message);
+    }
 };

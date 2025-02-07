@@ -1,8 +1,6 @@
-import mainLogo from '@/assets/images/corp/main_logo.png';
 import { Button } from '@/components/ui/button.tsx';
-import { APP_ROUTES_ENUM } from '@/main';
 import { useRegisterUsersStore } from '@/store/RegisterUser';
-import useStore from '@/store/store';
+import APP_ROUTES_ENUM from '@/types/APP_ROUTES_ENUM';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import RegisterHeader from '../components/RegisterHeader';

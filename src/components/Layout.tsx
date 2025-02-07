@@ -1,16 +1,18 @@
 import BlurOverlay from '@/components/BlurOverlay.tsx';
 import { useAuth } from '@/context/AuthProvider.tsx';
 import { Outlet } from 'react-router-dom';
+import LayoutNavBar from './LayoutNavBar';
 
-const BankCheck = () => {
+const Layout = () => {
     const { user } = useAuth();
 
     return (
         <>
+            <LayoutNavBar />
             {!user.powens_token && <BlurOverlay />}
             <Outlet />
         </>
     );
 };
 
-export default BankCheck;
+export default Layout;

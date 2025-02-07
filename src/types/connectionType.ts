@@ -1,7 +1,7 @@
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type UnknownType = Record<string, any>;
 
-export type SubscriptionType = {
+export type ConnectionSubscriptionType = {
     id: number;
     id_connection: number | null;
     id_user: number | null;
@@ -17,7 +17,7 @@ export type SubscriptionType = {
     error: string | null;
 };
 
-export type BankAccountType = {
+export type ConnectionAccountType = {
     id: number;
     id_connection: number | null;
     id_user: number | null;
@@ -32,14 +32,23 @@ export type BankAccountType = {
     deleted: Date | null;
     disabled: Date | null;
     iban: string | null;
-    currency: UnknownType | null;
+    currency: {
+        id: string;
+        symbol: string;
+        prefix: boolean;
+        crypto: boolean;
+        precision: number;
+        marketcap: any;
+        datetime: any;
+        name: string;
+    };
     type: UnknownType;
     id_type: number;
     bookmarked: number;
     name: string;
     error: string | null;
-    usage: UnknownType;
-    ownership: UnknownType | null;
+    usage: string;
+    ownership: string;
     company_name: string | null;
     loan: UnknownType | null;
 };
@@ -65,6 +74,8 @@ export type ConnectorType = {
     account_usages: string[];
     payment_settings: UnknownType;
     products: string[];
+    logo: string;
+    account_types: string[];
 };
 
 export type ConnectorLightType = {
@@ -88,6 +99,6 @@ export type ConnectionType = {
     next_try: Date | null;
     balance: number;
     connector?: ConnectorType;
-    accounts?: BankAccountType[];
-    subscriptions?: SubscriptionType[];
+    accounts?: ConnectionAccountType[];
+    subscriptions?: ConnectionSubscriptionType[];
 };

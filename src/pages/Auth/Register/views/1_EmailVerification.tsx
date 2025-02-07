@@ -1,7 +1,7 @@
 import mailLogo from '@/assets/images/mail/mail_icon.png';
 import { Button } from '@/components/ui/button.tsx';
-import { APP_ROUTES_ENUM } from '@/main';
 import { useRegisterUsersStore } from '@/store/RegisterUser';
+import APP_ROUTES_ENUM from '@/types/APP_ROUTES_ENUM';
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import RegisterHeader from '../components/RegisterHeader';
@@ -10,7 +10,7 @@ const EmailVerification: React.FC = () => {
     const navigate = useNavigate();
     const params = new URLSearchParams(window.location.search);
     const userEmail = decodeURIComponent(params.get('email')) || '';
-    const { email, setEmail } = useRegisterUsersStore();
+    const { setEmail } = useRegisterUsersStore();
 
     const handleNext = () => {
         navigate(APP_ROUTES_ENUM.CREATE_USERNAME);
