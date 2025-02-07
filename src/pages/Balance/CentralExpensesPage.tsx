@@ -5,6 +5,7 @@ import IAAdvice from '@/components/balance/IAAdvice';
 import SubscriptionsSection from '@/components/balance/SubscriptionsSection';
 import BudgetOverview from '@/components/balance/BudgetOverview';
 import ChallengesSection from '@/components/balance/ChallengesSection';
+import TransactionsSection from '@/components/balance/TransactionsSection';
 
 const CentralExpensesPage: React.FC = () => {
   const [timeframe, setTimeframe] = useState<'day' | 'week' | 'month'>('month');
@@ -22,7 +23,8 @@ const CentralExpensesPage: React.FC = () => {
       />
       <AccountsSummary date={selectedDate} />
       {/* <IAAdvice /> */}
-      <SubscriptionsSection />
+      {/* <SubscriptionsSection /> */}
+      <TransactionsSection />
       <BudgetOverview />
       <ChallengesSection />
     </div>
