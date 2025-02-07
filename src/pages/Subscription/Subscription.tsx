@@ -84,7 +84,7 @@ const Subscription = ({ onBack }) => {
                     <div className='flex items-center justify-end my-4'>
                         <span className='text-gray-400 mr-2'>Période :</span>
                         <select
-                            className='border rounded px-3 py-2'
+                            className='border rounded px-3 py-2 '
                             value={period}
                             onChange={(e) => setPeriod(e.target.value)}
                         >
