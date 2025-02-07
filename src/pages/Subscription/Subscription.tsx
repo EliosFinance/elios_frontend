@@ -1,4 +1,4 @@
-import { Card, CardContent } from '@/components/ui/card';
+import { Card } from '@/components/ui/card';
 import ReactECharts from 'echarts-for-react';
 import React, { useState } from 'react';
 import BackIcon from '../../assets/images/icons/arrow_back.png';
@@ -37,17 +37,17 @@ const Subscription = ({ onBack }) => {
             {
                 icon: <img src={DribblePro} alt='Dribbble Pro' className='w-5 h-5' />,
                 name: 'Dribbble Pro',
-                amount: '$160',
+                amount: '$40',
             },
-            { icon: <img src={SpotifyIcon} alt='Spotify' className='w-5 h-5' />, name: 'Spotify', amount: '$160' },
-            { icon: <img src={SlackIcon} alt='Slack' className='w-5 h-5' />, name: 'Slack', amount: '$160' },
+            { icon: <img src={SpotifyIcon} alt='Spotify' className='w-5 h-5' />, name: 'Spotify', amount: '$40' },
+            { icon: <img src={SlackIcon} alt='Slack' className='w-5 h-5' />, name: 'Slack', amount: '$40' },
             {
                 icon: <img src={DribblePro} alt='Dribbble Pro' className='w-5 h-5' />,
                 name: 'Dribbble Pro',
-                amount: '$160',
+                amount: '$40',
             },
-            { icon: <img src={SpotifyIcon} alt='Spotify' className='w-5 h-5' />, name: 'Spotify', amount: '$160' },
-            { icon: <img src={SlackIcon} alt='Slack' className='w-5 h-5' />, name: 'Slack', amount: '$160' },
+            { icon: <img src={SpotifyIcon} alt='Spotify' className='w-5 h-5' />, name: 'Spotify', amount: '$40' },
+            { icon: <img src={SlackIcon} alt='Slack' className='w-5 h-5' />, name: 'Slack', amount: '$40' },
         ],
     });
 
