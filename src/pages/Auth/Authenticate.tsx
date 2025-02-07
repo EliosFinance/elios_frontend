@@ -10,6 +10,8 @@ import { createSearchParams, useNavigate } from 'react-router-dom';
 import DrawerStep1 from './Login/DrawerStep1';
 import DrawerStep2 from './Login/DrawerStep2';
 import DrawerStep3 from './Login/DrawerStep3';
+import {login_google} from "@/api";
+import {userStore} from "@/store/UserStore.ts";
 
 const Authenticate: React.FC = () => {
     const [email, setEmail] = useState('');
@@ -18,6 +20,8 @@ const Authenticate: React.FC = () => {
     const [dataForStep3, setDataForStep3] = useState<{ email: string; password: string } | null>(null);
     const { os } = useDeviceDetection();
     const navigate = useNavigate();
+    const updateUser = userStore((state) => state.updateUser);
+
 
     const isValidEmail = (email: string): boolean => {
         // Expression régulière pour valider une adresse email
@@ -107,8 +111,16 @@ const Authenticate: React.FC = () => {
             {/* Login choice buttons */}
             <div className='flex flex-col w-full max-w-sm space-y-2'>
                 <GoogleLogin
-                    onSuccess={(credentialResponse) => {
-                        console.log(credentialResponse);
+                    onSuccess={async (credentialResponse) => {
+                        const loginGoogle = await login_google(credentialResponse.credential)
+                        console.log(loginGoogle)
+                        updateUser({
+                            username: loginGoogle.username,
+                            token: loginGoogle.access_token,
+                            refresh_token: loginGoogle.refresh_token,
+                            powens_token: loginGoogle.powens_token,
+                        });
+                        navigate(APP_ROUTES_ENUM.HOME);
                     }}
                     onError={() => {
                         console.log('Login Failed');
