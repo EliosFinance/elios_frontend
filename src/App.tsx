@@ -50,6 +50,7 @@ import SettingsHome from './pages/Settings/SettingsHome.tsx';
 import FollowOurSocialNetworks from './pages/Settings/Social/FollowOurSocialNetworks.tsx';
 import SingleDefi from './pages/SingleDefi.tsx';
 import SingleFriend from './pages/SingleFriends.tsx';
+import Subscription from './pages/Subscription/Subscription.tsx';
 import APP_ROUTES_ENUM from './types/APP_ROUTES_ENUM.ts';
 import { challengeData } from './types/challengeType.ts';
 
@@ -137,6 +138,16 @@ function App() {
                         <Route
                             path={`${APP_ROUTES_ENUM.TEST}`}
                             element={<PartnerChallenge challenge={challengeData} />}
+                        />
+                        <Route
+                            path={APP_ROUTES_ENUM.SUBSCRIPTION}
+                            element={
+                                <Subscription
+                                    onBack={() => {
+                                        /s/;
+                                    }}
+                                />
+                            }
                         />
                         {/* Login */}
                         <Route path={APP_ROUTES_ENUM.REGISTER} element={<Authenticate />} />

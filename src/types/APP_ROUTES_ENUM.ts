@@ -13,6 +13,7 @@ const APP_ROUTES_ENUM = {
     PARTNERS: '/partners',
     CONNECT_BANK_ACCOUNT: '/connect-bank-account',
     DISPLAY_SINGLE_CONNECTOR: '/display-single-connector',
+    SUBSCRIPTION: '/subscription',
 
     // Login routes
     LOGIN: '/login',
