@@ -96,7 +96,7 @@ const CarouselX: React.FC<PropType> = (props) => {
                                 variant={props.cardVariant}
                                 classNames={['embla__slide__number']}
                                 key={index}
-                                cardToDisplay={null}
+                                cardToDisplay={project.id}
                                 userHasRead={() => {
                                     return;
                                 }}

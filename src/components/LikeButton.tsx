@@ -1,5 +1,5 @@
 import heartIcon from '@/assets/images/icons/heart_icon.png';
-import React, { useRef } from 'react';
+import { useRef } from 'react';
 import { createUseStyles } from 'react-jss';
 
 type LikeButtonProps = {
@@ -7,6 +7,7 @@ type LikeButtonProps = {
     likes: number;
     isLiking: (isLiking: boolean) => void;
     disabled?: boolean;
+    hideLikeAmount?: boolean;
 };
 
 const LikeButton = (props: LikeButtonProps) => {
@@ -21,14 +22,20 @@ const LikeButton = (props: LikeButtonProps) => {
     };
 
     return (
-        <div className={[styles.like_button, props.disabled ? styles.disabled : ''].join(' ')}>
+        <div
+            className={[
+                styles.like_button,
+                props.disabled ? styles.disabled : '',
+                props.hideLikeAmount ? styles.hideLikeAmount : '',
+            ].join(' ')}
+        >
             <div className={styles.heart_bg}>
                 <div
                     className={[styles.heart_icon, props.liked ? styles.liked : ''].join(' ')}
                     ref={ref}
                     onClick={handleClick}
                 />
-                {!props?.disabled && <div className={styles.like_amount}>{props.likes}</div>}
+                {!props?.disabled && !props?.hideLikeAmount && <div className={styles.like_amount}>{props.likes}</div>}
             </div>
         </div>
     );
@@ -84,5 +91,8 @@ const useStyles = createUseStyles({
         cursor: 'default',
         marginRight: '-60px',
         // opacity: '0.5',
+    },
+    hideLikeAmount: {
+        marginRight: '-60px',
     },
 });

@@ -29,7 +29,7 @@ export const getSingleArticleCategory = async (articleCategoryId: number): Promi
 export const postArticleCategory = async (articleCategoryId: number): Promise<ArticleCategoryType | void> => {
     try {
         const headers = userStore.getState().getAuth();
-        const response = await instance_back.post(`article-category/${articleCategoryId}`, { headers });
+        const response = await instance_back.post(`article-category/${articleCategoryId}`, {}, { headers });
         return response.data;
     } catch (error) {
         const err = error as AxiosError;
@@ -40,7 +40,7 @@ export const postArticleCategory = async (articleCategoryId: number): Promise<Ar
 export const updateArticleCategory = async (articleCategoryId: number): Promise<ArticleCategoryType | void> => {
     try {
         const headers = userStore.getState().getAuth();
-        const response = await instance_back.put(`article-category/${articleCategoryId}`, { headers });
+        const response = await instance_back.put(`article-category/${articleCategoryId}`, {}, { headers });
         return response.data;
     } catch (error) {
         const err = error as AxiosError;
@@ -61,6 +61,39 @@ export const deleteArticleCategory = async (articleCategoryId: number): Promise<
 };
 
 // CRUD ARTICLES
+export const getTrendingArticles = async (): Promise<ArticleType[]> => {
+    try {
+        const headers = userStore.getState().getAuth();
+        const response = await instance_back.get(`articles/trendings`, { headers });
+        return response.data;
+    } catch (error) {
+        const err = error as AxiosError;
+        console.error('Erreur lors de la récupération des articles:', err.message);
+        throw err;
+    }
+};
+export const getReadArticles = async (): Promise<ArticleType[]> => {
+    try {
+        const headers = userStore.getState().getAuth();
+        const response = await instance_back.get(`articles/userReads`, { headers });
+        return response.data;
+    } catch (error) {
+        const err = error as AxiosError;
+        console.error('Erreur lors de la récupération des articles:', err.message);
+        throw err;
+    }
+};
+export const getLikedArticles = async (): Promise<ArticleType[]> => {
+    try {
+        const headers = userStore.getState().getAuth();
+        const response = await instance_back.get(`articles/userLikes`, { headers });
+        return response.data;
+    } catch (error) {
+        const err = error as AxiosError;
+        console.error('Erreur lors de la récupération des articles:', err.message);
+        throw err;
+    }
+};
 export const getArticles = async (): Promise<ArticleType[]> => {
     try {
         const headers = userStore.getState().getAuth();
@@ -86,7 +119,7 @@ export const getSingleArticle = async (articleId: number): Promise<ArticleType> 
 export const readArticle = async (articleId: number): Promise<ArticleType | void> => {
     try {
         const headers = userStore.getState().getAuth();
-        const response = await instance_back.put(`articles/${articleId}/read`, { headers });
+        const response = await instance_back.put(`articles/${articleId}/read`, {}, { headers });
         return response.data;
     } catch (error) {
         const err = error as AxiosError;
@@ -97,7 +130,7 @@ export const readArticle = async (articleId: number): Promise<ArticleType | void
 export const viewArticle = async (articleId: number): Promise<ArticleType | void> => {
     try {
         const headers = userStore.getState().getAuth();
-        const response = await instance_back.put(`articles/${articleId}/views`, { headers });
+        const response = await instance_back.put(`articles/${articleId}/views`, {}, { headers });
         return response.data;
     } catch (error) {
         const err = error as AxiosError;
@@ -108,7 +141,7 @@ export const viewArticle = async (articleId: number): Promise<ArticleType | void
 export const likeArticle = async (articleId: number): Promise<ArticleType | void> => {
     try {
         const headers = userStore.getState().getAuth();
-        const response = await instance_back.put(`articles/${articleId}/likes`, { headers });
+        const response = await instance_back.put(`articles/${articleId}/likes`, {}, { headers });
         return response.data;
     } catch (error) {
         const err = error as AxiosError;
@@ -119,7 +152,7 @@ export const likeArticle = async (articleId: number): Promise<ArticleType | void
 export const saveArticle = async (articleId: number): Promise<ArticleType | void> => {
     try {
         const headers = userStore.getState().getAuth();
-        const response = await instance_back.put(`articles/${articleId}/save`, { headers });
+        const response = await instance_back.put(`articles/${articleId}/save`, {}, { headers });
         return response.data;
     } catch (error) {
         const err = error as AxiosError;
@@ -130,7 +163,7 @@ export const saveArticle = async (articleId: number): Promise<ArticleType | void
 export const postArticle = async (articleId: number): Promise<ArticleType | void> => {
     try {
         const headers = userStore.getState().getAuth();
-        const response = await instance_back.post(`articles/${articleId}`, { headers });
+        const response = await instance_back.post(`articles/${articleId}`, {}, { headers });
         return response.data;
     } catch (error) {
         const err = error as AxiosError;
@@ -141,7 +174,7 @@ export const postArticle = async (articleId: number): Promise<ArticleType | void
 export const updateArticle = async (articleId: number): Promise<ArticleType | void> => {
     try {
         const headers = userStore.getState().getAuth();
-        const response = await instance_back.put(`articles/${articleId}`, { headers });
+        const response = await instance_back.put(`articles/${articleId}`, {}, { headers });
         return response.data;
     } catch (error) {
         const err = error as AxiosError;
@@ -162,6 +195,17 @@ export const deleteArticle = async (articleId: number): Promise<ArticleType | vo
 };
 
 // CRUD ARTICLE CONTENTS
+export const getSavedArticleContents = async (): Promise<ArticleContentType[]> => {
+    try {
+        const headers = userStore.getState().getAuth();
+        const response = await instance_back.get(`article-content/userSaved`, { headers });
+        return response.data;
+    } catch (error) {
+        const err = error as AxiosError;
+        console.error("Erreur lors de la récupération des contenus d'article:", err.message);
+        throw err;
+    }
+};
 export const getArticleContents = async (): Promise<ArticleContentType[]> => {
     try {
         const headers = userStore.getState().getAuth();
@@ -187,7 +231,7 @@ export const getSingleArticleContent = async (articleContentId: number): Promise
 export const readArticleContent = async (articleContentId: number): Promise<ArticleContentType | void> => {
     try {
         const headers = userStore.getState().getAuth();
-        const response = await instance_back.put(`article-content/${articleContentId}/reads`, { headers });
+        const response = await instance_back.put(`article-content/${articleContentId}/read`, {}, { headers });
         return response.data;
     } catch (error) {
         const err = error as AxiosError;
@@ -198,7 +242,7 @@ export const readArticleContent = async (articleContentId: number): Promise<Arti
 export const viewArticleContent = async (articleContentId: number): Promise<ArticleContentType | void> => {
     try {
         const headers = userStore.getState().getAuth();
-        const response = await instance_back.put(`article-content/${articleContentId}/views`, { headers });
+        const response = await instance_back.put(`article-content/${articleContentId}/views`, {}, { headers });
         return response.data;
     } catch (error) {
         const err = error as AxiosError;
@@ -209,7 +253,7 @@ export const viewArticleContent = async (articleContentId: number): Promise<Arti
 export const likeArticleContent = async (articleContentId: number): Promise<ArticleContentType | void> => {
     try {
         const headers = userStore.getState().getAuth();
-        const response = await instance_back.put(`article-content/${articleContentId}/like`, { headers });
+        const response = await instance_back.put(`article-content/${articleContentId}/like`, {}, { headers });
         return response.data;
     } catch (error) {
         const err = error as AxiosError;
@@ -220,7 +264,7 @@ export const likeArticleContent = async (articleContentId: number): Promise<Arti
 export const saveArticleContent = async (articleContentId: number): Promise<ArticleContentType | void> => {
     try {
         const headers = userStore.getState().getAuth();
-        const response = await instance_back.put(`article-content/${articleContentId}/save`, { headers });
+        const response = await instance_back.put(`article-content/${articleContentId}/save`, {}, { headers });
         return response.data;
     } catch (error) {
         const err = error as AxiosError;
@@ -231,7 +275,7 @@ export const saveArticleContent = async (articleContentId: number): Promise<Arti
 export const postArticleContent = async (articleContentId: number): Promise<ArticleContentType | void> => {
     try {
         const headers = userStore.getState().getAuth();
-        const response = await instance_back.post(`article-content/${articleContentId}`, { headers });
+        const response = await instance_back.post(`article-content/${articleContentId}`, {}, { headers });
         return response.data;
     } catch (error) {
         const err = error as AxiosError;
@@ -242,7 +286,7 @@ export const postArticleContent = async (articleContentId: number): Promise<Arti
 export const updateArticleContent = async (articleContentId: number): Promise<ArticleContentType | void> => {
     try {
         const headers = userStore.getState().getAuth();
-        const response = await instance_back.put(`article-content/${articleContentId}`, { headers });
+        const response = await instance_back.put(`article-content/${articleContentId}`, {}, { headers });
         return response.data;
     } catch (error) {
         const err = error as AxiosError;

@@ -57,17 +57,24 @@ export type ArticleAuthorType = {
 };
 
 export type ContentType = {
+    id: number;
     type: ContentTypesEnum;
-    text?: string | string[];
+    text?: string[];
+    creation_date: string;
+    update_date: string;
 };
 
 export type ArticleContentType = {
+    id: number;
     image: string;
     title: string;
-    readByUser: boolean;
-    savedByUser: boolean;
-    contentType: ContentType[];
     type: ArticleTypesEnum;
+    creation_date: string;
+    update_date: string;
+    reads: any[];
+    saved: any[];
+    article: ArticleType;
+    contentType: ContentType[];
 };
 
 export type ArticleType = {
@@ -76,16 +83,14 @@ export type ArticleType = {
     title: string;
     isPremium: boolean;
     category: ArticleCategoryType;
-    readByUser: boolean;
-    likedByUser: boolean;
-    savedByUser: boolean;
+    reads: any[];
+    likes: any[];
+    saved: any[];
     readingTime: string;
     thumbnail: string;
     author: ArticleAuthorType;
     description: string;
     articleContent: ArticleContentType[];
-    reads_count: number;
-    likes_count?: number;
 };
 
 export type ArticleCategoryType = {

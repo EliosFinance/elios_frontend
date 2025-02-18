@@ -1,4 +1,4 @@
-import { getArticles, getSingleArticle, getSingleArticleCategory } from '@/api';
+import { getSingleArticle, getSingleArticleCategory } from '@/api';
 import BlogBottomNav from '@/components/BlogBottomNav';
 import ButtonApp from '@/components/ButtonApp';
 import CarouselX from '@/components/CarouselX';
