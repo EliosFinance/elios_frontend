@@ -1,5 +1,7 @@
 import { likeArticle, saveArticle } from '@/api';
+import { useAuth } from '@/context/AuthProvider';
 import { ArticleType } from '@/types/BlogType';
+import { useEffect, useState } from 'react';
 import LikeButton from './LikeButton';
 import SaveButton from './SaveButton';
 
@@ -10,19 +12,33 @@ type props = {
     backUrl?: string;
 };
 
-const BlogBottomNav = (props: props) => {
+const BlogNav = (props: props) => {
+    const { user } = useAuth();
+    const [saved, setSaved] = useState<boolean>(false);
+    const [likesCount, setLikesCount] = useState<number>(0);
     const handleSaveAction = async () => {
-        if (props?.article?.id) await saveArticle(props.article.id);
+        if (props?.article?.id) {
+            await saveArticle(props.article.id);
+            setSaved(!saved);
+        }
     };
     const handleLikeAction = async () => {
-        if (props?.article?.id) await likeArticle(props.article.id);
+        if (props?.article?.id) {
+            await likeArticle(props.article.id);
+            setLikesCount(likesCount + 1);
+        }
     };
 
+    useEffect(() => {
+        setSaved(props?.article?.saved.some((r) => r.username === user.username || r.email === user.username) || false);
+        setLikesCount(props?.article?.likes.length || 0);
+    }, []);
+
     return (
-        <div className='w-full h-[50px] flex justify-between items-center flex-col bg-gray-200 shadow-sm fixed bottom-0 px-4'>
+        <div className='w-full h-[60px] flex justify-between items-center flex-col bg-gray-200 shadow-sm fixed top-0 px-4 z-[10000000] rounded-b-[var(--border-radius-3)]'>
             {!props.disableActionButtons && (
                 <div className='w-full flex justify-evenly items-center gap-x-2 mt-2'>
-                    {props?.article?.cards?.map((_card, index) => (
+                    {props?.article?.articleContent?.map((_card, index) => (
                         <div
                             key={index}
                             className={`
@@ -41,11 +57,15 @@ const BlogBottomNav = (props: props) => {
                 {!props.disableActionButtons && (
                     <>
                         <LikeButton
-                            liked={props?.article?.likedByUser || false}
-                            likes={props?.article?.likes_count || 0}
+                            liked={
+                                props?.article?.likes.some(
+                                    (r) => r.username === user.username || r.email === user.username,
+                                ) || false
+                            }
+                            likes={props?.article?.likes.length || 0}
                             isLiking={handleLikeAction}
                         />
-                        <SaveButton saved={props.article.savedByUser} isSaving={handleSaveAction} />
+                        <SaveButton saved={saved} isSaving={handleSaveAction} />
                     </>
                 )}
             </div>
@@ -53,4 +73,4 @@ const BlogBottomNav = (props: props) => {
     );
 };
 
-export default BlogBottomNav;
+export default BlogNav;

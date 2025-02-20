@@ -1,5 +1,5 @@
 import { getArticleCategories } from '@/api';
-import BlogBottomNav from '@/components/BlogBottomNav';
+import BlogNav from '@/components/BlogNav';
 import APP_ROUTES_ENUM from '@/types/APP_ROUTES_ENUM';
 import { ArticleCategoryType } from '@/types/BlogType';
 import { useEffect, useState } from 'react';
@@ -17,8 +17,8 @@ const AllArticleCategories = () => {
     }, []);
 
     return (
-        <div className='w-full h-full flex justify-center items-center flex-col'>
-            <div className='w-[80%] flex justify-start items-start flex-col gap-y-4 mb-12'>
+        <div className='w-full h-full flex justify-center items-center flex-col px-6'>
+            <div className='w-full flex justify-start items-start flex-col gap-y-4 mb-12 pb-24'>
                 <h2 className='text-2xl font-black mt-10 mb-2 w-full'>Toutes les catégories</h2>
                 {articleCategories.length > 0 &&
                     articleCategories.map((category, index) => (
@@ -29,14 +29,14 @@ const AllArticleCategories = () => {
                         >
                             <p>{category.title}</p>
                             <img
-                                className='h-[70%] rounded-[var(--border-radius-3)]'
+                                className='h-[40px] w-[40px] rounded-[var(--border-radius-3)] object-cover'
                                 src={category.icon}
                                 alt={category.title}
                             />
                         </a>
                     ))}
             </div>
-            <BlogBottomNav disableActionButtons backUrl={APP_ROUTES_ENUM.LEARN} />
+            <BlogNav disableActionButtons backUrl={APP_ROUTES_ENUM.LEARN} />
         </div>
     );
 };

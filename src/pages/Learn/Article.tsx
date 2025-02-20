@@ -1,5 +1,5 @@
 import { getSingleArticle, readArticle, readArticleContent } from '@/api';
-import BlogBottomNav from '@/components/BlogBottomNav';
+import BlogNav from '@/components/BlogNav';
 import { Card } from '@/components/Card';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useAuth } from '@/context/AuthProvider';
@@ -151,6 +151,7 @@ const Article = () => {
 
     return (
         <>
+            {currentArticle && <BlogNav article={currentArticle} currentCard={clickedCard || 0} />}
             <div ref={ref} className='w-full flex justify-center items-center flex-col mb-10'>
                 <div className='w-[90%] flex justify-center items-center flex-col'>
                     <div
@@ -215,13 +216,6 @@ const Article = () => {
                     </div>
                 </div>
             </div>
-            {currentArticle && (
-                <BlogBottomNav
-                    article={currentArticle}
-                    currentCard={clickedCard || 0}
-                    backUrl={APP_ROUTES_ENUM.LEARN}
-                />
-            )}
         </>
     );
 };

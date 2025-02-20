@@ -2,10 +2,6 @@ const APP_ROUTES_ENUM = {
     // Authenticated routes
     HOME: '/home',
     ACCOUNT: '/account',
-    LEARN: '/learn',
-    ARTICLE: '/article',
-    ARTICLE_CATEGORIES: '/article-categories',
-    ARTICLE_CATEGORY: '/article-category',
     CHALLENGE: '/challenge',
     FRIENDS: '/friends',
     SINGLE_FRIEND: '/friends/:id',
@@ -27,6 +23,12 @@ const APP_ROUTES_ENUM = {
     CONFIRM_PIN: '/confirm-pin',
     TERMS: '/terms',
     PIN: '/pin',
+
+    // Learn routes
+    LEARN: '/learn',
+    ARTICLE: '/learn/article',
+    ARTICLE_CATEGORIES: '/learn/article-categories',
+    ARTICLE_CATEGORY: '/learn/article-category',
 
     // Settings routes
     SETTINGS: '/settings',
