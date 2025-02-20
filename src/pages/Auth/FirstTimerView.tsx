@@ -1,13 +1,21 @@
 import mainLogo from '@/assets/images/corp/main_logo.png';
 import { Button } from '@/components/ui/button.tsx';
-import React from 'react';
+import APP_ROUTES_ENUM from '@/types/APP_ROUTES_ENUM';
+import React, { useLayoutEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const FirstTimerView: React.FC = () => {
     const navigate = useNavigate();
 
+    useLayoutEffect(() => {
+        if (localStorage.getItem('firstTimer') === 'false') {
+            navigate(APP_ROUTES_ENUM.LOGIN);
+        }
+    }, []);
+
     const handleStart = () => {
-        navigate('/signup');
+        localStorage.setItem('firstTimer', 'false');
+        navigate(APP_ROUTES_ENUM.LOGIN);
     };
 
     return (

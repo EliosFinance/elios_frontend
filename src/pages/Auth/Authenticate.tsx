@@ -6,6 +6,7 @@ import { Drawer, DrawerClose, DrawerContent, DrawerTitle, DrawerTrigger } from '
 import { OsEnum, useDeviceDetection } from '@/hook/useDeviceDetection';
 import { userStore } from '@/store/UserStore.ts';
 import APP_ROUTES_ENUM from '@/types/APP_ROUTES_ENUM';
+import { ArrowDownCircleIcon, ArrowLeftCircleIcon } from '@heroicons/react/24/outline';
 import { GoogleLogin } from '@react-oauth/google';
 import React, { useState } from 'react';
 import { createSearchParams, useNavigate } from 'react-router-dom';
@@ -147,6 +148,30 @@ const Authenticate: React.FC = () => {
                         </Button>
                     </DrawerTrigger>
                     <DrawerContent>
+                        <Button
+                            className='p-2 absolute top-2 left-4 rounded-full bg-transparent focus:bg-transparent'
+                            onClick={() => {
+                                switch (drawerStep) {
+                                    case 'step1':
+                                        // TODO: Close drawer
+                                        break;
+
+                                    case 'step2':
+                                        setDrawerStep('step1');
+                                        setDataForStep3(null);
+                                        break;
+
+                                    case 'step3':
+                                        setDrawerStep('step3');
+                                        break;
+
+                                    default:
+                                        break;
+                                }
+                            }}
+                        >
+                            <ArrowLeftCircleIcon className='h-6 w-6 text-gray-800 bg-transparent fill-none' />
+                        </Button>
                         <DrawerClose className='absolute top-2 right-4'>
                             <Button className='p-2 rounded-full bg-transparent' onClick={() => setDrawerStep('step1')}>
                                 <svg

@@ -20,6 +20,7 @@ const TermsAndConditions: React.FC = () => {
 
         const canRegister = await authenticate('register', username, password, email);
         if (canRegister) {
+            clear();
             navigate(APP_ROUTES_ENUM.HOME);
         } else {
             alert("Erreur lors de l'inscription");
