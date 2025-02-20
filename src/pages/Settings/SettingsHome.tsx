@@ -9,7 +9,7 @@ import { SETTINGS_MAP } from './SettingsMap';
 
 const SettingsHome = () => {
     const navigate = useNavigate();
-    const { signOut } = useAuth();
+    const { signOut, user } = useAuth();
     return (
         <div className='px-4 py-8 w-full gap-10 flex flex-col'>
             {/* Header */}
@@ -33,7 +33,7 @@ const SettingsHome = () => {
                         alt='User profile picture'
                     />
                     <div className='flex flex-col'>
-                        <span className='text-2xl font-semibold'>Nom Prénom</span>
+                        <span className='text-2xl font-semibold'>{user.username}</span>
                         {/* TODO: verify if account has 2FA enabled and display a badge if so */}
                         <div
                             className='flex items-center gap-2 bg-blue-500 bg-opacity-30 p-[2px] px-2 rounded-2'

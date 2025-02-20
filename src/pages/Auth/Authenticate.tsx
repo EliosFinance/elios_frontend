@@ -1,8 +1,10 @@
+import { login_google } from '@/api';
 import mainLogo from '@/assets/images/corp/main_logo.png';
 import appleIcon from '@/assets/images/icons/apple_icon.png';
 import { Button } from '@/components/ui/button.tsx';
 import { Drawer, DrawerClose, DrawerContent, DrawerTitle, DrawerTrigger } from '@/components/ui/drawer';
 import { OsEnum, useDeviceDetection } from '@/hook/useDeviceDetection';
+import { userStore } from '@/store/UserStore.ts';
 import APP_ROUTES_ENUM from '@/types/APP_ROUTES_ENUM';
 import { GoogleLogin } from '@react-oauth/google';
 import React, { useState } from 'react';
@@ -10,8 +12,6 @@ import { createSearchParams, useNavigate } from 'react-router-dom';
 import DrawerStep1 from './Login/DrawerStep1';
 import DrawerStep2 from './Login/DrawerStep2';
 import DrawerStep3 from './Login/DrawerStep3';
-import {login_google} from "@/api";
-import {userStore} from "@/store/UserStore.ts";
 
 const Authenticate: React.FC = () => {
     const [email, setEmail] = useState('');
@@ -21,7 +21,6 @@ const Authenticate: React.FC = () => {
     const { os } = useDeviceDetection();
     const navigate = useNavigate();
     const updateUser = userStore((state) => state.updateUser);
-
 
     const isValidEmail = (email: string): boolean => {
         // Expression régulière pour valider une adresse email
@@ -112,8 +111,8 @@ const Authenticate: React.FC = () => {
             <div className='flex flex-col w-full max-w-sm space-y-2'>
                 <GoogleLogin
                     onSuccess={async (credentialResponse) => {
-                        const loginGoogle = await login_google(credentialResponse.credential)
-                        console.log(loginGoogle)
+                        const loginGoogle = await login_google(credentialResponse.credential);
+                        if (!loginGoogle) return;
                         updateUser({
                             username: loginGoogle.username,
                             token: loginGoogle.access_token,
