@@ -1,21 +1,25 @@
 import React, { useEffect, useState } from 'react';
 import { useGetConnections } from '@/api/powens';
 import { ConnectionType } from '@/types/connectionType';
+import {
+  Card,
+  CardHeader,
+  CardContent,
+  CardTitle,
+  CardDescription,
+} from '../ui/card';
 
 const BudgetOverview: React.FC = () => {
   const { data: connections, error, isLoading } = useGetConnections();
-  
   const [budget, setBudget] = useState<number>(0);
   const [spending, setSpending] = useState<number>(0);
 
   useEffect(() => {
     if (connections) {
-  
       const totalSpending = connections.reduce((acc: number, connection: ConnectionType) => {
         return acc + (connection.balance || 0);
       }, 0);
-      
-  
+
       setBudget(totalSpending + 2000);
       setSpending(totalSpending);
     }
@@ -27,9 +31,12 @@ const BudgetOverview: React.FC = () => {
   const remaining = budget - spending;
 
   return (
-    <div className="p-4 bg-green-50 rounded shadow my-4">
-      <h2 className="text-xl font-bold">Budget</h2>
-      <div className="mt-2">
+    <Card className="my-4 bg-green-50">
+      <CardHeader>
+        <CardTitle>Budget</CardTitle>
+        <CardDescription>Détails du budget mensuel</CardDescription>
+      </CardHeader>
+      <CardContent>
         <p>
           Budget mensuel :{' '}
           <span className="font-semibold">
@@ -48,8 +55,8 @@ const BudgetOverview: React.FC = () => {
             {remaining.toLocaleString('fr-FR', { style: 'currency', currency: 'EUR' })}
           </span>
         </p>
-      </div>
-    </div>
+      </CardContent>
+    </Card>
   );
 };
 

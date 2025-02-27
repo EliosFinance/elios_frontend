@@ -1,6 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useGetConnections } from '@/api/powens';
 import { ConnectionType } from '@/types/connectionType';
+import {
+  Card,
+  CardHeader,
+  CardContent,
+  CardTitle,
+  CardDescription,
+} from '../ui/card';
 
 export interface AccountsSummaryProps {
   date: Date;
@@ -23,18 +30,20 @@ const AccountsSummary: React.FC<AccountsSummaryProps> = ({ date }) => {
   if (error) return <p>Erreur lors du chargement des comptes.</p>;
 
   return (
-    <div className="p-4 bg-white rounded shadow my-4">
-      <h2 className="text-xl font-bold">Montant des comptes</h2>
-      <p className="mt-2 text-2xl">
-        {total.toLocaleString('fr-FR', {
-          style: 'currency',
-          currency: 'EUR'
-        })}
-      </p>
-      <p className="text-sm text-gray-500">
-        Pour la date : {date.toLocaleDateString('fr-FR')}
-      </p>
-    </div>
+    <Card className="my-4">
+      <CardHeader>
+        <CardTitle>Montant des comptes</CardTitle>
+        <CardDescription>Pour la date : {date.toLocaleDateString('fr-FR')}</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <p className="text-2xl">
+          {total.toLocaleString('fr-FR', {
+            style: 'currency',
+            currency: 'EUR'
+          })}
+        </p>
+      </CardContent>
+    </Card>
   );
 };
 

@@ -13,7 +13,7 @@ const CentralExpensesPage: React.FC = () => {
 
   return (
     <div className="p-4 space-y-8 w-[100%]">
-      <h1 className="text-3xl font-bold text-center mb-8">
+      <h1 className="mb-8 text-3xl font-bold text-center">
         Centralisation des dépenses
       </h1>
       <GraphiqueTimeframe
