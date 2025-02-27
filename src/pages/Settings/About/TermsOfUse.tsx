@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState, useRef } from "react";
+import { ChevronDown } from "lucide-react";
 import arrowBackIcon from "/Users/micromedia/Desktop/ELIOS/elios_frontend/src/assets/images/icons/arrow_back.png";
 
 const termsSections = [
@@ -81,26 +82,71 @@ const termsSections = [
     },
   ];
   
-const TermsOfUse: React.FC = () => {
-  return (
-    <div className="flex justify-center items-center w-full h-screen bg-gray-100 p-4">
-      <div className="relative w-full max-w-sm h-full bg-white flex flex-col">
-        <button className="absolute top-4 left-4 p-2">
-          <img src={arrowBackIcon} alt="Retour" className="w-5 h-5" />
-        </button>
-        <h1 className="text-base font-semibold text-center text-black mt-12">Conditions Générales d’Utilisation</h1>
-        <div className="flex-1 overflow-y-auto p-6 mt-4  mx-4 bg-[#252525]  
-         text-white  rounded-lg shadow-lg border min-w-[220px]">
-          {termsSections.map((section, index) => (
-            <div key={index} className="mb-4 border-b  pb-2">
-              <h2 className="text-sm font-bold">{section.title}</h2>
-              <p className="text-xs mt-2 whitespace-pre-line">{section.content}</p>
-            </div>
-          ))}
+
+  
+  const TermsOfUse: React.FC = () => {
+    const [isSommaireOpen, setIsSommaireOpen] = useState(false);
+    const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
+  
+    const scrollToSection = (index: number) => {
+      if (sectionRefs.current[index]) {
+        sectionRefs.current[index]?.scrollIntoView({ behavior: "smooth", block: "start" });
+        setIsSommaireOpen(false); 
+      }
+    };
+  
+    return (
+      <div className="flex justify-center items-center w-full h-screen bg-gray-100 p-4">
+        <div className="relative w-full max-w-sm h-full bg-white flex flex-col">
+         
+          <button className="absolute top-4 left-4 p-2">
+            <img src={arrowBackIcon} alt="Retour" className="w-5 h-5" />
+          </button>
+  
+          <h1 className="text-base font-semibold text-center text-black mt-12">
+            Conditions Générales d’Utilisation
+          </h1>
+  
+         
+          <div className="p-4">
+            <button
+              className="w-full flex justify-between items-center bg-gray-200 p-2 rounded-lg"
+              onClick={() => setIsSommaireOpen(!isSommaireOpen)}
+            >
+              Sommaire <ChevronDown size={20} />
+            </button>
+            {isSommaireOpen && (
+              <ul className="bg-white border rounded-lg mt-2 p-2 shadow-lg">
+                {termsSections.map((section, index) => (
+                  <li key={index} className="p-2 border-b last:border-b-0">
+                    <button
+                      className="w-full text-left flex items-center"
+                      onClick={() => scrollToSection(index)}
+                    >
+                      <ChevronDown size={16} className="mr-2" /> {section.title}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+  
+         
+          <div className="flex-1 overflow-y-auto p-6 mt-4 mx-4 bg-[#252525] text-white rounded-lg shadow-lg border min-w-[220px]">
+            {termsSections.map((section, index) => (
+              <div
+                key={index}
+                ref={(el) => (sectionRefs.current[index] = el)}
+                className="mb-4 border-b pb-2"
+              >
+                <h2 className="text-sm font-bold">{section.title}</h2>
+                <p className="text-xs mt-2 whitespace-pre-line">{section.content}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
-    </div>
-  );
-};
-
-export default TermsOfUse;
+    );
+  };
+  
+  export default TermsOfUse;
