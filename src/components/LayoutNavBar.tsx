@@ -1,5 +1,5 @@
 import APP_ROUTES_ENUM from '@/types/APP_ROUTES_ENUM';
-import { AcademicCapIcon, CurrencyDollarIcon, HomeIcon, UserIcon } from '@heroicons/react/24/outline';
+import { AcademicCapIcon, CurrencyDollarIcon, HomeIcon, TrophyIcon, UserIcon } from '@heroicons/react/24/outline';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -29,6 +29,7 @@ const LayoutNavBar = () => {
         const currentRoute = Object.values(APP_ROUTES_ENUM).find((route) => window.location.pathname.includes(route));
         setCurrentRoute(currentRoute.toLowerCase() || '');
     }, []);
+
     return (
         <div className='w-full h-16 flex items-center justify-between px-4 bg-gray-200 fixed bottom-0 left-0 z-[1000]'>
             {LinkComponent({
@@ -38,6 +39,10 @@ const LayoutNavBar = () => {
             {LinkComponent({
                 route: APP_ROUTES_ENUM.BALANCE,
                 icon: <CurrencyDollarIcon className='w-6 h-6 object-cover object-center' />,
+            })}
+            {LinkComponent({
+                route: APP_ROUTES_ENUM.REWARDS,
+                icon: <TrophyIcon className='w-6 h-6 object-cover object-center' />,
             })}
             {LinkComponent({
                 route: APP_ROUTES_ENUM.LEARN,

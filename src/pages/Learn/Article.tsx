@@ -1,22 +1,24 @@
-import { getSingleArticle } from '@/api';
-import BlogBottomNav from '@/components/BlogBottomNav';
+import { getSingleArticle, readArticle, readArticleContent } from '@/api';
+import BlogNav from '@/components/BlogNav';
 import { Card } from '@/components/Card';
 import { Skeleton } from '@/components/ui/skeleton';
+import { useAuth } from '@/context/AuthProvider';
 import useConfettis from '@/hook/useConfettis';
 import APP_ROUTES_ENUM from '@/types/APP_ROUTES_ENUM';
-import { ArticleType } from '@/types/BlogType';
+import { ArticleType, ArticleTypesEnum } from '@/types/BlogType';
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 const Article = () => {
     const [currentArticle, setCurrentArticle] = useState<ArticleType | null>(null);
     const { id } = useParams<{ id: string }>();
+    const { user } = useAuth();
     const ref = useRef<HTMLDivElement | null>(null);
     const cardsRef = useRef<HTMLDivElement | null>(null);
     const cardElements = useRef<(HTMLDivElement | null)[]>([]);
     const timeoutRef = useRef<NodeJS.Timeout | null>(null);
     const [clickedCard, setClickedCard] = useState<number | null>(null);
-    const { throwConfettis } = useConfettis();
+    const { throwConfettis, throwPartyConfettis } = useConfettis();
     const navigate = useNavigate();
 
     const removeClassList = (el: HTMLDivElement) => {
@@ -25,6 +27,23 @@ const Article = () => {
 
     const addClassList = (el: HTMLDivElement) => {
         el?.classList.add('filter', 'grayscale', 'opacity-50', 'transform', 'scale-[90%]');
+    };
+
+    const handleRead = async (contentId: number) => {
+        if (!contentId) return;
+        await readArticleContent(Number(contentId));
+
+        const article = await getSingleArticle(currentArticle.id);
+
+        // if every reads contains user id, then throw confettis
+        if (
+            article.articleContent.every((content) =>
+                content.reads.some((r) => r.username === user.username || r.email === user.username),
+            )
+        ) {
+            await readArticle(currentArticle.id);
+            throwPartyConfettis();
+        }
     };
 
     useLayoutEffect(() => {
@@ -43,6 +62,7 @@ const Article = () => {
 
     useEffect(() => {
         if (!currentArticle || !cardsRef.current) return;
+
         const observer = new IntersectionObserver(
             ([entry]) => {
                 if (entry.isIntersecting) {
@@ -120,10 +140,18 @@ const Article = () => {
         }
     };
 
+    const formatLectures = (readsLength: number) => {
+        const lectures = readsLength === 1 ? 'lecture' : 'lectures';
+        if (readsLength < 1000) return `${readsLength} ${lectures}`;
+        if (readsLength < 1000000) return `${(readsLength / 1000).toFixed(1)}k  ${lectures}`;
+        return `${(readsLength / 1000000).toFixed(1)}M  ${lectures}`;
+    };
+
     if (!currentArticle) return <div>Loading...</div>;
 
     return (
         <>
+            {currentArticle && <BlogNav article={currentArticle} currentCard={clickedCard || 0} />}
             <div ref={ref} className='w-full flex justify-center items-center flex-col mb-10'>
                 <div className='w-[90%] flex justify-center items-center flex-col'>
                     <div
@@ -139,7 +167,7 @@ const Article = () => {
                             <img
                                 src={currentArticle.thumbnail}
                                 alt='project thumbnail'
-                                className='h-auto w-[70%] rounded-[var(--border-radius-5)] shadow-lg'
+                                className='h-[250px] object-cover w-[70%] rounded-[var(--border-radius-5)] shadow-lg'
                                 onClick={throwConfettis}
                                 loading='lazy'
                             />
@@ -149,7 +177,7 @@ const Article = () => {
                                     <img
                                         src={currentArticle.thumbnail}
                                         alt='project thumbnail'
-                                        className='h-auto w-[20px]'
+                                        className='h-[20px] w-[20px] object-cover'
                                     />
                                     <p className='text-sm'>~{currentArticle.readingTime}</p>
                                 </div>
@@ -166,7 +194,7 @@ const Article = () => {
                                 {/* card container */}
                                 <div className='w-full h-auto flex justify-between items-center font-bold mt-12'>
                                     <p>{currentArticle.articleContent?.length || 0} ideas</p>
-                                    <p>{currentArticle?.reads_count || 0}k lectures</p>
+                                    <p>{formatLectures(currentArticle?.reads.length || 0)}</p>
                                 </div>
                             </div>
                         </div>
@@ -182,19 +210,12 @@ const Article = () => {
                                 ref={(el) => (cardElements.current[i] = el)}
                                 onClick={() => handleCardClick(i)}
                                 cardFocused={clickedCard === i}
-                                userHasRead={(a) => console.log('userHasRead', a)}
+                                userHasRead={(hasRead) => handleRead(hasRead)}
                             />
                         ))}
                     </div>
                 </div>
             </div>
-            {currentArticle && (
-                <BlogBottomNav
-                    article={currentArticle}
-                    currentCard={clickedCard || 0}
-                    backUrl={APP_ROUTES_ENUM.LEARN}
-                />
-            )}
         </>
     );
 };

@@ -18,7 +18,7 @@ const DrawerStep1: React.FC<DrawerStep1Props> = ({ onNext }) => {
                     className='w-full bg-gray-200 border-solid border-[1.5px] border-gray-200 text-gray-800 py-2 rounded-full hover:bg-gray-300'
                     onClick={onNext}
                 >
-                    J'ai déjà un compte
+                    J'entre mes identifiants
                 </Button>
                 <Button className='flex items-center justify-center w-full border-solid border-[1.5px] border-gray-200 text-gray-800 rounded-full bg-transparent hover:bg-gray-300'>
                     <img src={googleIcon} alt='Google' className='w-auto h-4 mr-3' />

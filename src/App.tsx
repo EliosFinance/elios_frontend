@@ -19,13 +19,13 @@ import ConfirmPIN from './pages/Auth/Register/views/6_ConfirmPin.tsx';
 import TermsAndConditions from './pages/Auth/Register/views/7_TermsAndConditions.tsx';
 import ConnectBankAccount from './pages/Bank/ConnectBankAccount.tsx';
 import DisplaySingleConnector from './pages/Bank/DisplaySingleConnector.tsx';
-import AllArticleCategories from './pages/Blog/AllArticleCategories.tsx';
-import Article from './pages/Blog/Article.tsx';
-import ArticleCategory from './pages/Blog/ArticleCategory.tsx';
-import Learn from './pages/Blog/Learn.tsx';
 import Friends from './pages/Friends.tsx';
 import Home from './pages/Home.tsx';
 import Landing from './pages/Landing.tsx';
+import AllArticleCategories from './pages/Learn/AllArticleCategories.tsx';
+import Article from './pages/Learn/Article.tsx';
+import ArticleCategory from './pages/Learn/ArticleCategory.tsx';
+import LearnHomePage from './pages/Learn/LearnHomePage.tsx';
 import Partners from './pages/Partners.tsx';
 import Rewards from './pages/Rewards.tsx';
 import ChangeLog from './pages/Settings/About/ChangeLog.tsx';
@@ -50,6 +50,7 @@ import SettingsHome from './pages/Settings/SettingsHome.tsx';
 import FollowOurSocialNetworks from './pages/Settings/Social/FollowOurSocialNetworks.tsx';
 import SingleDefi from './pages/SingleDefi.tsx';
 import SingleFriend from './pages/SingleFriends.tsx';
+import Subscription from './pages/Subscription/Subscription.tsx';
 import APP_ROUTES_ENUM from './types/APP_ROUTES_ENUM.ts';
 import { challengeData } from './types/challengeType.ts';
 import CentralExpensesPage from './pages/Balance/CentralExpensesPage.tsx';
@@ -60,14 +61,17 @@ function App() {
 
     switch (os) {
         case OsEnum.WEB:
+        case OsEnum.WEB.toLowerCase():
             googleId = import.meta.env.VITE_GOOGLE_CLIENT_ID_WEB;
             break;
 
         case OsEnum.ANDROID:
+        case OsEnum.ANDROID.toLowerCase():
             googleId = import.meta.env.VITE_GOOGLE_CLIENT_ID_ANDROID;
             break;
 
         case OsEnum.IOS:
+        case OsEnum.IOS.toLowerCase():
             googleId = import.meta.env.VITE_GOOGLE_CLIENT_ID_IOS;
             break;
 
@@ -87,7 +91,7 @@ function App() {
                             <Route path={APP_ROUTES_ENUM.PARTNERS} element={<Partners />} />
 
                             {/* Learn */}
-                            <Route path={APP_ROUTES_ENUM.LEARN} element={<Learn />} />
+                            <Route path={APP_ROUTES_ENUM.LEARN} element={<LearnHomePage />} />
                             <Route path={`${APP_ROUTES_ENUM.ARTICLE}/:id`} element={<Article />} />
                             <Route path={`${APP_ROUTES_ENUM.ARTICLE_CATEGORIES}`} element={<AllArticleCategories />} />
                             <Route path={`${APP_ROUTES_ENUM.ARTICLE_CATEGORY}/:id`} element={<ArticleCategory />} />
@@ -139,6 +143,16 @@ function App() {
                         <Route
                             path={`${APP_ROUTES_ENUM.TEST}`}
                             element={<PartnerChallenge challenge={challengeData} />}
+                        />
+                        <Route
+                            path={APP_ROUTES_ENUM.SUBSCRIPTION}
+                            element={
+                                <Subscription
+                                    onBack={() => {
+                                        /s/;
+                                    }}
+                                />
+                            }
                         />
                         {/* Login */}
                         <Route path={APP_ROUTES_ENUM.REGISTER} element={<Authenticate />} />

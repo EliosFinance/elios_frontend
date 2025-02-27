@@ -71,9 +71,9 @@ const DrawerStep2: React.FC<DrawerStep1Props> = ({ onNext, setDataForStep3 }) =>
                 </span>
                 {error && errorCount > 2 && (
                     <span
-                        className='text-blue-500 cursor-pointer'
+                        className='text-blue-500 cursor-pointer mt-2'
                         onClick={() => {
-                            console.log('TODO');
+                            alert('TODO');
                         }}
                     >
                         Mot de passe oublié ?

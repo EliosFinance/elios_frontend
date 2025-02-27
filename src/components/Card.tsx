@@ -1,8 +1,9 @@
-import { likeArticle, saveArticle, saveArticleContent } from '@/api';
-import icon from '@/assets/images/icons/google_icon.png';
-import icon2 from '@/assets/images/icons/twitter_icon.png';
+import { getSingleArticle, likeArticle, readArticle, saveArticle, saveArticleContent } from '@/api';
+import { useAuth } from '@/context/AuthProvider';
+import useConfettis from '@/hook/useConfettis';
 import APP_ROUTES_ENUM from '@/types/APP_ROUTES_ENUM';
 import { ArticleContentType, ArticleType, ArticleTypesEnum, ContentTypesEnum } from '@/types/BlogType';
+import { CheckCircleIcon, XCircleIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { forwardRef, useEffect, useRef, useState } from 'react';
 import { createUseStyles } from 'react-jss';
 import LikeButton from './LikeButton';
@@ -18,12 +19,23 @@ type CardProps = {
     cardFocused?: boolean;
     id?: string;
     onClick?: (e: React.MouseEvent<HTMLDivElement>) => void;
-    userHasRead: (userHasRead: boolean) => void;
+    userHasRead: (contentId: number) => void;
 };
 
 export const Card = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
+    const { user } = useAuth();
     const [read, setRead] = useState<boolean>(
-        props.article?.articleContent?.[props.cardToDisplay]?.readByUser || false,
+        props.article?.articleContent?.[props.cardToDisplay]?.reads?.some(
+            (r) => r.username === user.username || r.email === user.username,
+        ) || false,
+    );
+    const [saved, setSaved] = useState<boolean>(
+        props.article?.articleContent?.[props.cardToDisplay]?.saved?.some(
+            (r) => r.username === user.username || r.email === user.username,
+        ) || false,
+    );
+    const [liked, setLiked] = useState<boolean>(
+        props.article?.likes?.some((r: any) => r.username === user.username || r.email === user.username) || false,
     );
     const coolDownTime = props.article?.articleContent?.[props.cardToDisplay]?.contentType.length * 1.5; // 1.5s per contentType
     const styles = useCardStyles(coolDownTime);
@@ -42,9 +54,9 @@ export const Card = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
             coolDownRef.current?.classList.remove(styles.coolDown);
             return;
         } else {
-            timeoutRef.current = setTimeout(() => {
+            timeoutRef.current = setTimeout(async () => {
                 setRead(true);
-                props.userHasRead(true);
+                props.userHasRead(props.article?.articleContent?.[props.cardToDisplay].id);
             }, coolDownTime * 1000); // wait for the animation delay to be over
         }
     }, [
@@ -61,9 +73,15 @@ export const Card = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
         if (!props?.article?.id) return;
 
         if (isPreviewVariant) {
-            await saveArticle(props.cardToDisplay);
+            const res = await saveArticle(props.cardToDisplay);
+            if (res) {
+                setSaved(!saved);
+            }
         } else {
-            await saveArticleContent(props.cardToDisplay);
+            const res = await saveArticleContent(props.article.articleContent[props.cardToDisplay].id);
+            if (res) {
+                setSaved(!saved);
+            }
         }
     };
     const handleLikeAction = async () => {
@@ -75,8 +93,7 @@ export const Card = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
     return (
         <>
             {isPreviewVariant && (
-                <a
-                    href={`${APP_ROUTES_ENUM.ARTICLE}/${props.article.id}`}
+                <div
                     className={[
                         styles.card,
                         `${props.classNames && props.classNames.join(' ')}`,
@@ -87,11 +104,13 @@ export const Card = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
                     {/* header */}
                     <div className='w-full h-[7%] flex justify-between items-center mt-5 px-5'>
                         <div className='w-auto h-full flex justify-start items-center text-sm font-light gap-x-2 text-center'>
-                            <img
-                                src={props.article.readByUser ? icon2 : icon}
-                                alt='cardHeaderIcon'
-                                className='h-[20px] w-auto'
-                            />
+                            {props.article.reads.some(
+                                (r: any) => r.username === user.username || r.email === user.username,
+                            ) ? (
+                                <CheckCircleIcon className='h-[20px] text-green-500' />
+                            ) : (
+                                <XMarkIcon className='h-[20px] text-red-500' />
+                            )}
                             <div>
                                 <p>
                                     {props.article.articleContent?.length} ideas by{' '}
@@ -101,15 +120,18 @@ export const Card = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
                                 </p>
                             </div>
                         </div>
-                        <LikeButton liked={props.article.likedByUser} isLiking={handleLikeAction} likes={0} disabled />
+                        <LikeButton liked={liked} isLiking={handleLikeAction} likes={0} hideLikeAmount />
                     </div>
 
                     {/* body */}
-                    <div className='w-full h-full flex justify-center items-center flex-col gap-y-4'>
+                    <a
+                        className='w-full h-full flex justify-center items-center flex-col gap-y-4'
+                        href={`${APP_ROUTES_ENUM.ARTICLE}/${props.article.id}`}
+                    >
                         <img
                             src={props.article.thumbnail}
                             alt='project thumbnail'
-                            className='h-auto w-[40%] rounded-[var(--border-radius-5)] shadow-lg'
+                            className='h-[125px] w-[45%] rounded-[var(--border-radius-5)] shadow-lg object-cover'
                         />
                         <div className='w-full h-auto flex justify-center items-center flex-col gap-y-2'>
                             <p className='text-lg'>{props.article.title}</p>
@@ -117,13 +139,13 @@ export const Card = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
                                 <img
                                     src={props.article.thumbnail}
                                     alt='project thumbnail'
-                                    className='h-auto w-[20px]'
+                                    className='h-[20px] w-[20px] object-cover'
                                 />
-                                <p className='text-sm'>~{props.article.readingTime}</p>
+                                <p className='text-sm'>~ {props.article.readingTime}min</p>
                             </div>
                         </div>
-                    </div>
-                </a>
+                    </a>
+                </div>
             )}
             {!isPreviewVariant && (
                 <div
@@ -142,7 +164,7 @@ export const Card = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
                             <img
                                 src={props.article.thumbnail}
                                 alt='cardHeaderIcon'
-                                className='h-[80%] w-auto relative top-0 rounded-full object-cover object-center'
+                                className='h-[120px] w-[120px] relative top-0 rounded-full object-cover object-center'
                             />
                         </div>
                     ) : (
@@ -197,14 +219,11 @@ export const Card = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
                     {/* footer */}
                     <div className='w-full h-[7%] flex justify-between items-center px-8 my-8'>
                         {read ? (
-                            <img src={icon} alt='cardHeaderIcon' className='h-[20px]' />
+                            <CheckCircleIcon className='h-[20px] text-green-500' />
                         ) : (
-                            <img src={icon2} alt='cardHeaderIcon' className='h-[20px]' />
+                            <XMarkIcon className='h-[20px] text-red-500' />
                         )}
-                        <SaveButton
-                            saved={props.article.articleContent[props.cardToDisplay].savedByUser}
-                            isSaving={handleSaveAction}
-                        />
+                        <SaveButton saved={saved} isSaving={handleSaveAction} />
                     </div>
                 </div>
             )}
@@ -225,7 +244,7 @@ export const useCardStyles = (coolDownTime: number) =>
         coolDown: {
             width: '100%',
             height: '100%',
-            backgroundColor: '#ff000054',
+            backgroundColor: '#cccccc53',
             borderBottomLeftRadius: 'var(--border-radius-8)',
             borderBottomRightRadius: 'var(--border-radius-8)',
             position: 'absolute',

@@ -1,6 +1,4 @@
-import icon_empty from '@/assets/images/icons/save_icon_empty.png';
-import icon_filled from '@/assets/images/icons/save_icon_filled.png';
-import { createUseStyles } from 'react-jss';
+import { BookmarkIcon, BookmarkSlashIcon } from '@heroicons/react/24/outline';
 
 type SaveButtonProps = {
     saved: boolean;
@@ -8,28 +6,15 @@ type SaveButtonProps = {
 };
 
 const SaveButton = (props: SaveButtonProps) => {
-    const styles = useStyles();
-
     const handleClick = () => {
         props.isSaving(!props.saved);
     };
 
-    return (
-        <img
-            src={props.saved ? icon_filled : icon_empty}
-            alt='save button'
-            className={styles.save_button}
-            onClick={handleClick}
-        />
+    return props.saved ? (
+        <BookmarkSlashIcon className='h-[20px] z-10' onClick={handleClick} color='red' />
+    ) : (
+        <BookmarkIcon className='h-[20px] z-10' onClick={handleClick} color='green' />
     );
 };
 
 export default SaveButton;
-const useStyles = createUseStyles({
-    save_button: {
-        height: '25px',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-});

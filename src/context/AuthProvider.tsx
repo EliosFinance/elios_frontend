@@ -52,12 +52,15 @@ const AuthProvider = ({ children }) => {
                 data = await login_api(username, password);
             } else {
                 if (!email) throw new Error('Email is required for registration');
-                data = await register_api(username, email, password);
+                const registered = await register_api(username, email, password);
+                if (registered) {
+                    data = await login_api(username, password);
+                }
             }
 
             if (data && data.access_token) {
                 updateUser({
-                    username: username,
+                    username: data.username,
                     token: data.access_token,
                     refresh_token: data.refresh_token,
                     powens_token: data.powens_token,

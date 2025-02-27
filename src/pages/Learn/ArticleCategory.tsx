@@ -1,5 +1,5 @@
-import { getArticles, getSingleArticle, getSingleArticleCategory } from '@/api';
-import BlogBottomNav from '@/components/BlogBottomNav';
+import { getSingleArticle, getSingleArticleCategory } from '@/api';
+import BlogNav from '@/components/BlogNav';
 import ButtonApp from '@/components/ButtonApp';
 import CarouselX from '@/components/CarouselX';
 import APP_ROUTES_ENUM from '@/types/APP_ROUTES_ENUM';
@@ -38,9 +38,13 @@ const ArticleCategory = () => {
     }, [category]);
 
     return (
-        <div className='w-full h-full flex justify-center items-center flex-col'>
-            <div className='w-full flex justify-center items-center flex-col gap-y-12 my-10'>
-                <h1 className='text-3xl font-bold w-[90%]'>{category?.title}</h1>
+        <div className='w-full h-full flex justify-center items-center flex-col pb-24'>
+            <div className='w-full flex justify-center items-center flex-col gap-y-12 mt-10'>
+                <div className='w-full flex justify-start items-center gap-x-4 px-6'>
+                    <h1 className='text-4xl font-black w-full'>{category?.title}</h1>
+                    <img src={category?.icon} alt={category?.title} className='w-[40px] h-[40px] object-cover' />
+                </div>
+                <span className='h-[1px] w-[80%] border-solid border-black border-[1px] rounded-full' />
                 {cards.length > 0 && category ? (
                     <>
                         <div className='w-full flex justify-center items-center flex-wrap gap-x-4'>
@@ -61,7 +65,7 @@ const ArticleCategory = () => {
                             />
                         </div>
 
-                        <BlogBottomNav disableActionButtons backUrl={APP_ROUTES_ENUM.LEARN} />
+                        <BlogNav disableActionButtons backUrl={APP_ROUTES_ENUM.LEARN} />
                     </>
                 ) : (
                     <>

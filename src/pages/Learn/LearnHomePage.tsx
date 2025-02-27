@@ -1,15 +1,20 @@
-import { getArticleCategories, getArticles } from '@/api';
+import { getArticleCategories, getArticles, getLikedArticles, getTrendingArticles } from '@/api';
 import CarouselX from '@/components/CarouselX';
+import GetPremium from '@/components/GetPremium';
 import InputApp from '@/components/InputApp';
 import APP_ROUTES_ENUM from '@/types/APP_ROUTES_ENUM';
 import { ArticleCategoryType, ArticleType, ArticleTypesEnum } from '@/types/BlogType';
 import { useEffect, useState } from 'react';
 
-const Learn = () => {
+const LearnHomePage = () => {
     const [search, setSearch] = useState<string>('');
     const [filteredSubjects, setFilteredSubjects] = useState<ArticleType[]>([]);
     const [isUserTyping, setIsUserTyping] = useState<boolean>(false);
     const [articles, setArticles] = useState<ArticleType[]>([]);
+    const [trendingArticles, setTrendingArticles] = useState<ArticleType[]>([]);
+    const [premiumArticles, setPremiumArticles] = useState<ArticleType[]>([]);
+    const [recommendedArticles, setRecommendedArticles] = useState<ArticleType[]>([]);
+    const [likedArticles, setLikedArticles] = useState<ArticleType[]>([]);
     const [articlesCategories, setArticlesCategories] = useState<ArticleCategoryType[]>([]);
 
     useEffect(() => {
@@ -26,7 +31,15 @@ const Learn = () => {
         const loadDatas = async () => {
             if (articles.length === 0) {
                 const articles = await getArticles();
+                const trendingArticles = await getTrendingArticles();
+                // const premiumArticles =  await getPremiumArticles()
+                // const recommendedArticles =  await getRecommendedArticles()
+                const likedArticles = await getLikedArticles();
                 setArticles(articles);
+                setTrendingArticles(trendingArticles);
+                setPremiumArticles(articles);
+                setRecommendedArticles(articles);
+                setLikedArticles(likedArticles);
             }
             if (articlesCategories.length === 0) {
                 const articleCategories = await getArticleCategories();
@@ -36,9 +49,26 @@ const Learn = () => {
         loadDatas();
     }, []);
 
+    const SliderSection = (title: string, articles: ArticleType[], last: boolean) => {
+        return (
+            <div className='w-full flex justify-center items-start flex-col'>
+                <h2 className='text-2xl font-black px-6'>{title}</h2>
+                <div
+                    className={`w-full flex justify-between items-start flex-wrap gap-y-4 gap-x-4 ${last ? 'pb-24' : ''}`}
+                >
+                    <CarouselX
+                        slides={articles}
+                        options={{ loop: true, containScroll: false }}
+                        cardVariant={ArticleTypesEnum.SMALL_PREVIEW}
+                    />
+                </div>
+            </div>
+        );
+    };
+
     return (
-        <div className='w-full flex justify-center items-center flex-col gap-y-12'>
-            <div className='w-full flex justify-center items-start flex-col px-6'>
+        <div className='w-full h-full flex justify-center items-center flex-col gap-y-12'>
+            <div className='w-full flex justify-center items-start flex-col px-6 pt-12'>
                 <h2 className='text-2xl font-black'>EliosLearn</h2>
                 <InputApp
                     type='text'
@@ -86,20 +116,15 @@ const Learn = () => {
                         </div>
                     </div>
 
-                    <div className='w-full flex justify-center items-start flex-col'>
-                        <h2 className='text-2xl font-black px-6'>Les plus populaires</h2>
-                        <div className='w-full flex justify-between items-start flex-wrap gap-y-4 gap-x-4'>
-                            <CarouselX
-                                slides={articles}
-                                options={{ loop: false, containScroll: false }}
-                                cardVariant={ArticleTypesEnum.SMALL_PREVIEW}
-                            />
-                        </div>
-                    </div>
+                    {SliderSection('Les plus populaires', trendingArticles, false)}
+                    {SliderSection('Contenu premium', premiumArticles, false)}
+                    {SliderSection('Recommandations', recommendedArticles, false)}
+                    {SliderSection('Mes likes', likedArticles, false)}
+                    {SliderSection('Laissez vous porter...', articles, true)}
                 </>
             )}
         </div>
     );
 };
 
-export default Learn;
+export default LearnHomePage;
