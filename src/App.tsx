@@ -53,6 +53,7 @@ import SingleFriend from './pages/SingleFriends.tsx';
 import Subscription from './pages/Subscription/Subscription.tsx';
 import APP_ROUTES_ENUM from './types/APP_ROUTES_ENUM.ts';
 import { challengeData } from './types/challengeType.ts';
+import PolitiqueConfidentialite from './pages/Settings/Confidentialite/PolitiqueConfidentialite.tsx';
 
 function App() {
     const { os } = useDeviceDetection();
@@ -116,6 +117,7 @@ function App() {
                             <Route path={APP_ROUTES_ENUM.SETTINGS_NOTIFICATIONS} element={<MyNotifications />} />
                             <Route path={APP_ROUTES_ENUM.SETTINGS_ACCESS_CODES} element={<MyAccessCodes />} />
                             <Route path={APP_ROUTES_ENUM.SETTINGS_2FA} element={<TwoFactorAuthentication />} />
+                            <Route path={APP_ROUTES_ENUM.SETTINGS_POLITIQUE_CONFIDENTIALITE} element={<PolitiqueConfidentialite />} />
                             <Route
                                 path={APP_ROUTES_ENUM.SETTINGS_DEVICES_MANAGEMENT}
                                 element={<MyDeviceManagement />}
