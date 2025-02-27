@@ -42,7 +42,7 @@
         "commitizen": "^4.3.0",
         "confettis": "^0.3.4",
         "date-fns": "^3.6.0",
-        "echarts": "^5.5.1",
+        "echarts": "^5.6.0",
         "echarts-for-react": "^3.0.2",
         "elios_frontend": "file:",
         "embla-carousel": "^8.3.0",
@@ -92,7 +92,9 @@
             "path": "@commitlint/cz-commitlint"
         },
         "commitlint": {
-            "extends": ["@commitlint/config-conventional"]
+            "extends": [
+                "@commitlint/config-conventional"
+            ]
         },
         "husky": {
             "hooks": {
@@ -101,10 +103,14 @@
         },
         "biome": {
             "lint": {
-                "extends": ["biome-config-standard"]
+                "extends": [
+                    "biome-config-standard"
+                ]
             },
             "format": {
-                "extends": ["biome-config-standard"]
+                "extends": [
+                    "biome-config-standard"
+                ]
             }
         }
     },
