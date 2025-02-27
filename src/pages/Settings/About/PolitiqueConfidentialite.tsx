@@ -8,7 +8,7 @@ import arrowBackIcon from "/Users/micromedia/Desktop/ELIOS/elios_frontend/src/as
 
 
 
-const PrivacyPolicy = () => {
+const PolitiqueConfidentialite = () => {
   const navigate = useNavigate();
   const [isSommaireOpen, setIsSommaireOpen] = useState(false);
   const sectionRefs = useRef([]);
@@ -110,4 +110,4 @@ const PrivacyPolicy = () => {
   );
 };
 
-export default PrivacyPolicy;
+export default PolitiqueConfidentialite;
