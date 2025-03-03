@@ -53,6 +53,7 @@ const APP_ROUTES_ENUM = {
     SETTINGS_CHANGE_LOG: '/settings/change-log',
     SETTINGS_TERMS_OF_USE: '/settings/terms-of-use',
     SETTINGS_POLITIQUE_CONFIDENTIALITE: '/settings/politique-confidentialite',
+
 };
 
 export default APP_ROUTES_ENUM;
