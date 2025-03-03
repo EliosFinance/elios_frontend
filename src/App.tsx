@@ -53,7 +53,7 @@ import SingleFriend from './pages/SingleFriends.tsx';
 import Subscription from './pages/Subscription/Subscription.tsx';
 import APP_ROUTES_ENUM from './types/APP_ROUTES_ENUM.ts';
 import { challengeData } from './types/challengeType.ts';
-import PolitiqueConfidentialite from './pages/Settings/Confidentialite/PolitiqueConfidentialite.tsx';
+import PolitiqueConfidentialite from './pages/Settings/About/PolitiqueConfidentialite.tsx';
 
 function App() {
     const { os } = useDeviceDetection();
@@ -117,7 +117,11 @@ function App() {
                             <Route path={APP_ROUTES_ENUM.SETTINGS_NOTIFICATIONS} element={<MyNotifications />} />
                             <Route path={APP_ROUTES_ENUM.SETTINGS_ACCESS_CODES} element={<MyAccessCodes />} />
                             <Route path={APP_ROUTES_ENUM.SETTINGS_2FA} element={<TwoFactorAuthentication />} />
+                            <Route path={APP_ROUTES_ENUM.SETTINGS_TERMS_OF_USE} element={<TermsOfUse />} />
+                            <Route path={APP_ROUTES_ENUM.SETTINGS_LEGAL_MENTIONS} element={<LegalMentions />} />
                             <Route path={APP_ROUTES_ENUM.SETTINGS_POLITIQUE_CONFIDENTIALITE} element={<PolitiqueConfidentialite />} />
+
+                           
                             <Route
                                 path={APP_ROUTES_ENUM.SETTINGS_DEVICES_MANAGEMENT}
                                 element={<MyDeviceManagement />}
@@ -131,10 +135,9 @@ function App() {
                             <Route path={APP_ROUTES_ENUM.SETTINGS_OUR_HISTORY} element={<OurHistory />} />
                             <Route path={APP_ROUTES_ENUM.SETTINGS_OUR_TEAM} element={<OurTeam />} />
                             <Route path={APP_ROUTES_ENUM.SETTINGS_OUR_PARTNERS} element={<OurPartners />} />
-                            <Route path={APP_ROUTES_ENUM.SETTINGS_LEGAL_MENTIONS} element={<LegalMentions />} />
                             <Route path={APP_ROUTES_ENUM.SETTINGS_PRIVACY_POLICY} element={<PrivacyPolicy />} />
                             <Route path={APP_ROUTES_ENUM.SETTINGS_CHANGE_LOG} element={<ChangeLog />} />
-                            <Route path={APP_ROUTES_ENUM.SETTINGS_TERMS_OF_USE} element={<TermsOfUse />} />
+                         
                             {/* End Settings */}
                         </Route>
                     </Route>
@@ -164,6 +167,8 @@ function App() {
                         <Route path={APP_ROUTES_ENUM.CONFIRM_PIN} element={<ConfirmPIN />} />
                         <Route path={APP_ROUTES_ENUM.TERMS} element={<TermsAndConditions />} />
                         <Route path={APP_ROUTES_ENUM.PIN} element={<Pin />} />
+
+                      
                         {/* End Login */}
 
                         <Route path={'*'} element={<FirstTimerView />} />
