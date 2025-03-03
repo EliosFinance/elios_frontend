@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { List, ChevronDown } from "lucide-react";
-import "swiper/css";
+import "swiper/css"; 
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import arrowBackIcon from "/Users/micromedia/Desktop/ELIOS/elios_frontend/src/assets/images/icons/arrow_back.png";
@@ -9,6 +9,7 @@ import arrowBackIcon from "/Users/micromedia/Desktop/ELIOS/elios_frontend/src/as
 
 
 const PolitiqueConfidentialite = () => {
+  
   const navigate = useNavigate();
   const [isSommaireOpen, setIsSommaireOpen] = useState(false);
   const sectionRefs = useRef([]);
