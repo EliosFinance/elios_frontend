@@ -2,38 +2,32 @@ import React, { useRef } from "react";
 import arrowBackIcon from "/Users/micromedia/Desktop/ELIOS/elios_frontend/src/assets/images/icons/arrow_back.png";
 
 const legalSections = [
-
   {
     title: "1. Éditeur de l’Application",
     content:
       "L’application ELIOS est éditée par ELIOS SAS, une société par actions simplifiée au capital de [montant du capital] €, immatriculée au RCS de [Ville] sous le numéro [Numéro RCS].\n\nSiège social : [Adresse complète]\nEmail de contact : [Email de contact]\nDirecteur de la publication : [Nom du responsable]",
   },
-
   {
     title: "2. Hébergement",
     content:
       "L’application ELIOS est hébergée par :\n\nNom de l’hébergeur : [Nom de l’hébergeur]\nAdresse : [Adresse complète de l’hébergeur]\nContact : [Email/téléphone de l’hébergeur]",
   },
-
   {
     title: "3. Propriété Intellectuelle",
     content:
       "Tous les éléments présents sur l’application ELIOS, incluant textes, images, logos, marques et logiciels, sont protégés par la législation sur la propriété intellectuelle. Toute reproduction ou modification est interdite sans autorisation préalable d’ELIOS SAS.",
   },
 
-
   {
     title: "4. Responsabilité",
     content:
       "L’éditeur s’efforce de fournir des informations exactes et mises à jour sur l’application ELIOS, mais ne saurait être tenu responsable des erreurs, omissions ou résultats pouvant découler de l’utilisation des informations disponibles sur l’application.\n\nL’utilisateur reconnaît utiliser l’application sous sa propre responsabilité et accepte que ELIOS SAS ne puisse être tenu responsable de dommages directs ou indirects liés à son usage.",
   },
-
   {
     title: "5. Modification des Mentions Légales",
     content:
       "ELIOS SAS se réserve le droit de modifier à tout moment les présentes mentions légales afin de les adapter à l’évolution de ses services et obligations légales.",
   },
-  
   {
     title: "6. Droit Applicable et Juridiction Compétente",
     content:
