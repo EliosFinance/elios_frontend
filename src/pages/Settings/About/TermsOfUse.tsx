@@ -2,12 +2,15 @@ import React, { useState, useRef } from "react";
 import { ChevronDown } from "lucide-react";
 import arrowBackIcon from "/Users/micromedia/Desktop/ELIOS/elios_frontend/src/assets/images/icons/arrow_back.png";
 
+
 const termsSections = [
+
     {
       title: "1. Présentation de l’Application",
       content:
         "Elios est une application de gestion financière visant à aider les jeunes à mieux gérer leur budget grâce à des outils d’analyse des dépenses, des contenus éducatifs et des défis interactifs. Elios permet de connecter un ou plusieurs comptes bancaires afin de récupérer les dépenses des utilisateurs, sans stocker ni afficher leurs IBAN ou autres informations sensibles.",
     },
+
     {
       title: "2. Définitions",
       content:
@@ -17,6 +20,7 @@ const termsSections = [
         "• Abonnement : Offre payante permettant d’accéder à certaines fonctionnalités premium.\n" +
         "• Partenaires : Entreprises collaborant avec Elios pour offrir des récompenses et avantages aux utilisateurs.",
     },
+
     {
       title: "3. Accès et Utilisation du Service",
       content:
@@ -25,6 +29,7 @@ const termsSections = [
         "• Elios ne stocke pas les identifiants bancaires des utilisateurs et ne récupère que les données de dépenses.\n" +
         "• L’utilisateur est responsable de la confidentialité de ses identifiants de connexion.",
     },
+
     {
       title: "4. Abonnements et Tarification",
       content:
@@ -130,6 +135,7 @@ const termsSections = [
               </ul>
             )}
           </div>
+          
   
          
           <div className="flex-1 overflow-y-auto p-6 mt-4 mx-4 bg-[#252525] text-white rounded-lg shadow-lg border min-w-[220px]">
