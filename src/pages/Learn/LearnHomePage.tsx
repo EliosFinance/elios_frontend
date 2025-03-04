@@ -4,7 +4,9 @@ import GetPremium from '@/components/GetPremium';
 import InputApp from '@/components/InputApp';
 import APP_ROUTES_ENUM from '@/types/APP_ROUTES_ENUM';
 import { ArticleCategoryType, ArticleType, ArticleTypesEnum } from '@/types/BlogType';
+import { challengeData } from '@/types/challengeType';
 import { useEffect, useState } from 'react';
+import FinishedChallengeAnimation from './Challenges/FinishedChallengeAnimation';
 
 const LearnHomePage = () => {
     const [search, setSearch] = useState<string>('');
@@ -68,6 +70,7 @@ const LearnHomePage = () => {
 
     return (
         <div className='w-full h-full flex justify-center items-center flex-col gap-y-12'>
+            <FinishedChallengeAnimation challenge={challengeData[0]} />
             <div className='w-full flex justify-center items-start flex-col px-6 pt-12'>
                 <h2 className='text-2xl font-black'>EliosLearn</h2>
                 <InputApp
