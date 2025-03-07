@@ -97,7 +97,6 @@ function App() {
                             <Route path={`${APP_ROUTES_ENUM.ARTICLE_CATEGORY}/:id`} element={<ArticleCategory />} />
                             {/* End Learn */}
 
-                            <Route path={APP_ROUTES_ENUM.ACCOUNT} element={<Account />} />
                             <Route path={APP_ROUTES_ENUM.REWARDS} element={<Rewards />} />
                             <Route path={`${APP_ROUTES_ENUM.CHALLENGE}/:id`} element={<SingleDefi />} />
                             <Route path={APP_ROUTES_ENUM.FRIENDS} element={<Friends />} />
@@ -110,19 +109,21 @@ function App() {
 
                             {/* Settings */}
                             <Route path={APP_ROUTES_ENUM.SETTINGS} element={<SettingsHome />} />
-                            <Route path={APP_ROUTES_ENUM.SETTINGS_PROFILE} element={<MyProfile />} />
                             <Route path={APP_ROUTES_ENUM.SETTINGS_BANK_ACCOUNTS} element={<MyBankAccounts />} />
+                            <Route path={APP_ROUTES_ENUM.SETTINGS_PROFILE} element={<MyProfile />} />
+                            <Route path={APP_ROUTES_ENUM.ACCOUNT} element={<Account />} />
                             <Route path={APP_ROUTES_ENUM.SETTINGS_SUBSCRIPTIONS} element={<MySubscription />} />
                             <Route path={APP_ROUTES_ENUM.SETTINGS_REWARDS} element={<MyRewards />} />
                             <Route path={APP_ROUTES_ENUM.SETTINGS_REFERRALS} element={<MyReferrals />} />
-                            <Route path={APP_ROUTES_ENUM.SETTINGS_NOTIFICATIONS} element={<MyNotifications />} />
                             <Route path={APP_ROUTES_ENUM.SETTINGS_ACCESS_CODES} element={<MyAccessCodes />} />
                             <Route path={APP_ROUTES_ENUM.SETTINGS_2FA} element={<TwoFactorAuthentication />} />
-                            <Route path={APP_ROUTES_ENUM.SETTINGS_TERMS_OF_USE} element={<TermsOfUse />} />
                             <Route path={APP_ROUTES_ENUM.SETTINGS_LEGAL_MENTIONS} element={<LegalMentions />} />
+                            <Route path={APP_ROUTES_ENUM.SETTINGS_TERMS_OF_USE} element={<TermsOfUse />} />
                             <Route path={APP_ROUTES_ENUM.SETTINGS_POLITIQUE_CONFIDENTIALITE} element={<PolitiqueConfidentialite />} />
 
-                           
+
+                         
+                        
                             <Route
                                 path={APP_ROUTES_ENUM.SETTINGS_DEVICES_MANAGEMENT}
                                 element={<MyDeviceManagement />}
@@ -168,7 +169,9 @@ function App() {
                         <Route path={APP_ROUTES_ENUM.CONFIRM_PIN} element={<ConfirmPIN />} />
                         <Route path={APP_ROUTES_ENUM.TERMS} element={<TermsAndConditions />} />
                         <Route path={APP_ROUTES_ENUM.PIN} element={<Pin />} />
-
+                        <Route path={APP_ROUTES_ENUM.SETTINGS_NOTIFICATIONS} element={<MyNotifications />} />
+         
+                    
                       
                         {/* End Login */}
 
