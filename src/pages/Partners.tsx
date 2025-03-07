@@ -46,29 +46,29 @@ const Partners = () => {
     };
 
     return (
-        <div className='w-full flex justify-center items-center flex-col gap-y-12'>
-            <div className='w-full flex justify-between items-center px-6'>
+        <div className='flex flex-col items-center justify-center w-full gap-y-12'>
+            <div className='flex items-center justify-between w-full px-6'>
                 <ArrowLeft className='mt-10 h-7 w-7' />
                 <Eye className='mt-10 h-7 w-7' />
             </div>
 
-            <div className='w-full flex justify-center items-start flex-col px-6'>
-                <div className='w-full flex justify-between items-center'>
+            <div className='flex flex-col items-start justify-center w-full px-6'>
+                <div className='flex items-center justify-between w-full'>
                     <h2 className='text-2xl font-black'>Nos partenaires</h2>
                 </div>
 
                 {loading ? (
                     <div className='text-center text-gray-500'>Chargement des partenaires...</div>
                 ) : (
-                    <div className='w-full flex justify-center items-center flex-wrap gap-6 mt-6'>
+                    <div className='flex flex-wrap items-center justify-center w-full mt-6 gap-6'>
                         {partners.map((partner) => (
                             <div
                                 key={partner.id}
-                                className='w-24 h-24 flex flex-col justify-center items-center bg-gray-200 rounded-lg shadow-md cursor-pointer'
+                                className='flex flex-col items-center justify-center w-24 h-24 bg-gray-200 rounded-lg shadow-md cursor-pointer'
                                 onClick={() => handlePartnerClick(partner)}
                             >
-                                <img src={partner.icon || icon} className='w-13 h-13 mb-2' alt={partner.name} />
-                                <span className='text-center text-sm font-semibold'>{partner.name}</span>
+                                <img src={partner.icon || icon} className='mb-2 w-13 h-13' alt={partner.name} />
+                                <span className='text-sm font-semibold text-center'>{partner.name}</span>
                             </div>
                         ))}
                     </div>

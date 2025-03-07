@@ -28,11 +28,11 @@ const TermsAndConditions: React.FC = () => {
     };
 
     return (
-        <div className='flex flex-col items-center justify-between h-screen w-full bg-white px-4 pb-28 pt-6'>
+        <div className='flex flex-col items-center justify-between w-full h-screen px-4 pt-6 bg-white pb-28'>
             <RegisterHeader title="Conditions générales d'utilisation" />
 
             <div className='flex flex-col items-center justify-center w-full max-w-sm'>
-                <div className='w-full p-4 border border-blue-300 rounded-lg mb-6 text-sm text-gray-700 overflow-y-auto max-h-64'>
+                <div className='w-full p-4 mb-6 overflow-y-auto text-sm text-gray-700 border border-blue-300 rounded-lg max-h-64'>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ac lacus cursus risus posuere
                     pharetra sed eu turpis. Cras pulvinar elementum dolor, eget aliquam felis facilisis et. Fusce ante
                     risus, gravida vitae ante a, venenatis vestibulum nunc. Nam vitae ante fringilla leo vulputate
@@ -47,7 +47,7 @@ const TermsAndConditions: React.FC = () => {
                     Lorem ipsum dolor sit amet, consectetur...
                 </div>
 
-                <div className='flex items-center space-x-2 mb-4'>
+                <div className='flex items-center mb-4 space-x-2'>
                     <input
                         type='checkbox'
                         id='accept-terms'

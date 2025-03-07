@@ -56,30 +56,30 @@ const SingleDefi = () => {
     return (
         <div className='flex flex-col items-center'>
             <header
-                className='w-full h-80 bg-cover bg-center relative flex flex-col justify-end p-6 text-white'
+                className='relative flex flex-col justify-end w-full p-6 text-white bg-center bg-cover h-80'
                 style={{ backgroundImage: `url(${defi.backgroundImage})` }}
             >
                 <div className='absolute inset-0 bg-black opacity-50'></div>
-                <div className='absolute top-4 left-4 flex items-center z-10'>
+                <div className='absolute z-10 flex items-center top-4 left-4'>
                     <ArrowLeftIcon className='w-8 h-8 cursor-pointer' onClick={() => navigate(-1)} />
                 </div>
-                <div className='absolute top-4 right-4 flex items-center z-10'>
+                <div className='absolute z-10 flex items-center top-4 right-4'>
                     <InformationCircleIcon className='w-8 h-8 cursor-pointer' />
                 </div>
-                <div className='relative flex items-center mb-4 z-10 mt-16'>
+                <div className='relative z-10 flex items-center mt-16 mb-4'>
                     <img
                         src={defi.company.logo}
                         alt={`${defi.company.name}logo`}
-                        className='w-16 h-16 rounded-full bg-white p-1'
+                        className='w-16 h-16 p-1 bg-white rounded-full'
                     />
                 </div>
-                <h1 className='relative text-4xl font-bold z-10'>{defi.title}</h1>
-                <p className='relative text-2xl z-10'>{defi.rewards.join(', ')}</p>
-                <p className='relative text-sm mt-2 z-10'>Se termine dans 2 jours</p>
+                <h1 className='relative z-10 text-4xl font-bold'>{defi.title}</h1>
+                <p className='relative z-10 text-2xl'>{defi.rewards.join(', ')}</p>
+                <p className='relative z-10 mt-2 text-sm'>Se termine dans 2 jours</p>
             </header>
 
-            <section className='w-full mt-6 px-6'>
-                <h2 className='text-xl font-bold mb-2'>À propos de ce défi</h2>
+            <section className='w-full px-6 mt-6'>
+                <h2 className='mb-2 text-xl font-bold'>À propos de ce défi</h2>
                 <div className='flex items-center mb-2'>
                     <CurrencyDollarIcon className='w-5 h-5 mr-2' />
                     <p>Gagnez {defi.rewards.join(', ')}</p>
@@ -94,23 +94,23 @@ const SingleDefi = () => {
                 </div>
             </section>
 
-            <section className='w-full mt-6 px-6'>
-                <h2 className='text-xl font-bold mb-2'>Le débrief</h2>
+            <section className='w-full px-6 mt-6'>
+                <h2 className='mb-2 text-xl font-bold'>Le débrief</h2>
                 <p className='text-sm'>{defi.description}</p>
             </section>
 
-            <section className='w-full mt-6 px-6'>
-                <h2 className='text-xl font-bold mb-2'>Votre avancement</h2>
+            <section className='w-full px-6 mt-6'>
+                <h2 className='mb-2 text-xl font-bold'>Votre avancement</h2>
                 <div ref={chartRef} className='w-full h-64'></div>
             </section>
 
-            <section className='w-full mt-6 px-6'>
-                <h2 className='text-xl font-bold mb-2'>Leaderboard</h2>
+            <section className='w-full px-6 mt-6'>
+                <h2 className='mb-2 text-xl font-bold'>Leaderboard</h2>
                 <ul className='mt-2'>
                     {defi.leaderboard.slice(0, visibleEntries).map((entry) => (
                         <li
                             key={entry.rank}
-                            className='text-sm flex justify-between items-center bg-gray-100 p-2 rounded mb-2'
+                            className='flex items-center justify-between p-2 mb-2 text-sm bg-gray-100 rounded'
                         >
                             <span>
                                 #{entry.rank} {entry.user.username}
@@ -120,7 +120,7 @@ const SingleDefi = () => {
                     ))}
                 </ul>
                 {visibleEntries < defi.leaderboard.length && (
-                    <button onClick={handleShowMore} className='mt-4 px-4 py-2 bg-blue-500 text-white rounded'>
+                    <button onClick={handleShowMore} className='px-4 py-2 mt-4 text-white bg-blue-500 rounded'>
                         Voir plus
                     </button>
                 )}

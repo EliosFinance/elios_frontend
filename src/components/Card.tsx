@@ -103,7 +103,7 @@ export const Card = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
                 >
                     {/* header */}
                     <div className='w-full h-[7%] flex justify-between items-center mt-5 px-5'>
-                        <div className='w-auto h-full flex justify-start items-center text-sm font-light gap-x-2 text-center'>
+                        <div className='flex items-center justify-start w-auto h-full text-sm font-light text-center gap-x-2'>
                             {props.article.reads.some(
                                 (r: any) => r.username === user.username || r.email === user.username,
                             ) ? (
@@ -125,7 +125,7 @@ export const Card = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
 
                     {/* body */}
                     <a
-                        className='w-full h-full flex justify-center items-center flex-col gap-y-4'
+                        className='flex flex-col items-center justify-center w-full h-full gap-y-4'
                         href={`${APP_ROUTES_ENUM.ARTICLE}/${props.article.id}`}
                     >
                         <img
@@ -133,9 +133,9 @@ export const Card = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
                             alt='project thumbnail'
                             className='h-[125px] w-[45%] rounded-[var(--border-radius-5)] shadow-lg object-cover'
                         />
-                        <div className='w-full h-auto flex justify-center items-center flex-col gap-y-2'>
+                        <div className='flex flex-col items-center justify-center w-full h-auto gap-y-2'>
                             <p className='text-lg'>{props.article.title}</p>
-                            <div className='w-full flex justify-center items-center gap-x-1'>
+                            <div className='flex items-center justify-center w-full gap-x-1'>
                                 <img
                                     src={props.article.thumbnail}
                                     alt='project thumbnail'
@@ -176,8 +176,8 @@ export const Card = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
                     )}
 
                     {/* body */}
-                    <div className='w-full h-full flex justify-start items-center flex-col gap-y-4 px-8 mt-8'>
-                        <p className='w-full text-lg text-justify font-bold'>
+                    <div className='flex flex-col items-center justify-start w-full h-full px-8 mt-8 gap-y-4'>
+                        <p className='w-full text-lg font-bold text-justify'>
                             {props.article.articleContent[props.cardToDisplay]?.title}
                         </p>
                         {props.article.articleContent[props.cardToDisplay].contentType.map((contentType, index) => (
@@ -199,10 +199,10 @@ export const Card = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
                                     />
                                 )}
                                 {contentType.type === ContentTypesEnum.LIST && (
-                                    <ul className='w-full flex justify-center items-start flex-col list-disc list-outside'>
+                                    <ul className='flex flex-col items-start justify-center w-full list-disc list-outside'>
                                         {Array.isArray(contentType.text) ? (
                                             contentType.text.map((item, itemIndex) => (
-                                                <li key={itemIndex} className='text-sm text-justify ml-4'>
+                                                <li key={itemIndex} className='ml-4 text-sm text-justify'>
                                                     {item}
                                                 </li>
                                             ))

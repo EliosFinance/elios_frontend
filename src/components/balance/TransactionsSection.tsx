@@ -56,15 +56,15 @@ const TransactionsSection: React.FC = () => {
   }, 0);
 
   return (
-    <div className="p-4 bg-white rounded shadow my-4">
-      <h2 className="text-xl font-bold mb-4">Dernières transactions</h2>
+    <div className="p-4 my-4 bg-white rounded shadow">
+      <h2 className="mb-4 text-xl font-bold">Dernières transactions</h2>
       {latestTransactions.length > 0 ? (
         <>
           <ul className="divide-y divide-gray-300">
             {latestTransactions.map((tx) => {
               const displayDate = parseTransactionDate(tx).toLocaleDateString('fr-FR');
               return (
-                <li key={tx.id} className="py-2 flex justify-between">
+                <li key={tx.id} className="flex justify-between py-2">
                   <span className="text-sm">
                     {displayDate} - {tx.wording}
                   </span>
@@ -78,7 +78,7 @@ const TransactionsSection: React.FC = () => {
               );
             })}
           </ul>
-          <div className="mt-4 border-t pt-4">
+          <div className="pt-4 mt-4 border-t">
             <p className="text-lg font-bold">
               Total des 5 derniers paiements :{' '}
               {totalLatest.toLocaleString('fr-FR', {

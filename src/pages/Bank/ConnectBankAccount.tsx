@@ -15,17 +15,17 @@ const ConnectBankAccount = () => {
     );
 
     return (
-        <div className='w-full flex flex-col items-center justify-start px-4'>
-            <div className='w-full flex flex-col items-center justify-center gap-4 mb-20'>
+        <div className='flex flex-col items-center justify-start w-full px-4'>
+            <div className='flex flex-col items-center justify-center w-full mb-20 gap-4'>
                 <BankPageHeader />
                 <SearchInput onSearch={setSearchTerm} />
                 {filteredItems?.map((connector, key) => (
                     <div
-                        className='w-full flex flex-col gap-4 items-start justify-center rounded-4 border-solid border-2 border-gray-200 p-2'
+                        className='flex flex-col items-start justify-center w-full p-2 border-2 border-gray-200 border-solid gap-4 rounded-4'
                         onClick={() => navigate(`${APP_ROUTES_ENUM.DISPLAY_SINGLE_CONNECTOR}/${connector.uuid}`)}
                         key={key}
                     >
-                        <div className='w-full flex items-center justify-start gap-4'>
+                        <div className='flex items-center justify-start w-full gap-4'>
                             <img src={connector.logo} alt={`${connector.name} logo`} />
                             <span>{connector.name}</span>
                         </div>

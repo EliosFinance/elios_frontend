@@ -72,14 +72,14 @@ const Home = () => {
                                         return (
                                             <div
                                                 key={index}
-                                                className='flex items-center rounded bg-slate-400 text-white p-2 gap-2 justify-between'
+                                                className='flex items-center justify-between p-2 text-white rounded bg-slate-400 gap-2'
                                             >
                                                 <div className='flex items-center justify-center'>
                                                     <img
                                                         src={`https://lperrenot-sandbox.biapi.pro/2.0/logos/${connection.connector_uuid}-thumbnail.webp`}
                                                         alt=''
                                                     />
-                                                    <p className='font-bold text-lg'>{connection.connector.name}</p>
+                                                    <p className='text-lg font-bold'>{connection.connector.name}</p>
                                                 </div>
                                                 <p>{formatted}</p>
                                             </div>

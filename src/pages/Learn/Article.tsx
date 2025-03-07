@@ -152,7 +152,7 @@ const Article = () => {
     return (
         <>
             {currentArticle && <BlogNav article={currentArticle} currentCard={clickedCard || 0} />}
-            <div ref={ref} className='w-full flex justify-center items-center flex-col mb-10'>
+            <div ref={ref} className='flex flex-col items-center justify-center w-full mb-10'>
                 <div className='w-[90%] flex justify-center items-center flex-col'>
                     <div
                         className='w-[100vw] h-[100vh] flex justify-center items-center flex-wrap snap-y snap-mandatory overflow-y-hidden scrollbars-hidden mt-4 px-4 mb-12'
@@ -160,7 +160,7 @@ const Article = () => {
                     >
                         {/* header */}
                         <div
-                            className='w-full h-auto flex justify-center items-center flex-col gap-y-8 font-bold mt-24 snap-center'
+                            className='flex flex-col items-center justify-center w-full h-auto mt-24 font-bold gap-y-8 snap-center'
                             id='header'
                         >
                             <Skeleton className='h-[70px] w-[70px] rounded-[var(--border-radius-5)]' />
@@ -171,9 +171,9 @@ const Article = () => {
                                 onClick={throwConfettis}
                                 loading='lazy'
                             />
-                            <div className='w-full h-auto flex justify-center items-center flex-col gap-y-2'>
+                            <div className='flex flex-col items-center justify-center w-full h-auto gap-y-2'>
                                 <p className='text-lg'>{currentArticle.title}</p>
-                                <div className='w-full flex justify-center items-center gap-x-1'>
+                                <div className='flex items-center justify-center w-full gap-x-1'>
                                     <img
                                         src={currentArticle.thumbnail}
                                         alt='project thumbnail'
@@ -182,17 +182,17 @@ const Article = () => {
                                     <p className='text-sm'>~{currentArticle.readingTime}</p>
                                 </div>
                             </div>
-                            <div className='w-full h-auto flex justify-center items-center flex-col gap-y-2'>
+                            <div className='flex flex-col items-center justify-center w-full h-auto gap-y-2'>
                                 {/* separator */}
                                 <span className='w-[70%] h-[2px] bg-black rounded-full mt-12'></span>
 
                                 {/* content */}
-                                <div className='w-full h-auto flex justify-center items-center flex-col mt-12'>
+                                <div className='flex flex-col items-center justify-center w-full h-auto mt-12'>
                                     <p className='text-justify'>{currentArticle.description}</p>
                                 </div>
 
                                 {/* card container */}
-                                <div className='w-full h-auto flex justify-between items-center font-bold mt-12'>
+                                <div className='flex items-center justify-between w-full h-auto mt-12 font-bold'>
                                     <p>{currentArticle.articleContent?.length || 0} ideas</p>
                                     <p>{formatLectures(currentArticle?.reads.length || 0)}</p>
                                 </div>

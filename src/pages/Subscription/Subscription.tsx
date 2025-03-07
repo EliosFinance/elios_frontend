@@ -62,29 +62,29 @@ const Subscription = ({ onBack }) => {
     };
 
     return (
-        <div className='min-h-screen flex flex-col bg-gray-100 p-4 w-full'>
-            <div className='flex justify-between items-center mb-4 w-full'>
+        <div className='flex flex-col w-full min-h-screen p-4 bg-gray-100'>
+            <div className='flex items-center justify-between w-full mb-4'>
                 <img src={BackIcon} alt='back' className='w-5 h-5 cursor-pointer' onClick={onBack} />
                 <img
                     src={isVisible ? Eye : EyeOff}
                     alt='eye'
-                    className='w-6 h-6 cursor-pointer object-contain'
+                    className='object-contain w-6 h-6 cursor-pointer'
                     onClick={toggleVisibility}
                 />
             </div>
 
             <div className='w-full px-8'>
-                <Card className='mb-6 p-6 shadow-lg w-full'>
+                <Card className='w-full p-6 mb-6 shadow-lg'>
                     <h2 className='text-2xl font-semibold'>Evolution globale</h2>
-                    <p className='text-gray-500 text-sm'>Nov 1, 2020 - Nov 30, 2020</p>
-                    <p className='text-gray-700 text-lg'>
+                    <p className='text-sm text-gray-500'>Nov 1, 2020 - Nov 30, 2020</p>
+                    <p className='text-lg text-gray-700'>
                         {period === 'Monthly' ? 'Nombre de dépenses ce mois : ' : 'Nombre de dépenses cette semaine : '}
                         <span className={`${!isVisible ? 'blur-sm' : ''}`}>{period === 'Monthly' ? '45' : '12'}</span>
                     </p>
                     <div className='flex items-center justify-end my-4'>
-                        <span className='text-gray-400 mr-2'>Période :</span>
+                        <span className='mr-2 text-gray-400'>Période :</span>
                         <select
-                            className='border rounded px-3 py-2'
+                            className='px-3 py-2 border rounded'
                             value={period}
                             onChange={(e) => setPeriod(e.target.value)}
                         >
@@ -97,14 +97,14 @@ const Subscription = ({ onBack }) => {
                     </div>
                 </Card>
 
-                <h2 className='text-2xl font-semibold mb-2'>Vos dépenses récurrentes</h2>
-                <p className='text-gray-500 text-sm mb-4'>Novembre 2021</p>
+                <h2 className='mb-2 text-2xl font-semibold'>Vos dépenses récurrentes</h2>
+                <p className='mb-4 text-sm text-gray-500'>Novembre 2021</p>
 
                 <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 overflow-y-auto max-h-[400px] md:max-h-none'>
                     {expensesData[period].map((expense, index) => (
-                        <Card key={index} className='flex justify-between items-center p-4 shadow-md w-full'>
+                        <Card key={index} className='flex items-center justify-between w-full p-4 shadow-md'>
                             <div className='flex items-center'>
-                                <div className='w-10 h-10 flex items-center justify-center rounded-full bg-gray-800 text-white mr-3'>
+                                <div className='flex items-center justify-center w-10 h-10 mr-3 text-white bg-gray-800 rounded-full'>
                                     {expense.icon}
                                 </div>
                                 <span className='text-sm'>{expense.name}</span>
@@ -113,7 +113,7 @@ const Subscription = ({ onBack }) => {
                                 <p className={`font-semibold text-sm ${!isVisible ? 'blur-sm' : ''}`}>
                                     {expense.amount}
                                 </p>
-                                <p className='text-gray-500 text-xs'>Monthly</p>
+                                <p className='text-xs text-gray-500'>Monthly</p>
                             </div>
                         </Card>
                     ))}

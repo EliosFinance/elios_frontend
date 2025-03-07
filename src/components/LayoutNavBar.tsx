@@ -34,23 +34,23 @@ const LayoutNavBar = () => {
         <div className='w-full h-16 flex items-center justify-between px-4 bg-gray-200 fixed bottom-0 left-0 z-[1000]'>
             {LinkComponent({
                 route: APP_ROUTES_ENUM.HOME,
-                icon: <HomeIcon className='w-6 h-6 object-cover object-center' />,
+                icon: <HomeIcon className='object-cover object-center w-6 h-6' />,
             })}
             {LinkComponent({
                 route: APP_ROUTES_ENUM.BALANCE,
-                icon: <CurrencyDollarIcon className='w-6 h-6 object-cover object-center' />,
+                icon: <CurrencyDollarIcon className='object-cover object-center w-6 h-6' />,
             })}
             {LinkComponent({
                 route: APP_ROUTES_ENUM.REWARDS,
-                icon: <TrophyIcon className='w-6 h-6 object-cover object-center' />,
+                icon: <TrophyIcon className='object-cover object-center w-6 h-6' />,
             })}
             {LinkComponent({
                 route: APP_ROUTES_ENUM.LEARN,
-                icon: <AcademicCapIcon className='w-6 h-6 object-cover object-center' />,
+                icon: <AcademicCapIcon className='object-cover object-center w-6 h-6' />,
             })}
             {LinkComponent({
                 route: APP_ROUTES_ENUM.SETTINGS,
-                icon: <UserIcon className='w-6 h-6 object-cover object-center' />,
+                icon: <UserIcon className='object-cover object-center w-6 h-6' />,
             })}
         </div>
     );

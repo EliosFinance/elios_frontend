@@ -29,7 +29,7 @@ export const columns: ColumnDef<Payment>[] = [
             return (
                 <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
                     Date
-                    <ArrowUpDown className='ml-2 h-4 w-4' />
+                    <ArrowUpDown className='w-4 h-4 ml-2' />
                 </Button>
             );
         },
@@ -40,7 +40,7 @@ export const columns: ColumnDef<Payment>[] = [
             return (
                 <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
                     Titre
-                    <ArrowUpDown className='ml-2 h-4 w-4' />
+                    <ArrowUpDown className='w-4 h-4 ml-2' />
                 </Button>
             );
         },
@@ -66,7 +66,7 @@ export const columns: ColumnDef<Payment>[] = [
                 currency: 'EUR',
             }).format(value);
 
-            return <div className='text-right font-medium'>{formatted}</div>;
+            return <div className='font-medium text-right'>{formatted}</div>;
         },
     },
     {
@@ -76,9 +76,9 @@ export const columns: ColumnDef<Payment>[] = [
             return (
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                        <Button variant='ghost' className='h-8 w-8 p-0'>
+                        <Button variant='ghost' className='w-8 h-8 p-0'>
                             <span className='sr-only'>Open menu</span>
-                            <MoreHorizontal className='h-4 w-4' />
+                            <MoreHorizontal className='w-4 h-4' />
                         </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align='end'>

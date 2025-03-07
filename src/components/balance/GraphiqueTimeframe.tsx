@@ -77,7 +77,7 @@ const GraphiqueTimeframe: React.FC<GraphiqueTimeframeProps> = ({
 
   return (
     <div>
-      <div className="flex justify-end space-x-4 mb-2">
+      <div className="flex justify-end mb-2 space-x-4">
         <button onClick={() => onTimeframeChange('day')} className="px-2 py-1 border rounded">
           Jour
         </button>

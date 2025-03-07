@@ -36,20 +36,20 @@ const DisplaySingleConnector = () => {
     }, [startConnection]);
 
     return (
-        <div className='w-full flex flex-col items-center justify-start gap-10 px-4'>
+        <div className='flex flex-col items-center justify-start w-full px-4 gap-10'>
             <BankPageHeader />
             {connector && (
-                <div className='w-full flex flex-col items-center justify-center gap-4'>
-                    <div className='w-full flex items-center justify-center'>
+                <div className='flex flex-col items-center justify-center w-full gap-4'>
+                    <div className='flex items-center justify-center w-full'>
                         <img src={connector.logo} alt={connector.name} />
                         <p>{connector.name}</p>
                     </div>
 
-                    <div className='w-4/5 flex items-center justify-center flex-col gap-2'>
+                    <div className='flex flex-col items-center justify-center w-4/5 gap-2'>
                         {connector.account_types?.map((p) => (
-                            <div key={p} className='w-full flex items-center justify-between border-solid'>
+                            <div key={p} className='flex items-center justify-between w-full border-solid'>
                                 <p>{p}</p>
-                                <CheckCircleIcon className='h-5 w-5 fill-green-400 text-white' />
+                                <CheckCircleIcon className='w-5 h-5 text-white fill-green-400' />
                             </div>
                         ))}
                     </div>

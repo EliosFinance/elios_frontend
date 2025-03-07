@@ -10,7 +10,7 @@ interface DrawerStep1Props {
 const DrawerStep1: React.FC<DrawerStep1Props> = ({ onNext }) => {
     return (
         <div className='p-4 mb-10'>
-            <div className='text-center mb-6'>
+            <div className='mb-6 text-center'>
                 <h2 className='text-xl font-bold text-gray-800'>Se connecter</h2>
             </div>
             <div className='flex flex-col space-y-3'>
@@ -25,7 +25,7 @@ const DrawerStep1: React.FC<DrawerStep1Props> = ({ onNext }) => {
                     <span className='text-sm'>Continuer avec Google</span>
                 </Button>
                 <Button className='flex items-center justify-center w-full border-solid border-[1.5px] border-gray-200 text-gray-800 rounded-full bg-transparent hover:bg-gray-300'>
-                    <img src={appleIcon} alt='Apple' className='w-aut h-4 mr-3' />
+                    <img src={appleIcon} alt='Apple' className='h-4 mr-3 w-aut' />
                     <span className='text-sm'>Continuer avec Apple</span>
                 </Button>
             </div>
