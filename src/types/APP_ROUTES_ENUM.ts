@@ -2,6 +2,7 @@ const APP_ROUTES_ENUM = {
     // Authenticated routes
     HOME: '/home',
     ACCOUNT: '/account',
+    BALANCE: '/balance',
     CHALLENGE: '/challenge',
     FRIENDS: '/friends',
     SINGLE_FRIEND: '/friends/:id',

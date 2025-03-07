@@ -25,7 +25,7 @@ const MonthlySubscriptions = () => {
                     onClick={() => navigate(`/subscription/${subscription.name.toLowerCase()}`)}
                 >
                     <div className='flex items-center'>
-                        <div className='w-10 h-10 bg-gray-200 rounded-full mr-4 flex items-center justify-center p-2'>
+                        <div className='w-10 h-10 rounded-full mr-4 flex items-center justify-center p-2'>
                             <img
                                 src={subscription.iconUrl}
                                 alt={subscription.name}

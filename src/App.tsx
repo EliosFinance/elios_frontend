@@ -53,6 +53,7 @@ import SingleFriend from './pages/SingleFriends.tsx';
 import Subscription from './pages/Subscription/Subscription.tsx';
 import APP_ROUTES_ENUM from './types/APP_ROUTES_ENUM.ts';
 import { challengeData } from './types/challengeType.ts';
+import CentralExpensesPage from './pages/Balance/CentralExpensesPage.tsx';
 
 function App() {
     const { os } = useDeviceDetection();
@@ -86,6 +87,7 @@ function App() {
                     <Route element={<AuthRoute />}>
                         <Route element={<Layout />}>
                             <Route path={APP_ROUTES_ENUM.HOME} element={<Landing />} />
+                            <Route path={APP_ROUTES_ENUM.BALANCE} element={<CentralExpensesPage />} />
                             <Route path={APP_ROUTES_ENUM.PARTNERS} element={<Partners />} />
 
                             {/* Learn */}
