@@ -1,12 +1,13 @@
 import { getArticleCategories, getArticles, getLikedArticles, getTrendingArticles } from '@/api';
 import CarouselX from '@/components/CarouselX';
-import GetPremium from '@/components/GetPremium';
 import InputApp from '@/components/InputApp';
-import APP_ROUTES_ENUM from '@/types/APP_ROUTES_ENUM';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ArticleCategoryType, ArticleType, ArticleTypesEnum } from '@/types/BlogType';
 import { challengeData } from '@/types/challengeType';
 import { useEffect, useState } from 'react';
 import FinishedChallengeAnimation from './Challenges/FinishedChallengeAnimation';
+import LearnArticleTab from './LearnArticleTab';
+import LearnQuizzTab from './LearnQuizzTab';
 
 const LearnHomePage = () => {
     const [search, setSearch] = useState<string>('');
@@ -51,26 +52,9 @@ const LearnHomePage = () => {
         loadDatas();
     }, []);
 
-    const SliderSection = (title: string, articles: ArticleType[], last: boolean) => {
-        return (
-            <div className='w-full flex justify-center items-start flex-col'>
-                <h2 className='text-2xl font-black px-6'>{title}</h2>
-                <div
-                    className={`w-full flex justify-between items-start flex-wrap gap-y-4 gap-x-4 ${last ? 'pb-24' : ''}`}
-                >
-                    <CarouselX
-                        slides={articles}
-                        options={{ loop: true, containScroll: false }}
-                        cardVariant={ArticleTypesEnum.SMALL_PREVIEW}
-                    />
-                </div>
-            </div>
-        );
-    };
-
     return (
         <div className='w-full h-full flex justify-center items-center flex-col gap-y-12'>
-            <FinishedChallengeAnimation challenge={challengeData[0]} />
+            {/* <FinishedChallengeAnimation challenge={challengeData[0]} /> */}
             <div className='w-full flex justify-center items-start flex-col px-6 pt-12'>
                 <h2 className='text-2xl font-black'>EliosLearn</h2>
                 <InputApp
@@ -95,36 +79,25 @@ const LearnHomePage = () => {
                     </div>
                 </div>
             ) : (
-                <>
-                    <div className='w-full flex justify-center items-start flex-col px-6'>
-                        <div className='w-full flex justify-between items-center'>
-                            <h2 className='text-2xl font-black'>Pour vous</h2>
-                            <a
-                                className='text-sm font-semibold text-blue-500'
-                                href={APP_ROUTES_ENUM.ARTICLE_CATEGORIES}
-                            >
-                                Voir tout &gt;
-                            </a>
-                        </div>
-                        <div className='w-full flex justify-between items-start flex-wrap mt-3 gap-y-4 gap-x-4'>
-                            {[1, 2, 3, 4].map((i) => (
-                                <a
-                                    className='w-[47.6%] h-12 flex justify-center items-center bg-blue-500 rounded-3 text-white font-semibold text-lg'
-                                    href={`${APP_ROUTES_ENUM.ARTICLE_CATEGORY}/${i}`}
-                                    key={i}
-                                >
-                                    {articlesCategories[i]?.title}
-                                </a>
-                            ))}
-                        </div>
-                    </div>
-
-                    {SliderSection('Les plus populaires', trendingArticles, false)}
-                    {SliderSection('Contenu premium', premiumArticles, false)}
-                    {SliderSection('Recommandations', recommendedArticles, false)}
-                    {SliderSection('Mes likes', likedArticles, false)}
-                    {SliderSection('Laissez vous porter...', articles, true)}
-                </>
+                <Tabs defaultValue='quizz' className='w-full grid-cols-2'>
+                    <TabsList className='w-full flex justify-center items-center gap-x-4 px-6 border-b-2'>
+                        <TabsTrigger value='articles'>Articles</TabsTrigger>
+                        <TabsTrigger value='quizz'>Quizz</TabsTrigger>
+                    </TabsList>
+                    <TabsContent value='articles'>
+                        <LearnArticleTab
+                            articles={articles}
+                            trendingArticles={trendingArticles}
+                            premiumArticles={premiumArticles}
+                            recommendedArticles={recommendedArticles}
+                            likedArticles={likedArticles}
+                            articlesCategories={articlesCategories}
+                        />
+                    </TabsContent>
+                    <TabsContent value='quizz'>
+                        <LearnQuizzTab />
+                    </TabsContent>
+                </Tabs>
             )}
         </div>
     );
