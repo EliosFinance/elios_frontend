@@ -1,5 +1,5 @@
 import APP_ROUTES_ENUM from '@/types/APP_ROUTES_ENUM';
-import { AcademicCapIcon, CurrencyDollarIcon, HomeIcon, TrophyIcon, UserIcon } from '@heroicons/react/24/outline';
+import { AcademicCapIcon, CurrencyDollarIcon, HomeIcon, TrophyIcon, UserIcon, DocumentChartBarIcon } from '@heroicons/react/24/outline';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -40,6 +40,11 @@ const LayoutNavBar = () => {
                 route: APP_ROUTES_ENUM.BALANCE,
                 icon: <CurrencyDollarIcon className='object-cover object-center w-6 h-6' />,
             })}
+            
+            {LinkComponent({
+                route: APP_ROUTES_ENUM.CHALLENGE,
+                icon: <DocumentChartBarIcon className='object-cover object-center w-6 h-6' />,
+            })}
             {LinkComponent({
                 route: APP_ROUTES_ENUM.REWARDS,
                 icon: <TrophyIcon className='object-cover object-center w-6 h-6' />,
@@ -48,10 +53,10 @@ const LayoutNavBar = () => {
                 route: APP_ROUTES_ENUM.LEARN,
                 icon: <AcademicCapIcon className='object-cover object-center w-6 h-6' />,
             })}
-            {LinkComponent({
+            {/* {LinkComponent({
                 route: APP_ROUTES_ENUM.SETTINGS,
                 icon: <UserIcon className='object-cover object-center w-6 h-6' />,
-            })}
+            })} */}
         </div>
     );
 };
