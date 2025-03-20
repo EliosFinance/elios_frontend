@@ -29,6 +29,7 @@ const APP_ROUTES_ENUM = {
     ARTICLE: '/learn/article',
     ARTICLE_CATEGORIES: '/learn/article-categories',
     ARTICLE_CATEGORY: '/learn/article-category',
+    QUIZZ: '/learn/quizz',
 
     // Settings routes
     SETTINGS: '/settings',

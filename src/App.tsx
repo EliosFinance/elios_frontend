@@ -26,6 +26,7 @@ import AllArticleCategories from './pages/Learn/Blog/AllArticleCategories.tsx';
 import Article from './pages/Learn/Blog/Article.tsx';
 import ArticleCategory from './pages/Learn/Blog/ArticleCategory.tsx';
 import LearnHomePage from './pages/Learn/LearnHomePage.tsx';
+import Quizz from './pages/Learn/Quizz/Quizz.tsx';
 import Partners from './pages/Partners.tsx';
 import Rewards from './pages/Rewards.tsx';
 import ChangeLog from './pages/Settings/About/ChangeLog.tsx';
@@ -93,6 +94,7 @@ function App() {
                             <Route path={`${APP_ROUTES_ENUM.ARTICLE}/:id`} element={<Article />} />
                             <Route path={`${APP_ROUTES_ENUM.ARTICLE_CATEGORIES}`} element={<AllArticleCategories />} />
                             <Route path={`${APP_ROUTES_ENUM.ARTICLE_CATEGORY}/:id`} element={<ArticleCategory />} />
+                            <Route path={`${APP_ROUTES_ENUM.QUIZZ}/:id`} element={<Quizz />} />
                             {/* End Learn */}
 
                             <Route path={APP_ROUTES_ENUM.ACCOUNT} element={<Account />} />
