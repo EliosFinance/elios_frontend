@@ -1,14 +1,12 @@
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as echarts from 'echarts';
-
 import { Card, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
-
 import CarouselChallenges from '@/components/challenge/CarouselChallenges';
-
 import { challenges, ChallengeType } from '@/temp/DefiData';
+import PageLayout from '@/layout/PageLayout';
 
 export default function ChallengePage() {
   const navigate = useNavigate();
@@ -50,13 +48,8 @@ export default function ChallengePage() {
   }, []);
 
   return (
-    <div className="flex flex-col w-full min-h-screen text-black bg-gray-50">
-      <header className="relative flex items-center justify-between w-full p-4 bg-white shadow-md">
-        <h1 className="text-lg font-bold">Challenges</h1>
-      </header>
-
-      <main className="flex flex-col w-full h-full p-4 space-y-6">
-
+    <PageLayout title="Défis">
+      <main className="flex flex-col w-full h-full space-y-6">
         {featuredChallenge && (
           <Card className="w-full bg-white shadow-sm">
             <CardHeader className="p-4">
@@ -79,7 +72,7 @@ export default function ChallengePage() {
             </div>
           </Card>
         )}
-
+  
         {ongoing.length > 0 && (
           <div>
             <h2 className="mb-2 text-base font-semibold">Défis en cours</h2>
@@ -121,7 +114,7 @@ export default function ChallengePage() {
             />
           </div>
         )}
-
+  
         {notStarted.length > 0 && (
           <div>
             <h2 className="mb-2 text-base font-semibold">Défis à démarrer</h2>
@@ -162,7 +155,7 @@ export default function ChallengePage() {
             />
           </div>
         )}
-
+  
         {completed.length > 0 && (
           <div>
             <h2 className="mb-2 text-base font-semibold">Défis terminés</h2>
@@ -193,6 +186,6 @@ export default function ChallengePage() {
           </div>
         )}
       </main>
-    </div>
+    </PageLayout>
   );
 }

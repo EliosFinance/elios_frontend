@@ -5,6 +5,7 @@ import * as echarts from 'echarts';
 import { Card, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { ArrowLeftIcon, InformationCircleIcon } from '@heroicons/react/24/outline';
+import PageLayout from '@/layout/PageLayout';
 
 import { challenges, ChallengeType } from '@/temp/DefiData';
 
@@ -52,13 +53,7 @@ export default function SingleChallenge() {
   const handleShowMore = () => setVisibleEntries((prev) => prev + 2);
 
   return (
-    <div className="flex flex-col w-full min-h-screen text-black bg-gray-50">
-      <header className="relative flex items-center justify-between w-full p-4 bg-white shadow">
-        <ArrowLeftIcon className="w-6 h-6" onClick={() => navigate(-1)} />
-        <h1 className="text-base font-bold">Détail du défi</h1>
-        <InformationCircleIcon className="w-6 h-6" />
-      </header>
-
+    <PageLayout title="Détail du défi" onBack={() => navigate(-1)}>
       <div
         className="relative flex flex-col justify-end w-full h-56 p-4 text-white bg-center bg-cover"
         style={{ backgroundImage: `url(${challenge.backgroundImage})` }}
@@ -79,7 +74,6 @@ export default function SingleChallenge() {
       </div>
 
       <div className="flex flex-col p-4 space-y-4">
-
         <Card>
           <CardHeader className="p-4">
             <CardTitle className="text-sm font-bold">À propos</CardTitle>
@@ -130,6 +124,7 @@ export default function SingleChallenge() {
           </Card>
         )}
       </div>
-    </div>
+    </PageLayout>
   );
+
 }
