@@ -39,7 +39,7 @@ const ConfirmPin: React.FC = () => {
     };
 
     return (
-        <div className='flex flex-col items-center justify-between h-screen w-full bg-white px-4 pb-28 pt-6'>
+        <div className='flex flex-col items-center justify-between w-full h-screen px-4 pt-6 bg-white pb-28'>
             <RegisterHeader title='Confirmez votre code PIN' />
 
             <div className='flex flex-col items-center justify-center w-full max-w-sm'>
@@ -58,11 +58,11 @@ const ConfirmPin: React.FC = () => {
                     <div className='absolute inset-0 flex items-center justify-center'>
                         <img src={abstract1} alt='Background' className='w-56 h-56' />
                     </div>
-                    <div className='grid grid-cols-3 gap-4 relative z-10'>
+                    <div className='relative z-10 grid grid-cols-3 gap-4'>
                         {Array.from({ length: 9 }, (_, i) => i + 1).map((number) => (
                             <Button
                                 key={number}
-                                className='w-14 h-14 bg-gray-200 text-gray-800 rounded-full text-xl font-bold hover:bg-gray-300 flex items-center justify-center'
+                                className='flex items-center justify-center text-xl font-bold text-gray-800 bg-gray-200 rounded-full w-14 h-14 hover:bg-gray-300'
                                 onClick={() => handlePinInput(number.toString())}
                             >
                                 {number}
@@ -70,13 +70,13 @@ const ConfirmPin: React.FC = () => {
                         ))}
                         <div />
                         <Button
-                            className='w-14 h-14 bg-gray-200 text-gray-800 rounded-full text-xl font-bold hover:bg-gray-300 flex items-center justify-center'
+                            className='flex items-center justify-center text-xl font-bold text-gray-800 bg-gray-200 rounded-full w-14 h-14 hover:bg-gray-300'
                             onClick={() => handlePinInput('0')}
                         >
                             0
                         </Button>
                         <Button
-                            className='w-14 h-14 bg-red-200 text-red-600 rounded-full text-xl hover:bg-red-300 flex items-center justify-center'
+                            className='flex items-center justify-center text-xl text-red-600 bg-red-200 rounded-full w-14 h-14 hover:bg-red-300'
                             onClick={handleDelete}
                         >
                             ⌫
@@ -84,7 +84,7 @@ const ConfirmPin: React.FC = () => {
                     </div>
                 </div>
 
-                {error && <p className='text-red-500 text-sm mb-4'>{error}</p>}
+                {error && <p className='mb-4 text-sm text-red-500'>{error}</p>}
             </div>
 
             <Button

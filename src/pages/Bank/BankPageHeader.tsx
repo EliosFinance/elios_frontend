@@ -8,9 +8,9 @@ const BankPageHeader = () => {
     const navigate = useNavigate();
 
     return (
-        <div className='flex h-12 items-center justify-between w-full'>
-            <ArrowUturnLeftIcon className='w-6 h-6 object-cover object-center' onClick={() => navigate(-1)} />
-            <QuestionMarkCircleIcon className='h-6 w-6' onClick={() => setIsDrawerOpen(true)} />
+        <div className='flex items-center justify-between w-full h-12'>
+            <ArrowUturnLeftIcon className='object-cover object-center w-6 h-6' onClick={() => navigate(-1)} />
+            <QuestionMarkCircleIcon className='w-6 h-6' onClick={() => setIsDrawerOpen(true)} />
 
             <AppDrawer isDrawerOpen={isDrawerOpen} setIsDrawerOpen={setIsDrawerOpen} title="Besoin d'aide ?">
                 <div className='flex flex-col gap-4'>

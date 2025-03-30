@@ -30,7 +30,7 @@ const DrawerStep2: React.FC<DrawerStep1Props> = ({ onNext, setDataForStep3 }) =>
 
     return (
         <div className='p-4 mb-10'>
-            <div className='text-center mb-6'>
+            <div className='mb-6 text-center'>
                 <h2 className='text-lg font-bold text-gray-800'>Se connecter</h2>
             </div>
             <div className='space-y-3'>
@@ -56,10 +56,10 @@ const DrawerStep2: React.FC<DrawerStep1Props> = ({ onNext, setDataForStep3 }) =>
                         } focus:outline-none focus:ring-0 text-m placeholder:text-gray-500 placeholder:font-semibold`}
                     />
                     {/* Message d'erreur */}
-                    {error && <p className='text-sm text-red-500 mt-2'>E-mail ou mot de passe incorrect.</p>}
+                    {error && <p className='mt-2 text-sm text-red-500'>E-mail ou mot de passe incorrect.</p>}
                 </div>
             </div>
-            <div className=' flex flex-col justify-start items-start mt-2 text-center text-xs text-gray-500'>
+            <div className='flex flex-col items-start justify-start mt-2 text-xs text-center text-gray-500 '>
                 {/* TODO: FORGOT PASSWORD */}
                 <span
                     className='text-blue-500 cursor-pointer'
@@ -71,7 +71,7 @@ const DrawerStep2: React.FC<DrawerStep1Props> = ({ onNext, setDataForStep3 }) =>
                 </span>
                 {error && errorCount > 2 && (
                     <span
-                        className='text-blue-500 cursor-pointer mt-2'
+                        className='mt-2 text-blue-500 cursor-pointer'
                         onClick={() => {
                             alert('TODO');
                         }}
@@ -82,7 +82,7 @@ const DrawerStep2: React.FC<DrawerStep1Props> = ({ onNext, setDataForStep3 }) =>
             </div>
             <div className='mt-6'>
                 <Button
-                    className='w-full bg-blue-500 text-white py-2 rounded-full hover:bg-blue-600 text-sm'
+                    className='w-full py-2 text-sm text-white bg-blue-500 rounded-full hover:bg-blue-600'
                     onClick={submit}
                 >
                     Suivant

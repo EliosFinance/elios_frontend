@@ -29,7 +29,7 @@ const SearchInput = ({ onSearch }) => {
                     ${query ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-2 pointer-events-none'} 
                 `}
             >
-                <XMarkIcon className="size-6 text-black" />
+                <XMarkIcon className="text-black size-6" />
             </Button>
         </div>
     );

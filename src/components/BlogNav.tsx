@@ -37,7 +37,7 @@ const BlogNav = (props: props) => {
     return (
         <div className='w-full h-[60px] flex justify-between items-center flex-col bg-gray-200 shadow-sm fixed top-0 px-4 z-[10000000] rounded-b-[var(--border-radius-3)]'>
             {!props.disableActionButtons && (
-                <div className='w-full flex justify-evenly items-center gap-x-2 mt-2'>
+                <div className='flex items-center w-full mt-2 justify-evenly gap-x-2'>
                     {props?.article?.articleContent?.map((_card, index) => (
                         <div
                             key={index}
@@ -50,7 +50,7 @@ const BlogNav = (props: props) => {
                     ))}
                 </div>
             )}
-            <div className='w-full h-full flex justify-between items-center gap-x-2'>
+            <div className='flex items-center justify-between w-full h-full gap-x-2'>
                 <a href={props?.backUrl || '#'} onClick={() => !props?.backUrl && window.history.back()}>
                     ←
                 </a>

@@ -41,7 +41,7 @@ const ConfirmPassword: React.FC = () => {
     }, [confirmPassword]);
 
     return (
-        <div className='flex flex-col items-center justify-between h-screen w-full bg-white px-4 pb-28 pt-6'>
+        <div className='flex flex-col items-center justify-between w-full h-screen px-4 pt-6 bg-white pb-28'>
             <RegisterHeader title='Confirmez votre mot de passe Elios' />
             <div className='flex flex-col items-center justify-center w-full max-w-sm'>
                 <input
@@ -52,14 +52,14 @@ const ConfirmPassword: React.FC = () => {
                         setConfirmPassword(e.target.value);
                         setError('');
                     }}
-                    className='w-full max-w-sm px-4 py-2 border border-gray-300 rounded-lg mb-2 focus:outline-none focus:ring-2 focus:ring-blue-500'
+                    className='w-full max-w-sm px-4 py-2 mb-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
                 />
 
                 {/* Message d'erreur */}
-                {error && <p className='text-red-500 text-sm text-center mb-4'>{error}</p>}
+                {error && <p className='mb-4 text-sm text-center text-red-500'>{error}</p>}
 
                 {/* Critères de validation */}
-                <ul className='text-sm text-gray-600 mb-6 space-y-2 w-full max-w-sm'>
+                <ul className='w-full max-w-sm mb-6 text-sm text-gray-600 space-y-2'>
                     {[
                         { text: 'Au moins 8 caractères', condition: confirmPassword.length >= 8 },
                         { text: 'Au moins 1 nombre', condition: /[0-9]/.test(confirmPassword) },

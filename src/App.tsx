@@ -48,7 +48,8 @@ import MyDeviceManagement from './pages/Settings/Security/MyDeviceManagement.tsx
 import TwoFactorAuthentication from './pages/Settings/Security/TwoFactorAuthentication.tsx';
 import SettingsHome from './pages/Settings/SettingsHome.tsx';
 import FollowOurSocialNetworks from './pages/Settings/Social/FollowOurSocialNetworks.tsx';
-import SingleDefi from './pages/SingleDefi.tsx';
+import Challenge from './pages/Challenge.tsx';
+import SingleChallenge from './pages/SingleChallenge.tsx';
 import SingleFriend from './pages/SingleFriends.tsx';
 import Subscription from './pages/Subscription/Subscription.tsx';
 import APP_ROUTES_ENUM from './types/APP_ROUTES_ENUM.ts';
@@ -99,7 +100,8 @@ function App() {
 
                             <Route path={APP_ROUTES_ENUM.ACCOUNT} element={<Account />} />
                             <Route path={APP_ROUTES_ENUM.REWARDS} element={<Rewards />} />
-                            <Route path={`${APP_ROUTES_ENUM.CHALLENGE}/:id`} element={<SingleDefi />} />
+                            <Route path={APP_ROUTES_ENUM.CHALLENGE} element={<Challenge />} />
+                            <Route path={`${APP_ROUTES_ENUM.CHALLENGE}/:id`} element={<SingleChallenge />} />
                             <Route path={APP_ROUTES_ENUM.FRIENDS} element={<Friends />} />
                             <Route path={`${APP_ROUTES_ENUM.FRIENDS}/:id`} element={<SingleFriend />} />
                             <Route path={APP_ROUTES_ENUM.CONNECT_BANK_ACCOUNT} element={<ConnectBankAccount />} />

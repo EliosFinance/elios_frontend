@@ -20,7 +20,7 @@ const RegisterHeader = ({ title }: RegisterHeaderProps) => {
             </Button>
 
             <div className={`flex flex-col items-center justify-center ${title ? 'mt-12' : 'mt-6'}`}>
-                <img src={mainLogo} alt='Elios Logo' className='w-14 h-14 mb-4 rounded-4' />
+                <img src={mainLogo} alt='Elios Logo' className='mb-4 w-14 h-14 rounded-4' />
                 <h1 className='text-3xl font-bold text-gray-800 mb-4 w-[20ch] text-center'>{title || ''}</h1>
             </div>
         </div>

@@ -28,11 +28,11 @@ const SubscriptionsSection: React.FC = () => {
   }, []);
 
   return (
-    <div className="p-4 bg-white rounded shadow my-4">
+    <div className="p-4 my-4 bg-white rounded shadow">
       <h2 className="text-xl font-bold">Abonnements</h2>
       <ul className="mt-2">
         {subscriptions.map((sub) => (
-          <li key={sub.id} className="flex justify-between border-b py-2">
+          <li key={sub.id} className="flex justify-between py-2 border-b">
             <span>{sub.name}</span>
             <span>
               {sub.monthlyCost.toLocaleString('fr-FR', {

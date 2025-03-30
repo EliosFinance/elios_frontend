@@ -6,16 +6,14 @@ import SubscriptionsSection from '@/components/balance/SubscriptionsSection';
 import BudgetOverview from '@/components/balance/BudgetOverview';
 import ChallengesSection from '@/components/balance/ChallengesSection';
 import TransactionsSection from '@/components/balance/TransactionsSection';
+import PageLayout from '@/layout/PageLayout';
 
 const CentralExpensesPage: React.FC = () => {
   const [timeframe, setTimeframe] = useState<'day' | 'week' | 'month'>('month');
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
 
   return (
-    <div className="p-4 space-y-8 w-[100%]">
-      <h1 className="mb-8 text-3xl font-bold text-center">
-        Centralisation des dépenses
-      </h1>
+    <PageLayout title="Centralisation des dépenses">
       <GraphiqueTimeframe
         timeframe={timeframe}
         onTimeframeChange={setTimeframe}
@@ -27,8 +25,9 @@ const CentralExpensesPage: React.FC = () => {
       <TransactionsSection />
       <BudgetOverview />
       <ChallengesSection />
-    </div>
+    </PageLayout>
   );
+
 };
 
 export default CentralExpensesPage;

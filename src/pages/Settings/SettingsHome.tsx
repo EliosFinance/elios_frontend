@@ -11,14 +11,14 @@ const SettingsHome = () => {
     const navigate = useNavigate();
     const { signOut, user } = useAuth();
     return (
-        <div className='px-4 py-8 w-full gap-10 flex flex-col'>
+        <div className='flex flex-col w-full px-4 py-8 gap-10'>
             {/* Header */}
-            <div className='w-full flex justify-between items-center flex-col gap-8'>
+            <div className='flex flex-col items-center justify-between w-full gap-8'>
                 {/* go back + help */}
-                <div className='w-full flex justify-between items-center'>
-                    <ArrowUturnLeftIcon className='w-6 h-6 object-cover object-center' onClick={() => navigate(-1)} />
+                <div className='flex items-center justify-between w-full'>
+                    <ArrowUturnLeftIcon className='object-cover object-center w-6 h-6' onClick={() => navigate(-1)} />
                     <QuestionMarkCircleIcon
-                        className='w-6 h-6 object-cover object-center'
+                        className='object-cover object-center w-6 h-6'
                         onClick={() => {
                             alert('TODO: Implement help modal');
                         }}
@@ -26,9 +26,9 @@ const SettingsHome = () => {
                 </div>
 
                 {/* User Profile */}
-                <div className='w-full flex items-center gap-4'>
+                <div className='flex items-center w-full gap-4'>
                     <img
-                        className='w-16 h-16 rounded-full object-cover object-center'
+                        className='object-cover object-center w-16 h-16 rounded-full'
                         src='https://imgs.search.brave.com/RIa6IubsDZj0jA-9LYRnFzKA9pqt-dkDVxe9DLzJjds/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly93d3cu/aXN0b2NrcGhvdG8u/Y29tL3Jlc291cmNl/cy9pbWFnZXMvUGhv/dG9GVExQL1AyLXJl/Z2lvbmFsLWlTdG9j/ay0xNDAxOTI3Mjgx/LmpwZw'
                         alt='User profile picture'
                     />
@@ -41,19 +41,19 @@ const SettingsHome = () => {
                                 navigate(APP_ROUTES_ENUM.SETTINGS_2FA);
                             }}
                         >
-                            <img src={alertIcon} alt='Alert' className='h-4 w-4 object-cover object-center' />
+                            <img src={alertIcon} alt='Alert' className='object-cover object-center w-4 h-4' />
                             <span>Sécuriser mon compte</span>
                         </div>
                     </div>
                 </div>
 
                 {/* CTA parrainage */}
-                <div className='w-full h-20 bg-red-300 rounded-2 relative'>
+                <div className='relative w-full h-20 bg-red-300 rounded-2'>
                     <span className='absolute bottom-4 left-4 w-[60%] text-white font-semibold'>
                         Inviter un ami, et obtenez du Premium gratuitement !
                     </span>
                     <img
-                        className='w-full h-full object-cover object-center rounded-2'
+                        className='object-cover object-center w-full h-full rounded-2'
                         src='https://imgs.search.brave.com/RIa6IubsDZj0jA-9LYRnFzKA9pqt-dkDVxe9DLzJjds/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly93d3cu/aXN0b2NrcGhvdG8u/Y29tL3Jlc291cmNl/cy9pbWFnZXMvUGhv/dG9GVExQL1AyLXJl/Z2lvbmFsLWlTdG9j/ay0xNDAxOTI3Mjgx/LmpwZw'
                         alt='User profile picture'
                     />
@@ -61,25 +61,25 @@ const SettingsHome = () => {
             </div>
 
             {/* Body */}
-            <div className='w-full flex flex-col gap-8 items-start justify-center'>
+            <div className='flex flex-col items-start justify-center w-full gap-8'>
                 {SETTINGS_MAP.map((settingCategory, key) => (
-                    <div key={key} className='w-full flex flex-col'>
-                        <h2 className='font-semibold text-4xl'>{settingCategory.title}</h2>
-                        <ul className='w-full flex flex-col pl-4 pt-4'>
+                    <div key={key} className='flex flex-col w-full'>
+                        <h2 className='text-4xl font-semibold'>{settingCategory.title}</h2>
+                        <ul className='flex flex-col w-full pt-4 pl-4'>
                             {settingCategory.children?.map((setting, index) => (
                                 <li
                                     key={index}
                                     className='w-full h-12 flex items-center border-b-[1px] border-gray-100'
                                 >
-                                    <a href={setting.route} className='w-full h-full flex items-center justify-between'>
-                                        <div className='h-full flex items-center'>
-                                            <span className='h-full w-10 flex items-center justify-center'>
+                                    <a href={setting.route} className='flex items-center justify-between w-full h-full'>
+                                        <div className='flex items-center h-full'>
+                                            <span className='flex items-center justify-center w-10 h-full'>
                                                 {setting.icon}
                                             </span>{' '}
                                             &nbsp;
                                             <span className='text-xl'>{setting.title}</span>
                                         </div>
-                                        <ChevronRightIcon className='w-4 h-4 object-cover object-center' />
+                                        <ChevronRightIcon className='object-cover object-center w-4 h-4' />
                                     </a>
                                 </li>
                             ))}
@@ -100,7 +100,7 @@ const SettingsHome = () => {
             >
                 Déconnexion
             </ButtonApp>
-            <div className='mt-12 w-full h-1 opacity-0'>spacer</div>
+            <div className='w-full h-1 mt-12 opacity-0'>spacer</div>
         </div>
     );
 };
