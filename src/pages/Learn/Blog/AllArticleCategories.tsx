@@ -17,14 +17,14 @@ const AllArticleCategories = () => {
     }, []);
 
     return (
-        <div className='w-full h-full flex justify-center items-center flex-col px-6'>
-            <div className='w-full flex justify-start items-start flex-col gap-y-4 mb-12 pb-24'>
-                <h2 className='text-2xl font-black mt-10 mb-2 w-full'>Toutes les catégories</h2>
+        <div className='flex flex-col items-center justify-center w-full h-full px-6'>
+            <div className='flex flex-col items-start justify-start w-full pb-24 mb-12 gap-y-4'>
+                <h2 className='w-full mt-10 mb-2 text-2xl font-black'>Toutes les catégories</h2>
                 {articleCategories.length > 0 &&
                     articleCategories.map((category, index) => (
                         <a
                             href={`${APP_ROUTES_ENUM.ARTICLE_CATEGORY}/${category.id}`}
-                            className='w-full h-12 flex px-6 justify-between items-center bg-blue-500 rounded-3 text-white font-semibold text-xl'
+                            className='flex items-center justify-between w-full h-12 px-6 text-xl font-semibold text-white bg-blue-500 rounded-3'
                             key={index}
                         >
                             <p>{category.title}</p>

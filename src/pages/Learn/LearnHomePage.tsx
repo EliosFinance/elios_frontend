@@ -3,9 +3,7 @@ import CarouselX from '@/components/CarouselX';
 import InputApp from '@/components/InputApp';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ArticleCategoryType, ArticleType, ArticleTypesEnum } from '@/types/BlogType';
-import { challengeData } from '@/types/challengeType';
 import { useEffect, useState } from 'react';
-import FinishedChallengeAnimation from './Challenges/FinishedChallengeAnimation';
 import LearnArticleTab from './LearnArticleTab';
 import LearnQuizzTab from './LearnQuizzTab';
 
@@ -53,9 +51,9 @@ const LearnHomePage = () => {
     }, []);
 
     return (
-        <div className='w-full h-full flex justify-center items-center flex-col gap-y-12'>
+        <div className='flex flex-col items-center justify-center w-full h-full gap-y-12'>
             {/* <FinishedChallengeAnimation challenge={challengeData[0]} /> */}
-            <div className='w-full flex justify-center items-start flex-col px-6 pt-12'>
+            <div className='flex flex-col items-start justify-center w-full px-6 pt-12'>
                 <h2 className='text-2xl font-black'>EliosLearn</h2>
                 <InputApp
                     type='text'
@@ -70,7 +68,7 @@ const LearnHomePage = () => {
             {isUserTyping ? (
                 <div className='w-full h-[70%] flex justify-center items-center flex-col'>
                     <h2 className='text-2xl font-black'>Résultats de recherche</h2>
-                    <div className='w-full flex justify-between items-start flex-wrap gap-y-4 gap-x-4'>
+                    <div className='flex flex-wrap items-start justify-between w-full gap-y-4 gap-x-4'>
                         <CarouselX
                             slides={filteredSubjects}
                             options={{ loop: false, containScroll: false }}

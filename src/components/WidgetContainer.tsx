@@ -6,6 +6,7 @@ import { EyeIcon, EyeSlashIcon, PlusIcon, XMarkIcon } from '@heroicons/react/24/
 import React, { useEffect, useState } from 'react';
 import { useSwipeable } from 'react-swipeable';
 import Widget from './Widget';
+import { Separator } from './ui/separator';
 
 const defaultWidgets: WidgetType[] = [
     {
@@ -94,7 +95,7 @@ const WidgetGrid = ({ widgets }) => (
 );
 
 const WidgetPagination = ({ currentPage, totalPages, onPageChange }) => (
-    <div className='flex justify-center items-center space-x-2 mt-4'>
+    <div className='flex items-center justify-center mt-4 space-x-2'>
         {totalPages === 0 ? (
             <span className='text-sm text-gray-500'>No widgets. Click on the Plus button to add widgets.</span>
         ) : (
@@ -164,19 +165,17 @@ const WidgetContainer = () => {
                     onClick={() => setIsDrawerOpen(true)}
                     className='rounded-xl hover:bg-gray-100'
                 >
-                    <PlusIcon className='h-5 w-5' />
+                    <PlusIcon className='w-5 h-5' />
                 </Button>
             </div>
+
             <div className='relative overflow-hidden' {...handlers}>
                 <div
                     className='flex transition-transform duration-500 ease-in-out'
-                    style={{
-                        transform: `translateX(-${(currentPage - 1) * 100}%)`,
-                    }}
+                    style={{ transform: `translateX(-${(currentPage - 1) * 100}%)` }}
                 >
                     {Array.from({ length: totalPages }, (_, i) => {
                         const displayedWidgets = getDisplayedWidgets(i + 1);
-
                         return (
                             <div
                                 key={i}
@@ -208,24 +207,27 @@ const WidgetContainer = () => {
                     </DrawerHeader>
                     <div className='p-4 space-y-4 z-[100000]'>
                         {widgets.map((widget) => (
-                            <div key={widget.id} className='flex justify-between items-center border-b py-2'>
-                                <div>
-                                    <h3 className='text-lg font-semibold'>{widget.title}</h3>
-                                    <p className='text-sm text-muted-foreground'>{widget.description}</p>
+                            <div key={widget.id} className='flex flex-col'>
+                                <div className='flex items-center justify-between'>
+                                    <div>
+                                        <h3 className='text-lg font-semibold'>{widget.title}</h3>
+                                        <p className='text-sm text-muted-foreground'>{widget.description}</p>
+                                    </div>
+                                    <button
+                                        onClick={(e) => {
+                                            e.preventDefault();
+                                            toggleWidgetDisplay(widget.id);
+                                        }}
+                                        className='flex items-center focus:outline-none'
+                                    >
+                                        {widget.display ? (
+                                            <EyeIcon className='w-5 h-5 text-gray-800' />
+                                        ) : (
+                                            <EyeSlashIcon className='w-5 h-5 text-gray-800' />
+                                        )}
+                                    </button>
                                 </div>
-                                <button
-                                    onClick={(e) => {
-                                        e.preventDefault();
-                                        toggleWidgetDisplay(widget.id);
-                                    }}
-                                    className='flex items-center focus:outline-none'
-                                >
-                                    {widget.display ? (
-                                        <EyeIcon className='h-5 w-5 text-gray-800' />
-                                    ) : (
-                                        <EyeSlashIcon className='h-5 w-5 text-gray-800' />
-                                    )}
-                                </button>
+                                <Separator className='my-2' />
                             </div>
                         ))}
                     </div>

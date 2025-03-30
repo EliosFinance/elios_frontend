@@ -74,23 +74,23 @@ const PartnerDrawer: React.FC<PartnerDrawerProps> = ({ isOpen, setIsOpen, partne
     return (
         <Drawer open={isOpen} onOpenChange={setIsOpen}>
             <DrawerContent>
-                <div className='mx-auto w-full max-w-sm'>
+                <div className='w-full max-w-sm mx-auto'>
                     <DrawerHeader>
-                        <div className='flex justify-center items-center w-full'>
-                            <div className='flex justify-center items-center gap-7'>
+                        <div className='flex items-center justify-center w-full'>
+                            <div className='flex items-center justify-center gap-7'>
                                 <img src={partner.icon} alt={partner.name} className='w-12 h-12' />
                                 <DrawerTitle className='text-xl font-bold'>{partner.name}</DrawerTitle>
                             </div>
                             <DrawerClose asChild>
-                                <X className='cursor-pointer absolute top-2 right-4' onClick={() => setIsOpen(false)} />
+                                <X className='absolute cursor-pointer top-2 right-4' onClick={() => setIsOpen(false)} />
                             </DrawerClose>
                         </div>
-                        <DrawerDescription className='ml-10 mr-10 text-center mt-4'>
+                        <DrawerDescription className='mt-4 ml-10 mr-10 text-center'>
                             Découvrez tous les défis de notre partenaire {partner.name} !
                         </DrawerDescription>
                     </DrawerHeader>
 
-                    <div className='ml-5 mr-5 mt-4 space-y-4'>
+                    <div className='mt-4 ml-5 mr-5 space-y-4'>
                         {loading ? (
                             <div className='text-center text-gray-500'>Chargement des défis...</div>
                         ) : (

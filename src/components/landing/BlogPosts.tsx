@@ -57,18 +57,18 @@ const BlogPosts = () => {
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.3, delay: index * 0.1 }}
                             onClick={() => handleBlogClick(post.id)}
-                            className='cursor-pointer h-full'
+                            className='h-full cursor-pointer'
                         >
                             <Card className='h-full'>
                                 <CardHeader className='relative aspect-[16/9] p-0'>
                                     <img
                                         src={post.imageUrl}
                                         alt={post.title}
-                                        className='w-full h-full object-cover rounded-t-lg'
+                                        className='object-cover w-full h-full rounded-t-lg'
                                     />
                                 </CardHeader>
                                 <CardContent className='p-6'>
-                                    <CardTitle className='text-xl mb-4 line-clamp-2'>{post.title}</CardTitle>
+                                    <CardTitle className='mb-4 text-xl line-clamp-2'>{post.title}</CardTitle>
                                     <div className='flex items-center justify-between text-sm text-gray-500'>
                                         <span>Par {post.author}</span>
                                         <span>

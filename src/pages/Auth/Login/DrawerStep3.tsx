@@ -43,11 +43,11 @@ const DrawerStep3: React.FC<PinCodeScreenProps> = ({ email, password }) => {
     };
 
     return (
-        <div className='flex flex-col items-center justify-center h-screen w-full bg-white px-6 relative'>
+        <div className='relative flex flex-col items-center justify-center w-full h-screen px-6 bg-white'>
             <button className='absolute top-6 left-6' onClick={() => navigate(-1)}>
                 <svg
                     xmlns='http://www.w3.org/2000/svg'
-                    className='h-6 w-6 text-gray-800'
+                    className='w-6 h-6 text-gray-800'
                     fill='none'
                     viewBox='0 0 24 24'
                     stroke='currentColor'
@@ -56,9 +56,9 @@ const DrawerStep3: React.FC<PinCodeScreenProps> = ({ email, password }) => {
                 </svg>
             </button>
 
-            <img src={mainLogo} alt='Elios Logo' className='w-14 h-14 mb-4' />
+            <img src={mainLogo} alt='Elios Logo' className='mb-4 w-14 h-14' />
 
-            <h1 className='text-base font-bold text-gray-800 mb-4 text-center'>Entrez votre code PIN</h1>
+            <h1 className='mb-4 text-base font-bold text-center text-gray-800'>Entrez votre code PIN</h1>
 
             <div className='flex justify-center mb-6'>
                 {[...Array(4)].map((_, idx) => (
@@ -73,11 +73,11 @@ const DrawerStep3: React.FC<PinCodeScreenProps> = ({ email, password }) => {
                 <div className='absolute inset-0 flex items-center justify-center'>
                     <img src={abstract1} alt='Background' className='w-56 h-56' />
                 </div>
-                <div className='grid grid-cols-3 gap-4 relative z-10'>
+                <div className='relative z-10 grid grid-cols-3 gap-4'>
                     {Array.from({ length: 9 }, (_, i) => i + 1).map((number) => (
                         <Button
                             key={number}
-                            className='w-14 h-14 bg-gray-200 text-gray-800 rounded-full text-xl font-bold hover:bg-gray-300 flex items-center justify-center'
+                            className='flex items-center justify-center text-xl font-bold text-gray-800 bg-gray-200 rounded-full w-14 h-14 hover:bg-gray-300'
                             onClick={() => handlePinInput(number.toString())}
                         >
                             {number}
@@ -85,13 +85,13 @@ const DrawerStep3: React.FC<PinCodeScreenProps> = ({ email, password }) => {
                     ))}
                     <div />
                     <Button
-                        className='w-14 h-14 bg-gray-200 text-gray-800 rounded-full text-xl font-bold hover:bg-gray-300 flex items-center justify-center'
+                        className='flex items-center justify-center text-xl font-bold text-gray-800 bg-gray-200 rounded-full w-14 h-14 hover:bg-gray-300'
                         onClick={() => handlePinInput('0')}
                     >
                         0
                     </Button>
                     <Button
-                        className='w-14 h-14 bg-red-200 text-red-600 rounded-full text-xl hover:bg-red-300 flex items-center justify-center'
+                        className='flex items-center justify-center text-xl text-red-600 bg-red-200 rounded-full w-14 h-14 hover:bg-red-300'
                         onClick={handleDelete}
                     >
                         ⌫
@@ -99,7 +99,7 @@ const DrawerStep3: React.FC<PinCodeScreenProps> = ({ email, password }) => {
                 </div>
             </div>
 
-            <div className=' flex flex-col justify-start items-start mt-2 text-center text-xs text-gray-500'>
+            <div className='flex flex-col items-start justify-start mt-2 text-xs text-center text-gray-500 '>
                 {/* TODO: FORGOT PIN CODE */}
                 {error && errorCount > 2 && (
                     <span
@@ -114,7 +114,7 @@ const DrawerStep3: React.FC<PinCodeScreenProps> = ({ email, password }) => {
             </div>
             <Button
                 onClick={handleLoginUser}
-                className='w-56 px-3 py-2 bg-blue-500 text-white text-center rounded-full text-sm hover:bg-blue-600 focus:ring-2 focus:ring-blue-400'
+                className='w-56 px-3 py-2 text-sm text-center text-white bg-blue-500 rounded-full hover:bg-blue-600 focus:ring-2 focus:ring-blue-400'
             >
                 OK
             </Button>

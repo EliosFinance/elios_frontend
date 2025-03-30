@@ -19,15 +19,15 @@ const FirstTimerView: React.FC = () => {
     };
 
     return (
-        <div className='flex flex-col items-center justify-center h-screen w-full bg-white px-4'>
+        <div className='flex flex-col items-center justify-center w-full h-screen px-4 bg-white'>
             {/* Logo */}
             <img src={mainLogo} alt='Elios Logo' className='w-24 h-24 mb-6' />
 
             {/* Titre */}
-            <h1 className='text-2xl font-bold text-gray-800 mb-4 text-center'>ELIOS</h1>
+            <h1 className='mb-4 text-2xl font-bold text-center text-gray-800'>ELIOS</h1>
 
             {/* Sous-titre */}
-            <p className='text-sm text-gray-500 text-center mb-4'>
+            <p className='mb-4 text-sm text-center text-gray-500'>
                 Élevez votre expérience financière avec Elios : <br />
                 Bienvenue dans le futur de l'ère bancaire.
             </p>
@@ -43,7 +43,7 @@ const FirstTimerView: React.FC = () => {
             <Button
                 color='primary'
                 onClick={handleStart}
-                className='w-full max-w-xs px-6 py-3 bg-blue-500 text-white rounded-full text-sm font-semibold shadow-lg hover:bg-blue-600 focus:ring-2 focus:ring-blue-400 focus:outline-none'
+                className='w-full max-w-xs px-6 py-3 text-sm font-semibold text-white bg-blue-500 rounded-full shadow-lg hover:bg-blue-600 focus:ring-2 focus:ring-blue-400 focus:outline-none'
             >
                 C'EST PARTI
             </Button>

@@ -38,16 +38,16 @@ const ArticleCategory = () => {
     }, [category]);
 
     return (
-        <div className='w-full h-full flex justify-center items-center flex-col pb-24'>
-            <div className='w-full flex justify-center items-center flex-col gap-y-12 mt-10'>
-                <div className='w-full flex justify-start items-center gap-x-4 px-6'>
-                    <h1 className='text-4xl font-black w-full'>{category?.title}</h1>
+        <div className='flex flex-col items-center justify-center w-full h-full pb-24'>
+            <div className='flex flex-col items-center justify-center w-full mt-10 gap-y-12'>
+                <div className='flex items-center justify-start w-full px-6 gap-x-4'>
+                    <h1 className='w-full text-4xl font-black'>{category?.title}</h1>
                     <img src={category?.icon} alt={category?.title} className='w-[40px] h-[40px] object-cover' />
                 </div>
                 <span className='h-[1px] w-[80%] border-solid border-black border-[1px] rounded-full' />
                 {cards.length > 0 && category ? (
                     <>
-                        <div className='w-full flex justify-center items-center flex-wrap gap-x-4'>
+                        <div className='flex flex-wrap items-center justify-center w-full gap-x-4'>
                             <h2 className='text-2xl font-black w-[90%]'>Les plus populaires</h2>
                             <CarouselX
                                 slides={cards}
@@ -56,7 +56,7 @@ const ArticleCategory = () => {
                             />
                         </div>
 
-                        <div className='w-full flex justify-center items-center flex-wrap gap-x-4'>
+                        <div className='flex flex-wrap items-center justify-center w-full gap-x-4'>
                             <h2 className='text-2xl font-black w-[90%]'>Les plus populaires</h2>
                             <CarouselX
                                 slides={cards}

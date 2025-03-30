@@ -44,7 +44,7 @@ const Authenticate: React.FC = () => {
     };
 
     return (
-        <div className='flex flex-col items-center justify-center h-screen w-full bg-white px-4 gap-6'>
+        <div className='flex flex-col items-center justify-center w-full h-screen px-4 bg-white gap-6'>
             {/* Decorations & Headings */}
             <div className='flex flex-col items-center justify-center'>
                 {/* Logo */}
@@ -62,7 +62,7 @@ const Authenticate: React.FC = () => {
                             <svg
                                 key={i}
                                 xmlns='http://www.w3.org/2000/svg'
-                                className='h-4 w-4 text-yellow-400'
+                                className='w-4 h-4 text-yellow-400'
                                 fill='currentColor'
                                 viewBox='0 0 20 20'
                             >
@@ -70,12 +70,12 @@ const Authenticate: React.FC = () => {
                             </svg>
                         ))}
                     </div>
-                    <p className='text-xs text-gray-500 mt-1'>noté 4.98/5 - 4324 notes</p>
+                    <p className='mt-1 text-xs text-gray-500'>noté 4.98/5 - 4324 notes</p>
                 </div>
             </div>
 
             {/* Email input */}
-            <div className='w-full max-w-sm flex flex-col items-center justify-center'>
+            <div className='flex flex-col items-center justify-center w-full max-w-sm'>
                 <div className='w-full max-w-sm'>
                     <input
                         id='email'
@@ -88,14 +88,14 @@ const Authenticate: React.FC = () => {
                         } focus:outline-none focus:ring-0 text-m placeholder:text-gray-500 placeholder:font-semibold`}
                     />
                     {/* Message d'erreur */}
-                    {error && <p className='text-sm text-red-500 mt-2'>{error}</p>}
+                    {error && <p className='mt-2 text-sm text-red-500'>{error}</p>}
                 </div>
 
                 {/* Bouton Suivant */}
                 <Button
                     color='primary'
                     onClick={handleSubmit}
-                    className='w-full max-w-sm mt-3 py-2 bg-blue-500 text-white rounded-full text-sm font-semibold hover:bg-blue-600 focus:ring-2 focus:ring-blue-400'
+                    className='w-full max-w-sm py-2 mt-3 text-sm font-semibold text-white bg-blue-500 rounded-full hover:bg-blue-600 focus:ring-2 focus:ring-blue-400'
                 >
                     Suivant
                 </Button>
@@ -136,7 +136,7 @@ const Authenticate: React.FC = () => {
                 {os === OsEnum.IOS ||
                     (os === OsEnum.WEB && (
                         <Button className='flex items-center justify-center w-full border-solid border-[1.5px] border-gray-200 text-gray-800 rounded-full bg-transparent hover:bg-gray-300'>
-                            <img src={appleIcon} alt='Apple' className='w-aut h-4 mr-3' />
+                            <img src={appleIcon} alt='Apple' className='h-4 mr-3 w-aut' />
                             <span className='text-sm'>Continuer avec Apple</span>
                         </Button>
                     ))}
@@ -149,7 +149,7 @@ const Authenticate: React.FC = () => {
                     </DrawerTrigger>
                     <DrawerContent>
                         <Button
-                            className='p-2 absolute top-2 left-4 rounded-full bg-transparent focus:bg-transparent'
+                            className='absolute p-2 bg-transparent rounded-full top-2 left-4 focus:bg-transparent'
                             onClick={() => {
                                 switch (drawerStep) {
                                     case 'step1':
@@ -170,13 +170,13 @@ const Authenticate: React.FC = () => {
                                 }
                             }}
                         >
-                            <ArrowLeftCircleIcon className='h-6 w-6 text-gray-800 bg-transparent fill-none' />
+                            <ArrowLeftCircleIcon className='w-6 h-6 text-gray-800 bg-transparent fill-none' />
                         </Button>
                         <DrawerClose className='absolute top-2 right-4'>
-                            <Button className='p-2 rounded-full bg-transparent' onClick={() => setDrawerStep('step1')}>
+                            <Button className='p-2 bg-transparent rounded-full' onClick={() => setDrawerStep('step1')}>
                                 <svg
                                     xmlns='http://www.w3.org/2000/svg'
-                                    className='h-6 w-6 text-gray-800'
+                                    className='w-6 h-6 text-gray-800'
                                     fill='none'
                                     viewBox='0 0 24 24'
                                     stroke='currentColor'

@@ -8,6 +8,7 @@ import MonthlySubscriptions from '@/components/landing/MonthlySubscriptions';
 import WeekChart from '@/components/landing/WeekChart';
 import { Button } from '@/components/ui/button';
 import { Drawer, DrawerClose, DrawerContent, DrawerHeader, DrawerTitle } from '@/components/ui/drawer';
+import { Separator } from '@/components/ui/separator';
 import { useAuth } from '@/context/AuthProvider';
 import { ArrowRightIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { useState } from 'react';
@@ -19,10 +20,10 @@ const Landing = () => {
     const { user } = useAuth();
 
     return (
-        <div className='flex flex-col items-center w-full px-4 space-y-8 pt-8 !mb-32'>
-            <div className='w-full flex flex-col items-start gap-4'>
+        <div className='flex flex-col items-center w-full px-4 pt-8 mb-32 space-y-8'>
+            <div className='flex flex-col items-start w-full gap-4'>
                 <LandingHeader />
-                <h1 className='text-2xl font-bold mb-4 mt-4'>
+                <h1 className='mt-4 mb-4 text-2xl font-bold'>
                     Bienvenue, {user.username.charAt(0).toUpperCase() + user.username.slice(1)}
                 </h1>
             </div>
@@ -30,7 +31,7 @@ const Landing = () => {
             <WeekChart />
 
             <div className='w-full'>
-                <div className='flex justify-between items-center mb-4'>
+                <div className='flex items-center justify-between mb-4'>
                     <h2 className='text-xl font-bold'>Abonnements du mois</h2>
                     <Button
                         variant='ghost'
@@ -38,18 +39,19 @@ const Landing = () => {
                         onClick={() => navigate('/subscriptions')}
                         className='rounded-xl hover:bg-gray-100'
                     >
-                        <ArrowRightIcon className='h-5 w-5' />
+                        <ArrowRightIcon className='w-5 h-5' />
                     </Button>
                 </div>
                 <MonthlySubscriptions />
             </div>
+
             <div className='w-full'>
-                <h2 className='text-xl font-bold mb-4'>Aujourd'hui</h2>
+                <h2 className='mb-4 text-xl font-bold'>Aujourd'hui</h2>
                 <GetPremium onTopUpClick={() => setIsDrawerOpen(true)} />
             </div>
 
             <div className='w-full'>
-                <div className='flex justify-between items-center mb-4'>
+                <div className='flex items-center justify-between mb-4'>
                     <h2 className='text-xl font-bold'>Mes amis</h2>
                     <Button
                         variant='ghost'
@@ -57,14 +59,14 @@ const Landing = () => {
                         onClick={() => navigate('/friends')}
                         className='rounded-xl hover:bg-gray-100'
                     >
-                        <ArrowRightIcon className='h-5 w-5' />
+                        <ArrowRightIcon className='w-5 h-5' />
                     </Button>
                 </div>
                 <Friends />
             </div>
 
             <div className='w-full'>
-                <div className='flex justify-between items-center mb-4'>
+                <div className='flex items-center justify-between mb-4'>
                     <h2 className='text-xl font-bold'>Apprendre avec EliosLearn !</h2>
                     <Button
                         variant='ghost'
@@ -72,16 +74,17 @@ const Landing = () => {
                         onClick={() => navigate('/articles')}
                         className='rounded-xl hover:bg-gray-100'
                     >
-                        <ArrowRightIcon className='h-5 w-5' />
+                        <ArrowRightIcon className='w-5 h-5' />
                     </Button>
                 </div>
                 <BlogPosts />
             </div>
 
             <WidgetContainer />
-            <div className='mt-20 w-full h-1 opacity-0'>spacer</div>
-            <div className='mt-20 w-full h-1 opacity-0'>spacer</div>
-            <div className='mt-20 w-full h-1 opacity-0'>spacer</div>
+
+            <Separator className='mt-20' />
+            <Separator className='mt-20' />
+            <Separator className='mt-20' />
 
             <Drawer open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
                 <DrawerContent className='z-[100000]'>

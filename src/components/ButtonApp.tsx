@@ -42,7 +42,7 @@ const ButtonApp = forwardRef<HTMLButtonElement, ButtonAppProps>((props, ref) => 
             onClick={() => props.onClick && props.onClick()}
             disabled={props.disabled}
         >
-            {props.startIcon && !props.action && <span className='mr-2 w-auto h-max'>{props.startIcon}</span>}
+            {props.startIcon && !props.action && <span className='w-auto mr-2 h-max'>{props.startIcon}</span>}
 
             {props?.action === 'apple' && <img src={appleIcon} alt='AppleIcon' className='w-auto h-4 mr-3' />}
             {props?.action === 'google' && <img src={googleIcon} alt='GoogleIcon' className='w-auto h-4 mr-3' />}

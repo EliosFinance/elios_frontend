@@ -1,6 +1,7 @@
 import { ChevronRightIcon } from 'lucide-react';
 import React from 'react';
 import premiumLogo from '../assets/images/corp/premium_logo.png';
+import { Card, CardDescription, CardHeader, CardTitle } from './ui/card';
 
 type GetPremiumProps = {
     onTopUpClick: () => void;
@@ -8,23 +9,29 @@ type GetPremiumProps = {
 
 const GetPremium: React.FC<GetPremiumProps> = ({ onTopUpClick }) => {
     return (
-        <div
-            className='w-full flex items-center p-3 border border-gray-300 rounded-xl bg-transparent'
+        <Card
             onClick={onTopUpClick}
+            className='w-full p-3 bg-transparent border border-gray-300 cursor-pointer rounded-xl'
         >
-            <div className='relative'>
-                <img src={premiumLogo} alt='Premium icon' className='w-12 h-12 rounded-2xl mr-3' />
-                <span className='h-5 w-5 absolute top-[-6px] left-10 bg-orange-500 border-solid border-[3px] border-white rounded-full' />
-            </div>
-            <div className='flex flex-col w-auto items-start'>
-                <p className='font-black text-xl py-1 rounded'>Devenez Premium</p>
-                <p className='text-gray-500 text-sm'>Profitez de 35% de réduction dès maintenant !</p>
-                <div className='flex items-center cursor-pointer'>
-                    <span className='text-sm font-bold text-gray-500'>C'est parti !</span>
-                    <ChevronRightIcon className='w-4 h-4 ml-1' />
+            <div className='flex items-center'>
+                <div className='relative mr-3'>
+                    <CardHeader className='p-0'>
+                        <img src={premiumLogo} alt='Premium icon' className='w-12 h-12 rounded-2xl' />
+                        <span className='h-5 w-5 absolute top-[-6px] left-10 bg-orange-500 border-2 border-white rounded-full' />
+                    </CardHeader>
+                </div>
+                <div className='flex flex-col'>
+                    <CardTitle className='py-1 text-xl font-black'>Devenez Premium</CardTitle>
+                    <CardDescription className='text-sm text-gray-500'>
+                        Profitez de 35% de réduction dès maintenant !
+                    </CardDescription>
+                    <div className='flex items-center cursor-pointer'>
+                        <p className='text-sm font-bold text-gray-500'>C'est parti !</p>
+                        <ChevronRightIcon className='w-4 h-4 ml-1' />
+                    </div>
                 </div>
             </div>
-        </div>
+        </Card>
     );
 };
 
