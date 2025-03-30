@@ -1,5 +1,5 @@
-import { useAuth } from '@/context/AuthProvider';
 import { QuizzType } from '@/temp/QuizzData';
+import { XMarkIcon } from '@heroicons/react/24/outline';
 import { Progress } from './ui/progress';
 
 type props = {
@@ -9,23 +9,30 @@ type props = {
 };
 
 const QuizzNav = (props: props) => {
-    const { user } = useAuth();
-
     return (
-        <div className='w-full h-[60px] flex justify-between items-center flex-col bg-gray-200 shadow-sm fixed top-0 px-4 z-[10000000] rounded-b-[var(--border-radius-3)]'>
-            <div className='w-full h-full flex justify-start items-center gap-x-2'>
-                <a href={'#'} onClick={() => window.history.back()}>
-                    ←
-                </a>
+        <div className='w-full h-[80px] flex justify-between items-center flex-col fixed top-0 p-6 z-[10000000] rounded-b-[var(--border-radius-3)]'>
+            <div className='w-full h-full flex justify-start items-center'>
+                <XMarkIcon
+                    className='w-8 h-8 text-gray-600 flex !justify-start'
+                    onClick={() => window.history.back()}
+                />
 
                 {/* progress bar */}
-                <Progress
-                    value={
-                        props.currentQuestionIndex && props.quizz.questions.length > 0
-                            ? (props.currentQuestionIndex * 100) / props.quizz.questions.length
-                            : 0
-                    }
-                />
+                <div className='w-full h-full flex justify-end items-center'>
+                    <div className='w-[90%] h-full flex justify-center items-center'>
+                        <Progress
+                            value={
+                                props.currentQuestionIndex && props.quizz.questions.length > 0
+                                    ? (props.currentQuestionIndex * 100) / props.quizz.questions.length
+                                    : 0
+                            }
+                        />
+                    </div>
+                </div>
+            </div>
+            <div className='w-full h-auto flex items-center justify-between text-gray-600 text-left pt-4'>
+                <h1 className='font-bold text-lg'>{props.quizz?.title}</h1>
+                <h2 className='font-bold text-lg text-center'>Score: {props.currentScore}</h2>
             </div>
         </div>
     );

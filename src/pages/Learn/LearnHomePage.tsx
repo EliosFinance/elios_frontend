@@ -51,7 +51,7 @@ const LearnHomePage = () => {
     }, []);
 
     return (
-        <div className='flex flex-col items-center justify-center w-full h-full gap-y-12'>
+        <div className='flex flex-col items-center justify-center w-full h-full gap-y-4'>
             {/* <FinishedChallengeAnimation challenge={challengeData[0]} /> */}
             <div className='flex flex-col items-start justify-center w-full px-6 pt-12'>
                 <h2 className='text-2xl font-black'>EliosLearn</h2>

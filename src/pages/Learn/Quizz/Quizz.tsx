@@ -1,9 +1,15 @@
+import correct_answer from '@/assets/sound_effects/correct_answer.mp3';
+import wrong_answer from '@/assets/sound_effects/nope_sound_TEMP.mp3';
 import ButtonApp from '@/components/ButtonApp';
+import QuizzNav from '@/components/QuizzNav';
+import { Drawer, DrawerClose, DrawerContent, DrawerHeader, DrawerTitle } from '@/components/ui/drawer';
 import { QUIZZ_DATA, QuestionTypesEnum, QuizzType } from '@/temp/QuizzData';
 import APP_ROUTES_ENUM from '@/types/APP_ROUTES_ENUM';
+import { EyeSlashIcon, XMarkIcon } from '@heroicons/react/24/outline';
+import { Separator } from '@radix-ui/react-dropdown-menu';
+import { EyeIcon } from 'lucide-react';
 import { useEffect, useLayoutEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import Image from './QuestionsComponents/Image';
 import Multiple from './QuestionsComponents/Multiple';
 import Single from './QuestionsComponents/Single';
 import QuizzResult from './QuizzResult';
@@ -13,43 +19,52 @@ const Quizz = () => {
     const [quizz, setQuizz] = useState<QuizzType | null>(null);
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
     const [score, setScore] = useState<number>(0);
-    const [tickedAnswers, setTickedAnswers] = useState<number[] | null>(null);
+    const [tickedAnswers, setTickedAnswers] = useState<number[]>();
+    const [correctAnswers, setCorrectAnswers] = useState<number[]>();
+    const [isAnswerCorrect, setIsAnswerCorrect] = useState<boolean>(false);
     const [displayResult, setDisplayResult] = useState<boolean>(false);
+    const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
     const navigate = useNavigate();
 
     const verifyAnswer = () => {
         if (tickedAnswers) {
             const question = quizz?.questions[currentQuestionIndex];
             const correctAnswers = question.options.filter((option) => option.isCorrect).map((option) => option.id);
-
-            console.log('correctAnswers', correctAnswers);
-            console.log('tickedAnswers', tickedAnswers);
-
-            // Vérifie que tickedAnswers contient uniquement les réponses correctes
+            setCorrectAnswers(correctAnswers);
             const isCorrect =
                 correctAnswers.length === tickedAnswers.length &&
                 correctAnswers.every((answer) => tickedAnswers.includes(answer));
 
-            console.log('isCorrect', isCorrect);
-
             if (isCorrect) {
+                const audio = new Audio(correct_answer);
+                audio.play();
                 setScore(score + 1);
+                setIsAnswerCorrect(true);
+            } else {
+                // display wrong answer sound
+                const audio = new Audio(wrong_answer);
+                audio.play();
+                setIsAnswerCorrect(false);
             }
         }
     };
 
     const handleNextQuestion = () => {
         if (currentQuestionIndex < quizz?.questions.length - 1) {
-            setTickedAnswers(null);
-            verifyAnswer();
             setCurrentQuestionIndex(currentQuestionIndex + 1);
         } else {
             setDisplayResult(true);
         }
     };
 
+    const handleValidateQuestion = () => {
+        setTickedAnswers([]);
+        verifyAnswer();
+        setIsDrawerOpen(true);
+    };
+
     useEffect(() => {
-        // fetch the quizz from the server
+        // TODO: fetch the quizz from the server
         // const quizz = await getQuizz(quizzId);
         const q = QUIZZ_DATA.find((q) => q.id === Number(quizzId));
         if (!q) {
@@ -60,23 +75,22 @@ const Quizz = () => {
     }, [quizzId]);
 
     return (
-        <div className='w-full flex flex-col items-center justify-start mb-20 p-6'>
+        <div className='w-full flex flex-col items-center justify-start mb-20 p-6 mt-10'>
             {displayResult ? (
-                <QuizzResult />
+                <QuizzResult quizz={quizz} score={score} />
             ) : (
                 <>
-                    {/* header */}
-                    <div className='w-full h-20 flex flex-col items-center justify-between text-black text-center p-4'>
-                        <h1 className='text-bold text-3xl'>{quizz?.title}</h1>
-                        <p className=''>{quizz?.description}</p>
-                    </div>
-
+                    <QuizzNav quizz={quizz} currentQuestionIndex={currentQuestionIndex} currentScore={score} />
                     {/* body */}
-                    <div className='w-full min-h-96 flex flex-col items-center justify-start gap-y-4 pt-7'>
-                        <h2 className='font-bold text-center text-xl'>
-                            {quizz?.questions[currentQuestionIndex].question}
-                        </h2>
-                        <h2 className='font-bold text-center text-xl'>Score {score}</h2>
+                    <div className='w-full min-h-[70dvh] flex flex-col items-start justify-start'>
+                        <div className='w-full h-auto flex flex-col items-start justify-start pt-10 pb-6'>
+                            <h2 className='font-bold text-left text-xl'>
+                                {quizz?.questions[currentQuestionIndex].question}
+                            </h2>
+                            {quizz?.questions[currentQuestionIndex].type === QuestionTypesEnum.MULTIPLE && (
+                                <span className='text-gray-500 text-sm'> Plusieurs réponses possibles</span>
+                            )}
+                        </div>
                         {quizz?.questions[currentQuestionIndex].type === QuestionTypesEnum.BOOLEAN && (
                             <Single
                                 options={quizz?.questions[currentQuestionIndex].options}
@@ -92,22 +106,63 @@ const Quizz = () => {
                             />
                         )}
                         {/* {quizz?.questions[currentQuestionIndex].type === QuestionTypesEnum.IMAGE && (
-                <Image 
-                  options={quizz?.questions[currentQuestionIndex].options} 
-                  setTickedAnswers={setTickedAnswers} 
-                  tickedAnswers={tickedAnswers}
-                />  
-              )} */}
+                            <Image 
+                            options={quizz?.questions[currentQuestionIndex].options} 
+                            setTickedAnswers={setTickedAnswers} 
+                            tickedAnswers={tickedAnswers}
+                            />  
+                        )} */}
                     </div>
                     {/* footer */}
                     <ButtonApp
-                        onClick={handleNextQuestion}
+                        onClick={handleValidateQuestion}
                         color='primary'
                         disabled={!tickedAnswers || tickedAnswers.length === 0}
                         sx='!bg-green-500'
                     >
-                        Next
+                        Valider
                     </ButtonApp>
+
+                    <Drawer open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
+                        <DrawerContent className='z-[100000]' aria-describedby=''>
+                            <DrawerHeader>
+                                <DrawerTitle>
+                                    {isAnswerCorrect ? '✅ Bonne réponse !' : '❌ Mauvaise réponse !'}
+                                </DrawerTitle>
+                                <DrawerClose className='absolute right-4 top-4'>
+                                    <XMarkIcon />
+                                </DrawerClose>
+                            </DrawerHeader>
+                            <div className='p-4 space-y-4 z-[100000] min-h-[40dvh] pb-24 flex flex-col items-start justify-between'>
+                                <div className='w-full flex flex-col items-start justify-start gap-y-2'>
+                                    <h3 className='text-xl font-bold'>Réponse correcte</h3>
+                                    <p className='text-gray-500'>
+                                        {
+                                            quizz?.questions[currentQuestionIndex].options.find((option) =>
+                                                correctAnswers?.includes(option.id),
+                                            )?.option
+                                        }
+                                    </p>
+                                </div>
+                                <div className='w-full flex flex-col items-start justify-start gap-y-2'>
+                                    <h3 className='text-xl font-bold'>Explications</h3>
+                                    <p className='text-gray-500'>
+                                        {quizz?.questions[currentQuestionIndex].explanation}
+                                    </p>
+                                </div>
+                                <ButtonApp
+                                    onClick={() => {
+                                        setIsDrawerOpen(false);
+                                        handleNextQuestion();
+                                    }}
+                                    color='primary'
+                                    // sx='!bg-green-500'
+                                >
+                                    Continuer
+                                </ButtonApp>
+                            </div>
+                        </DrawerContent>
+                    </Drawer>
                 </>
             )}
         </div>
