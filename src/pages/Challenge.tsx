@@ -51,7 +51,7 @@ export default function ChallengePage() {
     <PageLayout title="Défis">
       <main className="flex flex-col w-full h-full space-y-6">
         {featuredChallenge && (
-          <Card className="w-full bg-white shadow-sm">
+          <Card className="w-full shadow-sm">
             <CardHeader className="p-4">
               <CardTitle className="text-sm">Challenge vedette</CardTitle>
               <CardDescription className="mt-1 text-xs">
@@ -86,7 +86,7 @@ export default function ChallengePage() {
                 return (
                   <Card
                     key={challenge.id}
-                    className="w-48 mr-4 bg-white shadow-md"
+                    className="w-48 mr-4 shadow-md"
                     onClick={() => handleNavigate(challenge.id)}
                   >
                     <CardHeader className="p-3">
@@ -127,7 +127,7 @@ export default function ChallengePage() {
                 return (
                   <Card
                     key={challenge.id}
-                    className="w-48 mr-4 bg-white shadow-md"
+                    className="w-48 mr-4 shadow-md"
                     onClick={() => handleNavigate(challenge.id)}
                   >
                     <CardHeader className="p-3">
@@ -164,7 +164,7 @@ export default function ChallengePage() {
               renderItem={(challenge) => (
                 <Card
                   key={challenge.id}
-                  className="w-48 mr-4 bg-white shadow-md"
+                  className="w-48 mr-4 shadow-md"
                   onClick={() => handleNavigate(challenge.id)}
                 >
                   <CardHeader className="p-3">

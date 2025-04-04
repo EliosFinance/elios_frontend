@@ -9,7 +9,7 @@ interface RewardCardProps {
 
 const RewardCard = ({ title, progress, imageUrl }: RewardCardProps) => {
   return (
-    <div className="flex items-center justify-between p-4 mb-4 bg-gray-100 rounded">
+    <div className="flex items-center justify-between p-4 mb-4 border border-gray-500 rounded">
       <img
         src={imageUrl}
         alt="Reward"

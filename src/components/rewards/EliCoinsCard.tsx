@@ -8,7 +8,7 @@ const EliCoinsCard = ({ coins, totalCoins }: EliCoinsCardProps) => {
   const percentage = (coins / totalCoins) * 100;
 
   return (
-    <div className="p-4 mb-4 bg-gray-100 rounded">
+    <div className="p-4 mb-4 rounded">
       <div className="flex items-center justify-between mb-2">
         <div className="flex items-center">
           <img

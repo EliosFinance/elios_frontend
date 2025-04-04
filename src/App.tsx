@@ -83,7 +83,7 @@ function App() {
 
     return (
         <GoogleOAuthProvider clientId={googleId}>
-            <div className='min-w-[100dvw] min-h-[100dvh] max-h-[100dvh] flex'>
+            <div className='min-w-[100dvw] min-h-[100dvh] max-h-[100dvh] flex text-white'>
                 <Routes>
                     <Route element={<AuthRoute />}>
                         <Route element={<Layout />}>
