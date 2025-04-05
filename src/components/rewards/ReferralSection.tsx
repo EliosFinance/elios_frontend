@@ -9,7 +9,7 @@ interface ReferralSectionProps {
 const ReferralSection = ({ onCopy }: ReferralSectionProps) => {
   return (
     <>
-      <div className="flex items-center justify-between p-4 mb-4 rounded">
+      <div className="flex items-center justify-between mb-4 rounded">
         <Input
           type="text"
           value="elios.me/username-id"

@@ -1,5 +1,5 @@
 import React from 'react';
-import TitleHeading from '@/components/ui/title-heading';
+import { ChevronLeft } from 'lucide-react'; // Importez l'icône de flèche
 
 interface PageLayoutProps {
   title: string;
@@ -10,8 +10,21 @@ interface PageLayoutProps {
 export default function PageLayout({ title, onBack, children }: PageLayoutProps) {
   return (
     <div className="flex flex-col w-full h-full min-h-screen text-white">
-      <TitleHeading title={title} onBack={onBack} />
-      <div className="flex flex-col w-full px-4 py-6">
+      <div className='flex flex-col items-start justify-center w-full px-6 pt-12'>
+        <div className="flex items-center gap-x-2">
+          {onBack && (
+            <button
+              onClick={onBack}
+              className="p-1 transition-colors rounded-full hover:bg-gray-800/50"
+              aria-label="Retour"
+            >
+              <ChevronLeft size={24} />
+            </button>
+          )}
+          <h2 className='text-2xl font-black'>{title}</h2>
+        </div>
+      </div>
+      <div className='flex flex-col w-full px-6 py-6'>
         {children}
       </div>
     </div>

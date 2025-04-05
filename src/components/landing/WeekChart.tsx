@@ -25,7 +25,7 @@ const WeekChart = () => {
                 borderColor: '#ccc',
                 borderWidth: 1,
                 textStyle: {
-                    color: '#000',
+                    color: '#FFF',
                 },
             },
             xAxis: {
@@ -48,7 +48,7 @@ const WeekChart = () => {
                     type: 'line',
                     smooth: true,
                     lineStyle: {
-                        color: '#000',
+                        color: '#FFF',
                         width: 2,
                     },
                     areaStyle: {
