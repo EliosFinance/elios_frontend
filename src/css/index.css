@@ -1,5 +1,5 @@
-@import url("./alpino.css");
 @import url("./roboto.css");
+@import url("./general-sans.css");
 
 @tailwind base;
 @tailwind components;
@@ -51,7 +51,7 @@
         --primary-200: #bfe9f8;
         --primary-300: #87d8f2;
         --primary-400: #48c4e8;
-        --primary-500: #20add7;
+        --primary-500: #DDA853;
         --primary-600: #128cb7;
         --primary-700: #107094;
         --primary-800: #115f7b;
@@ -234,7 +234,7 @@
     h4,
     h5,
     h6 {
-        font-family: "Roboto-Regular";
+        font-family: "GeneralSans-Medium";
     }
 
     p,
@@ -244,7 +244,7 @@
     label,
     select,
     textarea {
-        font-family: "Alpino-Regular";
+        font-family: "GeneralSans-Regular";
     }
 
     h1 {
