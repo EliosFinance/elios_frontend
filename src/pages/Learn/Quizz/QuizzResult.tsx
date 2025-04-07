@@ -1,7 +1,7 @@
 import fail_audio from '@/assets/sound_effects/fail.mp3';
 import success_audio from '@/assets/sound_effects/kids_yay_TEMP.mp3';
 import ButtonApp from '@/components/ButtonApp';
-import CarouselX from '@/components/CarouselX';
+import CardCarousel from '@/components/carousels/CardCarousel';
 import useConfettis from '@/hook/useConfettis';
 import { QuizzType } from '@/temp/QuizzData';
 import APP_ROUTES_ENUM from '@/types/APP_ROUTES_ENUM';
@@ -42,7 +42,7 @@ const QuizzResult = (props: QuizzResultProps) => {
                 <h2 className='text-2xl font-black w-[90%]'>
                     {scoreSuperiorTo70 ? 'Pour aller plus loin' : 'Pour améliorer votre score'}
                 </h2>
-                <CarouselX
+                <CardCarousel
                     slides={props.quizz?.relatedArticles}
                     options={{ loop: false, containScroll: false }}
                     cardVariant={ArticleTypesEnum.SMALL_PREVIEW}

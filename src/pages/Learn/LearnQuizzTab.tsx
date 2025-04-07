@@ -1,7 +1,27 @@
+import CardCarousel from '@/components/carousels/CardCarousel';
+import QuizzCarousel from '@/components/carousels/QuizzCarousel';
+import { QuizzType } from '@/temp/QuizzData';
 import APP_ROUTES_ENUM from '@/types/APP_ROUTES_ENUM';
 import { InboxIcon } from '@heroicons/react/24/outline';
 
-const LearnQuizzTab = () => {
+type LearnQuizzTabProps = {
+    quizz: QuizzType[];
+};
+
+const LearnQuizzTab = (props: LearnQuizzTabProps) => {
+    const SliderSection = (title: string, quizz: QuizzType[], last: boolean) => {
+        return (
+            <div className='w-full flex justify-center items-start flex-col'>
+                <h2 className='text-2xl font-black px-6'>{title}</h2>
+                <div
+                    className={`w-full flex justify-between items-start flex-wrap gap-y-4 gap-x-4 ${last ? 'pb-24' : 'pb-8'}`}
+                >
+                    <QuizzCarousel slides={quizz} options={{ loop: true, containScroll: false }} />
+                </div>
+            </div>
+        );
+    };
+
     return (
         <div className='w-full flex justify-center items-start flex-col mb-8 p-6 gap-y-6'>
             <div className='w-full flex justify-between items-center'>

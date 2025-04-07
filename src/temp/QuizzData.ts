@@ -21,6 +21,12 @@ export type QuizzType = {
     theme: ArticleCategoriesEnum;
     difficulty: QuizzDifficultyEnum;
     relatedArticles: ArticleType[];
+    finishers: {
+        id: number;
+        username: string;
+        email: string;
+        lastScore: number;
+    }[];
 };
 
 export type QuestionType = {
@@ -192,6 +198,7 @@ export const QUIZZ_DATA: QuizzType[] = [
                     "La finance est la science de la gestion de l'argent, elle étudie comment les individus, les entreprises et les gouvernements gèrent leurs ressources financières.",
             },
         ],
+        finishers: [],
     },
     {
         id: 2,
@@ -284,5 +291,6 @@ export const QUIZZ_DATA: QuizzType[] = [
                     "La finance est la science de la gestion de l'argent, elle étudie comment les individus, les entreprises et les gouvernements gèrent leurs ressources financières.",
             },
         ],
+        finishers: [],
     },
 ];

@@ -1,4 +1,4 @@
-import CarouselX from '@/components/CarouselX';
+import CardCarousel from '@/components/carousels/CardCarousel';
 import APP_ROUTES_ENUM from '@/types/APP_ROUTES_ENUM';
 import { ArticleCategoryType, ArticleType, ArticleTypesEnum } from '@/types/BlogType';
 
@@ -19,7 +19,7 @@ const LearnArticleTab = (props: LearnArticleTabProps) => {
                 <div
                     className={`w-full flex justify-between items-start flex-wrap gap-y-4 gap-x-4 ${last ? 'pb-24' : 'pb-8'}`}
                 >
-                    <CarouselX
+                    <CardCarousel
                         slides={articles}
                         options={{ loop: true, containScroll: false }}
                         cardVariant={ArticleTypesEnum.SMALL_PREVIEW}
