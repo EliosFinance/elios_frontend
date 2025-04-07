@@ -58,8 +58,8 @@ export default function ChallengePage() {
                 {featuredChallenge.title}
               </CardDescription>
             </CardHeader>
-            <div className="px-4 h-36">
-              <div ref={chartRef} className="w-full h-full" />
+            <div className="px-4">
+              <div ref={chartRef} className="w-full h-[250px]" />
             </div>
             <div className="flex justify-end p-4">
               <Button

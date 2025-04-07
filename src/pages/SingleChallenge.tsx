@@ -54,11 +54,12 @@ export default function SingleChallenge() {
 
   return (
     <PageLayout title="Détail du défi" onBack={() => navigate(-1)}>
+      <main className='space-y-6'>
       <div
-        className="relative flex flex-col justify-end w-full h-56 p-4 text-white bg-center bg-cover"
+        className="relative flex flex-col justify-end w-full text-white bg-center bg-cover"
         style={{ backgroundImage: `url(${challenge.backgroundImage})` }}
       >
-        <div className="absolute inset-0 bg-black opacity-40" />
+        <div className="absolute inset-0 opacity-40" />
         <div className="relative z-10 flex items-center mb-3">
           <img
             src={challenge.company.logo}
@@ -73,9 +74,9 @@ export default function SingleChallenge() {
         </div>
       </div>
 
-      <div className="flex flex-col p-4 space-y-4">
+      <div className="flex flex-col space-y-4">
         <Card>
-          <CardHeader className="p-4">
+          <CardHeader className="">
             <CardTitle className="text-sm font-bold">À propos</CardTitle>
             <CardDescription className="mt-1 text-xs">
               {challenge.description}
@@ -84,7 +85,7 @@ export default function SingleChallenge() {
         </Card>
 
         <Card>
-          <CardHeader className="p-4">
+          <CardHeader className="">
             <CardTitle className="text-sm font-bold">Votre avancement</CardTitle>
             <CardDescription className="mt-1 text-xs">
               Voici votre progression sur quelques jours
@@ -95,7 +96,7 @@ export default function SingleChallenge() {
 
         {challenge.leaderboard && challenge.leaderboard.length > 0 && (
           <Card>
-            <CardHeader className="p-4">
+            <CardHeader className="">
               <CardTitle className="text-sm font-bold">Leaderboard</CardTitle>
               <CardDescription className="mt-1 text-xs">
                 Classement des participants
@@ -124,6 +125,7 @@ export default function SingleChallenge() {
           </Card>
         )}
       </div>
+      </main>
     </PageLayout>
   );
 
