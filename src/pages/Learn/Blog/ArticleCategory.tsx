@@ -1,7 +1,7 @@
 import { getSingleArticle, getSingleArticleCategory } from '@/api';
 import BlogNav from '@/components/BlogNav';
 import ButtonApp from '@/components/ButtonApp';
-import CarouselX from '@/components/CarouselX';
+import CardCarousel from '@/components/carousels/CardCarousel';
 import APP_ROUTES_ENUM from '@/types/APP_ROUTES_ENUM';
 import { ArticleCategoryType, ArticleType, ArticleTypesEnum } from '@/types/BlogType';
 import { useEffect, useState } from 'react';
@@ -49,7 +49,7 @@ const ArticleCategory = () => {
                     <>
                         <div className='flex flex-wrap items-center justify-center w-full gap-x-4'>
                             <h2 className='text-2xl font-black w-[90%]'>Les plus populaires</h2>
-                            <CarouselX
+                            <CardCarousel
                                 slides={cards}
                                 options={{ loop: false, containScroll: false }}
                                 cardVariant={ArticleTypesEnum.SMALL_PREVIEW}
@@ -58,7 +58,7 @@ const ArticleCategory = () => {
 
                         <div className='flex flex-wrap items-center justify-center w-full gap-x-4'>
                             <h2 className='text-2xl font-black w-[90%]'>Les plus populaires</h2>
-                            <CarouselX
+                            <CardCarousel
                                 slides={cards}
                                 options={{ loop: false, containScroll: false }}
                                 cardVariant={ArticleTypesEnum.SMALL_PREVIEW}

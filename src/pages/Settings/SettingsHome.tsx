@@ -91,8 +91,6 @@ const SettingsHome = () => {
             {/* Footer */}
             <ButtonApp
                 onClick={() => {
-                    console.log('signOut');
-
                     signOut();
                 }}
                 sx='!bg-red-500 !text-white !mt-0'

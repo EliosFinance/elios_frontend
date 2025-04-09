@@ -10,7 +10,7 @@ const TermsAndConditions: React.FC = () => {
     const [isAccepted, setIsAccepted] = useState(false); // État pour gérer l'acceptation
     const navigate = useNavigate();
     const { authenticate } = useAuth();
-    const { email, username, password2: password, pin2, clear } = useRegisterUsersStore();
+    const { email, username, password2: password, clear } = useRegisterUsersStore();
 
     const handleNext = async () => {
         if (!isAccepted) {

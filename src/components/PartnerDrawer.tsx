@@ -1,4 +1,4 @@
-import { fetchChallenges } from '@/api/allCall';
+import { getChallenges } from '@/api/learn/challengesCalls';
 import PartnerChallenge from '@/components/PartnerChallenge';
 import {
     Drawer,
@@ -27,46 +27,45 @@ const PartnerDrawer: React.FC<PartnerDrawerProps> = ({ isOpen, setIsOpen, partne
 
     useEffect(() => {
         if (partner) {
-            const getChallenges = async () => {
-                // [CALL API] à décommenté lorsque la db sera seed
-                /*try {
-          const challengesData = await fetchChallenges(partner.id);
-          setChallenges(challengesData);
-          setLoading(false);
-        } catch (error) {
-          setLoading(false);
-          console.error("Erreur lors de la récupération des défis:", error);
-        }*/
+            const fetchData = async () => {
+                try {
+                    const challengesData = await getChallenges(partner.id);
+                    setChallenges(challengesData);
+                    setLoading(false);
+                } catch (error) {
+                    setLoading(false);
+                    console.error('Erreur lors de la récupération des défis:', error);
+                }
 
                 // [SIMULATION] à commenté lorsque la db sera seed
-                const simulatedChallengesData = [
-                    {
-                        id: 1,
-                        title: 'Défi 1',
-                        description: 'Description du défi 1',
-                        image: '',
-                        category: { title: 'Catégorie 1', icon: '' },
-                    },
-                    {
-                        id: 2,
-                        title: 'Défi 2',
-                        description: 'Description du défi 2',
-                        image: '',
-                        category: { title: 'Catégorie 2', icon: '' },
-                    },
-                    {
-                        id: 3,
-                        title: 'Défi 3',
-                        description: 'Description du défi 3',
-                        image: '',
-                        category: { title: 'Catégorie 3', icon: '' },
-                    },
-                ];
-                setLoading(false);
-                setChallenges(simulatedChallengesData);
+                //     const simulatedChallengesData = [
+                //         {
+                //             id: 1,
+                //             title: 'Défi 1',
+                //             description: 'Description du défi 1',
+                //             image: '',
+                //             category: { title: 'Catégorie 1', icon: '' },
+                //         },
+                //         {
+                //             id: 2,
+                //             title: 'Défi 2',
+                //             description: 'Description du défi 2',
+                //             image: '',
+                //             category: { title: 'Catégorie 2', icon: '' },
+                //         },
+                //         {
+                //             id: 3,
+                //             title: 'Défi 3',
+                //             description: 'Description du défi 3',
+                //             image: '',
+                //             category: { title: 'Catégorie 3', icon: '' },
+                //         },
+                //     ];
+                //     setLoading(false);
+                //     setChallenges(simulatedChallengesData);
             };
 
-            getChallenges();
+            fetchData();
         }
     }, [partner]);
 
@@ -95,20 +94,7 @@ const PartnerDrawer: React.FC<PartnerDrawerProps> = ({ isOpen, setIsOpen, partne
                         {loading ? (
                             <div className='text-center text-gray-500'>Chargement des défis...</div>
                         ) : (
-                            challenges.map((challenge) => (
-                                <PartnerChallenge
-                                    key={challenge.id}
-                                    challenge={{
-                                        title: challenge.title,
-                                        description: challenge.description,
-                                        image: challenge.image || '',
-                                        category: {
-                                            title: challenge.category.title,
-                                            icon: challenge.category.icon || '',
-                                        },
-                                    }}
-                                />
-                            ))
+                            challenges.map((challenge) => <PartnerChallenge key={challenge.id} challenge={challenge} />)
                         )}
                     </div>
                 </div>

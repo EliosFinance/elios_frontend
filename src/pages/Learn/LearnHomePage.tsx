@@ -1,10 +1,12 @@
-import { getArticleCategories, getArticles, getLikedArticles, getTrendingArticles } from '@/api';
-import CarouselX from '@/components/CarouselX';
-import GetPremium from '@/components/GetPremium';
+import { getAllQuizz, getArticleCategories, getArticles, getLikedArticles, getTrendingArticles } from '@/api';
 import InputApp from '@/components/InputApp';
-import APP_ROUTES_ENUM from '@/types/APP_ROUTES_ENUM';
+import CardCarousel from '@/components/carousels/CardCarousel';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { QuizzType } from '@/temp/QuizzData';
 import { ArticleCategoryType, ArticleType, ArticleTypesEnum } from '@/types/BlogType';
 import { useEffect, useState } from 'react';
+import LearnArticleTab from './LearnArticleTab';
+import LearnQuizzTab from './LearnQuizzTab';
 
 const LearnHomePage = () => {
     const [search, setSearch] = useState<string>('');
@@ -16,6 +18,8 @@ const LearnHomePage = () => {
     const [recommendedArticles, setRecommendedArticles] = useState<ArticleType[]>([]);
     const [likedArticles, setLikedArticles] = useState<ArticleType[]>([]);
     const [articlesCategories, setArticlesCategories] = useState<ArticleCategoryType[]>([]);
+
+    const [quizz, setQuizz] = useState<QuizzType[]>([]);
 
     useEffect(() => {
         if (search.length > 2 && articles.length > 0) {
@@ -45,29 +49,17 @@ const LearnHomePage = () => {
                 const articleCategories = await getArticleCategories();
                 setArticlesCategories(articleCategories);
             }
+            if (quizz.length === 0) {
+                const quizz = await getAllQuizz();
+                setQuizz(quizz);
+            }
         };
         loadDatas();
     }, []);
 
-    const SliderSection = (title: string, articles: ArticleType[], last: boolean) => {
-        return (
-            <div className='flex flex-col items-start justify-center w-full'>
-                <h2 className='px-6 text-2xl font-black'>{title}</h2>
-                <div
-                    className={`w-full flex justify-between items-start flex-wrap gap-y-4 gap-x-4 ${last ? 'pb-24' : ''}`}
-                >
-                    <CarouselX
-                        slides={articles}
-                        options={{ loop: true, containScroll: false }}
-                        cardVariant={ArticleTypesEnum.SMALL_PREVIEW}
-                    />
-                </div>
-            </div>
-        );
-    };
-
     return (
-        <div className='flex flex-col items-center justify-center w-full h-full gap-y-12'>
+        <div className='flex flex-col items-center justify-center w-full h-full gap-y-4'>
+            {/* <FinishedChallengeAnimation challenge={challengeData[0]} /> */}
             <div className='flex flex-col items-start justify-center w-full px-6 pt-12'>
                 <h2 className='text-2xl font-black'>EliosLearn</h2>
                 <InputApp
@@ -84,7 +76,7 @@ const LearnHomePage = () => {
                 <div className='w-full h-[70%] flex justify-center items-center flex-col'>
                     <h2 className='text-2xl font-black'>Résultats de recherche</h2>
                     <div className='flex flex-wrap items-start justify-between w-full gap-y-4 gap-x-4'>
-                        <CarouselX
+                        <CardCarousel
                             slides={filteredSubjects}
                             options={{ loop: false, containScroll: false }}
                             cardVariant={ArticleTypesEnum.SMALL_PREVIEW}
@@ -92,36 +84,25 @@ const LearnHomePage = () => {
                     </div>
                 </div>
             ) : (
-                <>
-                    <div className='flex flex-col items-start justify-center w-full px-6'>
-                        <div className='flex items-center justify-between w-full'>
-                            <h2 className='text-2xl font-black'>Pour vous</h2>
-                            <a
-                                className='text-sm font-semibold text-blue-500'
-                                href={APP_ROUTES_ENUM.ARTICLE_CATEGORIES}
-                            >
-                                Voir tout &gt;
-                            </a>
-                        </div>
-                        <div className='flex flex-wrap items-start justify-between w-full mt-3 gap-y-4 gap-x-4'>
-                            {[1, 2, 3, 4].map((i) => (
-                                <a
-                                    className='w-[47.6%] h-12 flex justify-center items-center bg-blue-500 rounded-3 text-white font-semibold text-lg'
-                                    href={`${APP_ROUTES_ENUM.ARTICLE_CATEGORY}/${i}`}
-                                    key={i}
-                                >
-                                    {articlesCategories[i]?.title}
-                                </a>
-                            ))}
-                        </div>
-                    </div>
-
-                    {SliderSection('Les plus populaires', trendingArticles, false)}
-                    {SliderSection('Contenu premium', premiumArticles, false)}
-                    {SliderSection('Recommandations', recommendedArticles, false)}
-                    {SliderSection('Mes likes', likedArticles, false)}
-                    {SliderSection('Laissez vous porter...', articles, true)}
-                </>
+                <Tabs defaultValue='quizz' className='w-full grid-cols-2'>
+                    <TabsList className='w-full flex justify-center items-center gap-x-4 px-6 border-b-2'>
+                        <TabsTrigger value='articles'>Articles</TabsTrigger>
+                        <TabsTrigger value='quizz'>Quizz</TabsTrigger>
+                    </TabsList>
+                    <TabsContent value='articles'>
+                        <LearnArticleTab
+                            articles={articles}
+                            trendingArticles={trendingArticles}
+                            premiumArticles={premiumArticles}
+                            recommendedArticles={recommendedArticles}
+                            likedArticles={likedArticles}
+                            articlesCategories={articlesCategories}
+                        />
+                    </TabsContent>
+                    <TabsContent value='quizz'>
+                        <LearnQuizzTab quizz={quizz} />
+                    </TabsContent>
+                </Tabs>
             )}
         </div>
     );

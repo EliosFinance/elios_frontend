@@ -17,15 +17,18 @@ import ConfirmPassword from './pages/Auth/Register/views/4_ConfirmPassword.tsx';
 import PINCodeScreen from './pages/Auth/Register/views/5_CreatePINCodeScreen.tsx';
 import ConfirmPIN from './pages/Auth/Register/views/6_ConfirmPin.tsx';
 import TermsAndConditions from './pages/Auth/Register/views/7_TermsAndConditions.tsx';
+import CentralExpensesPage from './pages/Balance/CentralExpensesPage.tsx';
 import ConnectBankAccount from './pages/Bank/ConnectBankAccount.tsx';
 import DisplaySingleConnector from './pages/Bank/DisplaySingleConnector.tsx';
+import Challenge from './pages/Challenge.tsx';
 import Friends from './pages/Friends.tsx';
 import Home from './pages/Home.tsx';
 import Landing from './pages/Landing.tsx';
-import AllArticleCategories from './pages/Learn/AllArticleCategories.tsx';
-import Article from './pages/Learn/Article.tsx';
-import ArticleCategory from './pages/Learn/ArticleCategory.tsx';
+import AllArticleCategories from './pages/Learn/Blog/AllArticleCategories.tsx';
+import Article from './pages/Learn/Blog/Article.tsx';
+import ArticleCategory from './pages/Learn/Blog/ArticleCategory.tsx';
 import LearnHomePage from './pages/Learn/LearnHomePage.tsx';
+import Quizz from './pages/Learn/Quizz/Quizz.tsx';
 import Partners from './pages/Partners.tsx';
 import Rewards from './pages/Rewards.tsx';
 import ChangeLog from './pages/Settings/About/ChangeLog.tsx';
@@ -48,13 +51,11 @@ import MyDeviceManagement from './pages/Settings/Security/MyDeviceManagement.tsx
 import TwoFactorAuthentication from './pages/Settings/Security/TwoFactorAuthentication.tsx';
 import SettingsHome from './pages/Settings/SettingsHome.tsx';
 import FollowOurSocialNetworks from './pages/Settings/Social/FollowOurSocialNetworks.tsx';
-import Challenge from './pages/Challenge.tsx';
 import SingleChallenge from './pages/SingleChallenge.tsx';
 import SingleFriend from './pages/SingleFriends.tsx';
 import Subscription from './pages/Subscription/Subscription.tsx';
 import APP_ROUTES_ENUM from './types/APP_ROUTES_ENUM.ts';
 import { challengeData } from './types/challengeType.ts';
-import CentralExpensesPage from './pages/Balance/CentralExpensesPage.tsx';
 
 function App() {
     const { os } = useDeviceDetection();
@@ -96,6 +97,7 @@ function App() {
                             <Route path={`${APP_ROUTES_ENUM.ARTICLE}/:id`} element={<Article />} />
                             <Route path={`${APP_ROUTES_ENUM.ARTICLE_CATEGORIES}`} element={<AllArticleCategories />} />
                             <Route path={`${APP_ROUTES_ENUM.ARTICLE_CATEGORY}/:id`} element={<ArticleCategory />} />
+                            <Route path={`${APP_ROUTES_ENUM.QUIZZ}/:id`} element={<Quizz />} />
                             {/* End Learn */}
 
                             <Route path={APP_ROUTES_ENUM.ACCOUNT} element={<Account />} />

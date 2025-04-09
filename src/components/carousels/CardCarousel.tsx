@@ -3,7 +3,7 @@ import useEmblaCarousel from 'embla-carousel-react';
 import React, { useCallback, useEffect, useRef } from 'react';
 import '@/css/carousels/carousel-x.css';
 import { ArticleType, ArticleTypesEnum } from '@/types/BlogType';
-import { Card } from './Card';
+import { Card } from '../Card';
 const TWEEN_FACTOR_BASE = 0.52;
 
 const numberWithinRange = (number: number, min: number, max: number): number => Math.min(Math.max(number, min), max);
@@ -14,7 +14,7 @@ type PropType = {
     options?: EmblaOptionsType;
 };
 
-const CarouselX: React.FC<PropType> = (props) => {
+const CardCarousel: React.FC<PropType> = (props) => {
     const { slides, options } = props;
     const [emblaRef, emblaApi] = useEmblaCarousel(options);
     const tweenFactor = useRef(0);
@@ -63,8 +63,7 @@ const CarouselX: React.FC<PropType> = (props) => {
                 const tweenValue = 1 - Math.abs(diffToTarget * tweenFactor.current);
                 const scale = numberWithinRange(tweenValue, 0.9, 1).toString();
                 const tweenNode = tweenNodes.current[slideIndex];
-                const rotate = Math.abs(diffToTarget) < 0.1 ? '0deg' : diffToTarget > 0 ? '3deg' : '-3deg';
-                tweenNode.style.transform = `scale(${scale}) rotate(${rotate})`;
+                tweenNode.style.transform = `scale(${scale})`;
             });
         });
     }, []);
@@ -109,4 +108,4 @@ const CarouselX: React.FC<PropType> = (props) => {
     );
 };
 
-export default CarouselX;
+export default CardCarousel;

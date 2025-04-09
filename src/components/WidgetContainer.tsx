@@ -156,17 +156,22 @@ const WidgetContainer = () => {
     });
 
     return (
-        <div className="w-full">
-            <div className="flex items-center justify-between w-full">
-                <h2 className="text-xl font-bold">Custom widgets</h2>
-                <Button variant="ghost" size="icon" onClick={() => setIsDrawerOpen(true)} className="rounded-xl hover:bg-gray-100">
-                    <PlusIcon className="w-5 h-5" />
+        <div className='w-full'>
+            <div className='flex items-center justify-between w-full'>
+                <h2 className='text-xl font-bold'>Custom widgets</h2>
+                <Button
+                    variant='ghost'
+                    size='icon'
+                    onClick={() => setIsDrawerOpen(true)}
+                    className='rounded-xl hover:bg-gray-100'
+                >
+                    <PlusIcon className='w-5 h-5' />
                 </Button>
             </div>
 
-            <div className="relative overflow-hidden" {...handlers}>
+            <div className='relative overflow-hidden' {...handlers}>
                 <div
-                    className="flex transition-transform duration-500 ease-in-out"
+                    className='flex transition-transform duration-500 ease-in-out'
                     style={{ transform: `translateX(-${(currentPage - 1) * 100}%)` }}
                 >
                     {Array.from({ length: totalPages }, (_, i) => {
@@ -174,7 +179,7 @@ const WidgetContainer = () => {
                         return (
                             <div
                                 key={i}
-                                className="flex-shrink-0 w-full"
+                                className='flex-shrink-0 w-full'
                                 style={{
                                     flexBasis: '100%',
                                     display: 'flex',
@@ -193,36 +198,36 @@ const WidgetContainer = () => {
             <WidgetPagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
 
             <Drawer open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
-                <DrawerContent className="z-[100000]">
+                <DrawerContent className='z-[100000]'>
                     <DrawerHeader>
                         <DrawerTitle>Manage Widgets</DrawerTitle>
-                        <DrawerClose className="absolute right-4 top-4">
+                        <DrawerClose className='absolute right-4 top-4'>
                             <XMarkIcon />
                         </DrawerClose>
                     </DrawerHeader>
-                    <div className="p-4 space-y-4 z-[100000]">
+                    <div className='p-4 space-y-4 z-[100000]'>
                         {widgets.map((widget) => (
-                            <div key={widget.id} className="flex flex-col">
-                                <div className="flex items-center justify-between">
+                            <div key={widget.id} className='flex flex-col'>
+                                <div className='flex items-center justify-between'>
                                     <div>
-                                        <h3 className="text-lg font-semibold">{widget.title}</h3>
-                                        <p className="text-sm text-muted-foreground">{widget.description}</p>
+                                        <h3 className='text-lg font-semibold'>{widget.title}</h3>
+                                        <p className='text-sm text-muted-foreground'>{widget.description}</p>
                                     </div>
                                     <button
                                         onClick={(e) => {
                                             e.preventDefault();
                                             toggleWidgetDisplay(widget.id);
                                         }}
-                                        className="flex items-center focus:outline-none"
+                                        className='flex items-center focus:outline-none'
                                     >
                                         {widget.display ? (
-                                            <EyeIcon className="w-5 h-5 text-gray-800" />
+                                            <EyeIcon className='w-5 h-5 text-gray-800' />
                                         ) : (
-                                            <EyeSlashIcon className="w-5 h-5 text-gray-800" />
+                                            <EyeSlashIcon className='w-5 h-5 text-gray-800' />
                                         )}
                                     </button>
                                 </div>
-                                <Separator className="my-2" />
+                                <Separator className='my-2' />
                             </div>
                         ))}
                     </div>

@@ -1,5 +1,5 @@
 // Directories
-export * from './blog';
+export * from './learn';
 export * from './connexion';
 export * from './powens';
 

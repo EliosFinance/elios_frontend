@@ -4,7 +4,6 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const LandingHeader = () => {
-    const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
     const navigate = useNavigate();
 
     return (
