@@ -7,6 +7,7 @@ import { QuizzType } from '@/temp/QuizzData';
 import APP_ROUTES_ENUM from '@/types/APP_ROUTES_ENUM';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { CheckCircleIcon } from 'lucide-react';
+import { useCardStyles } from '../Card';
 const TWEEN_FACTOR_BASE = 0.52;
 
 const numberWithinRange = (number: number, min: number, max: number): number => Math.min(Math.max(number, min), max);
@@ -22,6 +23,7 @@ const QuizzCarousel: React.FC<PropType> = (props) => {
     const [emblaRef, emblaApi] = useEmblaCarousel(options);
     const tweenFactor = useRef(0);
     const tweenNodes = useRef<HTMLElement[]>([]);
+    const styles = useCardStyles(0);
 
     const setTweenNodes = useCallback((emblaApi: EmblaCarouselType): void => {
         tweenNodes.current = emblaApi.slideNodes().map((slideNode) => {
@@ -94,14 +96,11 @@ const QuizzCarousel: React.FC<PropType> = (props) => {
                     {slides.map((q: QuizzType, index: number) => (
                         <div className='embla__slide' key={index}>
                             <div
-                                className={
-                                    'w-full h-full flex flex-col justify-between items-center rounded-[var(--border-radius-8)] shadow-lg bg-white'
-                                }
+                                className={[styles.card, styles.preview, 'embla__slide__number'].join(' ')}
                                 id={String(q.id!)}
                             >
                                 {/* header */}
                                 <div className='w-full h-[7%] flex justify-between items-center mt-5 px-5'>
-                                    {/* TODO: add finishers to quizz */}
                                     <div className='flex items-center justify-start w-auto h-full text-sm font-light text-center gap-x-2'>
                                         {q.finishers.some(
                                             (r: any) => r.username === user.username || r.email === user.username,
@@ -111,7 +110,6 @@ const QuizzCarousel: React.FC<PropType> = (props) => {
                                             <XMarkIcon className='h-[20px] text-red-500' />
                                         )}
                                     </div>
-                                    {/* TODO: last score */}
                                     {q.finishers.find(
                                         (r: any) => r.username === user.username || r.email === user.username,
                                     ) && (
@@ -133,7 +131,7 @@ const QuizzCarousel: React.FC<PropType> = (props) => {
                                 {/* body */}
                                 <a
                                     className='flex flex-col items-center justify-center w-full h-full gap-y-4'
-                                    href={`${APP_ROUTES_ENUM.ARTICLE}/${APP_ROUTES_ENUM.QUIZZ}/${q.id}`}
+                                    href={`${APP_ROUTES_ENUM.QUIZZ}/${q.id}`}
                                 >
                                     <img
                                         src={q.image}

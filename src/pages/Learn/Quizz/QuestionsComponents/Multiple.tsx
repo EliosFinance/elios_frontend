@@ -22,16 +22,16 @@ const Multiple = (props: MultipleProps) => {
         <div className='w-full h-auto flex flex-wrap justify-between items-center gap-y-2 text-center'>
             {props.options.map((option, index) => (
                 <div
-                    key={index + 1}
+                    key={option.id}
                     className={`
                         w-[49%] h-48 flex flex-col justify-start items-start rounded-2xl px-2 py-8
                         ${
-                            props?.tickedAnswers?.includes(index + 1)
+                            props?.tickedAnswers?.includes(option.id)
                                 ? 'bg-blue-500 text-white'
                                 : 'bg-blue-50 text-black'
                         }
                     `}
-                    onClick={() => handleOptionClick(index + 1)}
+                    onClick={() => handleOptionClick(option.id)}
                 >
                     <label className='text-center text-xl leading-5'>{option.option}</label>
                 </div>

@@ -15,7 +15,7 @@ export const getAllQuizz = async (): Promise<QuizzType[]> => {
         throw err;
     }
 };
-export const getSingleQuizz = async (quizzId: number): Promise<ArticleCategoryType> => {
+export const getSingleQuizz = async (quizzId: number): Promise<QuizzType> => {
     try {
         const headers = userStore.getState().getAuth();
         const response = await instance_back.get(`quizz/${quizzId}`, { headers });
@@ -26,7 +26,7 @@ export const getSingleQuizz = async (quizzId: number): Promise<ArticleCategoryTy
         throw err;
     }
 };
-export const completeQuizz = async (quizzId: number, score: number): Promise<ArticleCategoryType> => {
+export const completeQuizz = async (quizzId: number, score: number): Promise<QuizzType> => {
     try {
         const headers = userStore.getState().getAuth();
         const response = await instance_back.put(`quizz/${quizzId}/complete`, { score }, { headers });

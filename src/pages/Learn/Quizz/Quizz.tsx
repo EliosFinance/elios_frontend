@@ -1,14 +1,13 @@
+import { getSingleQuizz } from '@/api';
 import correct_answer from '@/assets/sound_effects/correct_answer.mp3';
 import wrong_answer from '@/assets/sound_effects/nope_sound_TEMP.mp3';
 import ButtonApp from '@/components/ButtonApp';
 import QuizzNav from '@/components/QuizzNav';
 import { Drawer, DrawerClose, DrawerContent, DrawerHeader, DrawerTitle } from '@/components/ui/drawer';
-import { QUIZZ_DATA, QuestionTypesEnum, QuizzType } from '@/temp/QuizzData';
+import { QuestionTypesEnum, QuizzType } from '@/temp/QuizzData';
 import APP_ROUTES_ENUM from '@/types/APP_ROUTES_ENUM';
-import { EyeSlashIcon, XMarkIcon } from '@heroicons/react/24/outline';
-import { Separator } from '@radix-ui/react-dropdown-menu';
-import { EyeIcon } from 'lucide-react';
-import { useEffect, useLayoutEffect, useState } from 'react';
+import { XMarkIcon } from '@heroicons/react/24/outline';
+import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import Multiple from './QuestionsComponents/Multiple';
 import Single from './QuestionsComponents/Single';
@@ -29,7 +28,11 @@ const Quizz = () => {
     const verifyAnswer = () => {
         if (tickedAnswers) {
             const question = quizz?.questions[currentQuestionIndex];
-            const correctAnswers = question.options.filter((option) => option.isCorrect).map((option) => option.id);
+            const correctAnswers = question.options
+                .filter((option) => option.isCorrect === true)
+                .map((option) => option.id);
+            console.log(correctAnswers, tickedAnswers);
+
             setCorrectAnswers(correctAnswers);
             const isCorrect =
                 correctAnswers.length === tickedAnswers.length &&
@@ -64,14 +67,16 @@ const Quizz = () => {
     };
 
     useEffect(() => {
-        // TODO: fetch the quizz from the server
-        // const quizz = await getQuizz(quizzId);
-        const q = QUIZZ_DATA.find((q) => q.id === Number(quizzId));
-        if (!q) {
-            navigate(APP_ROUTES_ENUM.LEARN);
-        }
+        const fetchQuizz = async () => {
+            const quizz = await getSingleQuizz(Number(quizzId));
+            if (quizz) {
+                setQuizz(quizz);
+            } else {
+                navigate(APP_ROUTES_ENUM.ARTICLE_CATEGORIES);
+            }
+        };
 
-        setQuizz(q);
+        fetchQuizz();
     }, [quizzId]);
 
     return (

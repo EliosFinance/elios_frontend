@@ -1,4 +1,4 @@
-import { getArticleCategories, getArticles, getLikedArticles, getTrendingArticles } from '@/api';
+import { getAllQuizz, getArticleCategories, getArticles, getLikedArticles, getTrendingArticles } from '@/api';
 import InputApp from '@/components/InputApp';
 import CardCarousel from '@/components/carousels/CardCarousel';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -48,6 +48,10 @@ const LearnHomePage = () => {
             if (articlesCategories.length === 0) {
                 const articleCategories = await getArticleCategories();
                 setArticlesCategories(articleCategories);
+            }
+            if (quizz.length === 0) {
+                const quizz = await getAllQuizz();
+                setQuizz(quizz);
             }
         };
         loadDatas();

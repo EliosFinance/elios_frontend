@@ -104,7 +104,7 @@ export const Card = forwardRef<HTMLDivElement, CardProps>((props, ref) => {
                     {/* header */}
                     <div className='w-full h-[7%] flex justify-between items-center mt-5 px-5'>
                         <div className='flex items-center justify-start w-auto h-full text-sm font-light text-center gap-x-2'>
-                            {props.article.reads.some(
+                            {props.article?.reads?.some(
                                 (r: any) => r.username === user.username || r.email === user.username,
                             ) ? (
                                 <CheckCircleIcon className='h-[20px] text-green-500' />

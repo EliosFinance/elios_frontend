@@ -1,3 +1,4 @@
+import { completeQuizz } from '@/api';
 import fail_audio from '@/assets/sound_effects/fail.mp3';
 import success_audio from '@/assets/sound_effects/kids_yay_TEMP.mp3';
 import ButtonApp from '@/components/ButtonApp';
@@ -18,6 +19,13 @@ const QuizzResult = (props: QuizzResultProps) => {
     const navigate = useNavigate();
     const { throwConfettis, throwPartyConfettis } = useConfettis();
     const scoreSuperiorTo70 = props.score >= (props.quizz?.questions?.length || 0) * 0.7;
+
+    useEffect(() => {
+        const postData = async () => {
+            await completeQuizz(props.quizz.id, props.score);
+        };
+        postData();
+    }, []);
 
     useEffect(() => {
         if (scoreSuperiorTo70) {
