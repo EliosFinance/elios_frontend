@@ -1,4 +1,3 @@
-// components/RewardCard.tsx
 import { Button } from '@/components/ui/Button';
 
 interface RewardCardProps {

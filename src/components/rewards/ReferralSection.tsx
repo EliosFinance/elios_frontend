@@ -1,4 +1,3 @@
-// components/ReferralSection.tsx
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/input';
 

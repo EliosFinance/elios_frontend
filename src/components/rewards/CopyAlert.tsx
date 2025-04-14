@@ -1,4 +1,3 @@
-// components/CopyAlert.tsx
 import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
 
 const CopyAlert = () => {
