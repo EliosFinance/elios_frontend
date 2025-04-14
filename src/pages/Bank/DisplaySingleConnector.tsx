@@ -37,7 +37,7 @@ const DisplaySingleConnector = () => {
   }, [startConnection]);
 
   return (
-    <div className='flex flex-col items-center justify-start w-full gap-10 px-4'>
+    <div className='flex flex-col items-center justify-start w-full px-4 gap-10'>
       <BankPageHeader />
       {connector && (
         <div className='flex flex-col items-center justify-center w-full gap-4'>

@@ -15,7 +15,7 @@ export default function PageLayout({ title, onBack, children }: PageLayoutProps)
           {onBack && (
             <button
               onClick={onBack}
-              className="p-1 transition-colors rounded-full hover:bg-gray-800/50"
+              className="p-1 rounded-full transition-colors hover:bg-gray-800/50"
               aria-label="Retour"
             >
               <ChevronLeft size={24} />

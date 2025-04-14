@@ -13,7 +13,7 @@ const ReferralSection = ({ onCopy }: ReferralSectionProps) => {
         <Input
           type="text"
           value="elios.me/username-id"
-          className="w-full p-2 mr-2 rounded"
+          className="w-full p-2 mr-2 rounded-xl"
           readOnly
         />
         <Button

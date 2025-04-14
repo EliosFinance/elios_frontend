@@ -72,7 +72,7 @@ const Home = () => {
                     return (
                       <div
                         key={index}
-                        className='flex items-center justify-between gap-2 p-2 text-white rounded bg-slate-400'
+                        className='flex items-center justify-between p-2 text-white rounded gap-2 bg-slate-400'
                       >
                         <div className='flex items-center justify-center'>
                           <img
