@@ -45,7 +45,7 @@ const BlogPosts = () => {
 				'https://images.unsplash.com/photo-1732254721629-bf8275f694e6?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwxNHx8fGVufDB8fHx8fA%3D%3D',
 		},
 		{
-			id: '2',
+			id: '4',
 			title: "Comment la banque centrale joue un rôle majeur dans l'économie",
 			author: 'Louis P.',
 			publishedAt: new Date(),
