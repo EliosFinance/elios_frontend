@@ -1,4 +1,5 @@
 import B4 from '@/assets/images/corp/B4.webp';
+import CheckoutButton from '@/stripe/checkoutButton';
 import { CheckCircleIcon } from '@heroicons/react/24/outline';
 import { useState } from 'react';
 import { Button } from './ui/button';
@@ -95,7 +96,8 @@ const Subscription = () => {
                     </Card>
                 </div>
 
-                <Button className='w-full py-3 mt-6 text-white bg-blue-500 rounded-full'>Je deviens Premium</Button>
+                {/*<Button className='w-full py-3 mt-6 text-white bg-blue-500 rounded-full'>Je deviens Premium</Button>*/}
+                <CheckoutButton plan={selectedPlan} />
             </section>
         </div>
     );
