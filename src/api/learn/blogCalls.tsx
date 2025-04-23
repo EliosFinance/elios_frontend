@@ -22,7 +22,7 @@ export const getSingleArticleCategory = async (articleCategoryId: number): Promi
         return response.data;
     } catch (error) {
         const err = error as AxiosError;
-        console.error(`Erreur lors de la récupération de la catégorie d'article n°$^{articleCategoryId}:`, err.message);
+        console.error(`Erreur lors de la récupération de la catégorie d'article n°${articleCategoryId}:`, err.message);
         throw err;
     }
 };
@@ -33,7 +33,7 @@ export const postArticleCategory = async (articleCategoryId: number): Promise<Ar
         return response.data;
     } catch (error) {
         const err = error as AxiosError;
-        console.error(`Erreur lors de la récupération de la catégorie d'article n°$^{articleCategoryId}:`, err.message);
+        console.error(`Erreur lors de la récupération de la catégorie d'article n°${articleCategoryId}:`, err.message);
         throw err;
     }
 };
@@ -44,7 +44,7 @@ export const updateArticleCategory = async (articleCategoryId: number): Promise<
         return response.data;
     } catch (error) {
         const err = error as AxiosError;
-        console.error(`Erreur lors de la mise à jour de la catégorie d'article n°$^{articleCategoryId}:`, err.message);
+        console.error(`Erreur lors de la mise à jour de la catégorie d'article n°${articleCategoryId}:`, err.message);
         throw err;
     }
 };
@@ -55,7 +55,7 @@ export const deleteArticleCategory = async (articleCategoryId: number): Promise<
         return response.data;
     } catch (error) {
         const err = error as AxiosError;
-        console.error(`Erreur lors de la suppression de la catégorie d'article n°$^{articleCategoryId}:`, err.message);
+        console.error(`Erreur lors de la suppression de la catégorie d'article n°${articleCategoryId}:`, err.message);
         throw err;
     }
 };

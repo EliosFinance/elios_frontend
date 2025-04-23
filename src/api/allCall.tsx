@@ -13,14 +13,3 @@ export const fetchPartners = async () => {
         throw err;
     }
 };
-
-export const fetchChallenges = async (partnerId: number) => {
-    try {
-        const response = await instance_back.get(`challenges/${partnerId}`);
-        return response.data;
-    } catch (error) {
-        const err = error as AxiosError;
-        console.error('Erreur lors de la récupération des défis:', err.message);
-        throw err;
-    }
-};

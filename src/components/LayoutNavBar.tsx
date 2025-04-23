@@ -1,10 +1,31 @@
+import { useUserRewards } from '@/store/userRewards';
 import APP_ROUTES_ENUM from '@/types/APP_ROUTES_ENUM';
-import { AcademicCapIcon, CurrencyDollarIcon, HomeIcon, TrophyIcon, UserIcon, DocumentChartBarIcon } from '@heroicons/react/24/outline';
+import {
+    AcademicCapIcon,
+    CurrencyDollarIcon,
+    DocumentChartBarIcon,
+    HomeIcon,
+    TrophyIcon,
+    UserIcon,
+} from '@heroicons/react/24/outline';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const LayoutNavBar = () => {
     const [currentRoute, setCurrentRoute] = useState<string>('');
+    const [userHasUnclaimedRewards, setUserHasUnclaimedRewards] = useState<boolean>(false);
+    const { getUnClaimedRewards } = useUserRewards();
+
+    useEffect(() => {
+        const interval = setInterval(
+            () => {
+                setUserHasUnclaimedRewards(getUnClaimedRewards() > 0);
+            },
+            60 * 2 * 1000,
+        );
+
+        return () => clearInterval(interval);
+    }, []);
 
     const LinkComponent = ({ route, icon }: { route: string; icon: React.JSX.Element }) => {
         return (
@@ -40,14 +61,21 @@ const LayoutNavBar = () => {
                 route: APP_ROUTES_ENUM.BALANCE,
                 icon: <CurrencyDollarIcon className='object-cover object-center w-6 h-6' />,
             })}
-            
+
             {LinkComponent({
                 route: APP_ROUTES_ENUM.CHALLENGE,
                 icon: <DocumentChartBarIcon className='object-cover object-center w-6 h-6' />,
             })}
             {LinkComponent({
                 route: APP_ROUTES_ENUM.REWARDS,
-                icon: <TrophyIcon className='object-cover object-center w-6 h-6' />,
+                icon: (
+                    <div className='relative'>
+                        <TrophyIcon className='object-cover object-center w-6 h-6' />
+                        {userHasUnclaimedRewards && (
+                            <span className='w-3 h-3 bg-blue-500 absolute -top-1 -right-1 rounded-full' />
+                        )}
+                    </div>
+                ),
             })}
             {LinkComponent({
                 route: APP_ROUTES_ENUM.LEARN,

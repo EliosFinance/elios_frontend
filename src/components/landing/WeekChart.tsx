@@ -71,7 +71,7 @@ const WeekChart = () => {
     return (
         <div className='w-full mb-4 rounded-lg'>
             <h2 className='mb-4 text-xl font-bold'>Last Week</h2>
-            <div ref={chartRef} style={{ width: '100%', height: '300px' }} />
+            <div ref={chartRef} style={{ width: '100vw', height: '300px' }} className='-ml-6' />
         </div>
     );
 };

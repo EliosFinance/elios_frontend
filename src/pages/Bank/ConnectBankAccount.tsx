@@ -1,9 +1,9 @@
 import { useGetConnectors } from '@/api';
+import SearchInput from '@/components/input/SearchInput.tsx';
 import APP_ROUTES_ENUM from '@/types/APP_ROUTES_ENUM';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import BankPageHeader from './BankPageHeader';
-import {useState} from "react";
-import SearchInput from "@/components/input/SearchInput.tsx";
 
 const ConnectBankAccount = () => {
     const connectors = useGetConnectors();
@@ -11,7 +11,7 @@ const ConnectBankAccount = () => {
     const [searchTerm, setSearchTerm] = useState<string>('');
 
     const filteredItems = connectors?.data?.filter((item) =>
-        item.name.toLowerCase().includes(searchTerm.toLowerCase())
+        item.name.toLowerCase().includes(searchTerm.toLowerCase()),
     );
 
     return (

@@ -52,7 +52,7 @@ export const challengeData: challengeType = {
         title: ArticleCategoriesEnum.BUDGET,
         description: 'Description 1',
         icon: 'https://via.placeholder.com/150',
-        articles: []
+        articles: [],
     },
     users: [],
 };

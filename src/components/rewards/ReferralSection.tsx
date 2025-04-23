@@ -2,32 +2,27 @@ import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/input';
 
 interface ReferralSectionProps {
-  onCopy: () => void;
+    onCopy: () => void;
 }
 
 const ReferralSection = ({ onCopy }: ReferralSectionProps) => {
-  return (
-    <>
-      <div className="flex items-center justify-between mb-4 rounded">
-        <Input
-          type="text"
-          value="elios.me/username-id"
-          className="w-full p-2 mr-2 rounded-xl"
-          readOnly
-        />
-        <Button
-          onClick={(e) => {
-            e.preventDefault();
-            onCopy();
-          }}
-          className="px-2 py-1 text-sm bg-gray-300 rounded"
-        >
-          Copy
-        </Button>
-      </div>
-      <Button className="w-full py-2 mb-4 text-white bg-blue-500 rounded">Partager</Button>
-    </>
-  );
+    return (
+        <>
+            <div className='flex items-center justify-between mb-4 rounded'>
+                <Input type='text' value='elios.me/username-id' className='w-full p-2 mr-2 rounded-xl' readOnly />
+                <Button
+                    onClick={(e) => {
+                        e.preventDefault();
+                        onCopy();
+                    }}
+                    className='px-2 py-1 text-sm bg-gray-300 rounded'
+                >
+                    Copy
+                </Button>
+            </div>
+            <Button className='w-full py-2 mb-4 text-white bg-blue-500 rounded'>Partager</Button>
+        </>
+    );
 };
 
 export default ReferralSection;
