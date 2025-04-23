@@ -198,7 +198,7 @@ const WidgetContainer = () => {
             <WidgetPagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
 
             <Drawer open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
-                <DrawerContent className='z-[100000]'>
+                <DrawerContent className='z-[100000] bg-[#181823]'>
                     <DrawerHeader>
                         <DrawerTitle>Manage Widgets</DrawerTitle>
                         <DrawerClose className='absolute right-4 top-4'>
@@ -210,8 +210,8 @@ const WidgetContainer = () => {
                             <div key={widget.id} className='flex flex-col'>
                                 <div className='flex items-center justify-between'>
                                     <div>
-                                        <h3 className='text-lg font-semibold'>{widget.title}</h3>
-                                        <p className='text-sm text-muted-foreground'>{widget.description}</p>
+                                        <h3 className='text-lg font-semibold text-white'>{widget.title}</h3>
+                                        <p className='text-sm text-white'>{widget.description}</p>
                                     </div>
                                     <button
                                         onClick={(e) => {
@@ -221,9 +221,9 @@ const WidgetContainer = () => {
                                         className='flex items-center focus:outline-none'
                                     >
                                         {widget.display ? (
-                                            <EyeIcon className='w-5 h-5 text-gray-800' />
+                                            <EyeIcon className='w-5 h-5 text-gray-300' />
                                         ) : (
-                                            <EyeSlashIcon className='w-5 h-5 text-gray-800' />
+                                            <EyeSlashIcon className='w-5 h-5 text-gray-300' />
                                         )}
                                     </button>
                                 </div>

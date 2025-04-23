@@ -25,7 +25,7 @@ const WeekChart = () => {
                 borderColor: '#ccc',
                 borderWidth: 1,
                 textStyle: {
-                    color: '#000',
+                    color: '#FFF',
                 },
             },
             xAxis: {
@@ -48,7 +48,7 @@ const WeekChart = () => {
                     type: 'line',
                     smooth: true,
                     lineStyle: {
-                        color: '#000',
+                        color: '#FFF',
                         width: 2,
                     },
                     areaStyle: {
@@ -69,7 +69,7 @@ const WeekChart = () => {
     }, []);
 
     return (
-        <div className='w-full mb-4 bg-white rounded-lg'>
+        <div className='w-full mb-4 rounded-lg'>
             <h2 className='mb-4 text-xl font-bold'>Last Week</h2>
             <div ref={chartRef} style={{ width: '100vw', height: '300px' }} className='-ml-6' />
         </div>

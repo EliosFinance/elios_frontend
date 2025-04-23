@@ -56,7 +56,7 @@ const TransactionsSection: React.FC = () => {
     }, 0);
 
     return (
-        <div className='p-4 my-4 bg-white rounded shadow'>
+        <div className='p-4 my-4 rounded shadow'>
             <h2 className='mb-4 text-xl font-bold'>Dernières transactions</h2>
             {latestTransactions.length > 0 ? (
                 <>
