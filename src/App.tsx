@@ -91,6 +91,7 @@ function App() {
                             <Route path={APP_ROUTES_ENUM.HOME} element={<Landing />} />
                             <Route path={APP_ROUTES_ENUM.BALANCE} element={<CentralExpensesPage />} />
                             <Route path={APP_ROUTES_ENUM.PARTNERS} element={<Partners />} />
+                            <Route path={APP_ROUTES_ENUM.SUBSCRIPTION} element={<Subscription />} />
 
                             {/* Learn */}
                             <Route path={APP_ROUTES_ENUM.LEARN} element={<LearnHomePage />} />
@@ -147,16 +148,6 @@ function App() {
                         <Route
                             path={`${APP_ROUTES_ENUM.TEST}`}
                             element={<PartnerChallenge challenge={challengeData} />}
-                        />
-                        <Route
-                            path={APP_ROUTES_ENUM.SUBSCRIPTION}
-                            element={
-                                <Subscription
-                                    onBack={() => {
-                                        /s/;
-                                    }}
-                                />
-                            }
                         />
                         {/* Login */}
                         <Route path={APP_ROUTES_ENUM.REGISTER} element={<Authenticate />} />

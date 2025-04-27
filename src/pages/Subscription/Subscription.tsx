@@ -8,7 +8,7 @@ import EyeOff from '../../assets/images/icons/eye_off_icon.png';
 import SlackIcon from '../../assets/images/icons/slack_icon.png';
 import SpotifyIcon from '../../assets/images/icons/spotify_icon.png';
 
-const Subscription = ({ onBack }) => {
+const Subscription = () => {
     const [period, setPeriod] = useState('Monthly');
     const [isVisible, setIsVisible] = useState(true);
     const [chartData, _setChartData] = useState({
@@ -64,7 +64,7 @@ const Subscription = ({ onBack }) => {
     return (
         <div className='flex flex-col w-full min-h-screen p-4 bg-gray-100'>
             <div className='flex items-center justify-between w-full mb-4'>
-                <img src={BackIcon} alt='back' className='w-5 h-5 cursor-pointer' onClick={onBack} />
+                <img src={BackIcon} alt='back' className='w-5 h-5 cursor-pointer' />
                 <img
                     src={isVisible ? Eye : EyeOff}
                     alt='eye'

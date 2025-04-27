@@ -2,24 +2,29 @@ import { EmblaCarouselType, EmblaEventType, EmblaOptionsType } from 'embla-carou
 import useEmblaCarousel from 'embla-carousel-react';
 import React, { useCallback, useEffect, useRef } from 'react';
 import '@/css/carousels/carousel-x.css';
-import { ArticleType, ArticleTypesEnum } from '@/types/BlogType';
-import { Card } from '../Card';
+import { useAuth } from '@/context/AuthProvider';
+import { QuizzType } from '@/temp/QuizzData';
+import APP_ROUTES_ENUM from '@/types/APP_ROUTES_ENUM';
+import { FriendsType } from '@/types/UserType';
+import { XMarkIcon } from '@heroicons/react/24/outline';
+import { CheckCircleIcon } from 'lucide-react';
+import { useCardStyles } from '../Card';
 const TWEEN_FACTOR_BASE = 0.52;
 
 const numberWithinRange = (number: number, min: number, max: number): number => Math.min(Math.max(number, min), max);
 
 type PropType = {
-    slides: ArticleType[];
-    cardVariant: ArticleTypesEnum;
+    slides: FriendsType[];
     options?: EmblaOptionsType;
-    sx?: string;
 };
 
-const CardCarousel: React.FC<PropType> = (props) => {
+const FriendsCarousel: React.FC<PropType> = (props) => {
+    const { user } = useAuth();
     const { slides, options } = props;
     const [emblaRef, emblaApi] = useEmblaCarousel(options);
     const tweenFactor = useRef(0);
     const tweenNodes = useRef<HTMLElement[]>([]);
+    const styles = useCardStyles(0);
 
     const setTweenNodes = useCallback((emblaApi: EmblaCarouselType): void => {
         tweenNodes.current = emblaApi.slideNodes().map((slideNode) => {
@@ -87,20 +92,32 @@ const CardCarousel: React.FC<PropType> = (props) => {
 
     return (
         <div className='embla'>
-            <div className={`embla__viewport ${props.sx}`} ref={emblaRef}>
+            <div className='embla__viewport' ref={emblaRef}>
                 <div className='embla__container'>
-                    {slides.map((project: ArticleType, index: number) => (
+                    {slides.map((q: FriendsType, index: number) => (
                         <div className='embla__slide' key={index}>
-                            <Card
-                                article={project}
-                                variant={props.cardVariant}
-                                classNames={['embla__slide__number']}
-                                key={index}
-                                cardToDisplay={project.id}
-                                userHasRead={() => {
-                                    return;
-                                }}
-                            />
+                            <div
+                                className={[styles.card, styles.preview, 'embla__slide__number'].join(' ')}
+                                id={String(q.id!)}
+                            >
+                                {/* header */}
+                                <div className='w-full h-[7%] flex justify-between items-center mt-5 px-5'></div>
+
+                                {/* body */}
+                                <a
+                                    className='flex flex-col items-center justify-center w-full h-full gap-y-4'
+                                    href={`${APP_ROUTES_ENUM.QUIZZ}/${q.id}`}
+                                >
+                                    <img
+                                        src={q.profilePicture ? q.profilePicture : 'https://via.placeholder.com/150'}
+                                        alt='project thumbnail'
+                                        className='h-[125px] w-[45%] rounded-[var(--border-radius-5)] shadow-lg object-cover'
+                                    />
+                                    <div className='flex flex-col items-center justify-center w-full h-auto gap-y-2'>
+                                        <p className='text-lg'>{q.username}</p>
+                                    </div>
+                                </a>
+                            </div>
                         </div>
                     ))}
                 </div>
@@ -109,4 +126,4 @@ const CardCarousel: React.FC<PropType> = (props) => {
     );
 };
 
-export default CardCarousel;
+export default FriendsCarousel;

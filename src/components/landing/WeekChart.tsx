@@ -1,7 +1,7 @@
 import * as echarts from 'echarts';
 import { useEffect, useRef } from 'react';
 
-const WeekChart = () => {
+const WeekChart = ({ className }: { className?: string }) => {
     const chartRef = useRef(null);
 
     useEffect(() => {
@@ -21,11 +21,12 @@ const WeekChart = () => {
             tooltip: {
                 trigger: 'axis',
                 formatter: '{c0} $',
-                backgroundColor: 'rgba(255, 255, 255, 0.8)',
+                backgroundColor: '#DDA853',
                 borderColor: '#ccc',
                 borderWidth: 1,
                 textStyle: {
-                    color: '#000',
+                    color: '#FFF',
+                    fontWeight: 'bold',
                 },
             },
             xAxis: {
@@ -36,23 +37,28 @@ const WeekChart = () => {
                 axisLabel: { color: '#999' },
             },
             yAxis: {
+                // if line cross 0, set color to red, else set to green
                 type: 'value',
                 axisLine: { show: false },
                 axisTick: { show: false },
                 axisLabel: { show: false },
-                splitLine: { lineStyle: { color: '#eee' } },
+                splitLine: {
+                    lineStyle: { color: '#eeeeeec1' },
+                },
             },
             series: [
                 {
+                    name: 'Expenses',
                     data: [120, 200, 150, 80, 70, 110, 130],
                     type: 'line',
                     smooth: true,
+                    // if line cross the data, set color to red, else set to green
                     lineStyle: {
                         color: '#000',
                         width: 2,
                     },
                     areaStyle: {
-                        color: 'rgba(50, 168, 82, 0.1)',
+                        color: '#dda85347',
                     },
                     markPoint: {
                         data: [{ type: 'max', name: 'Max', symbol: 'circle', symbolSize: 8, label: { show: false } }],
@@ -69,8 +75,8 @@ const WeekChart = () => {
     }, []);
 
     return (
-        <div className='w-full mb-4 bg-white rounded-lg'>
-            <h2 className='mb-4 text-xl font-bold'>Last Week</h2>
+        <div className={`w-full mb-4 rounded-lg ${className}`}>
+            <h2 className='mb-0 text-xl font-bold'>Last Week</h2>
             <div ref={chartRef} style={{ width: '100vw', height: '300px' }} className='-ml-6' />
         </div>
     );

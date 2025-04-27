@@ -85,7 +85,7 @@ const LearnHomePage = () => {
                 </div>
             ) : (
                 <Tabs defaultValue='quizz' className='w-full grid-cols-2'>
-                    <TabsList className='w-full flex justify-center items-center gap-x-4 px-6 border-b-2'>
+                    <TabsList className='w-full flex justify-center items-center gap-x-4 px-6 border-b-2 rounded-none'>
                         <TabsTrigger value='articles'>Articles</TabsTrigger>
                         <TabsTrigger value='quizz'>Quizz</TabsTrigger>
                     </TabsList>
