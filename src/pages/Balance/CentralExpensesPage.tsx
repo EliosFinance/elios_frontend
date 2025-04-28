@@ -9,24 +9,26 @@ import PageLayout from '@/layout/PageLayout';
 import React, { useState } from 'react';
 
 const CentralExpensesPage: React.FC = () => {
-    const [timeframe, setTimeframe] = useState<'day' | 'week' | 'month'>('month');
-    const [selectedDate, setSelectedDate] = useState<Date>(new Date());
+	const [timeframe, setTimeframe] = useState<'day' | 'week' | 'month'>('month');
+	const [selectedDate, setSelectedDate] = useState<Date>(new Date());
 
-    return (
-        <PageLayout title='Centralisation des dépenses'>
-            <GraphiqueTimeframe
-                timeframe={timeframe}
-                onTimeframeChange={setTimeframe}
-                onDateSelected={setSelectedDate}
-            />
-            <AccountsSummary date={selectedDate} />
-            {/* <IAAdvice /> */}
-            {/* <SubscriptionsSection /> */}
-            <TransactionsSection />
-            <BudgetOverview />
-            <ChallengesSection />
-        </PageLayout>
-    );
+	return (
+		<PageLayout title='Centralisation des dépenses'>
+			<div className='space-y-4'>
+				<GraphiqueTimeframe
+					timeframe={timeframe}
+					onTimeframeChange={setTimeframe}
+					onDateSelected={setSelectedDate}
+				/>
+				<AccountsSummary date={selectedDate} />
+				{/* <IAAdvice /> */}
+				{/* <SubscriptionsSection /> */}
+				<TransactionsSection />
+				<BudgetOverview />
+				<ChallengesSection />
+			</div>
+		</PageLayout>
+	);
 };
 
 export default CentralExpensesPage;

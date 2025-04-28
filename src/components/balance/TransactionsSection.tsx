@@ -1,98 +1,110 @@
 import { useGetTransactions } from '@/api/powens';
 import { TransactionType } from '@/types/transactionType';
-// src/components/balance/TransactionsSection.tsx
 import React, { useEffect, useState } from 'react';
+import { Card, CardContent } from '../ui/card';
+import { CalendarIcon } from 'lucide-react';
 
 const TransactionsSection: React.FC = () => {
-    const { data: transactions, error, isLoading } = useGetTransactions();
-    const [latestTransactions, setLatestTransactions] = useState<TransactionType[]>([]);
-    const [recurringTotal, setRecurringTotal] = useState<number>(0);
+	const { data: transactions, error, isLoading } = useGetTransactions();
+	const [latestTransactions, setLatestTransactions] = useState<TransactionType[]>([]);
 
-    // Helper that returns tx.date if available, otherwise falls back to tx.last_update
-    const parseTransactionDate = (tx: TransactionType): Date => {
-        // Use "date" property if available. Otherwise, use "last_update".
-        const dateValue = (tx as any).date || tx.last_update;
-        const parsed = new Date(String(dateValue));
-        if (isNaN(parsed.getTime())) {
-            return new Date();
-        }
-        return parsed;
-    };
+	const parseTransactionDate = (tx: TransactionType): Date => {
+		const dateValue = (tx as any).date || tx.last_update;
+		const parsed = new Date(String(dateValue));
+		return isNaN(parsed.getTime()) ? new Date() : parsed;
+	};
 
-    useEffect(() => {
-        if (transactions) {
-            // Sort transactions by the date returned by our helper in descending order.
-            const sorted = [...transactions].sort((a, b) => {
-                const timeA = parseTransactionDate(a).getTime();
-                const timeB = parseTransactionDate(b).getTime();
-                return timeB - timeA;
-            });
-            const latestFive = sorted.slice(0, 5);
-            setLatestTransactions(latestFive);
+	useEffect(() => {
+		if (transactions) {
+			const sorted = [...transactions].sort((a, b) => {
+				return parseTransactionDate(b).getTime() - parseTransactionDate(a).getTime();
+			});
+			setLatestTransactions(sorted.slice(0, 5));
+		}
+	}, [transactions]);
 
-            // Special logic for recurring payments:
-            // We assume that recurring transactions have wording that includes "abonnement".
-            const recurring = transactions.filter((tx) => {
-                return tx.wording && typeof tx.wording === 'string' && tx.wording.toLowerCase().includes('abonnement');
-            });
-            const totalRecurring = recurring.reduce((acc: number, tx: TransactionType) => {
-                const value = Number(tx.value);
-                return acc + (isNaN(value) ? 0 : value);
-            }, 0);
-            setRecurringTotal(totalRecurring);
-        }
-    }, [transactions]);
+	if (isLoading) {
+		return (
+			<Card className="rounded-xl">
+				<CardContent className="p-6">
+					<div className="w-full h-64 bg-gray-800 animate-pulse rounded-xl"></div>
+				</CardContent>
+			</Card>
+		);
+	}
 
-    if (isLoading) {
-        return <p>Chargement des transactions...</p>;
-    }
-    if (error) {
-        return <p>Erreur lors du chargement des transactions.</p>;
-    }
+	if (error) {
+		return (
+			<Card className="rounded-xl">
+				<CardContent className="p-6">
+					<div className="p-4 text-sm text-center text-red-400 bg-red-900/30 rounded-xl">
+						Impossible de charger vos transactions
+					</div>
+				</CardContent>
+			</Card>
+		);
+	}
 
-    const totalLatest = latestTransactions.reduce((acc, tx) => {
-        const value = Number(tx.value);
-        return acc + (isNaN(value) ? 0 : value);
-    }, 0);
+	const totalLatest = latestTransactions.reduce((acc, tx) => {
+		return acc + (isNaN(Number(tx.value)) ? 0 : Number(tx.value));
+	}, 0);
 
-    return (
-        <div className='p-4 my-4 rounded shadow'>
-            <h2 className='mb-4 text-xl font-bold'>Dernières transactions</h2>
-            {latestTransactions.length > 0 ? (
-                <>
-                    <ul className='divide-y divide-gray-300'>
-                        {latestTransactions.map((tx) => {
-                            const displayDate = parseTransactionDate(tx).toLocaleDateString('fr-FR');
-                            return (
-                                <li key={tx.id} className='flex justify-between py-2'>
-                                    <span className='text-sm'>
-                                        {displayDate} - {tx.wording}
-                                    </span>
-                                    <span className='font-bold'>
-                                        {Number(tx.value).toLocaleString('fr-FR', {
-                                            style: 'currency',
-                                            currency: 'EUR',
-                                        })}
-                                    </span>
-                                </li>
-                            );
-                        })}
-                    </ul>
-                    <div className='pt-4 mt-4 border-t'>
-                        <p className='text-lg font-bold'>
-                            Total des 5 derniers paiements :{' '}
-                            {totalLatest.toLocaleString('fr-FR', {
-                                style: 'currency',
-                                currency: 'EUR',
-                            })}
-                        </p>
-                    </div>
-                </>
-            ) : (
-                <p>Aucune transaction récente.</p>
-            )}
-        </div>
-    );
+	return (
+		<Card className="rounded-xl">
+			<CardContent className="p-6">
+				<h2 className="mb-4 text-xl font-bold text-white">Dernières transactions</h2>
+
+				{latestTransactions.length > 0 ? (
+					<>
+						<div className="space-y-3">
+							{latestTransactions.map((tx) => {
+								const displayDate = parseTransactionDate(tx).toLocaleDateString('fr-FR');
+								const value = Number(tx.value);
+
+								return (
+									<div key={tx.id} className="p-4 bg-gray-800 rounded-xl">
+										<div className="flex flex-col w-full">
+											<div className="flex items-start justify-between mb-2">
+												<span className="font-medium text-white truncate">
+													{tx.wording}
+												</span>
+												<span className="ml-2 font-bold text-red-500">
+													{value.toLocaleString('fr-FR', {
+														style: 'currency',
+														currency: 'EUR',
+													})}
+												</span>
+											</div>
+											<div className="flex items-center text-sm text-gray-400">
+												<CalendarIcon size={14} className="mr-2" />
+												<span>{displayDate}</span>
+											</div>
+										</div>
+									</div>
+								);
+							})}
+						</div>
+
+						<div className="pt-4 mt-6 border-t border-gray-700">
+							<div className="flex items-center justify-between">
+								<span className="text-gray-400">Total récent</span>
+								<span className="text-xl font-bold text-white">
+									{totalLatest.toLocaleString('fr-FR', {
+										style: 'currency',
+										currency: 'EUR',
+									})}
+								</span>
+							</div>
+						</div>
+					</>
+				) : (
+					<div className="py-8 text-center text-gray-400">
+						Aucune transaction récente
+					</div>
+				)}
+			</CardContent>
+		</Card>
+	);
 };
 
 export default TransactionsSection;
