@@ -8,9 +8,7 @@ interface TitleHeadingProps {
 }
 
 const TitleHeading = ({ title, onBack }: TitleHeadingProps) => {
-    const headerClass = onBack
-        ? 'flex items-center w-full h-12 gap-x-3 bg-white'
-        : 'flex items-center w-full h-12 px-4 gap-x-3 bg-white';
+    const headerClass = onBack ? 'flex items-center w-full h-12 gap-x-3' : 'flex items-center w-full h-12 px-4 gap-x-3';
 
     return (
         <header className={headerClass}>
@@ -23,7 +21,7 @@ const TitleHeading = ({ title, onBack }: TitleHeadingProps) => {
                     <ArrowLeftIcon className='w-6 h-6 text-gray-700' />
                 </button>
             )}
-            <h1 className='text-lg font-semibold text-gray-800'>{title}</h1>
+            <h1 className='text-lg font-semibold text-white'>{title}</h1>
         </header>
     );
 };

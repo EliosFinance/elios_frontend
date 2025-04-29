@@ -11,7 +11,7 @@ const GetPremium: React.FC<GetPremiumProps> = ({ onTopUpClick }) => {
     return (
         <Card
             onClick={onTopUpClick}
-            className='w-full p-3 bg-transparent border border-gray-300 cursor-pointer rounded-xl'
+            className='w-full p-3 bg-transparent border cursor-pointer border-primary-500 rounded-xl'
         >
             <div className='flex items-center'>
                 <div className='relative mr-3'>

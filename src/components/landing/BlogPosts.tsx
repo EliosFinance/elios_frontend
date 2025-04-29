@@ -1,5 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
+import { CarouselApp, CarouselAppContent, CarouselAppItem } from '@/components/ui/carousel-app';
 import { format } from 'date-fns';
 import { fr } from 'date-fns/locale';
 import { motion } from 'framer-motion';
@@ -32,6 +32,22 @@ const BlogPosts = () => {
             imageUrl:
                 'https://images.unsplash.com/photo-1732254721629-bf8275f694e6?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwxNHx8fGVufDB8fHx8fA%3D%3D',
         },
+        {
+            id: '2',
+            title: "Comment la banque centrale joue un rôle majeur dans l'économie",
+            author: 'Louis P.',
+            publishedAt: new Date(),
+            imageUrl:
+                'https://images.unsplash.com/photo-1732254721629-bf8275f694e6?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwxNHx8fGVufDB8fHx8fA%3D%3D',
+        },
+        {
+            id: '4',
+            title: "Comment la banque centrale joue un rôle majeur dans l'économie",
+            author: 'Louis P.',
+            publishedAt: new Date(),
+            imageUrl:
+                'https://images.unsplash.com/photo-1732254721629-bf8275f694e6?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwxNHx8fGVufDB8fHx8fA%3D%3D',
+        },
     ];
 
     const handleBlogClick = (blogId: string) => {
@@ -39,19 +55,17 @@ const BlogPosts = () => {
     };
 
     return (
-        <Carousel
+        <CarouselApp
             opts={{
-                align: 'start',
                 loop: true,
+                dragFree: false, // Pour le "clipsage"
+                align: 'center',
             }}
             className='w-full'
         >
-            <CarouselContent className='-ml-2 md:-ml-4'>
+            <CarouselAppContent>
                 {blogPosts.map((post, index) => (
-                    <CarouselItem
-                        key={post.id}
-                        className='pl-2 md:pl-4 basis-full md:basis-1/2' // Shows 2 cards per screen on md+ screens
-                    >
+                    <CarouselAppItem key={post.id}>
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
@@ -80,12 +94,10 @@ const BlogPosts = () => {
                                 </CardContent>
                             </Card>
                         </motion.div>
-                    </CarouselItem>
+                    </CarouselAppItem>
                 ))}
-            </CarouselContent>
-            <CarouselPrevious className='hidden md:flex' />
-            <CarouselNext className='hidden md:flex' />
-        </Carousel>
+            </CarouselAppContent>
+        </CarouselApp>
     );
 };
 

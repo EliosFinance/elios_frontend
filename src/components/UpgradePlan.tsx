@@ -17,14 +17,14 @@ const Subscription = () => {
     ];
 
     return (
-        <div className='flex flex-col items-center w-full'>
+        <div className='flex flex-col items-center w-full bg-[#181823]'>
             <section className='w-full px-6 mt-6'>
                 {/* Banner with floating image and title */}
                 <Card className='relative mb-6 overflow-hidden border-none shadow-none'>
                     <CardHeader className='relative h-60'>
                         <img src={B4} alt='Premium' className='absolute inset-0 object-cover transform scale-110' />
-                        <div className='absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-white' />
-                        <CardTitle className='absolute text-4xl font-bold text-black transform -translate-x-1/2 bottom-4 left-1/2'>
+                        <div className='absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#171723]' />
+                        <CardTitle className='absolute text-4xl font-bold text-white transform -translate-x-1/2 bottom-4 left-1/2'>
                             Abonnement
                         </CardTitle>
                     </CardHeader>
@@ -36,7 +36,7 @@ const Subscription = () => {
                         <CardTitle className='mb-4 text-xl font-semibold'>Qu'est-ce que ça change ?</CardTitle>
                         <ul className='list-disc list-inside space-y-2'>
                             {improvements.map((item, index) => (
-                                <li key={index} className='text-sm text-gray-700'>
+                                <li key={index} className='text-sm text-gray-200'>
                                     {item}
                                 </li>
                             ))}
@@ -47,7 +47,7 @@ const Subscription = () => {
                 {/* Plan Selection */}
                 <div className='space-y-4'>
                     <Card
-                        className={`cursor-pointer ${selectedPlan === 'annual' ? 'border-2 border-blue-500 bg-blue-50' : 'bg-white'}`}
+                        className={`cursor-pointer ${selectedPlan === 'annual' ? 'border-2 border-primary-500 bg-[#171723]' : 'bg-[#181823]'}`}
                         onClick={() => setSelectedPlan('annual')}
                     >
                         <CardContent className='flex items-center justify-between'>
@@ -57,22 +57,22 @@ const Subscription = () => {
                                     name='plan'
                                     readOnly
                                     checked={selectedPlan === 'annual'}
-                                    className='accent-blue-500'
+                                    className='accent-primary-500'
                                 />
                                 <div>
                                     <span className='font-bold'>Annuel</span>
-                                    <p className='text-sm text-gray-500'>Economisez 20%</p>
+                                    <p className='text-sm text-gray-200'>Economisez 20%</p>
                                 </div>
                             </div>
                             <div className='text-right'>
                                 <span className='text-lg font-bold'>47,99€</span>
-                                <p className='text-sm text-gray-500'>/an</p>
+                                <p className='text-sm text-gray-200'>/an</p>
                             </div>
                         </CardContent>
                     </Card>
 
                     <Card
-                        className={`cursor-pointer ${selectedPlan === 'monthly' ? 'border-2 border-blue-500 bg-blue-50' : 'bg-white'}`}
+                        className={`cursor-pointer ${selectedPlan === 'monthly' ? 'border-2 border-primary-500 bg-[#171723]' : 'bg-[#181823]'}`}
                         onClick={() => setSelectedPlan('monthly')}
                     >
                         <CardContent className='flex items-center justify-between'>
@@ -82,7 +82,7 @@ const Subscription = () => {
                                     name='plan'
                                     readOnly
                                     checked={selectedPlan === 'monthly'}
-                                    className='accent-blue-500'
+                                    className='accent-primary-500'
                                 />
                                 <div>
                                     <span className='font-bold'>Mensuel</span>
@@ -90,7 +90,7 @@ const Subscription = () => {
                             </div>
                             <div className='text-right'>
                                 <span className='text-lg font-bold'>4,99€</span>
-                                <p className='text-sm text-gray-500'>/mois</p>
+                                <p className='text-sm text-gray-200'>/mois</p>
                             </div>
                         </CardContent>
                     </Card>

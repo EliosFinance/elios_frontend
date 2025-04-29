@@ -1,5 +1,6 @@
 import { getSingleConnector, getWebViewUrl } from '@/api';
 import ButtonApp from '@/components/ButtonApp';
+import { Button } from '@/components/ui/button';
 import { ConnectorType } from '@/types/connectionType';
 import { CheckCircleIcon } from '@heroicons/react/24/outline';
 import { useEffect, useState } from 'react';
@@ -47,18 +48,18 @@ const DisplaySingleConnector = () => {
 
                     <div className='flex flex-col items-center justify-center w-4/5 gap-2'>
                         {connector.account_types?.map((p) => (
-                            <div key={p} className='flex items-center justify-between w-full border-solid'>
+                            <div key={p} className='flex items-center justify-between w-full border-gray-300'>
                                 <p>{p}</p>
-                                <CheckCircleIcon className='w-5 h-5 text-white fill-green-400' />
+                                <CheckCircleIcon className='w-5 h-5 font-semibold text-white fill-green-400' />
                             </div>
                         ))}
                     </div>
                 </div>
             )}
 
-            <ButtonApp size='large' onClick={() => setStartConnection(true)} sx='!bg-blue-500 !text-white'>
-                conekt ton kont zé partiiii
-            </ButtonApp>
+            <Button size='lg' onClick={() => setStartConnection(true)}>
+                Connecter un compte
+            </Button>
         </div>
     );
 };

@@ -1,5 +1,5 @@
 import { Card, CardContent } from '@/components/ui/card';
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
+import { CarouselApp, CarouselAppContent, CarouselAppItem } from '@/components/ui/carousel-app';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 
@@ -48,22 +48,23 @@ const Friends = () => {
     };
 
     return (
-        <Carousel
+        <CarouselApp
             opts={{
-                align: 'start',
                 loop: true,
+                dragFree: false,
+                align: 'center',
             }}
             className='w-full'
         >
-            <CarouselContent className='-ml-2 md:-ml-4'>
+            <CarouselAppContent>
                 {friends.map((friend, index) => (
-                    <CarouselItem key={friend.id} className='pl-2 md:pl-4 md:basis-1/2 lg:basis-1/3'>
+                    <CarouselAppItem key={friend.id}>
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.3, delay: index * 0.1 }}
                             onClick={() => handleFriendClick(friend.id)}
-                            className='cursor-pointer transform transition-transform hover:scale-105'
+                            className='w-full cursor-pointer transition-transform transform hover:scale-105'
                         >
                             <Card className='overflow-hidden'>
                                 <CardContent className='p-0'>
@@ -81,12 +82,10 @@ const Friends = () => {
                                 </CardContent>
                             </Card>
                         </motion.div>
-                    </CarouselItem>
+                    </CarouselAppItem>
                 ))}
-            </CarouselContent>
-            <CarouselPrevious className='hidden md:flex' />
-            <CarouselNext className='hidden md:flex' />
-        </Carousel>
+            </CarouselAppContent>
+        </CarouselApp>
     );
 };
 

@@ -137,7 +137,7 @@ const Landing = () => {
             <Separator className='mt-20' />
 
             <Drawer open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
-                <DrawerContent className='z-[100000]'>
+                <DrawerContent className='z-[100000] bg-[#181823]'>
                     <DrawerHeader>
                         <DrawerTitle>Deviens Premium</DrawerTitle>
                         <DrawerClose className='absolute right-4 top-4'>

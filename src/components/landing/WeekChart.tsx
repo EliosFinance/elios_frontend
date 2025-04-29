@@ -54,7 +54,7 @@ const WeekChart = ({ className }: { className?: string }) => {
                     smooth: true,
                     // if line cross the data, set color to red, else set to green
                     lineStyle: {
-                        color: '#000',
+                        color: '#FFF',
                         width: 2,
                     },
                     areaStyle: {

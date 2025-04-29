@@ -52,7 +52,7 @@ const LayoutNavBar = () => {
     }, []);
 
     return (
-        <div className='w-full h-16 flex items-center justify-between px-4 bg-gray-200 fixed bottom-0 left-0 z-[1000]'>
+        <div className='w-full h-14 flex items-center justify-between px-4 bg-[#202330] rounded-tl-2xl rounded-tr-2xl fixed bottom-0 left-0 z-[1000]'>
             {LinkComponent({
                 route: APP_ROUTES_ENUM.HOME,
                 icon: <HomeIcon className='object-cover object-center w-6 h-6' />,

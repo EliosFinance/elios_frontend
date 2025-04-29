@@ -152,7 +152,7 @@ const Article = () => {
     return (
         <>
             {currentArticle && <BlogNav article={currentArticle} currentCard={clickedCard || 0} />}
-            <div ref={ref} className='flex flex-col items-center justify-center w-full mb-10'>
+            <div ref={ref} className='flex flex-col items-center justify-center w-full mb-10 bg-background'>
                 <div className='w-[90%] flex justify-center items-center flex-col'>
                     <div
                         className='w-[100vw] h-[100vh] flex justify-center items-center flex-wrap snap-y snap-mandatory overflow-y-hidden scrollbars-hidden mt-4 px-4 mb-12'
