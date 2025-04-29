@@ -1,4 +1,4 @@
-import { login_api, logout_api, refresh_token_api, register_api } from '@/api';
+import { LoginType, login_api, logout_api, refresh_token_api, register_api } from '@/api';
 import { userStore } from '@/store/UserStore.ts';
 import { createContext, useContext, useEffect, useState } from 'react';
 
@@ -16,6 +16,7 @@ interface AuthContextType {
 }
 
 interface User {
+    id?: string;
     username?: string;
     token?: string;
     refresh_token?: string;
@@ -41,12 +42,7 @@ const AuthProvider = ({ children }) => {
 
     const authenticate = async (action: 'login' | 'register', username: string, password: string, email?: string) => {
         try {
-            let data: {
-                access_token: any;
-                refresh_token: any;
-                powens_token: any;
-                username?: string;
-            } | null = null;
+            let data: LoginType | null = null;
 
             if (action === 'login') {
                 data = await login_api(username, password);
@@ -60,6 +56,7 @@ const AuthProvider = ({ children }) => {
 
             if (data && data.access_token) {
                 updateUser({
+                    id: data.id,
                     username: data.username,
                     token: data.access_token,
                     refresh_token: data.refresh_token,

@@ -1,4 +1,4 @@
-import { Button } from '@/components/ui/Button';
+import { Button } from '../ui/button';
 
 interface RewardCardProps {
     title: string;

@@ -1,6 +1,9 @@
+import BlurItem from '@/components/BlurItem';
 import CardCarousel from '@/components/carousels/CardCarousel';
+import useLoggedUser from '@/hook/useLoggedUser';
 import APP_ROUTES_ENUM from '@/types/APP_ROUTES_ENUM';
 import { ArticleCategoryType, ArticleType, ArticleTypesEnum } from '@/types/BlogType';
+import { useEffect, useState } from 'react';
 
 type LearnArticleTabProps = {
     articles: ArticleType[];
@@ -12,22 +15,40 @@ type LearnArticleTabProps = {
 };
 
 const LearnArticleTab = (props: LearnArticleTabProps) => {
-    const SliderSection = (title: string, articles: ArticleType[], last: boolean) => {
+    const [isPremium, setIsPremium] = useState<boolean>(false);
+    const { getFullLoggedUser } = useLoggedUser();
+
+    const SliderSection = (title: string, articles: ArticleType[], premium: boolean, last: boolean) => {
         return (
             <div className='w-full flex justify-center items-start flex-col'>
                 <h2 className='text-2xl font-black px-6'>{title}</h2>
-                <div
-                    className={`w-full flex justify-between items-start flex-wrap gap-y-4 gap-x-4 ${last ? 'pb-24' : 'pb-8'}`}
+                <BlurItem
+                    locked={premium && !isPremium}
+                    onClick={() => alert('TODO: add action')}
+                    variant='premium'
+                    className='w-full'
                 >
-                    <CardCarousel
-                        slides={articles}
-                        options={{ loop: true, containScroll: false }}
-                        cardVariant={ArticleTypesEnum.SMALL_PREVIEW}
-                    />
-                </div>
+                    <div
+                        className={`w-full flex justify-between items-start flex-wrap gap-y-4 gap-x-4 ${last ? 'pb-24' : 'pb-8'}`}
+                    >
+                        <CardCarousel
+                            slides={articles}
+                            options={{ loop: true, containScroll: false }}
+                            cardVariant={ArticleTypesEnum.SMALL_PREVIEW}
+                        />
+                    </div>
+                </BlurItem>
             </div>
         );
     };
+
+    useEffect(() => {
+        const fetchUser = async () => {
+            const user = await getFullLoggedUser();
+            setIsPremium(user?.isPremium || false);
+        };
+        fetchUser();
+    }, []);
 
     return (
         <>
@@ -53,11 +74,11 @@ const LearnArticleTab = (props: LearnArticleTabProps) => {
                 </div>
             </div>
 
-            {SliderSection('Les plus populaires', props.trendingArticles, false)}
-            {SliderSection('Contenu premium', props.premiumArticles, false)}
-            {SliderSection('Recommandations', props.recommendedArticles, false)}
-            {SliderSection('Mes likes', props.likedArticles, false)}
-            {SliderSection('Laissez vous porter...', props.articles, true)}
+            {SliderSection('Les plus populaires', props.trendingArticles, false, false)}
+            {SliderSection('Contenu premium', props.premiumArticles, true, false)}
+            {SliderSection('Recommandations', props.recommendedArticles, false, false)}
+            {SliderSection('Mes likes', props.likedArticles, false, false)}
+            {SliderSection('Laissez vous porter...', props.articles, false, true)}
         </>
     );
 };

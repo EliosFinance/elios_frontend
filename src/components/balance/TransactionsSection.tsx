@@ -6,7 +6,7 @@ import React, { useEffect, useState } from 'react';
 const TransactionsSection: React.FC = () => {
     const { data: transactions, error, isLoading } = useGetTransactions();
     const [latestTransactions, setLatestTransactions] = useState<TransactionType[]>([]);
-    const [recurringTotal, setRecurringTotal] = useState<number>(0);
+    const [_recurringTotal, setRecurringTotal] = useState<number>(0);
 
     // Helper that returns tx.date if available, otherwise falls back to tx.last_update
     const parseTransactionDate = (tx: TransactionType): Date => {
@@ -56,7 +56,7 @@ const TransactionsSection: React.FC = () => {
     }, 0);
 
     return (
-        <div className='p-4 my-4 rounded shadow'>
+        <div className='w-full my-4 rounded shadow'>
             <h2 className='mb-4 text-xl font-bold'>Dernières transactions</h2>
             {latestTransactions.length > 0 ? (
                 <>

@@ -5,6 +5,7 @@ import { UseQueryResult, useQuery } from 'react-query';
 import { instance_back } from '../const';
 
 export type LoginType = {
+    id: string;
     access_token: string;
     refresh_token: string;
     username: string;
@@ -47,15 +48,15 @@ export const login_api = async (username: string, password: string): Promise<Log
 export const login_google = async (token: string) => {
     try {
         const response = await instance_back.post('auth/google', {
-            token
+            token,
         });
 
         return response.data;
     } catch (error) {
-        const err = error as AxiosError
-        console.error(err.message)
+        const err = error as AxiosError;
+        console.error(err.message);
     }
-}
+};
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const register_api = async (username: string, email: string, password: string): Promise<LoginType | null> => {

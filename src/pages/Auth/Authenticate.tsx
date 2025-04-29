@@ -115,6 +115,7 @@ const Authenticate: React.FC = () => {
                         const loginGoogle = await login_google(credentialResponse.credential);
                         if (!loginGoogle) return;
                         updateUser({
+                            id: loginGoogle.id,
                             username: loginGoogle.username,
                             token: loginGoogle.access_token,
                             refresh_token: loginGoogle.refresh_token,
