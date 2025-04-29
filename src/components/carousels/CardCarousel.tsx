@@ -1,8 +1,10 @@
 import { EmblaCarouselType, EmblaEventType, EmblaOptionsType } from 'embla-carousel';
 import useEmblaCarousel from 'embla-carousel-react';
-import React, { useCallback, useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import '@/css/carousels/carousel-x.css';
+import useLoggedUser from '@/hook/useLoggedUser';
 import { ArticleType, ArticleTypesEnum } from '@/types/BlogType';
+import BlurItem from '../BlurItem';
 import { Card } from '../Card';
 const TWEEN_FACTOR_BASE = 0.52;
 
@@ -20,6 +22,8 @@ const CardCarousel: React.FC<PropType> = (props) => {
     const [emblaRef, emblaApi] = useEmblaCarousel(options);
     const tweenFactor = useRef(0);
     const tweenNodes = useRef<HTMLElement[]>([]);
+    const [isPremium, setIsPremium] = useState<boolean>(false);
+    const { getFullLoggedUser } = useLoggedUser();
 
     const setTweenNodes = useCallback((emblaApi: EmblaCarouselType): void => {
         tweenNodes.current = emblaApi.slideNodes().map((slideNode) => {
@@ -85,22 +89,37 @@ const CardCarousel: React.FC<PropType> = (props) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [emblaApi, tweenScale]);
 
+    useEffect(() => {
+        const fetchUser = async () => {
+            const user = await getFullLoggedUser();
+            setIsPremium(user?.isPremium || false);
+        };
+        fetchUser();
+    }, []);
+
     return (
         <div className='embla'>
             <div className={`embla__viewport ${props.sx}`} ref={emblaRef}>
                 <div className='embla__container'>
                     {slides.map((project: ArticleType, index: number) => (
                         <div className='embla__slide' key={index}>
-                            <Card
-                                article={project}
-                                variant={props.cardVariant}
-                                classNames={['embla__slide__number']}
-                                key={index}
-                                cardToDisplay={project.id}
-                                userHasRead={() => {
-                                    return;
-                                }}
-                            />
+                            <BlurItem
+                                locked={project.isPremium && !isPremium}
+                                onClick={() => alert('TODO: add action')}
+                                variant='premium'
+                                className='w-full'
+                            >
+                                <Card
+                                    article={project}
+                                    variant={props.cardVariant}
+                                    classNames={['embla__slide__number']}
+                                    key={index}
+                                    cardToDisplay={project.id}
+                                    userHasRead={() => {
+                                        return;
+                                    }}
+                                />
+                            </BlurItem>
                         </div>
                     ))}
                 </div>

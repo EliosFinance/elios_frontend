@@ -81,8 +81,8 @@ const GraphiqueTimeframe: React.FC<GraphiqueTimeframeProps> = ({
     }, [xAxisData, seriesData, onDateSelected]);
 
     return (
-        <div>
-            <div className='flex justify-end space-x-4'>
+        <div className='w-full'>
+            <div className='w-full flex justify-end space-x-4'>
                 <button onClick={() => onTimeframeChange('day')} className='px-2 py-1 border rounded'>
                     Jour
                 </button>

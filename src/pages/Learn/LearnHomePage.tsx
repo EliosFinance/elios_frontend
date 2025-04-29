@@ -2,6 +2,7 @@ import { getAllQuizz, getArticleCategories, getArticles, getLikedArticles, getTr
 import InputApp from '@/components/InputApp';
 import CardCarousel from '@/components/carousels/CardCarousel';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { useLearnStore } from '@/store/LearnStore';
 import { QuizzType } from '@/temp/QuizzData';
 import { ArticleCategoryType, ArticleType, ArticleTypesEnum } from '@/types/BlogType';
 import { useEffect, useState } from 'react';
@@ -20,6 +21,7 @@ const LearnHomePage = () => {
     const [articlesCategories, setArticlesCategories] = useState<ArticleCategoryType[]>([]);
 
     const [quizz, setQuizz] = useState<QuizzType[]>([]);
+    const { panelSelected, setPanelSelected } = useLearnStore();
 
     useEffect(() => {
         if (search.length > 2 && articles.length > 0) {
@@ -36,8 +38,8 @@ const LearnHomePage = () => {
             if (articles.length === 0) {
                 const articles = await getArticles();
                 const trendingArticles = await getTrendingArticles();
-                // const premiumArticles =  await getPremiumArticles()
-                // const recommendedArticles =  await getRecommendedArticles()
+                // const premiumArticles =  await getPremiumArticles()  TODO: premium articles
+                // const recommendedArticles =  await getRecommendedArticles() TODO: recommended articles
                 const likedArticles = await getLikedArticles();
                 setArticles(articles);
                 setTrendingArticles(trendingArticles);
@@ -56,6 +58,13 @@ const LearnHomePage = () => {
         };
         loadDatas();
     }, []);
+
+    const handleClick = (target: string) => {
+        setPanelSelected(target);
+        setSearch('');
+        setIsUserTyping(false);
+        setFilteredSubjects([]);
+    };
 
     return (
         <div className='flex flex-col items-center justify-center w-full h-full gap-y-4'>
@@ -84,10 +93,14 @@ const LearnHomePage = () => {
                     </div>
                 </div>
             ) : (
-                <Tabs defaultValue='quizz' className='w-full grid-cols-2'>
+                <Tabs value={panelSelected} className='w-full grid-cols-2'>
                     <TabsList className='w-full flex justify-center items-center gap-x-4 px-6 border-b-2 rounded-none'>
-                        <TabsTrigger value='articles'>Articles</TabsTrigger>
-                        <TabsTrigger value='quizz'>Quizz</TabsTrigger>
+                        <TabsTrigger value='articles' onClick={() => handleClick('articles')}>
+                            Articles
+                        </TabsTrigger>
+                        <TabsTrigger value='quizz' onClick={() => handleClick('quizz')}>
+                            Quizz
+                        </TabsTrigger>
                     </TabsList>
                     <TabsContent value='articles'>
                         <LearnArticleTab

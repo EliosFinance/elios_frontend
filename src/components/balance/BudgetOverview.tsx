@@ -25,7 +25,7 @@ const BudgetOverview: React.FC = () => {
     const remaining = budget - spending;
 
     return (
-        <Card className='my-4'>
+        <Card className='w-full my-4'>
             <CardHeader>
                 <CardTitle>Budget</CardTitle>
                 <CardDescription>Détails du budget mensuel</CardDescription>

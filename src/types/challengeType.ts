@@ -22,6 +22,9 @@ export type userType = {
     articles: ArticleType[];
     likedArticles: ArticleType[];
     challenges: challengeType[];
+
+    // TODO: add more fields
+    isPremium: boolean;
 };
 
 export type challengeType = {

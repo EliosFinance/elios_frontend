@@ -1,21 +1,22 @@
 import { useGetConnections } from '@/api';
-import AccountsSummary from '@/components/balance/AccountsSummary';
+import BlurItem from '@/components/BlurItem';
 import BudgetOverview from '@/components/balance/BudgetOverview';
 import ChallengesSection from '@/components/balance/ChallengesSection';
 import GraphiqueTimeframe from '@/components/balance/GraphiqueTimeframe';
-import IAAdvice from '@/components/balance/IAAdvice';
 import SubscriptionsSection from '@/components/balance/SubscriptionsSection';
 import TransactionsSection from '@/components/balance/TransactionsSection';
 import PageLayout from '@/layout/PageLayout';
+import APP_ROUTES_ENUM from '@/types/APP_ROUTES_ENUM';
 import { ConnectionType } from '@/types/connectionType';
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const CentralExpensesPage: React.FC = () => {
     const [timeframe, setTimeframe] = useState<'day' | 'week' | 'month'>('month');
     const [selectedDate, setSelectedDate] = useState<Date>(new Date());
-    const { data: connections, error, isLoading } = useGetConnections();
+    const { data: connections } = useGetConnections();
     const [total, setTotal] = useState<number>(0);
-
+    const navigate = useNavigate();
     useEffect(() => {
         if (connections) {
             const sum = connections.reduce((acc: number, connection: ConnectionType) => {
@@ -27,18 +28,27 @@ const CentralExpensesPage: React.FC = () => {
 
     return (
         <PageLayout title='Mes dépenses'>
-            <GraphiqueTimeframe
-                total={total}
-                timeframe={timeframe}
-                onTimeframeChange={setTimeframe}
-                onDateSelected={setSelectedDate}
-            />
-            {/* <AccountsSummary date={selectedDate} /> */}
-            {/* <IAAdvice /> */}
-            {/* <SubscriptionsSection /> */}
-            <BudgetOverview />
-            <TransactionsSection />
-            <ChallengesSection />
+            <BlurItem
+                locked={!connections?.length}
+                onClick={() => navigate(APP_ROUTES_ENUM.CONNECT_BANK_ACCOUNT)}
+                variant='connectAccount'
+                className='w-full min-h-[300px]'
+            >
+                <div className='flex items-center flex-col justify-between w-full gap-8'>
+                    <GraphiqueTimeframe
+                        total={total}
+                        timeframe={timeframe}
+                        onTimeframeChange={setTimeframe}
+                        onDateSelected={setSelectedDate}
+                    />
+                    {/* <AccountsSummary date={selectedDate} /> */}
+                    {/* <IAAdvice /> */}
+                    <SubscriptionsSection />
+                    <BudgetOverview />
+                    <TransactionsSection />
+                    <ChallengesSection />
+                </div>
+            </BlurItem>
         </PageLayout>
     );
 };

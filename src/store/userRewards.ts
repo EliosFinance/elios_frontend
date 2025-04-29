@@ -14,7 +14,7 @@ type UserRewardsState = {
 export const useUserRewards = create<UserRewardsState>()(
     persist(
         (set, get) => ({
-            unClaimedRewards: 0,
+            unClaimedRewards: 1,
             claimedRewards: 0,
             setUnClaimedRewards: (unClaimedRewards) => set({ unClaimedRewards }),
             setClaimedRewards: (claimedRewards) => set({ claimedRewards }),

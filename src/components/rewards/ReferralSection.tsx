@@ -34,8 +34,8 @@ const ReferralSection = ({ onCopy }: ReferralSectionProps) => {
 
     return (
         <>
-            <div className='flex items-center flex-col justify-between p-4 mb-4 bg-gray-100 rounded-lg'>
-                <div className={styles.inputAppContainer} onClick={handleCopy}>
+            <div className='flex items-center flex-col justify-center p-4 mb-4 bg-[--neutral-700] rounded-lg'>
+                <div className={'w-full h-full relative'} onClick={handleCopy}>
                     <input className={styles.input} type={'text'} value={'elios.me/username-id'} readOnly />
                     <span className={styles.endIcon}>
                         {coolDownOn ? (
@@ -48,7 +48,7 @@ const ReferralSection = ({ onCopy }: ReferralSectionProps) => {
                 <ButtonApp
                     bold
                     onClick={() => alert('TODO: share with friends (see w/melissa)')}
-                    sx='!rounded-xl bg-primary-500 text-white'
+                    sx='!rounded-xl bg-primary-500 text-white :'
                 >
                     Partager
                 </ButtonApp>
@@ -59,10 +59,6 @@ const ReferralSection = ({ onCopy }: ReferralSectionProps) => {
 
 export default ReferralSection;
 const useStyles = createUseStyles({
-    inputAppContainer: {
-        position: 'relative',
-        width: '100%',
-    },
     input: {
         width: '100%',
         padding: '10px',

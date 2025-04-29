@@ -1,4 +1,4 @@
-import { getTrendingArticles, getUser } from '@/api';
+import { getTrendingArticles, useGetConnections } from '@/api';
 import BlurItem from '@/components/BlurItem';
 import GetPremium from '@/components/GetPremium';
 import Subscription from '@/components/UpgradePlan';
@@ -12,6 +12,7 @@ import { Button } from '@/components/ui/button';
 import { Drawer, DrawerClose, DrawerContent, DrawerHeader, DrawerTitle } from '@/components/ui/drawer';
 import { Separator } from '@/components/ui/separator';
 import { useAuth } from '@/context/AuthProvider';
+import useLoggedUser from '@/hook/useLoggedUser';
 import APP_ROUTES_ENUM from '@/types/APP_ROUTES_ENUM';
 import { ArticleType, ArticleTypesEnum } from '@/types/BlogType';
 import { FriendsType } from '@/types/UserType';
@@ -25,6 +26,7 @@ const Landing = () => {
     const [friends, setFriends] = useState<FriendsType[]>([]);
     const [articles, setArticles] = useState<ArticleType[]>([]);
     const { user } = useAuth();
+    const { data: connections } = useGetConnections();
 
     useEffect(() => {
         const fetchUser = async () => {
@@ -34,10 +36,9 @@ const Landing = () => {
             }
 
             if (friends.length === 0) {
-                const userId = user?.id;
-                if (!userId) return;
-                const fullUser = await getUser();
-                setFriends(fullUser?.friends || []);
+                // const fullUser = await getFullLoggedUser();
+                // setFriends(fullUser?.friends || []); TODO: Fix this when the backend is ready -> parse friends
+                setFriends([]);
             }
         };
         fetchUser();
@@ -53,7 +54,7 @@ const Landing = () => {
             </div>
 
             <BlurItem
-                locked={true}
+                locked={!connections?.length}
                 onClick={() => navigate(APP_ROUTES_ENUM.CONNECT_BANK_ACCOUNT)}
                 variant='connectAccount'
                 className='w-full min-h-[300px]'
@@ -74,7 +75,7 @@ const Landing = () => {
                     </Button>
                 </div>
                 <BlurItem
-                    locked={true}
+                    locked={!connections?.length}
                     onClick={() => navigate(APP_ROUTES_ENUM.SUBSCRIPTION)}
                     variant='connectAccount'
                     className='w-full h-auto'
@@ -101,7 +102,7 @@ const Landing = () => {
                     </Button>
                 </div>
                 <BlurItem
-                    locked={true}
+                    locked={!connections?.length}
                     onClick={() => navigate(APP_ROUTES_ENUM.FRIENDS)}
                     variant='addFriends'
                     className='w-full h-[250px]'

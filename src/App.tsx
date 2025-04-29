@@ -7,6 +7,8 @@ import { Pin } from 'lucide-react';
 import { Route, Routes } from 'react-router-dom';
 import AuthRoute from './components/AuthRoute.tsx';
 import PartnerChallenge from './components/PartnerChallenge.tsx';
+import AuthProvider from './context/AuthProvider.tsx';
+import TokenWatcherProvider from './context/TokenWatcherProvider.tsx';
 import Account from './pages/Account.tsx';
 import Authenticate from './pages/Auth/Authenticate.tsx';
 import FirstTimerView from './pages/Auth/FirstTimerView.tsx';
@@ -83,90 +85,95 @@ function App() {
     }
 
     return (
-        <GoogleOAuthProvider clientId={googleId}>
-            <div className='min-w-[100dvw] min-h-[100dvh] max-h-[100dvh] flex text-white'>
-                <Routes>
-                    <Route element={<AuthRoute />}>
-                        <Route element={<Layout />}>
-                            <Route path={APP_ROUTES_ENUM.HOME} element={<Landing />} />
-                            <Route path={APP_ROUTES_ENUM.BALANCE} element={<CentralExpensesPage />} />
-                            <Route path={APP_ROUTES_ENUM.PARTNERS} element={<Partners />} />
-                            <Route path={APP_ROUTES_ENUM.SUBSCRIPTION} element={<Subscription />} />
+        <AuthProvider>
+            <GoogleOAuthProvider clientId={googleId}>
+                <div className='min-w-[100dvw] min-h-[100dvh] max-h-[100dvh] flex text-white'>
+                    <Routes>
+                        <Route element={<AuthRoute />}>
+                            <Route element={<Layout />}>
+                                <Route path={APP_ROUTES_ENUM.HOME} element={<Landing />} />
+                                <Route path={APP_ROUTES_ENUM.BALANCE} element={<CentralExpensesPage />} />
+                                <Route path={APP_ROUTES_ENUM.PARTNERS} element={<Partners />} />
+                                <Route path={APP_ROUTES_ENUM.SUBSCRIPTION} element={<Subscription />} />
 
-                            {/* Learn */}
-                            <Route path={APP_ROUTES_ENUM.LEARN} element={<LearnHomePage />} />
-                            <Route path={`${APP_ROUTES_ENUM.ARTICLE}/:id`} element={<Article />} />
-                            <Route path={`${APP_ROUTES_ENUM.ARTICLE_CATEGORIES}`} element={<AllArticleCategories />} />
-                            <Route path={`${APP_ROUTES_ENUM.ARTICLE_CATEGORY}/:id`} element={<ArticleCategory />} />
-                            <Route path={`${APP_ROUTES_ENUM.QUIZZ}/:id`} element={<Quizz />} />
-                            {/* End Learn */}
+                                {/* Learn */}
+                                <Route path={APP_ROUTES_ENUM.LEARN} element={<LearnHomePage />} />
+                                <Route path={`${APP_ROUTES_ENUM.ARTICLE}/:id`} element={<Article />} />
+                                <Route
+                                    path={`${APP_ROUTES_ENUM.ARTICLE_CATEGORIES}`}
+                                    element={<AllArticleCategories />}
+                                />
+                                <Route path={`${APP_ROUTES_ENUM.ARTICLE_CATEGORY}/:id`} element={<ArticleCategory />} />
+                                <Route path={`${APP_ROUTES_ENUM.QUIZZ}/:id`} element={<Quizz />} />
+                                {/* End Learn */}
 
-                            <Route path={APP_ROUTES_ENUM.ACCOUNT} element={<Account />} />
-                            <Route path={APP_ROUTES_ENUM.REWARDS} element={<Rewards />} />
-                            <Route path={APP_ROUTES_ENUM.CHALLENGE} element={<Challenge />} />
-                            <Route path={`${APP_ROUTES_ENUM.CHALLENGE}/:id`} element={<SingleChallenge />} />
-                            <Route path={APP_ROUTES_ENUM.FRIENDS} element={<Friends />} />
-                            <Route path={`${APP_ROUTES_ENUM.FRIENDS}/:id`} element={<SingleFriend />} />
-                            <Route path={APP_ROUTES_ENUM.CONNECT_BANK_ACCOUNT} element={<ConnectBankAccount />} />
-                            <Route
-                                path={`${APP_ROUTES_ENUM.DISPLAY_SINGLE_CONNECTOR}/:uuid`}
-                                element={<DisplaySingleConnector />}
-                            />
+                                <Route path={APP_ROUTES_ENUM.ACCOUNT} element={<Account />} />
+                                <Route path={APP_ROUTES_ENUM.REWARDS} element={<Rewards />} />
+                                <Route path={APP_ROUTES_ENUM.CHALLENGE} element={<Challenge />} />
+                                <Route path={`${APP_ROUTES_ENUM.CHALLENGE}/:id`} element={<SingleChallenge />} />
+                                <Route path={APP_ROUTES_ENUM.FRIENDS} element={<Friends />} />
+                                <Route path={`${APP_ROUTES_ENUM.FRIENDS}/:id`} element={<SingleFriend />} />
+                                <Route path={APP_ROUTES_ENUM.CONNECT_BANK_ACCOUNT} element={<ConnectBankAccount />} />
+                                <Route
+                                    path={`${APP_ROUTES_ENUM.DISPLAY_SINGLE_CONNECTOR}/:uuid`}
+                                    element={<DisplaySingleConnector />}
+                                />
 
-                            {/* Settings */}
-                            <Route path={APP_ROUTES_ENUM.SETTINGS} element={<SettingsHome />} />
-                            <Route path={APP_ROUTES_ENUM.SETTINGS_PROFILE} element={<MyProfile />} />
-                            <Route path={APP_ROUTES_ENUM.SETTINGS_BANK_ACCOUNTS} element={<MyBankAccounts />} />
-                            <Route path={APP_ROUTES_ENUM.SETTINGS_SUBSCRIPTIONS} element={<MySubscription />} />
-                            <Route path={APP_ROUTES_ENUM.SETTINGS_REWARDS} element={<MyRewards />} />
-                            <Route path={APP_ROUTES_ENUM.SETTINGS_REFERRALS} element={<MyReferrals />} />
-                            <Route path={APP_ROUTES_ENUM.SETTINGS_NOTIFICATIONS} element={<MyNotifications />} />
-                            <Route path={APP_ROUTES_ENUM.SETTINGS_ACCESS_CODES} element={<MyAccessCodes />} />
-                            <Route path={APP_ROUTES_ENUM.SETTINGS_2FA} element={<TwoFactorAuthentication />} />
-                            <Route
-                                path={APP_ROUTES_ENUM.SETTINGS_DEVICES_MANAGEMENT}
-                                element={<MyDeviceManagement />}
-                            />
-                            <Route
-                                path={APP_ROUTES_ENUM.SETTINGS_FOLLOW_OUR_SOCIAL_NETWORKS}
-                                element={<FollowOurSocialNetworks />}
-                            />
-                            <Route path={APP_ROUTES_ENUM.SETTINGS_FAQ} element={<FAQ />} />
-                            <Route path={APP_ROUTES_ENUM.SETTINGS_CONTACT_US} element={<ContactUs />} />
-                            <Route path={APP_ROUTES_ENUM.SETTINGS_OUR_HISTORY} element={<OurHistory />} />
-                            <Route path={APP_ROUTES_ENUM.SETTINGS_OUR_TEAM} element={<OurTeam />} />
-                            <Route path={APP_ROUTES_ENUM.SETTINGS_OUR_PARTNERS} element={<OurPartners />} />
-                            <Route path={APP_ROUTES_ENUM.SETTINGS_LEGAL_MENTIONS} element={<LegalMentions />} />
-                            <Route path={APP_ROUTES_ENUM.SETTINGS_PRIVACY_POLICY} element={<PrivacyPolicy />} />
-                            <Route path={APP_ROUTES_ENUM.SETTINGS_CHANGE_LOG} element={<ChangeLog />} />
-                            <Route path={APP_ROUTES_ENUM.SETTINGS_TERMS_OF_USE} element={<TermsOfUse />} />
-                            {/* End Settings */}
+                                {/* Settings */}
+                                <Route path={APP_ROUTES_ENUM.SETTINGS} element={<SettingsHome />} />
+                                <Route path={APP_ROUTES_ENUM.SETTINGS_PROFILE} element={<MyProfile />} />
+                                <Route path={APP_ROUTES_ENUM.SETTINGS_BANK_ACCOUNTS} element={<MyBankAccounts />} />
+                                <Route path={APP_ROUTES_ENUM.SETTINGS_SUBSCRIPTIONS} element={<MySubscription />} />
+                                <Route path={APP_ROUTES_ENUM.SETTINGS_REWARDS} element={<MyRewards />} />
+                                <Route path={APP_ROUTES_ENUM.SETTINGS_REFERRALS} element={<MyReferrals />} />
+                                <Route path={APP_ROUTES_ENUM.SETTINGS_NOTIFICATIONS} element={<MyNotifications />} />
+                                <Route path={APP_ROUTES_ENUM.SETTINGS_ACCESS_CODES} element={<MyAccessCodes />} />
+                                <Route path={APP_ROUTES_ENUM.SETTINGS_2FA} element={<TwoFactorAuthentication />} />
+                                <Route
+                                    path={APP_ROUTES_ENUM.SETTINGS_DEVICES_MANAGEMENT}
+                                    element={<MyDeviceManagement />}
+                                />
+                                <Route
+                                    path={APP_ROUTES_ENUM.SETTINGS_FOLLOW_OUR_SOCIAL_NETWORKS}
+                                    element={<FollowOurSocialNetworks />}
+                                />
+                                <Route path={APP_ROUTES_ENUM.SETTINGS_FAQ} element={<FAQ />} />
+                                <Route path={APP_ROUTES_ENUM.SETTINGS_CONTACT_US} element={<ContactUs />} />
+                                <Route path={APP_ROUTES_ENUM.SETTINGS_OUR_HISTORY} element={<OurHistory />} />
+                                <Route path={APP_ROUTES_ENUM.SETTINGS_OUR_TEAM} element={<OurTeam />} />
+                                <Route path={APP_ROUTES_ENUM.SETTINGS_OUR_PARTNERS} element={<OurPartners />} />
+                                <Route path={APP_ROUTES_ENUM.SETTINGS_LEGAL_MENTIONS} element={<LegalMentions />} />
+                                <Route path={APP_ROUTES_ENUM.SETTINGS_PRIVACY_POLICY} element={<PrivacyPolicy />} />
+                                <Route path={APP_ROUTES_ENUM.SETTINGS_CHANGE_LOG} element={<ChangeLog />} />
+                                <Route path={APP_ROUTES_ENUM.SETTINGS_TERMS_OF_USE} element={<TermsOfUse />} />
+                                {/* End Settings */}
+                            </Route>
                         </Route>
-                    </Route>
 
-                    <Route element={<PublicRoute />}>
-                        <Route
-                            path={`${APP_ROUTES_ENUM.TEST}`}
-                            element={<PartnerChallenge challenge={challengeData} />}
-                        />
-                        {/* Login */}
-                        <Route path={APP_ROUTES_ENUM.REGISTER} element={<Authenticate />} />
-                        <Route path={APP_ROUTES_ENUM.VERIFY_EMAIL} element={<EmailVerification />} />
-                        <Route path={APP_ROUTES_ENUM.CREATE_USERNAME} element={<CreateUsername />} />
-                        <Route path={APP_ROUTES_ENUM.CREATE_PASSWORD} element={<CreatePassword />} />
-                        <Route path={APP_ROUTES_ENUM.CONFIRM_PASSWORD} element={<ConfirmPassword />} />
-                        <Route path={APP_ROUTES_ENUM.CREATE_PIN} element={<PINCodeScreen />} />
-                        <Route path={APP_ROUTES_ENUM.CONFIRM_PIN} element={<ConfirmPIN />} />
-                        <Route path={APP_ROUTES_ENUM.TERMS} element={<TermsAndConditions />} />
-                        <Route path={APP_ROUTES_ENUM.PIN} element={<Pin />} />
-                        {/* End Login */}
+                        <Route element={<PublicRoute />}>
+                            <Route
+                                path={`${APP_ROUTES_ENUM.TEST}`}
+                                element={<PartnerChallenge challenge={challengeData} />}
+                            />
+                            {/* Login */}
+                            <Route path={APP_ROUTES_ENUM.REGISTER} element={<Authenticate />} />
+                            <Route path={APP_ROUTES_ENUM.VERIFY_EMAIL} element={<EmailVerification />} />
+                            <Route path={APP_ROUTES_ENUM.CREATE_USERNAME} element={<CreateUsername />} />
+                            <Route path={APP_ROUTES_ENUM.CREATE_PASSWORD} element={<CreatePassword />} />
+                            <Route path={APP_ROUTES_ENUM.CONFIRM_PASSWORD} element={<ConfirmPassword />} />
+                            <Route path={APP_ROUTES_ENUM.CREATE_PIN} element={<PINCodeScreen />} />
+                            <Route path={APP_ROUTES_ENUM.CONFIRM_PIN} element={<ConfirmPIN />} />
+                            <Route path={APP_ROUTES_ENUM.TERMS} element={<TermsAndConditions />} />
+                            <Route path={APP_ROUTES_ENUM.PIN} element={<Pin />} />
+                            {/* End Login */}
 
-                        <Route path={'*'} element={<FirstTimerView />} />
-                        <Route path={APP_ROUTES_ENUM.LOGIN} element={<Authenticate />} />
-                    </Route>
-                </Routes>
-            </div>
-        </GoogleOAuthProvider>
+                            <Route path={'*'} element={<FirstTimerView />} />
+                            <Route path={APP_ROUTES_ENUM.LOGIN} element={<Authenticate />} />
+                        </Route>
+                    </Routes>
+                </div>
+            </GoogleOAuthProvider>
+        </AuthProvider>
     );
 }
 
