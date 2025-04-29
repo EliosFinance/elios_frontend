@@ -54,7 +54,7 @@ const BlogNav = (props: props) => {
             )}
             <div className='flex items-center justify-between w-full h-full gap-x-2'>
                 <a href={props?.backUrl || '#'} onClick={() => !props?.backUrl && window.history.back()}>
-                    <ArrowUturnLeftIcon className='w-6 h-6 tex-white' />
+                    <ArrowUturnLeftIcon className='w-6 h-6 text-white' />
                 </a>
                 {!props.disableActionButtons && (
                     <>
