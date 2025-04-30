@@ -13,3 +13,21 @@ export const fetchPartners = async () => {
         throw err;
     }
 };
+
+export const getUser = async () => {
+    try {
+        const headers = userStore.getState().getAuth();
+
+        const id = userStore.getState().user?.id;
+        if (!id) {
+            throw new Error('User ID is not available');
+        }
+
+        const response = await instance_back.get(`users/${id}`, { headers });
+        return response.data;
+    } catch (error) {
+        const err = error as AxiosError;
+        console.error('Erreur lors de la récupération des partenaires:', err.message);
+        throw err;
+    }
+};

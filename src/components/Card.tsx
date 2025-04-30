@@ -1,13 +1,13 @@
-import { getSingleArticle, likeArticle, readArticle, saveArticle, saveArticleContent } from '@/api';
+import { likeArticle, saveArticle, saveArticleContent } from '@/api';
 import { useAuth } from '@/context/AuthProvider';
-import useConfettis from '@/hook/useConfettis';
 import APP_ROUTES_ENUM from '@/types/APP_ROUTES_ENUM';
 import { ArticleContentType, ArticleType, ArticleTypesEnum, ContentTypesEnum } from '@/types/BlogType';
-import { CheckCircleIcon, XCircleIcon, XMarkIcon } from '@heroicons/react/24/outline';
+import { CheckCircleIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { forwardRef, useEffect, useRef, useState } from 'react';
 import { createUseStyles } from 'react-jss';
 import LikeButton from './LikeButton';
 import SaveButton from './SaveButton';
+import '@/css/App.css';
 
 type CardProps = {
     article: ArticleTypesEnum.SMALL_PREVIEW | ArticleTypesEnum.PREVIEW extends ArticleTypesEnum
@@ -244,7 +244,7 @@ export const useCardStyles = (coolDownTime: number) =>
         coolDown: {
             width: '100%',
             height: '100%',
-            backgroundColor: '#cccccc53',
+            backgroundColor: '#cccccc36',
             borderBottomLeftRadius: 'var(--border-radius-8)',
             borderBottomRightRadius: 'var(--border-radius-8)',
             position: 'absolute',
@@ -262,7 +262,8 @@ export const useCardStyles = (coolDownTime: number) =>
             borderRadius: 'var(--border-radius-8)',
             boxShadow: 'var(--elevation-4)',
             position: 'relative',
-            backgroundColor: '#eeeeee',
+            backgroundColor: 'var(--neutral-800)',
+            border: '1px solid var(--neutral-500)',
         },
         small_preview: {
             // backgroundColor: '#e4e4e4',

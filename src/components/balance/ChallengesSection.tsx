@@ -25,7 +25,7 @@ const ChallengesSection: React.FC = () => {
     }, []);
 
     return (
-        <div className='p-4 my-4 rounded shadow'>
+        <div className='w-full my-4 rounded shadow mb-12'>
             <h2 className='text-xl font-bold'>Défis</h2>
             <ul className='mt-2'>
                 {challenges.map((challenge) => (

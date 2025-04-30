@@ -156,7 +156,7 @@ const WidgetContainer = () => {
     });
 
     return (
-        <div className='w-full'>
+        <div className='w-full px-6'>
             <div className='flex items-center justify-between w-full'>
                 <h2 className='text-xl font-bold'>Custom widgets</h2>
                 <Button

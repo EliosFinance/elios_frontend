@@ -5,8 +5,9 @@ import { Card, CardContent } from '../ui/card';
 import { CalendarIcon } from 'lucide-react';
 
 const TransactionsSection: React.FC = () => {
-	const { data: transactions, error, isLoading } = useGetTransactions();
-	const [latestTransactions, setLatestTransactions] = useState<TransactionType[]>([]);
+    const { data: transactions, error, isLoading } = useGetTransactions();
+    const [latestTransactions, setLatestTransactions] = useState<TransactionType[]>([]);
+    const [_recurringTotal, setRecurringTotal] = useState<number>(0);
 
 	const parseTransactionDate = (tx: TransactionType): Date => {
 		const dateValue = (tx as any).date || tx.last_update;

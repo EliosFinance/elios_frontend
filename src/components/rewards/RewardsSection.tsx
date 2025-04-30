@@ -1,4 +1,4 @@
-// components/RewardsSection.tsx
+import { useUserRewards } from '@/store/userRewards';
 import { InformationCircleIcon } from '@heroicons/react/24/outline';
 import RewardCard from './RewardCard';
 
@@ -36,7 +36,7 @@ const RewardsSection = () => {
     ];
 
     return (
-        <>
+        <div className='mb-12'>
             <div className='flex items-center justify-between mb-2'>
                 <h3 className='text-lg font-bold'>
                     Récompenses <InformationCircleIcon className='inline w-4 h-4' />
@@ -52,7 +52,7 @@ const RewardsSection = () => {
                     imageUrl={reward.imageUrl}
                 />
             ))}
-        </>
+        </div>
     );
 };
 

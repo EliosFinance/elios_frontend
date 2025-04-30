@@ -3,6 +3,7 @@ import search_icon from '@/assets/images/icons/search_icon.png';
 import React from 'react';
 import { createUseStyles } from 'react-jss';
 import '@/css/index.css';
+import { BackspaceIcon, MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 
 type InputAppProps = {
     type?:
@@ -56,9 +57,9 @@ const InputApp = (props: InputAppProps) => {
             {props.endIcon && (
                 <span className={styles.endIcon}>
                     {props.value && props.value.length > 0 ? (
-                        <img src={remove_text_icon} alt='remove text icon' onClick={removeText} />
+                        <BackspaceIcon onClick={removeText} className='w-5 h-5 text-white cursor-pointer' />
                     ) : (
-                        <img src={search_icon} alt='search icon' />
+                        <MagnifyingGlassIcon className='w-5 h-5 text-white' />
                     )}
                 </span>
             )}
@@ -76,7 +77,8 @@ const useStyles = createUseStyles({
     input: {
         width: '100%',
         padding: '10px',
-        border: '1px solid #ccc',
+        border: '1px solid var(--neutral-500)',
+        backgroundColor: 'var(--neutral-800)',
         borderRadius: '5px',
         fontSize: '16px',
         margin: '10px 0',

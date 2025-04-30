@@ -7,9 +7,15 @@ export interface GraphiqueTimeframeProps {
     timeframe: 'day' | 'week' | 'month';
     onTimeframeChange: (newTimeframe: 'day' | 'week' | 'month') => void;
     onDateSelected: (date: Date) => void;
+    total: number;
 }
 
-const GraphiqueTimeframe: React.FC<GraphiqueTimeframeProps> = ({ timeframe, onTimeframeChange, onDateSelected }) => {
+const GraphiqueTimeframe: React.FC<GraphiqueTimeframeProps> = ({
+    timeframe,
+    onTimeframeChange,
+    onDateSelected,
+    total,
+}) => {
     const chartRef = useRef<HTMLDivElement | null>(null);
     const [xAxisData, setXAxisData] = useState<string[]>([]);
     const [seriesData, setSeriesData] = useState<number[]>([]);
@@ -75,8 +81,8 @@ const GraphiqueTimeframe: React.FC<GraphiqueTimeframeProps> = ({ timeframe, onTi
     }, [xAxisData, seriesData, onDateSelected]);
 
     return (
-        <div>
-            <div className='flex justify-end mb-2 space-x-4'>
+        <div className='w-full'>
+            <div className='w-full flex justify-end space-x-4'>
                 <button onClick={() => onTimeframeChange('day')} className='px-2 py-1 border rounded'>
                     Jour
                 </button>
@@ -87,6 +93,12 @@ const GraphiqueTimeframe: React.FC<GraphiqueTimeframeProps> = ({ timeframe, onTi
                     Mois
                 </button>
             </div>
+            <p className='text-2xl -mb-8 font-bold'>
+                {total.toLocaleString('fr-FR', {
+                    style: 'currency',
+                    currency: 'EUR',
+                })}
+            </p>
             <div ref={chartRef} style={{ width: '100%', height: '300px' }} />
         </div>
     );
