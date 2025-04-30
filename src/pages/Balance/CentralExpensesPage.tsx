@@ -34,7 +34,7 @@ const CentralExpensesPage: React.FC = () => {
                 variant='connectAccount'
                 className='w-full min-h-[300px]'
             >
-                <div className='flex items-center flex-col justify-between w-full gap-8'>
+                <div className='flex flex-col items-center justify-between w-full gap-8'>
                     <GraphiqueTimeframe
                         total={total}
                         timeframe={timeframe}
