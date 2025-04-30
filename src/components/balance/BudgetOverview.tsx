@@ -44,7 +44,7 @@ const BudgetOverview: React.FC = () => {
 	const dashOffset = circumference - (circumference * spendingPercentage) / 100;
 
 	return (
-		<Card className="rounded-xl">
+		<Card className="w-full rounded-xl">
 			<CardContent className="p-6">
 				<h2 className="mb-4 text-xl font-bold text-white">Budget mensuel</h2>
 

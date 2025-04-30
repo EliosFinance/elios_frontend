@@ -51,7 +51,7 @@ const TransactionsSection: React.FC = () => {
 	}, 0);
 
 	return (
-		<Card className="rounded-xl">
+		<Card className="w-full rounded-xl">
 			<CardContent className="p-6">
 				<h2 className="mb-4 text-xl font-bold text-white">Dernières transactions</h2>
 
