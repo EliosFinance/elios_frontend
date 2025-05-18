@@ -1,8 +1,11 @@
 import BlurItem from '@/components/BlurItem';
+import Subscription from '@/components/UpgradePlan';
 import CardCarousel from '@/components/carousels/CardCarousel';
+import { Drawer, DrawerClose, DrawerContent, DrawerHeader, DrawerTitle } from '@/components/ui/drawer';
 import useLoggedUser from '@/hook/useLoggedUser';
 import APP_ROUTES_ENUM from '@/types/APP_ROUTES_ENUM';
 import { ArticleCategoryType, ArticleType, ArticleTypesEnum } from '@/types/BlogType';
+import { XMarkIcon } from '@heroicons/react/24/outline';
 import { useEffect, useState } from 'react';
 
 type LearnArticleTabProps = {
@@ -17,6 +20,7 @@ type LearnArticleTabProps = {
 const LearnArticleTab = (props: LearnArticleTabProps) => {
     const [isPremium, setIsPremium] = useState<boolean>(false);
     const { getFullLoggedUser } = useLoggedUser();
+    const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
 
     const SliderSection = (title: string, articles: ArticleType[], premium: boolean, last: boolean) => {
         return (
@@ -24,7 +28,11 @@ const LearnArticleTab = (props: LearnArticleTabProps) => {
                 <h2 className='text-2xl font-black px-6'>{title}</h2>
                 <BlurItem
                     locked={premium && !isPremium}
-                    onClick={() => alert('TODO: add action')}
+                    onClick={() => {
+                        if (premium && !isPremium) {
+                            setIsDrawerOpen(true);
+                        }
+                    }}
                     variant='premium'
                     className='w-full'
                 >
@@ -79,6 +87,18 @@ const LearnArticleTab = (props: LearnArticleTabProps) => {
             {SliderSection('Recommandations', props.recommendedArticles, false, false)}
             {SliderSection('Mes likes', props.likedArticles, false, false)}
             {SliderSection('Laissez vous porter...', props.articles, false, true)}
+
+            <Drawer open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
+                <DrawerContent className='z-[100000] bg-[#181823]' aria-describedby={undefined}>
+                    <DrawerHeader>
+                        <DrawerTitle>Deviens Premium</DrawerTitle>
+                        <DrawerClose className='absolute right-4 top-4'>
+                            <XMarkIcon />
+                        </DrawerClose>
+                    </DrawerHeader>
+                    <Subscription />
+                </DrawerContent>
+            </Drawer>
         </>
     );
 };

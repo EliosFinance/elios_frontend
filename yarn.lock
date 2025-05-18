@@ -2418,6 +2418,7 @@ elementtree@^0.1.7:
     "@react-email/components" "^0.0.33"
     "@react-oauth/google" "^0.12.1"
     "@reduxjs/toolkit" "^2.2.7"
+    "@stripe/stripe-js" "^7.1.0"
     "@tanstack/react-table" "^8.20.1"
     axios "^1.7.2"
     class-variance-authority "^0.7.0"
@@ -2427,7 +2428,7 @@ elementtree@^0.1.7:
     date-fns "^3.6.0"
     echarts "^5.5.1"
     echarts-for-react "^3.0.2"
-    elios_frontend "file:../../../../AppData/Local/Yarn/Cache/v6/npm-elios-frontend-0.0.0-49c7e6c8-80d4-41dd-93c7-3c2147730207-1744884626966/node_modules/elios_frontend"
+    elios_frontend "file:../../../../../AppData/Local/Yarn/Cache/v6/npm-elios-frontend-0.0.0-826af954-55b7-401c-9aa8-a09d4d5a31e1-1747395328053/node_modules/elios_frontend"
     embla-carousel "^8.3.0"
     embla-carousel-react "^8.3.0"
     framer-motion "^11.11.11"
@@ -3982,7 +3983,7 @@ react-router@7.1.3:
     set-cookie-parser "^2.6.0"
     turbo-stream "2.4.0"
 
-react-smooth@^4.0.0:
+react-smooth@^4.0.0, react-smooth@^4.0.4:
   version "4.0.4"
   resolved "https://registry.npmjs.org/react-smooth/-/react-smooth-4.0.4.tgz"
   integrity sha512-gnGKTpYwqL0Iii09gHobNolvX4Kiq4PKx6eWBCYYix+8cdw+cGo3do906l1NBPKkSWx1DghC1dlWG9L2uGd61Q==
@@ -4061,6 +4062,20 @@ recharts@^2.12.7:
     lodash "^4.17.21"
     react-is "^18.3.1"
     react-smooth "^4.0.0"
+    recharts-scale "^0.4.4"
+    tiny-invariant "^1.3.1"
+    victory-vendor "^36.6.8"
+
+recharts@^2.15.3:
+  version "2.15.3"
+  resolved "https://registry.npmjs.org/recharts/-/recharts-2.15.3.tgz#b94d05e91e3a5df1b02368ef64400dec9e9a77d4"
+  integrity sha512-EdOPzTwcFSuqtvkDoaM5ws/Km1+WTAO2eizL7rqiG0V2UVhTnz0m7J2i0CjVPUCdEkZImaWvXLbZDS2H5t6GFQ==
+  dependencies:
+    clsx "^2.0.0"
+    eventemitter3 "^4.0.1"
+    lodash "^4.17.21"
+    react-is "^18.3.1"
+    react-smooth "^4.0.4"
     recharts-scale "^0.4.4"
     tiny-invariant "^1.3.1"
     victory-vendor "^36.6.8"

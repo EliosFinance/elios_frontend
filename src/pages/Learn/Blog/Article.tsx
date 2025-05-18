@@ -5,7 +5,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { useAuth } from '@/context/AuthProvider';
 import useConfettis from '@/hook/useConfettis';
 import APP_ROUTES_ENUM from '@/types/APP_ROUTES_ENUM';
-import { ArticleType, ArticleTypesEnum } from '@/types/BlogType';
+import { ArticleType } from '@/types/BlogType';
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
@@ -18,7 +18,7 @@ const Article = () => {
     const cardElements = useRef<(HTMLDivElement | null)[]>([]);
     const timeoutRef = useRef<NodeJS.Timeout | null>(null);
     const [clickedCard, setClickedCard] = useState<number | null>(null);
-    const { throwConfettis, throwPartyConfettis } = useConfettis();
+    const { throwPartyConfettis } = useConfettis();
     const navigate = useNavigate();
 
     const removeClassList = (el: HTMLDivElement) => {
@@ -168,7 +168,6 @@ const Article = () => {
                                 src={currentArticle.thumbnail}
                                 alt='project thumbnail'
                                 className='h-[250px] object-cover w-[70%] rounded-[var(--border-radius-5)] shadow-lg'
-                                onClick={throwConfettis}
                                 loading='lazy'
                             />
                             <div className='flex flex-col items-center justify-center w-full h-auto gap-y-2'>

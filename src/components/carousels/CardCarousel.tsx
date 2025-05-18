@@ -4,8 +4,11 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import '@/css/carousels/carousel-x.css';
 import useLoggedUser from '@/hook/useLoggedUser';
 import { ArticleType, ArticleTypesEnum } from '@/types/BlogType';
+import { XMarkIcon } from '@heroicons/react/24/outline';
 import BlurItem from '../BlurItem';
 import { Card } from '../Card';
+import Subscription from '../UpgradePlan';
+import { Drawer, DrawerClose, DrawerContent, DrawerHeader, DrawerTitle } from '../ui/drawer';
 const TWEEN_FACTOR_BASE = 0.52;
 
 const numberWithinRange = (number: number, min: number, max: number): number => Math.min(Math.max(number, min), max);
@@ -23,6 +26,7 @@ const CardCarousel: React.FC<PropType> = (props) => {
     const tweenFactor = useRef(0);
     const tweenNodes = useRef<HTMLElement[]>([]);
     const [isPremium, setIsPremium] = useState<boolean>(false);
+    const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
     const { getFullLoggedUser } = useLoggedUser();
 
     const setTweenNodes = useCallback((emblaApi: EmblaCarouselType): void => {
@@ -98,33 +102,50 @@ const CardCarousel: React.FC<PropType> = (props) => {
     }, []);
 
     return (
-        <div className='embla'>
-            <div className={`embla__viewport ${props.sx}`} ref={emblaRef}>
-                <div className='embla__container'>
-                    {slides.map((project: ArticleType, index: number) => (
-                        <div className='embla__slide' key={index}>
-                            <BlurItem
-                                locked={project.isPremium && !isPremium}
-                                onClick={() => alert('TODO: add action')}
-                                variant='premium'
-                                className='w-full'
-                            >
-                                <Card
-                                    article={project}
-                                    variant={props.cardVariant}
-                                    classNames={['embla__slide__number']}
-                                    key={index}
-                                    cardToDisplay={project.id}
-                                    userHasRead={() => {
-                                        return;
+        <>
+            <div className='embla'>
+                <div className={`embla__viewport ${props.sx}`} ref={emblaRef}>
+                    <div className='embla__container'>
+                        {slides.map((project: ArticleType, index: number) => (
+                            <div className='embla__slide' key={index}>
+                                <BlurItem
+                                    locked={project.isPremium && !isPremium}
+                                    onClick={() => {
+                                        if (project.isPremium && !isPremium) {
+                                            setIsDrawerOpen(true);
+                                        }
                                     }}
-                                />
-                            </BlurItem>
-                        </div>
-                    ))}
+                                    variant='premium'
+                                    className='w-full'
+                                >
+                                    <Card
+                                        article={project}
+                                        variant={props.cardVariant}
+                                        classNames={['embla__slide__number']}
+                                        key={index}
+                                        cardToDisplay={project.id}
+                                        userHasRead={() => {
+                                            return;
+                                        }}
+                                    />
+                                </BlurItem>
+                            </div>
+                        ))}
+                    </div>
                 </div>
             </div>
-        </div>
+            <Drawer open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
+                <DrawerContent className='z-[100000] bg-[#181823]' aria-describedby={undefined}>
+                    <DrawerHeader>
+                        <DrawerTitle>Deviens Premium</DrawerTitle>
+                        <DrawerClose className='absolute right-4 top-4'>
+                            <XMarkIcon />
+                        </DrawerClose>
+                    </DrawerHeader>
+                    <Subscription />
+                </DrawerContent>
+            </Drawer>
+        </>
     );
 };
 

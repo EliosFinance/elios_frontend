@@ -17,7 +17,7 @@ const Subscription = () => {
     ];
 
     return (
-        <div className='flex flex-col items-center w-full bg-[#181823]'>
+        <div className='flex flex-col items-center w-full bg-[#181823] mb-6'>
             <section className='w-full px-6 mt-6'>
                 {/* Banner with floating image and title */}
                 <Card className='relative mb-6 overflow-hidden border-none shadow-none'>
@@ -97,7 +97,7 @@ const Subscription = () => {
                 </div>
 
                 {/*<Button className='w-full py-3 mt-6 text-white bg-blue-500 rounded-full'>Je deviens Premium</Button>*/}
-                <CheckoutButton plan={selectedPlan} />
+                <CheckoutButton plan={selectedPlan as 'annual' | 'monthly'} />
             </section>
         </div>
     );
