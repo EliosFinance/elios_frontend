@@ -2,6 +2,9 @@ import './css/App.css';
 import Layout from '@/components/Layout.tsx';
 import PublicRoute from '@/components/PublicRoute.tsx';
 import { OsEnum, useDeviceDetection } from '@/hook/useDeviceDetection.ts';
+import { useKeepAlive } from '@/hook/useKeepAlive.ts';
+import { usePinVerification } from '@/hook/usePinVerification';
+import PinVerification from '@/pages/Auth/PinVerification';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { Pin } from 'lucide-react';
 import { Route, Routes } from 'react-router-dom';
@@ -59,6 +62,8 @@ import { challengeData } from './types/challengeType.ts';
 
 function App() {
     const { os } = useDeviceDetection();
+    usePinVerification();
+    useKeepAlive();
     let googleId;
 
     switch (os) {
@@ -163,6 +168,7 @@ function App() {
                             <Route path={APP_ROUTES_ENUM.CONFIRM_PIN} element={<ConfirmPIN />} />
                             <Route path={APP_ROUTES_ENUM.TERMS} element={<TermsAndConditions />} />
                             <Route path={APP_ROUTES_ENUM.PIN} element={<Pin />} />
+                            <Route path={APP_ROUTES_ENUM.PIN_VERIFICATION} element={<PinVerification />} />
                             {/* End Login */}
 
                             <Route path={'*'} element={<FirstTimerView />} />

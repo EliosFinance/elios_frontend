@@ -1,4 +1,5 @@
 import { login_google } from '@/api';
+import { appOpen } from '@/api/connexion/connexionCalls';
 import mainLogo from '@/assets/images/corp/main_logo.png';
 import appleIcon from '@/assets/images/icons/apple_icon.png';
 import { Button } from '@/components/ui/button.tsx';
@@ -41,6 +42,36 @@ const Authenticate: React.FC = () => {
                 email: encodeURIComponent(email),
             }).toString(),
         });
+    };
+
+    const handleGoogleLogin = async (credentialResponse: any) => {
+        const loginGoogle = await login_google(credentialResponse.credential);
+        if (!loginGoogle) return;
+
+        updateUser({
+            id: loginGoogle.id,
+            username: loginGoogle.username,
+            token: loginGoogle.access_token,
+            refresh_token: loginGoogle.refresh_token,
+            powens_token: loginGoogle.powens_token,
+        });
+
+        // Vérifier si un PIN est requis
+        const deviceId = localStorage.getItem('deviceId');
+        if (deviceId) {
+            try {
+                const { requiresPin } = await appOpen(deviceId);
+                if (requiresPin) {
+                    setDataForStep3({ email: loginGoogle.username, password: '' });
+                    setDrawerStep('step3');
+                    return;
+                }
+            } catch (error) {
+                console.error('Error checking PIN status:', error);
+            }
+        }
+
+        navigate(APP_ROUTES_ENUM.HOME);
     };
 
     return (
@@ -111,18 +142,7 @@ const Authenticate: React.FC = () => {
             {/* Login choice buttons */}
             <div className='flex flex-col w-full max-w-sm space-y-2'>
                 <GoogleLogin
-                    onSuccess={async (credentialResponse) => {
-                        const loginGoogle = await login_google(credentialResponse.credential);
-                        if (!loginGoogle) return;
-                        updateUser({
-                            id: loginGoogle.id,
-                            username: loginGoogle.username,
-                            token: loginGoogle.access_token,
-                            refresh_token: loginGoogle.refresh_token,
-                            powens_token: loginGoogle.powens_token,
-                        });
-                        navigate(APP_ROUTES_ENUM.HOME);
-                    }}
+                    onSuccess={handleGoogleLogin}
                     onError={() => {
                         console.log('Login Failed');
                     }}
@@ -152,20 +172,18 @@ const Authenticate: React.FC = () => {
                         <Button
                             className='absolute p-2 bg-transparent rounded-full top-2 left-4 focus:bg-transparent'
                             onClick={() => {
+                                console.log('Back button clicked, current step:', drawerStep);
                                 switch (drawerStep) {
                                     case 'step1':
                                         // TODO: Close drawer
                                         break;
-
                                     case 'step2':
                                         setDrawerStep('step1');
                                         setDataForStep3(null);
                                         break;
-
                                     case 'step3':
-                                        setDrawerStep('step3');
+                                        setDrawerStep('step2');
                                         break;
-
                                     default:
                                         break;
                                 }
@@ -194,18 +212,31 @@ const Authenticate: React.FC = () => {
                         <DrawerTitle className='display-none'>
                             <></>
                         </DrawerTitle>
-                        {drawerStep === 'step1' && <DrawerStep1 onNext={() => setDrawerStep('step2')} />}
-                        {drawerStep === 'step2' && (
-                            <DrawerStep2
-                                onNext={() => setDrawerStep('step3')}
-                                setDataForStep3={(email, password) => {
-                                    setDataForStep3({ email, password });
-                                }}
-                            />
-                        )}
-                        {drawerStep === 'step3' && (
-                            <DrawerStep3 email={dataForStep3.email} password={dataForStep3.password} />
-                        )}
+                        <div className='mt-16'>
+                            {drawerStep === 'step1' && <DrawerStep1 onNext={() => setDrawerStep('step2')} />}
+                            {drawerStep === 'step2' && (
+                                <DrawerStep2
+                                    onNext={() => {
+                                        console.log('Moving to step 3');
+                                        setDrawerStep('step3');
+                                    }}
+                                    setDataForStep3={(email, password) => {
+                                        console.log('Setting data for step 3:', { email, password });
+                                        setDataForStep3({ email, password });
+                                    }}
+                                />
+                            )}
+                            {drawerStep === 'step3' && dataForStep3 && (
+                                <div>
+                                    {console.log('Authenticate: Rendering DrawerStep3 with data:', dataForStep3)}
+                                    <DrawerStep3
+                                        key={`pin-verification-${Date.now()}`}
+                                        email={dataForStep3.email}
+                                        password={dataForStep3.password}
+                                    />
+                                </div>
+                            )}
+                        </div>
                     </DrawerContent>
                 </Drawer>
             </div>
