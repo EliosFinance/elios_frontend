@@ -3,16 +3,16 @@ import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 
 type User = {
-    id?: string;
-    username?: string;
-    token?: string;
-    refresh_token?: string;
-    powens_token?: string;
+    id: string;
+    username: string;
+    token: string;
+    refresh_token: string;
+    powens_token: string;
 };
 
 type UserState = {
     user: User | null;
-    updateUser: (user: User | null) => void;
+    updateUser: (user: Partial<User>) => void;
     getAuth: () => { Authorization?: string };
     removeUser: () => void;
 };
@@ -21,10 +21,12 @@ export const userStore = create<UserState>()(
     persist(
         (set, get) => ({
             user: null,
-            updateUser: (user) =>
-                set((state) => ({
-                    user: { ...state.user, ...user },
-                })),
+            updateUser: (user) => {
+                const currentState = get();
+                const newUser = currentState.user ? { ...currentState.user, ...user } : (user as User);
+                set({ user: newUser });
+                localStorage.setItem('user-storage', JSON.stringify({ state: { user: newUser }, version: 0 }));
+            },
             removeUser: () =>
                 set(() => ({
                     user: null,
@@ -32,13 +34,13 @@ export const userStore = create<UserState>()(
             getAuth: () => {
                 const { user } = get();
                 return {
-                    Authorization: user && user.token ? `Bearer ${user.token}` : undefined,
+                    Authorization: user?.token ? `Bearer ${user.token}` : undefined,
                 };
             },
         }),
         {
             name: 'user-storage',
-            storage: createJSONStorage(() => sessionStorage),
+            storage: createJSONStorage(() => localStorage),
         },
     ),
 );

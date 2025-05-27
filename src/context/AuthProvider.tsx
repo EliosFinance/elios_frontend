@@ -62,6 +62,7 @@ const AuthProvider = ({ children }) => {
                     refresh_token: data.refresh_token,
                     powens_token: data.powens_token,
                 });
+                console.log('[AuthProvider] user enregistré dans le store:', userStore.getState().user);
                 return true;
             }
             return false;
