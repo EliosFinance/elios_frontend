@@ -1,8 +1,12 @@
 import BlurItem from '@/components/BlurItem';
+import Subscription from '@/components/UpgradePlan';
 import CardCarousel from '@/components/carousels/CardCarousel';
+import { Drawer, DrawerClose, DrawerContent, DrawerHeader, DrawerTitle } from '@/components/ui/drawer';
+import { Skeleton } from '@/components/ui/skeleton';
 import useLoggedUser from '@/hook/useLoggedUser';
 import APP_ROUTES_ENUM from '@/types/APP_ROUTES_ENUM';
 import { ArticleCategoryType, ArticleType, ArticleTypesEnum } from '@/types/BlogType';
+import { XMarkIcon } from '@heroicons/react/24/outline';
 import { useEffect, useState } from 'react';
 
 type LearnArticleTabProps = {
@@ -17,6 +21,7 @@ type LearnArticleTabProps = {
 const LearnArticleTab = (props: LearnArticleTabProps) => {
     const [isPremium, setIsPremium] = useState<boolean>(false);
     const { getFullLoggedUser } = useLoggedUser();
+    const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
 
     const SliderSection = (title: string, articles: ArticleType[], premium: boolean, last: boolean) => {
         return (
@@ -24,7 +29,11 @@ const LearnArticleTab = (props: LearnArticleTabProps) => {
                 <h2 className='text-2xl font-black px-6'>{title}</h2>
                 <BlurItem
                     locked={premium && !isPremium}
-                    onClick={() => alert('TODO: add action')}
+                    onClick={() => {
+                        if (premium && !isPremium) {
+                            setIsDrawerOpen(true);
+                        }
+                    }}
                     variant='premium'
                     className='w-full'
                 >
@@ -35,6 +44,7 @@ const LearnArticleTab = (props: LearnArticleTabProps) => {
                             slides={articles}
                             options={{ loop: true, containScroll: false }}
                             cardVariant={ArticleTypesEnum.SMALL_PREVIEW}
+                            isLoading={!articles.length}
                         />
                     </div>
                 </BlurItem>
@@ -61,15 +71,23 @@ const LearnArticleTab = (props: LearnArticleTabProps) => {
                 </div>
                 <div className='w-full overflow-x-auto scrollbar-hide mt-2 mb-3'>
                     <div className='flex space-x-4 snap-x snap-mandatory overflow-x-auto px-6'>
-                        {props.articlesCategories.map((category) => (
-                            <a
-                                key={category.id}
-                                href={`${APP_ROUTES_ENUM.ARTICLE_CATEGORY}/${category.id}`}
-                                className='py-2 px-6 bg-blue-500 text-white rounded-full font-semibold text-lg flex-shrink-0 snap-center'
-                            >
-                                {category.title}
-                            </a>
-                        ))}
+                        {props.articlesCategories.length
+                            ? props.articlesCategories.map((category) => (
+                                  <a
+                                      key={category.id}
+                                      href={`${APP_ROUTES_ENUM.ARTICLE_CATEGORY}/${category.id}`}
+                                      className='py-2 px-6 bg-blue-500 text-white rounded-full font-semibold text-lg flex-shrink-0 snap-center'
+                                  >
+                                      {category.title}
+                                  </a>
+                              ))
+                            : [...Array(10)].map((_, index) => (
+                                  <Skeleton
+                                      key={index}
+                                      className='h-10 !w-32 rounded-full bg-gray-500 flex-shrink-0 snap-center skeleton-loader'
+                                      style={{ borderRadius: 'var(--border-radius-8)' }}
+                                  />
+                              ))}
                     </div>
                 </div>
             </div>
@@ -79,6 +97,18 @@ const LearnArticleTab = (props: LearnArticleTabProps) => {
             {SliderSection('Recommandations', props.recommendedArticles, false, false)}
             {SliderSection('Mes likes', props.likedArticles, false, false)}
             {SliderSection('Laissez vous porter...', props.articles, false, true)}
+
+            <Drawer open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
+                <DrawerContent className='z-[100000] bg-[#181823]' aria-describedby={undefined}>
+                    <DrawerHeader>
+                        <DrawerTitle>Deviens Premium</DrawerTitle>
+                        <DrawerClose className='absolute right-4 top-4'>
+                            <XMarkIcon />
+                        </DrawerClose>
+                    </DrawerHeader>
+                    <Subscription />
+                </DrawerContent>
+            </Drawer>
         </>
     );
 };

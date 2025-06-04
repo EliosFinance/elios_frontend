@@ -38,7 +38,7 @@ const ArticleCategory = () => {
     }, [category]);
 
     return (
-        <div className='flex flex-col items-center justify-center w-full h-full pb-24'>
+        <div className='flex flex-col items-center justify-center w-full h-full pb-24 pt-6'>
             <div className='flex flex-col items-center justify-center w-full mt-10 gap-y-12'>
                 <div className='flex items-center justify-start w-full px-6 gap-x-4'>
                     <h1 className='w-full text-4xl font-black'>{category?.title}</h1>

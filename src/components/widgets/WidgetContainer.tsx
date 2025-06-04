@@ -1,96 +1,125 @@
+import { useGetConnections, useGetTransactions } from '@/api';
 import { Button } from '@/components/ui/button';
 import { Drawer, DrawerClose, DrawerContent, DrawerHeader, DrawerTitle } from '@/components/ui/drawer';
+import { useAuth } from '@/context/AuthProvider';
 import { widgetStore } from '@/store/WidgetStore';
 import { WidgetType } from '@/temp/WidgetData';
-import { EyeIcon, EyeSlashIcon, PlusIcon, XMarkIcon } from '@heroicons/react/24/outline';
-import React, { useEffect, useState } from 'react';
+import { ConnectionType } from '@/types/connectionType';
+import { TransactionType } from '@/types/transactionType';
+import { EyeIcon, EyeSlashIcon, PencilSquareIcon, XMarkIcon } from '@heroicons/react/24/outline';
+import { useEffect, useState } from 'react';
 import { useSwipeable } from 'react-swipeable';
+import { Separator } from '../ui/separator';
+import BitcoinWidget from './BitcoinWidget';
+import ReadArticlesWidget from './ReadArticlesWidget';
+import SpendingsWidget from './SpendingsWidget';
 import Widget from './Widget';
-import { Separator } from './ui/separator';
 
-const defaultWidgets: WidgetType[] = [
-    {
-        id: 1,
-        title: 'Top weekly rewards',
-        description: 'The best rewards of the week.',
-        image: '/path/to/rewards.jpg',
-        content: '1000 points, 5 stars',
-        display: true,
-    },
-    {
-        id: 2,
-        title: 'Spent this month',
-        description: 'Total amount spent this month.',
-        image: '/path/to/spent.jpg',
-        content: '-500$',
-        display: true,
-    },
-    {
-        id: 3,
-        title: 'Abonnements',
-        description: 'Active subscriptions.',
-        image: '/path/to/subscriptions.jpg',
-        content: 'Netflix, Spotify, Amazon Prime',
-        display: true,
-    },
-    {
-        id: 4,
-        title: 'Total wealth',
-        description: 'Total estimated wealth.',
-        image: '/path/to/wealth.jpg',
-        content: '50,000$',
-        display: true,
-    },
-    {
-        id: 5,
-        title: 'Best friends',
-        description: 'Your closest connections.',
-        image: '/path/to/friends.jpg',
-        content: 'John, Emily, Sarah',
-        display: true,
-    },
-    {
-        id: 6,
-        title: 'Bitcoin price (?)',
-        description: 'Current Bitcoin price.',
-        image: '/path/to/bitcoin.jpg',
-        content: 'Current price: 30,000$',
-        display: true,
-    },
-    {
-        id: 7,
-        title: 'Articles favoris',
-        description: 'Your favorite articles.',
-        image: '/path/to/articles.jpg',
-        content: 'Article 1, Article 2, Article 3',
-        display: true,
-    },
-    {
-        id: 8,
-        title: 'Challenge en cours',
-        description: 'Active ongoing challenge.',
-        image: '/path/to/challenge.jpg',
-        content: 'Run 50 km in a month',
-        display: true,
-    },
-];
+const defaultWidgets = (user: any, connections: ConnectionType[], transactions: TransactionType[]): WidgetType[] => {
+    const defaults = [
+        {
+            id: 1,
+            title: 'Top weekly rewards',
+            description: 'The best rewards of the week.',
+            image: '/path/to/rewards.jpg',
+            content: '1000 points, 5 stars',
+            display: true,
+        },
+        {
+            id: 6,
+            title: 'Bitcoin price (?)',
+            description: 'Current Bitcoin price.',
+            image: '/path/to/bitcoin.jpg',
+            content: 'Current price: 30,000$',
+            display: true,
+        },
+        {
+            id: 7,
+            title: 'Articles lus',
+            description: 'Your read articles.',
+            image: '/path/to/articles.jpg',
+            content: 'Article 1, Article 2, Article 3',
+            display: true,
+        },
+        {
+            id: 8,
+            title: 'Challenge en cours',
+            description: 'Active ongoing challenge.',
+            image: '/path/to/challenge.jpg',
+            content: 'Run 50 km in a month',
+            display: true,
+        },
+    ];
+
+    if (user) {
+        defaults.push({
+            id: 5,
+            title: 'Best friends',
+            description: 'Your closest connections.',
+            image: '/path/to/friends.jpg',
+            content: 'John, Emily, Sarah',
+            display: true,
+        });
+
+        if (connections) {
+            defaults.push({
+                id: 4,
+                title: 'Total wealth',
+                description: 'Total estimated wealth.',
+                image: '/path/to/wealth.jpg',
+                content: '50,000$',
+                display: true,
+            });
+        }
+
+        if (transactions) {
+            defaults.push({
+                id: 3,
+                title: 'Abonnements',
+                description: 'Active subscriptions.',
+                image: '/path/to/subscriptions.jpg',
+                content: 'Netflix, Spotify, Amazon Prime',
+                display: true,
+            });
+            defaults.push({
+                id: 2,
+                title: 'Spent this month',
+                description: 'Total amount spent this month.',
+                image: '/path/to/spent.jpg',
+                content: '-500$',
+                display: true,
+            });
+        }
+    }
+
+    return defaults;
+};
 
 const WidgetGrid = ({ widgets }) => (
     <div className='grid grid-cols-2 gap-4'>
-        {widgets.map(
-            (widget) =>
-                widget.display && (
-                    <Widget
-                        key={widget.id}
-                        id={widget.id}
-                        title={widget.title}
-                        description={widget.description}
-                        image={widget.image}
-                        content={widget.content}
-                        display={widget.display}
-                    />
-                ),
-        )}
+        {widgets.map((widget: WidgetType) => {
+            if (!widget.display) return null;
+            switch (widget.id) {
+                case 7:
+                    return <ReadArticlesWidget key={widget.id} />;
+                case 6:
+                    return <BitcoinWidget key={widget.id} />;
+                case 2:
+                    return <SpendingsWidget key={widget.id} />;
+                default:
+                    return (
+                        <Widget
+                            key={widget.id}
+                            id={widget.id}
+                            title={widget.title}
+                            description={widget.description}
+                            image={widget.image}
+                            content={widget.content}
+                            display={widget.display}
+                        />
+                    );
+            }
+        })}
     </div>
 );
 
@@ -103,12 +132,12 @@ const WidgetPagination = ({ currentPage, totalPages, onPageChange }) => (
                 <button
                     onClick={() => onPageChange(currentPage - 1)}
                     disabled={currentPage <= 1}
-                    className={`w-6 h-1 rounded-full ${currentPage === 1 ? 'bg-black' : 'bg-gray-300'}`}
+                    className={`w-6 h-1 rounded-full ${currentPage === 1 ? 'bg-white' : 'bg-gray-700'}`}
                 />
                 <button
                     onClick={() => onPageChange(currentPage + 1)}
                     disabled={currentPage >= totalPages}
-                    className={`w-6 h-1 rounded-full ${currentPage === 2 ? 'bg-black' : 'bg-gray-300'}`}
+                    className={`w-6 h-1 rounded-full ${currentPage === totalPages ? 'bg-white' : 'bg-gray-700'}`}
                 />
             </>
         )}
@@ -116,6 +145,9 @@ const WidgetPagination = ({ currentPage, totalPages, onPageChange }) => (
 );
 
 const WidgetContainer = () => {
+    const { user } = useAuth();
+    const { data: connections } = useGetConnections();
+    const { data: transactions } = useGetTransactions();
     const { widgets, toggleWidgetDisplay, setWidgets } = widgetStore((state) => ({
         widgets: state.widgets,
         toggleWidgetDisplay: state.toggleWidgetDisplay,
@@ -128,7 +160,7 @@ const WidgetContainer = () => {
 
     useEffect(() => {
         if (widgets.length === 0) {
-            setWidgets(defaultWidgets);
+            setWidgets(defaultWidgets(user, connections, transactions));
         }
     }, [widgets, setWidgets]);
 
@@ -165,7 +197,7 @@ const WidgetContainer = () => {
                     onClick={() => setIsDrawerOpen(true)}
                     className='rounded-xl hover:bg-gray-100'
                 >
-                    <PlusIcon className='w-5 h-5' />
+                    <PencilSquareIcon className='w-5 h-5' />
                 </Button>
             </div>
 

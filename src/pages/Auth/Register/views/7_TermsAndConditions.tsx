@@ -11,7 +11,6 @@ import RegisterHeader from '../components/RegisterHeader';
 
 const TermsAndConditions: React.FC = () => {
     const [isAccepted, setIsAccepted] = useState(false);
-    const [error, setError] = useState('');
     const navigate = useNavigate();
     const { email, username, password2: password, pin1: pin, clear } = useRegisterUsersStore();
 
@@ -55,17 +54,17 @@ const TermsAndConditions: React.FC = () => {
             // 4. Nettoyage et redirection
             clear();
             navigate(APP_ROUTES_ENUM.HOME);
-        } catch (err: any) {
-            setError(err.message || "Une erreur s'est produite lors de l'inscription");
+        } catch (err) {
+            console.error("Erreur lors de l'inscription ou de la configuration:", (err as Error).message);
         }
     };
 
     return (
-        <div className='flex flex-col items-center justify-between w-full h-screen px-4 pt-6 bg-white pb-28'>
+        <div className='flex flex-col items-center justify-start w-full h-screen px-4 pt-6 pb-8'>
             <RegisterHeader title="Conditions générales d'utilisation" />
 
-            <div className='flex flex-col items-center justify-center w-full max-w-sm'>
-                <div className='w-full p-4 mb-6 overflow-y-auto text-sm text-gray-700 border border-blue-300 rounded-lg max-h-64'>
+            <div className='w-full h-full flex flex-col items-center justify-start gap-8 pt-16'>
+                <div className='w-full p-4 mb-6 overflow-y-auto text-sm text-gray-400 border border-primary-500 rounded-lg max-h-64'>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam ac lacus cursus risus posuere
                     pharetra sed eu turpis. Cras pulvinar elementum dolor, eget aliquam felis facilisis et. Fusce ante
                     risus, gravida vitae ante a, venenatis vestibulum nunc. Nam vitae ante fringilla leo vulputate
@@ -86,9 +85,9 @@ const TermsAndConditions: React.FC = () => {
                         id='accept-terms'
                         checked={isAccepted}
                         onChange={(e) => setIsAccepted(e.target.checked)}
-                        className='w-5 h-5 text-blue-500 border-gray-300 rounded focus:ring-blue-500'
+                        className='w-5 h-5 text-primary-500 border-gray-300 rounded focus:ring-blue-500'
                     />
-                    <label htmlFor='accept-terms' className='text-sm text-gray-800'>
+                    <label htmlFor='accept-terms' className='text-sm text-gray-300'>
                         J'ai lu et j'accepte les conditions générales
                     </label>
                 </div>

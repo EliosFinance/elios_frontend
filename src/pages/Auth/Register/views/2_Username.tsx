@@ -27,7 +27,7 @@ const CreateUsername: React.FC = () => {
     }, [username]);
 
     return (
-        <div className='flex flex-col items-center justify-between w-full h-screen px-4 pt-6 bg-white pb-28'>
+        <div className='flex flex-col items-center justify-between w-full h-screen px-4 pt-6 pb-8'>
             <RegisterHeader title="Créez votre nom d'utilisateur" />
 
             <div className='flex flex-col items-center justify-center w-full max-w-sm'>
@@ -36,10 +36,10 @@ const CreateUsername: React.FC = () => {
                     placeholder="Votre nom d'utilisateur"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
-                    className='w-full max-w-sm px-4 py-2 mb-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
+                    className='bg-transparent w-full max-w-sm px-4 py-2 mb-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
                 />
 
-                <ul className='w-full max-w-sm mb-6 text-sm text-gray-600 space-y-2'>
+                <ul className='w-full max-w-sm mb-6 text-sm text-gray-300 space-y-2'>
                     {[
                         { text: 'Au moins 5 caractères', condition: username.length >= 5 },
                         {

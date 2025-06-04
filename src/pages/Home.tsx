@@ -10,7 +10,7 @@ import {
     DrawerTrigger,
 } from '@/components/ui/drawer';
 
-import { useGetConnection, useGetTransactions } from '@/api';
+import { useGetBitcoin, useGetTransactions } from '@/api';
 import ButtonApp from '@/components/ButtonApp';
 import { DataTable } from '@/components/DataTable.tsx';
 import { columns } from '@/components/columnsTransaction.tsx';
@@ -22,7 +22,7 @@ import { useEffect } from 'react';
 
 const Home = () => {
     const listTransaction = useGetTransactions();
-    const listConnection = useGetConnection();
+    const listConnection = useGetBitcoin();
     const updateUser = userStore((state) => state.updateUser);
     const user = userStore((state) => state.user);
 

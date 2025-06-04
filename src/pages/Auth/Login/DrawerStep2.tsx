@@ -1,24 +1,54 @@
 import { login_api } from '@/api';
-import { generateDeviceId, getPinStatus } from '@/api/connexion/connexionCalls';
+import { generateDeviceId, getPinStatus, logout_api, verifyPin } from '@/api/connexion/connexionCalls';
 import { appOpen } from '@/api/connexion/connexionCalls';
+import mainLogo from '@/assets/images/corp/main_logo.png';
 import { Button } from '@/components/ui/button.tsx';
 import { userStore } from '@/store/UserStore';
 import APP_ROUTES_ENUM from '@/types/APP_ROUTES_ENUM';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 interface DrawerStep1Props {
-    onNext: () => void;
-    setDataForStep3: (email: string, password: string) => void;
+    email: string;
+    password: string;
 }
 
-const DrawerStep2: React.FC<DrawerStep1Props> = ({ onNext, setDataForStep3 }) => {
-    const [email, setEmail] = useState<string>('');
-    const [password, setPassword] = useState<string>('');
-    const [error, setError] = useState<boolean>(false);
+const DrawerStep2: React.FC<DrawerStep1Props> = ({ email, password }) => {
+    console.log('DrawerStep2: Component mounted with props:', { email, password });
+
+    const [pin, setPin] = useState<string>('');
     const [errorCount, setErrorCount] = useState<number>(0);
+    const [error, setError] = useState<string | null>(null);
+    const [isVerifying, setIsVerifying] = useState<boolean>(false);
     const navigate = useNavigate();
-    const updateUser = userStore((state) => state.updateUser);
+    const user = userStore((state) => state.user);
+
+    console.log('DrawerStep2: Current user state:', user);
+
+    useEffect(() => {
+        console.log('DrawerStep2: useEffect triggered');
+        // Vérifier si l'utilisateur est connecté
+        if (!user?.token) {
+            console.error('DrawerStep2: No token found');
+            navigate(APP_ROUTES_ENUM.LOGIN);
+            return;
+        }
+
+        console.log('DrawerStep2: Token found, extracting user ID');
+        const userId = extractUserIdFromToken(user.token);
+        console.log('DrawerStep2: Extracted userId:', userId);
+        if (!userId) {
+            console.error('DrawerStep2: Could not extract user ID from token');
+            navigate(APP_ROUTES_ENUM.LOGIN);
+            return;
+        }
+
+        console.log('DrawerStep2: User ID verified, checking pin length');
+        if (pin.length === 6 && !isVerifying) {
+            console.log('DrawerStep2: PIN length is 6, calling handleVerify');
+            handleVerify();
+        }
+    }, [pin, user]);
 
     const extractUserIdFromToken = (token: string): string | undefined => {
         try {
@@ -33,149 +63,107 @@ const DrawerStep2: React.FC<DrawerStep1Props> = ({ onNext, setDataForStep3 }) =>
                     .join(''),
             );
             const payload = JSON.parse(jsonPayload);
+            console.log('DrawerStep2: Extracted payload from token:', payload);
             return payload.sub.toString();
         } catch (error) {
-            console.error('Error extracting user ID from token:', error);
+            console.error('DrawerStep2: Error extracting user ID from token:', error);
             return undefined;
         }
     };
 
-    const submit = async () => {
-        setError(false);
+    const handlePinInput = (digit: string) => {
+        console.log('DrawerStep2: handlePinInput called with digit:', digit);
+        if (pin.length < 6 && !isVerifying) {
+            setPin((prev) => prev + digit);
+            setError(null);
+        }
+    };
+
+    const handleDelete = () => {
+        console.log('DrawerStep2: handleDelete called');
+        if (!isVerifying) {
+            setPin((prev) => prev.slice(0, -1));
+            setError(null);
+        }
+    };
+
+    const handleVerify = async () => {
+        if (isVerifying) return;
+
+        console.log('DrawerStep2: handleVerify called with pin:', pin);
+        const deviceId = localStorage.getItem('deviceId');
+        if (!deviceId) {
+            console.error('DrawerStep2: No deviceId found');
+            navigate(APP_ROUTES_ENUM.LOGIN);
+            return;
+        }
+
+        setIsVerifying(true);
         try {
-            // 1. L'utilisateur se connecte normalement
-            const response = await login_api(email, password);
-            console.log('Login response:', response);
-
-            if (!response) {
-                setError(true);
-                setErrorCount((prev) => prev + 1);
-                return;
-            }
-
-            // Extraire l'ID de l'utilisateur du token
-            const userId = extractUserIdFromToken(response.access_token);
-            console.log('Extracted user ID from token:', userId);
-
-            if (!userId) {
-                console.error('Could not extract user ID from token');
-                setError(true);
-                setErrorCount((prev) => prev + 1);
-                return;
-            }
-
-            // Mise à jour du userStore avec l'ID
-            const userData = {
-                id: userId,
-                username: response.username,
-                token: response.access_token,
-                refresh_token: response.refresh_token,
-                powens_token: response.powens_token,
-            };
-            console.log('Updating user store with:', userData);
-            updateUser(userData);
-
-            // 2. Vérifier si un PIN est déjà configuré
-            const pinStatus = await getPinStatus();
-            console.log('PIN status:', pinStatus);
-
-            if (!pinStatus.isSetup) {
-                console.log('PIN not configured, redirecting to PIN setup');
-                navigate(APP_ROUTES_ENUM.CREATE_PIN);
-                return;
-            }
-
-            // 3. Générer un deviceId
-            let deviceId = localStorage.getItem('deviceId');
-            console.log('Current deviceId:', deviceId);
-
-            if (!deviceId) {
-                console.log('No deviceId found, generating new one');
-                deviceId = await generateDeviceId();
-                console.log('Generated new deviceId:', deviceId);
-                localStorage.setItem('deviceId', deviceId);
-            }
-
-            // 4. Vérifier si un PIN est requis
-            const { requiresPin } = await appOpen(deviceId);
-            console.log('PIN required:', requiresPin);
-
-            if (requiresPin) {
-                console.log('PIN required, moving to PIN verification step');
-                setDataForStep3(email, password);
-                console.log('Data set for step 3, calling onNext');
-                onNext();
-                return;
-            }
-
-            // Si pas de PIN requis, aller directement à la page d'accueil
-            console.log('No PIN required, redirecting to home');
+            console.log('DrawerStep2: Calling verifyPin with:', { pin, deviceId });
+            await verifyPin(pin, deviceId);
+            console.log('DrawerStep2: PIN verification successful, redirecting to home');
             navigate(APP_ROUTES_ENUM.HOME);
-        } catch (error) {
-            console.error('Login error:', error);
-            setError(true);
-            setErrorCount((prev) => prev + 1);
+        } catch (err) {
+            console.error('DrawerStep2: PIN verification error:', err);
+            const nextCount = errorCount + 1;
+            setErrorCount(nextCount);
+            setPin('');
+            setError(`Code PIN incorrect. ${3 - nextCount} tentatives restantes.`);
+
+            if (nextCount >= 3) {
+                console.log('DrawerStep2: Too many failed attempts, logging out');
+                await logout_api();
+                navigate(APP_ROUTES_ENUM.LOGIN);
+            }
+        } finally {
+            setIsVerifying(false);
         }
     };
 
     return (
         <div className='p-4 mb-10'>
             <div className='mb-6 text-center'>
-                <h2 className='text-lg font-bold text-gray-800'>Se connecter</h2>
+                <img src={mainLogo} alt='Elios Logo' className='w-16 h-16 mx-auto mb-4' />
+                <h2 className='text-lg font-bold text-gray-800'>Entrez votre code PIN</h2>
             </div>
-            <div className='space-y-3'>
-                <div className='space-y-3'>
-                    <input
-                        id='emailLogin'
-                        type='email'
-                        placeholder='Votre email'
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        className={`w-full px-4 py-2 border-t-none border-r-none border-l-none border-b-solid border-b-[1.5px] ${
-                            error ? 'border-red-500' : 'border-gray-300'
-                        } focus:outline-none focus:ring-0 text-m placeholder:text-gray-500 placeholder:font-semibold`}
+
+            {/* PIN Display */}
+            <div className='flex justify-center gap-2 mb-6'>
+                {[...Array(6)].map((_, index) => (
+                    <div
+                        key={index}
+                        className={`w-4 h-4 rounded-full border-2 ${
+                            index < pin.length ? 'bg-blue-500 border-blue-500' : 'border-gray-300'
+                        }`}
                     />
-                    <input
-                        id='password'
-                        type='password'
-                        placeholder='Votre mot de passe'
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        className={`w-full px-4 py-2 border-t-none border-r-none border-l-none border-b-solid border-b-[1.5px] ${
-                            error ? 'border-red-500' : 'border-gray-300'
-                        } focus:outline-none focus:ring-0 text-m placeholder:text-gray-500 placeholder:font-semibold`}
-                    />
-                    {/* Message d'erreur */}
-                    {error && <p className='mt-2 text-sm text-red-500'>E-mail ou mot de passe incorrect.</p>}
-                </div>
+                ))}
             </div>
-            <div className='flex flex-col items-start justify-start mt-2 text-xs text-center text-gray-500 '>
-                {/* TODO: FORGOT PASSWORD */}
-                <span
-                    className='text-blue-500 cursor-pointer'
-                    onClick={() => {
-                        navigate(APP_ROUTES_ENUM.REGISTER);
-                    }}
-                >
-                    Vous n'avez pas encore de compte ?
-                </span>
-                {error && errorCount > 2 && (
-                    <span
-                        className='mt-2 text-blue-500 cursor-pointer'
-                        onClick={() => {
-                            alert('TODO');
-                        }}
+
+            {/* Error Message */}
+            {error && <p className='text-red-500 text-sm mb-4 text-center'>{error}</p>}
+
+            {/* PIN Pad */}
+            <div className='grid grid-cols-3 gap-4 w-full max-w-xs mx-auto'>
+                {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((num) => (
+                    <Button
+                        key={num}
+                        onClick={() => handlePinInput(num.toString())}
+                        className='w-full h-12 text-xl font-semibold'
+                        disabled={isVerifying}
                     >
-                        Mot de passe oublié ?
-                    </span>
-                )}
-            </div>
-            <div className='mt-6'>
+                        {num}
+                    </Button>
+                ))}
                 <Button
-                    className='w-full py-2 text-sm text-white bg-blue-500 rounded-full hover:bg-blue-600'
-                    onClick={submit}
+                    onClick={() => handlePinInput('0')}
+                    className='w-full h-12 text-xl font-semibold'
+                    disabled={isVerifying}
                 >
-                    Suivant
+                    0
+                </Button>
+                <Button onClick={handleDelete} className='w-full h-12 text-xl font-semibold' disabled={isVerifying}>
+                    ←
                 </Button>
             </div>
         </div>

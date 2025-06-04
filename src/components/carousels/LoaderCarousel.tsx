@@ -2,30 +2,19 @@ import { EmblaCarouselType, EmblaEventType, EmblaOptionsType } from 'embla-carou
 import useEmblaCarousel from 'embla-carousel-react';
 import React, { useCallback, useEffect, useRef } from 'react';
 import '@/css/carousels/carousel-x.css';
-import { useAuth } from '@/context/AuthProvider';
-import { QuizzType } from '@/temp/QuizzData';
-import APP_ROUTES_ENUM from '@/types/APP_ROUTES_ENUM';
-import { FriendsType } from '@/types/UserType';
-import { XMarkIcon } from '@heroicons/react/24/outline';
-import { CheckCircleIcon } from 'lucide-react';
-import { useCardStyles } from '../Card';
-import LoaderCarousel from './LoaderCarousel';
+import { Skeleton } from '../ui/skeleton';
 const TWEEN_FACTOR_BASE = 0.52;
 
 const numberWithinRange = (number: number, min: number, max: number): number => Math.min(Math.max(number, min), max);
 
 type PropType = {
-    isLoading: boolean;
-    slides: FriendsType[];
-    options?: EmblaOptionsType;
+    options: EmblaOptionsType;
 };
 
-const FriendsCarousel: React.FC<PropType> = (props) => {
-    const { slides, options, isLoading } = props;
-    const [emblaRef, emblaApi] = useEmblaCarousel(options);
+const LoaderCarousel: React.FC<PropType> = (props) => {
+    const [emblaRef, emblaApi] = useEmblaCarousel(props.options);
     const tweenFactor = useRef(0);
     const tweenNodes = useRef<HTMLElement[]>([]);
-    const styles = useCardStyles(0);
 
     const setTweenNodes = useCallback((emblaApi: EmblaCarouselType): void => {
         tweenNodes.current = emblaApi.slideNodes().map((slideNode) => {
@@ -70,6 +59,7 @@ const FriendsCarousel: React.FC<PropType> = (props) => {
                 const tweenValue = 1 - Math.abs(diffToTarget * tweenFactor.current);
                 const scale = numberWithinRange(tweenValue, 0.9, 1).toString();
                 const tweenNode = tweenNodes.current[slideIndex];
+                if (!tweenNode) return;
                 tweenNode.style.transform = `scale(${scale})`;
             });
         });
@@ -92,49 +82,22 @@ const FriendsCarousel: React.FC<PropType> = (props) => {
     }, [emblaApi, tweenScale]);
 
     return (
-        <>
-            {isLoading ? (
-                <LoaderCarousel options={options} />
-            ) : (
-                <div className='embla'>
-                    <div className='embla__viewport' ref={emblaRef}>
-                        <div className='embla__container'>
-                            {slides.map((q: FriendsType, index: number) => (
-                                <div className='embla__slide' key={index}>
-                                    <div
-                                        className={[styles.card, styles.preview, 'embla__slide__number'].join(' ')}
-                                        id={String(q.id!)}
-                                    >
-                                        {/* header */}
-                                        <div className='w-full h-[7%] flex justify-between items-center mt-5 px-5'></div>
-
-                                        {/* body */}
-                                        <a
-                                            className='flex flex-col items-center justify-center w-full h-full gap-y-4'
-                                            href={`${APP_ROUTES_ENUM.QUIZZ}/${q.id}`}
-                                        >
-                                            <img
-                                                src={
-                                                    q.profilePicture
-                                                        ? q.profilePicture
-                                                        : 'https://via.placeholder.com/150'
-                                                }
-                                                alt='project thumbnail'
-                                                className='h-[125px] w-[45%] rounded-[var(--border-radius-5)] shadow-lg object-cover'
-                                            />
-                                            <div className='flex flex-col items-center justify-center w-full h-auto gap-y-2'>
-                                                <p className='text-lg'>{q.username}</p>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                            ))}
+        <div className='embla'>
+            <div className='embla__viewport' ref={emblaRef}>
+                <div className='embla__container'>
+                    {[1, 2, 3, 4, 5].map((slideIndex) => (
+                        <div className='embla__slide' key={slideIndex}>
+                            <Skeleton
+                                key={slideIndex}
+                                className='embla__slide__number h-[75dvw] w-[75dvw] bg-gray-500 skeleton-loader'
+                                style={{ borderRadius: 'var(--border-radius-8)' }}
+                            />
                         </div>
-                    </div>
+                    ))}
                 </div>
-            )}
-        </>
+            </div>
+        </div>
     );
 };
 
-export default FriendsCarousel;
+export default LoaderCarousel;

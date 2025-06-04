@@ -1,17 +1,19 @@
 import { logout_api } from '@/api/connexion/connexionCalls';
 import { appOpen, getPinStatus, verifyPin } from '@/api/connexion/connexionCalls';
-import mainLogo from '@/assets/images/corp/main_logo.png';
-import abstract1 from '@/assets/images/shapes/abstract_shape_1.png';
 import { Button } from '@/components/ui/button.tsx';
 import { userStore } from '@/store/UserStore';
 import APP_ROUTES_ENUM from '@/types/APP_ROUTES_ENUM';
+import { FingerPrintIcon } from '@heroicons/react/24/outline';
+import { DeleteIcon } from 'lucide-react';
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import RegisterHeader from './Register/components/RegisterHeader';
 
 const PinVerification: React.FC = () => {
     const [pin, setPin] = useState<string>('');
     const [error, setError] = useState<string | null>(null);
-    const [remainingAttempts, setRemainingAttempts] = useState<number>(3);
+    // TODO: add remaining attempts logic
+    const [_remainingAttempts, setRemainingAttempts] = useState<number>(3);
     const [isInitializing, setIsInitializing] = useState(true);
     const navigate = useNavigate();
     const user = userStore((state) => state.user);
@@ -46,7 +48,7 @@ const PinVerification: React.FC = () => {
                     setIsInitializing(false);
                 }
             } catch (error) {
-                setError('Erreur de vérification');
+                setError('Erreur de vérification: ' + (error as Error).message);
                 setIsInitializing(false);
             }
         };
@@ -133,17 +135,10 @@ const PinVerification: React.FC = () => {
     }
 
     return (
-        <div className='flex flex-col items-center justify-between w-full h-screen px-4 pt-6 bg-white pb-28'>
-            <div className='relative w-full h-[20%] flex items-center justify-center'>
-                <div className='flex flex-col items-center justify-center mt-12'>
-                    <img src={mainLogo} alt='Elios Logo' className='mb-4 w-14 h-14 rounded-4' />
-                    <h2 className='text-3xl font-bold text-gray-800 mb-4 w-[20ch] text-center'>
-                        Entrez votre code PIN
-                    </h2>
-                </div>
-            </div>
+        <div className='flex flex-col items-center justify-start w-full h-screen px-4 pt-6 pb-8'>
+            <RegisterHeader title='Entrez votre code PIN' disableGoBack />
 
-            <div className='flex flex-col items-center justify-center w-full max-w-sm'>
+            <div className='w-full h-full flex flex-col items-center justify-start gap-8 pt-16'>
                 <div className='flex justify-center mb-6'>
                     {[...Array(6)].map((_, idx) => (
                         <span
@@ -153,34 +148,36 @@ const PinVerification: React.FC = () => {
                     ))}
                 </div>
 
-                <div className='relative mb-6'>
-                    <div className='absolute inset-0 flex items-center justify-center'>
-                        <img src={abstract1} alt='Background' className='w-56 h-56' />
-                    </div>
-                    <div className='relative z-10 grid grid-cols-3 gap-4'>
-                        {Array.from({ length: 9 }, (_, i) => i + 1).map((number) => (
-                            <Button
-                                key={number}
-                                className='flex items-center justify-center text-xl font-bold text-gray-800 bg-gray-200 rounded-full w-14 h-14 hover:bg-gray-300'
-                                onClick={() => handlePinInput(number.toString())}
-                            >
-                                {number}
-                            </Button>
-                        ))}
-                        <div />
+                <div className='relative z-10 grid grid-cols-3 gap-5'>
+                    {Array.from({ length: 9 }, (_, i) => i + 1).map((number) => (
                         <Button
+                            key={number}
                             className='flex items-center justify-center text-xl font-bold text-gray-800 bg-gray-200 rounded-full w-14 h-14 hover:bg-gray-300'
-                            onClick={() => handlePinInput('0')}
+                            onClick={() => handlePinInput(number.toString())}
                         >
-                            0
+                            {number}
                         </Button>
-                        <Button
-                            className='flex items-center justify-center text-xl text-red-600 bg-red-200 rounded-full w-14 h-14 hover:bg-red-300'
-                            onClick={handleDelete}
-                        >
-                            ⌫
-                        </Button>
-                    </div>
+                    ))}
+                    <Button
+                        className='flex items-center justify-center text-xl text-white bg-transparent rounded-full w-14 h-14'
+                        // onClick={handleDelete}
+                        // TODO: Implement fingerprint authentication
+                        disabled
+                    >
+                        <FingerPrintIcon className='w-7 h-7' />
+                    </Button>
+                    <Button
+                        className='flex items-center justify-center text-xl font-bold text-gray-800 bg-gray-200 rounded-full w-14 h-14 hover:bg-gray-300'
+                        onClick={() => handlePinInput('0')}
+                    >
+                        0
+                    </Button>
+                    <Button
+                        className='flex items-center justify-center text-xl text-red-600 bg-red-200 rounded-full w-14 h-14 hover:bg-red-300'
+                        onClick={handleDelete}
+                    >
+                        <DeleteIcon className='w-7 h-7' />
+                    </Button>
                 </div>
 
                 {error && <p className='mb-4 text-sm text-red-500'>{error}</p>}

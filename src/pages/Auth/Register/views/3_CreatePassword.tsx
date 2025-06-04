@@ -32,21 +32,19 @@ const CreatePassword: React.FC = () => {
     }, [password]);
 
     return (
-        <div className='flex flex-col items-center justify-between w-full h-screen px-4 pt-6 bg-white pb-28'>
+        <div className='flex flex-col items-center justify-between w-full h-screen px-4 pt-6 pb-8'>
             <RegisterHeader title='Créez votre mot de passe Elios' />
 
             <div className='flex flex-col items-center justify-center w-full max-w-sm'>
-                <h1 className='mb-4 text-xl font-bold text-gray-800'>Créez votre mot de passe Elios</h1>
-
                 <input
                     type='password'
                     placeholder='Votre mot de passe'
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className='w-full max-w-sm px-4 py-2 mb-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
+                    className='bg-transparent w-full max-w-sm px-4 py-2 mb-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
                 />
 
-                <ul className='w-full max-w-sm mb-6 text-sm text-gray-600 space-y-2'>
+                <ul className='w-full max-w-sm mb-6 text-sm text-gray-300 space-y-2'>
                     {[
                         { text: 'Au moins 8 caractères', condition: password.length >= 8 },
                         { text: 'Au moins 1 nombre', condition: /[0-9]/.test(password) },
