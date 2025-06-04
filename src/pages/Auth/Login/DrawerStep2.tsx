@@ -1,11 +1,11 @@
 import { login_api } from '@/api';
-import { generateDeviceId, getPinStatus } from '@/api/connexion/connexionCalls';
+import { generateDeviceId, getPinStatus, logout_api, verifyPin } from '@/api/connexion/connexionCalls';
 import { appOpen } from '@/api/connexion/connexionCalls';
 import mainLogo from '@/assets/images/corp/main_logo.png';
 import { Button } from '@/components/ui/button.tsx';
 import { userStore } from '@/store/UserStore';
 import APP_ROUTES_ENUM from '@/types/APP_ROUTES_ENUM';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 interface DrawerStep1Props {
@@ -14,7 +14,7 @@ interface DrawerStep1Props {
 }
 
 const DrawerStep2: React.FC<DrawerStep1Props> = ({ email, password }) => {
-    console.log('DrawerStep3: Component mounted with props:', { email, password });
+    console.log('DrawerStep2: Component mounted with props:', { email, password });
 
     const [pin, setPin] = useState<string>('');
     const [errorCount, setErrorCount] = useState<number>(0);
@@ -23,29 +23,29 @@ const DrawerStep2: React.FC<DrawerStep1Props> = ({ email, password }) => {
     const navigate = useNavigate();
     const user = userStore((state) => state.user);
 
-    console.log('DrawerStep3: Current user state:', user);
+    console.log('DrawerStep2: Current user state:', user);
 
     useEffect(() => {
-        console.log('DrawerStep3: useEffect triggered');
+        console.log('DrawerStep2: useEffect triggered');
         // Vérifier si l'utilisateur est connecté
         if (!user?.token) {
-            console.error('DrawerStep3: No token found');
+            console.error('DrawerStep2: No token found');
             navigate(APP_ROUTES_ENUM.LOGIN);
             return;
         }
 
-        console.log('DrawerStep3: Token found, extracting user ID');
+        console.log('DrawerStep2: Token found, extracting user ID');
         const userId = extractUserIdFromToken(user.token);
-        console.log('DrawerStep3: Extracted userId:', userId);
+        console.log('DrawerStep2: Extracted userId:', userId);
         if (!userId) {
-            console.error('DrawerStep3: Could not extract user ID from token');
+            console.error('DrawerStep2: Could not extract user ID from token');
             navigate(APP_ROUTES_ENUM.LOGIN);
             return;
         }
 
-        console.log('DrawerStep3: User ID verified, checking pin length');
+        console.log('DrawerStep2: User ID verified, checking pin length');
         if (pin.length === 6 && !isVerifying) {
-            console.log('DrawerStep3: PIN length is 6, calling handleVerify');
+            console.log('DrawerStep2: PIN length is 6, calling handleVerify');
             handleVerify();
         }
     }, [pin, user]);
@@ -63,16 +63,16 @@ const DrawerStep2: React.FC<DrawerStep1Props> = ({ email, password }) => {
                     .join(''),
             );
             const payload = JSON.parse(jsonPayload);
-            console.log('DrawerStep3: Extracted payload from token:', payload);
+            console.log('DrawerStep2: Extracted payload from token:', payload);
             return payload.sub.toString();
         } catch (error) {
-            console.error('DrawerStep3: Error extracting user ID from token:', error);
+            console.error('DrawerStep2: Error extracting user ID from token:', error);
             return undefined;
         }
     };
 
     const handlePinInput = (digit: string) => {
-        console.log('DrawerStep3: handlePinInput called with digit:', digit);
+        console.log('DrawerStep2: handlePinInput called with digit:', digit);
         if (pin.length < 6 && !isVerifying) {
             setPin((prev) => prev + digit);
             setError(null);
@@ -80,7 +80,7 @@ const DrawerStep2: React.FC<DrawerStep1Props> = ({ email, password }) => {
     };
 
     const handleDelete = () => {
-        console.log('DrawerStep3: handleDelete called');
+        console.log('DrawerStep2: handleDelete called');
         if (!isVerifying) {
             setPin((prev) => prev.slice(0, -1));
             setError(null);
@@ -90,29 +90,29 @@ const DrawerStep2: React.FC<DrawerStep1Props> = ({ email, password }) => {
     const handleVerify = async () => {
         if (isVerifying) return;
 
-        console.log('DrawerStep3: handleVerify called with pin:', pin);
+        console.log('DrawerStep2: handleVerify called with pin:', pin);
         const deviceId = localStorage.getItem('deviceId');
         if (!deviceId) {
-            console.error('DrawerStep3: No deviceId found');
+            console.error('DrawerStep2: No deviceId found');
             navigate(APP_ROUTES_ENUM.LOGIN);
             return;
         }
 
         setIsVerifying(true);
         try {
-            console.log('DrawerStep3: Calling verifyPin with:', { pin, deviceId });
+            console.log('DrawerStep2: Calling verifyPin with:', { pin, deviceId });
             await verifyPin(pin, deviceId);
-            console.log('DrawerStep3: PIN verification successful, redirecting to home');
+            console.log('DrawerStep2: PIN verification successful, redirecting to home');
             navigate(APP_ROUTES_ENUM.HOME);
         } catch (err) {
-            console.error('DrawerStep3: PIN verification error:', err);
+            console.error('DrawerStep2: PIN verification error:', err);
             const nextCount = errorCount + 1;
             setErrorCount(nextCount);
             setPin('');
             setError(`Code PIN incorrect. ${3 - nextCount} tentatives restantes.`);
 
             if (nextCount >= 3) {
-                console.log('DrawerStep3: Too many failed attempts, logging out');
+                console.log('DrawerStep2: Too many failed attempts, logging out');
                 await logout_api();
                 navigate(APP_ROUTES_ENUM.LOGIN);
             }

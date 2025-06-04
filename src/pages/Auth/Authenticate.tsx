@@ -169,10 +169,10 @@ const Authenticate: React.FC = () => {
                             J'ai déjà un compte
                         </Button>
                     </DrawerTrigger>
-                    <DrawerContent className='bg-white text-gray-800 '>
+                    <DrawerContent className='bg-gray-800 text-white border-none px-6'>
                         {drawerStep === 'step2' && (
                             <Button
-                                className='absolute p-2 bg-transparent rounded-full top-2 left-4 focus:bg-transparent'
+                                className='absolute p-2 bg-transparent rounded-full top-2 left-5 focus:bg-transparent'
                                 onClick={() => {
                                     setDrawerStep('step1');
                                     setDataForStep2(null);
@@ -181,11 +181,11 @@ const Authenticate: React.FC = () => {
                                 <ArrowLeftCircleIcon className='w-6 h-6 text-gray-800 bg-transparent fill-none' />
                             </Button>
                         )}
-                        <DrawerClose className='absolute top-2 right-4'>
-                            <Button className='p-2 bg-transparent rounded-full' onClick={() => setDrawerStep('step1')}>
+                        <DrawerClose className='absolute top-2 right-5'>
+                            <Button className='p-0 bg-transparent rounded-full' onClick={() => setDrawerStep('step1')}>
                                 <svg
                                     xmlns='http://www.w3.org/2000/svg'
-                                    className='w-6 h-6 text-gray-800'
+                                    className='w-7 h-7 text-white'
                                     fill='none'
                                     viewBox='0 0 24 24'
                                     stroke='currentColor'
