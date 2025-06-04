@@ -11,7 +11,6 @@ import RegisterHeader from '../components/RegisterHeader';
 
 const TermsAndConditions: React.FC = () => {
     const [isAccepted, setIsAccepted] = useState(false);
-    const [error, setError] = useState('');
     const navigate = useNavigate();
     const { email, username, password2: password, pin1: pin, clear } = useRegisterUsersStore();
 
@@ -55,8 +54,8 @@ const TermsAndConditions: React.FC = () => {
             // 4. Nettoyage et redirection
             clear();
             navigate(APP_ROUTES_ENUM.HOME);
-        } catch (err: any) {
-            setError(err.message || "Une erreur s'est produite lors de l'inscription");
+        } catch (err) {
+            console.error("Erreur lors de l'inscription ou de la configuration:", (err as Error).message);
         }
     };
 

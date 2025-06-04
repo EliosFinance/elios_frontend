@@ -1,6 +1,4 @@
 'use client';
-
-import abstract1 from '@/assets/images/shapes/abstract_shape_1.png';
 import { Button } from '@/components/ui/button';
 import { useRegisterUsersStore } from '@/store/RegisterUser';
 import APP_ROUTES_ENUM from '@/types/APP_ROUTES_ENUM';

@@ -1,7 +1,5 @@
 import { logout_api } from '@/api/connexion/connexionCalls';
 import { appOpen, getPinStatus, verifyPin } from '@/api/connexion/connexionCalls';
-import mainLogo from '@/assets/images/corp/main_logo.png';
-import abstract1 from '@/assets/images/shapes/abstract_shape_1.png';
 import { Button } from '@/components/ui/button.tsx';
 import { userStore } from '@/store/UserStore';
 import APP_ROUTES_ENUM from '@/types/APP_ROUTES_ENUM';
@@ -15,7 +13,7 @@ const PinVerification: React.FC = () => {
     const [pin, setPin] = useState<string>('');
     const [error, setError] = useState<string | null>(null);
     // TODO: add remaining attempts logic
-    const [remainingAttempts, setRemainingAttempts] = useState<number>(3);
+    const [_remainingAttempts, setRemainingAttempts] = useState<number>(3);
     const [isInitializing, setIsInitializing] = useState(true);
     const navigate = useNavigate();
     const user = userStore((state) => state.user);
@@ -50,7 +48,7 @@ const PinVerification: React.FC = () => {
                     setIsInitializing(false);
                 }
             } catch (error) {
-                setError('Erreur de vérification');
+                setError('Erreur de vérification: ' + (error as Error).message);
                 setIsInitializing(false);
             }
         };
