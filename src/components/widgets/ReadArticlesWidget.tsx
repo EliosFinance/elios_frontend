@@ -1,4 +1,4 @@
-import { getReadArticles, useGetBitcoin } from '@/api';
+import { getReadArticles } from '@/api';
 import humanizeNumbers from '@/helpers/humanizeNumbers';
 import { ArticleType } from '@/types/BlogType';
 import { userType } from '@/types/challengeType';
