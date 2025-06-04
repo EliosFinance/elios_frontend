@@ -6,7 +6,7 @@ import { Button } from './ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 
 const Subscription = () => {
-    const [selectedPlan, setSelectedPlan] = useState('annual');
+    const [selectedPlan, setSelectedPlan] = useState<'monthly' | 'annual'>('annual');
 
     const improvements = [
         'Accès à des fonctionnalités exclusives',

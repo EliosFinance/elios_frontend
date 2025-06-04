@@ -1,123 +1,170 @@
+import { verifyPin } from '@/api/connexion/connexionCalls';
+import { logout_api } from '@/api/connexion/connexionCalls';
 import mainLogo from '@/assets/images/corp/main_logo.png';
-import abstract1 from '@/assets/images/shapes/abstract_shape_1.png';
 import { Button } from '@/components/ui/button';
-import { useAuth } from '@/context/AuthProvider';
+import { userStore } from '@/store/UserStore';
 import APP_ROUTES_ENUM from '@/types/APP_ROUTES_ENUM';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-type PinCodeScreenProps = {
+type DrawerStep3Props = {
     email: string;
     password: string;
 };
 
-const DrawerStep3: React.FC<PinCodeScreenProps> = ({ email, password }) => {
+const DrawerStep3: React.FC<DrawerStep3Props> = ({ email, password }) => {
+    console.log('DrawerStep3: Component mounted with props:', { email, password });
+
     const [pin, setPin] = useState<string>('');
-    const [error, setError] = useState<boolean>(false);
     const [errorCount, setErrorCount] = useState<number>(0);
+    const [error, setError] = useState<string | null>(null);
+    const [isVerifying, setIsVerifying] = useState<boolean>(false);
     const navigate = useNavigate();
-    const { authenticate } = useAuth();
+    const user = userStore((state) => state.user);
+
+    console.log('DrawerStep3: Current user state:', user);
+
+    useEffect(() => {
+        console.log('DrawerStep3: useEffect triggered');
+        // Vérifier si l'utilisateur est connecté
+        if (!user?.token) {
+            console.error('DrawerStep3: No token found');
+            navigate(APP_ROUTES_ENUM.LOGIN);
+            return;
+        }
+
+        console.log('DrawerStep3: Token found, extracting user ID');
+        const userId = extractUserIdFromToken(user.token);
+        console.log('DrawerStep3: Extracted userId:', userId);
+        if (!userId) {
+            console.error('DrawerStep3: Could not extract user ID from token');
+            navigate(APP_ROUTES_ENUM.LOGIN);
+            return;
+        }
+
+        console.log('DrawerStep3: User ID verified, checking pin length');
+        if (pin.length === 6 && !isVerifying) {
+            console.log('DrawerStep3: PIN length is 6, calling handleVerify');
+            handleVerify();
+        }
+    }, [pin, user]);
+
+    const extractUserIdFromToken = (token: string): string | undefined => {
+        try {
+            const base64Url = token.split('.')[1];
+            const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+            const jsonPayload = decodeURIComponent(
+                atob(base64)
+                    .split('')
+                    .map(function (c) {
+                        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+                    })
+                    .join(''),
+            );
+            const payload = JSON.parse(jsonPayload);
+            console.log('DrawerStep3: Extracted payload from token:', payload);
+            return payload.sub.toString();
+        } catch (error) {
+            console.error('DrawerStep3: Error extracting user ID from token:', error);
+            return undefined;
+        }
+    };
 
     const handlePinInput = (digit: string) => {
-        if (pin.length < 4) {
-            setError(true);
+        console.log('DrawerStep3: handlePinInput called with digit:', digit);
+        if (pin.length < 6 && !isVerifying) {
             setPin((prev) => prev + digit);
+            setError(null);
         }
     };
 
     const handleDelete = () => {
-        setError(false);
-        setPin((prev) => prev.slice(0, -1));
+        console.log('DrawerStep3: handleDelete called');
+        if (!isVerifying) {
+            setPin((prev) => prev.slice(0, -1));
+            setError(null);
+        }
     };
 
-    const handleLoginUser = async () => {
-        // TODO: add a verification in backend for pin code
-        const canLogIn = await authenticate('login', email, password);
+    const handleVerify = async () => {
+        if (isVerifying) return;
 
-        if (canLogIn) {
+        console.log('DrawerStep3: handleVerify called with pin:', pin);
+        const deviceId = localStorage.getItem('deviceId');
+        if (!deviceId) {
+            console.error('DrawerStep3: No deviceId found');
+            navigate(APP_ROUTES_ENUM.LOGIN);
+            return;
+        }
+
+        setIsVerifying(true);
+        try {
+            console.log('DrawerStep3: Calling verifyPin with:', { pin, deviceId });
+            await verifyPin(pin, deviceId);
+            console.log('DrawerStep3: PIN verification successful, redirecting to home');
             navigate(APP_ROUTES_ENUM.HOME);
-        } else {
-            setError(true);
-            setErrorCount(errorCount + 1);
+        } catch (err) {
+            console.error('DrawerStep3: PIN verification error:', err);
+            const nextCount = errorCount + 1;
+            setErrorCount(nextCount);
+            setPin('');
+            setError(`Code PIN incorrect. ${3 - nextCount} tentatives restantes.`);
+
+            if (nextCount >= 3) {
+                console.log('DrawerStep3: Too many failed attempts, logging out');
+                await logout_api();
+                navigate(APP_ROUTES_ENUM.LOGIN);
+            }
+        } finally {
+            setIsVerifying(false);
         }
     };
 
     return (
-        <div className='relative flex flex-col items-center justify-center w-full h-screen px-6 bg-white'>
-            <button className='absolute top-6 left-6' onClick={() => navigate(-1)}>
-                <svg
-                    xmlns='http://www.w3.org/2000/svg'
-                    className='w-6 h-6 text-gray-800'
-                    fill='none'
-                    viewBox='0 0 24 24'
-                    stroke='currentColor'
-                >
-                    <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M15 19l-7-7 7-7' />
-                </svg>
-            </button>
+        <div className='p-4 mb-10'>
+            <div className='mb-6 text-center'>
+                <img src={mainLogo} alt='Elios Logo' className='w-16 h-16 mx-auto mb-4' />
+                <h2 className='text-lg font-bold text-gray-800'>Entrez votre code PIN</h2>
+            </div>
 
-            <img src={mainLogo} alt='Elios Logo' className='mb-4 w-14 h-14' />
-
-            <h1 className='mb-4 text-base font-bold text-center text-gray-800'>Entrez votre code PIN</h1>
-
-            <div className='flex justify-center mb-6'>
-                {[...Array(4)].map((_, idx) => (
-                    <span
-                        key={idx}
-                        className={`w-3 h-3 mx-2 rounded-full ${idx < pin.length ? 'bg-blue-500' : 'bg-gray-300'}`}
+            {/* PIN Display */}
+            <div className='flex justify-center gap-2 mb-6'>
+                {[...Array(6)].map((_, index) => (
+                    <div
+                        key={index}
+                        className={`w-4 h-4 rounded-full border-2 ${
+                            index < pin.length ? 'bg-blue-500 border-blue-500' : 'border-gray-300'
+                        }`}
                     />
                 ))}
             </div>
 
-            <div className='relative mb-6'>
-                <div className='absolute inset-0 flex items-center justify-center'>
-                    <img src={abstract1} alt='Background' className='w-56 h-56' />
-                </div>
-                <div className='relative z-10 grid grid-cols-3 gap-4'>
-                    {Array.from({ length: 9 }, (_, i) => i + 1).map((number) => (
-                        <Button
-                            key={number}
-                            className='flex items-center justify-center text-xl font-bold text-gray-800 bg-gray-200 rounded-full w-14 h-14 hover:bg-gray-300'
-                            onClick={() => handlePinInput(number.toString())}
-                        >
-                            {number}
-                        </Button>
-                    ))}
-                    <div />
-                    <Button
-                        className='flex items-center justify-center text-xl font-bold text-gray-800 bg-gray-200 rounded-full w-14 h-14 hover:bg-gray-300'
-                        onClick={() => handlePinInput('0')}
-                    >
-                        0
-                    </Button>
-                    <Button
-                        className='flex items-center justify-center text-xl text-red-600 bg-red-200 rounded-full w-14 h-14 hover:bg-red-300'
-                        onClick={handleDelete}
-                    >
-                        ⌫
-                    </Button>
-                </div>
-            </div>
+            {/* Error Message */}
+            {error && <p className='text-red-500 text-sm mb-4 text-center'>{error}</p>}
 
-            <div className='flex flex-col items-start justify-start mt-2 text-xs text-center text-gray-500 '>
-                {/* TODO: FORGOT PIN CODE */}
-                {error && errorCount > 2 && (
-                    <span
-                        className='text-blue-500 cursor-pointer'
-                        onClick={() => {
-                            console.log('TODO');
-                        }}
+            {/* PIN Pad */}
+            <div className='grid grid-cols-3 gap-4 w-full max-w-xs mx-auto'>
+                {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((num) => (
+                    <Button
+                        key={num}
+                        onClick={() => handlePinInput(num.toString())}
+                        className='w-full h-12 text-xl font-semibold'
+                        disabled={isVerifying}
                     >
-                        Code PIN oublié ?
-                    </span>
-                )}
+                        {num}
+                    </Button>
+                ))}
+                <Button
+                    onClick={() => handlePinInput('0')}
+                    className='w-full h-12 text-xl font-semibold'
+                    disabled={isVerifying}
+                >
+                    0
+                </Button>
+                <Button onClick={handleDelete} className='w-full h-12 text-xl font-semibold' disabled={isVerifying}>
+                    ←
+                </Button>
             </div>
-            <Button
-                onClick={handleLoginUser}
-                className='w-56 px-3 py-2 text-sm text-center text-white bg-blue-500 rounded-full hover:bg-blue-600 focus:ring-2 focus:ring-blue-400'
-            >
-                OK
-            </Button>
         </div>
     );
 };

@@ -6,71 +6,153 @@ import { instance_back } from '../const';
 
 export type LoginType = {
     id: string;
+    username: string;
     access_token: string;
     refresh_token: string;
-    username: string;
     powens_token: string;
 };
 
-const getConnection = async () => {
+const getAuthHeaders = () => {
+    const token = userStore.getState().user?.token;
+    if (!token) throw new Error('Aucun token disponible');
+    return { headers: { Authorization: `Bearer ${token}` } };
+};
+
+export const generateDeviceId = async (): Promise<string> => {
     try {
-        const headers = userStore.getState().getAuth();
-        const response = await instance_back.get('powens/connections', { headers });
-        return response.data;
+        const response = await instance_back.post('auth/pin/generate-device', {}, getAuthHeaders());
+        return response.data.deviceId;
     } catch (error) {
-        const err = error as AxiosError;
-        console.error(err.message);
+        console.error('[generateDeviceId] Erreur:', error);
+        throw new Error('Impossible de générer le deviceId');
     }
 };
 
-export const useGetConnection = (): UseQueryResult<ConnectionType[], AxiosError> => {
-    return useQuery<ConnectionType[], AxiosError>({
-        queryKey: ['getConnection'],
-        queryFn: getConnection,
-    });
-};
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const login_api = async (username: string, password: string): Promise<LoginType | null> => {
+const updateUser = async (data: LoginType) => {
     try {
-        const response = await instance_back.post('auth/sign-in', {
-            usernameOrEmail: username,
-            password,
+        userStore.getState().updateUser({
+            id: data.id,
+            username: data.username,
+            token: data.access_token,
+            refresh_token: data.refresh_token,
+            powens_token: data.powens_token,
         });
 
-        return response.data;
+        const deviceId = await generateDeviceId();
+        localStorage.setItem('deviceId', deviceId);
     } catch (error) {
-        const err = error as AxiosError;
-        console.error(err.message);
+        console.error('[updateUser] Erreur:', error);
+        throw error;
     }
 };
 
-export const login_google = async (token: string) => {
-    try {
-        const response = await instance_back.post('auth/google', {
-            token,
-        });
-
-        return response.data;
-    } catch (error) {
-        const err = error as AxiosError;
-        console.error(err.message);
-    }
-};
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const register_api = async (username: string, email: string, password: string): Promise<LoginType | null> => {
+export const register_api = async (username: string, email: string, password: string) => {
     try {
         const response = await instance_back.post('auth/sign-up', {
             username,
             email,
             password,
         });
-
         return response.data;
     } catch (error) {
-        const err = error as AxiosError;
-        console.error(err.message);
+        console.error('[register_api] Erreur:', error);
+        throw error;
+    }
+};
+
+export const login_api = async (usernameOrEmail: string, password: string) => {
+    try {
+        const response = await instance_back.post<LoginType>('auth/sign-in', {
+            usernameOrEmail,
+            password,
+        });
+        await updateUser(response.data);
+        return response.data;
+    } catch (error) {
+        console.error('[login_api] Erreur:', error);
+        throw error;
+    }
+};
+
+export const getConnection = async (): Promise<ConnectionType[]> => {
+    try {
+        const response = await instance_back.get('powens/connections', getAuthHeaders());
+        return response.data;
+    } catch (error) {
+        console.error('[getConnection] Erreur:', (error as AxiosError).message);
+        return [];
+    }
+};
+
+export const useGetConnection = (): UseQueryResult<ConnectionType[], AxiosError> => {
+    return useQuery(['getConnection'], getConnection);
+};
+
+// PIN related functions
+export const getPinStatus = async (): Promise<{ isSetup: boolean; isLocked: boolean }> => {
+    try {
+        const response = await instance_back.get('auth/pin/status', getAuthHeaders());
+        console.log('PIN status response:', response.data);
+        return {
+            isSetup: response.data.isSetup ?? false,
+            isLocked: response.data.isLocked ?? false,
+        };
+    } catch (error) {
+        console.error('[getPinStatus] Erreur:', error);
+        return {
+            isSetup: false,
+            isLocked: false,
+        };
+    }
+};
+
+export const setupPin = async (pin: string): Promise<boolean> => {
+    try {
+        await instance_back.post('auth/pin/setup', { pin }, getAuthHeaders());
+        return true;
+    } catch (error) {
+        console.error('[setupPin] Erreur:', error);
+        return false;
+    }
+};
+
+export const verifyPin = async (pin: string, deviceId?: string): Promise<void> => {
+    const payload = deviceId ? { pin, deviceId } : { pin };
+    await instance_back.post('auth/pin/verify', payload, getAuthHeaders());
+};
+
+// App state functions
+export const appKeepAlive = async (): Promise<void> => {
+    const deviceId = localStorage.getItem('deviceId');
+    if (!deviceId) throw new Error('Aucun deviceId trouvé');
+    await instance_back.post('auth/app/keep-alive', { deviceId }, getAuthHeaders());
+};
+
+export const appClose = async (): Promise<void> => {
+    const deviceId = localStorage.getItem('deviceId');
+    if (!deviceId) throw new Error('Aucun deviceId trouvé');
+    await instance_back.post('auth/app/close', { deviceId }, getAuthHeaders());
+};
+
+export const appOpen = async (deviceId?: string): Promise<{ requiresPin: boolean }> => {
+    const currentDeviceId = deviceId || localStorage.getItem('deviceId');
+    if (!currentDeviceId) throw new Error('Aucun deviceId trouvé');
+    const response = await instance_back.post<{ requiresPin: boolean }>(
+        'auth/app/open',
+        { deviceId: currentDeviceId },
+        getAuthHeaders(),
+    );
+    return response.data;
+};
+
+export const login_google = async (token: string): Promise<LoginType | null> => {
+    try {
+        const response = await instance_back.post<LoginType>('auth/google', { token });
+        await updateUser(response.data);
+        return response.data;
+    } catch (error) {
+        console.error('[login_google] Erreur:', error);
+        return null;
     }
 };
 
@@ -78,30 +160,23 @@ export const refresh_token_api = async (refreshToken: string) => {
     try {
         const response = await instance_back.post(
             'auth/refresh-token',
-            {
-                refresh_token: refreshToken,
-            },
-            {
-                headers: {
-                    Authorization: `Bearer ${refreshToken}`,
-                },
-            },
+            { refresh_token: refreshToken },
+            { headers: { Authorization: `Bearer ${refreshToken}` } },
         );
         return response.data;
     } catch (error) {
-        const err = error as AxiosError;
-        console.error(err.message);
-        throw err;
+        console.error('[refresh_token_api] Erreur:', error);
+        throw error;
     }
 };
 
-export const logout_api = async () => {
+export const logout_api = async (): Promise<void> => {
     try {
-        const headers = userStore.getState().getAuth();
-        const response = await instance_back.post('auth/invalidate-token', {}, { headers });
-        return response.data;
+        await instance_back.post('auth/invalidate-token', {}, getAuthHeaders());
+        userStore.getState().removeUser();
+        localStorage.removeItem('deviceId');
     } catch (error) {
-        const err = error as AxiosError;
-        console.error(err.message);
+        console.error('[logout_api] Erreur:', error);
+        throw error;
     }
 };

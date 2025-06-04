@@ -4,7 +4,7 @@ import abstract1 from '@/assets/images/shapes/abstract_shape_1.png';
 import { Button } from '@/components/ui/button';
 import { useRegisterUsersStore } from '@/store/RegisterUser';
 import APP_ROUTES_ENUM from '@/types/APP_ROUTES_ENUM';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import RegisterHeader from '../components/RegisterHeader';
 
@@ -13,8 +13,14 @@ const ConfirmPin: React.FC = () => {
     const { pin1: pinCode, pin2: confirmPin, setPin2: setConfirmPin } = useRegisterUsersStore();
     const navigate = useNavigate();
 
+    useEffect(() => {
+        if (confirmPin.length === 6) {
+            handleValidation();
+        }
+    }, [confirmPin]);
+
     const handlePinInput = (digit: string) => {
-        if (!confirmPin || confirmPin.length < 4) {
+        if (!confirmPin || confirmPin.length < 6) {
             setError('');
             setConfirmPin(confirmPin + digit);
         }
@@ -25,16 +31,13 @@ const ConfirmPin: React.FC = () => {
         setConfirmPin(confirmPin.slice(0, -1));
     };
 
-    const handleNext = () => {
-        if (confirmPin.length === 4) {
-            if (confirmPin === pinCode) {
-                navigate(APP_ROUTES_ENUM.TERMS);
-            } else {
-                setError('Les codes PIN ne correspondent pas. Veuillez réessayer.');
-                setConfirmPin('');
-            }
+    const handleValidation = () => {
+        if (confirmPin === pinCode) {
+            // Les PINs correspondent, on peut passer à la page suivante
+            navigate(APP_ROUTES_ENUM.TERMS);
         } else {
-            setError('Veuillez entrer un code PIN à 4 chiffres.');
+            setError('Les codes PIN ne correspondent pas. Veuillez réessayer.');
+            setConfirmPin('');
         }
     };
 
@@ -44,7 +47,7 @@ const ConfirmPin: React.FC = () => {
 
             <div className='flex flex-col items-center justify-center w-full max-w-sm'>
                 <div className='flex justify-center mb-6'>
-                    {[...Array(4)].map((_, idx) => (
+                    {[...Array(6)].map((_, idx) => (
                         <span
                             key={idx}
                             className={`w-3 h-3 mx-2 rounded-full ${
@@ -86,13 +89,6 @@ const ConfirmPin: React.FC = () => {
 
                 {error && <p className='mb-4 text-sm text-red-500'>{error}</p>}
             </div>
-
-            <Button
-                onClick={handleNext}
-                className={`w-full max-w-sm px-4 py-2 rounded-full text-center bg-blue-500 text-white hover:bg-blue-600 focus:ring-2 focus:ring-blue-400`}
-            >
-                Suivant
-            </Button>
         </div>
     );
 };

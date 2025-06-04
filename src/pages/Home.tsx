@@ -93,6 +93,7 @@ const Home = () => {
                         <AccordionItem value='item-2'>
                             <AccordionTrigger>Transactions</AccordionTrigger>
                             <AccordionContent>
+                                {/* @ts-ignore */}
                                 <DataTable columns={columns} data={listTransaction.data ?? []} />
                             </AccordionContent>
                         </AccordionItem>

@@ -24,6 +24,7 @@ const APP_ROUTES_ENUM = {
     CONFIRM_PIN: '/register/confirm-pin',
     TERMS: '/register/terms',
     PIN: '/register/pin',
+    PIN_VERIFICATION: '/pin-verification',
 
     // Learn routes
     LEARN: '/learn',

@@ -1,5 +1,8 @@
 import { login_api } from '@/api';
+import { generateDeviceId, getPinStatus } from '@/api/connexion/connexionCalls';
+import { appOpen } from '@/api/connexion/connexionCalls';
 import { Button } from '@/components/ui/button.tsx';
+import { userStore } from '@/store/UserStore';
 import APP_ROUTES_ENUM from '@/types/APP_ROUTES_ENUM';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -15,16 +18,103 @@ const DrawerStep2: React.FC<DrawerStep1Props> = ({ onNext, setDataForStep3 }) =>
     const [error, setError] = useState<boolean>(false);
     const [errorCount, setErrorCount] = useState<number>(0);
     const navigate = useNavigate();
+    const updateUser = userStore((state) => state.updateUser);
+
+    const extractUserIdFromToken = (token: string): string | undefined => {
+        try {
+            const base64Url = token.split('.')[1];
+            const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+            const jsonPayload = decodeURIComponent(
+                atob(base64)
+                    .split('')
+                    .map(function (c) {
+                        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+                    })
+                    .join(''),
+            );
+            const payload = JSON.parse(jsonPayload);
+            return payload.sub.toString();
+        } catch (error) {
+            console.error('Error extracting user ID from token:', error);
+            return undefined;
+        }
+    };
 
     const submit = async () => {
         setError(false);
-        const response = await login_api(email, password);
-        if (response) {
-            onNext();
-            setDataForStep3(email, password);
-        } else {
+        try {
+            // 1. L'utilisateur se connecte normalement
+            const response = await login_api(email, password);
+            console.log('Login response:', response);
+
+            if (!response) {
+                setError(true);
+                setErrorCount((prev) => prev + 1);
+                return;
+            }
+
+            // Extraire l'ID de l'utilisateur du token
+            const userId = extractUserIdFromToken(response.access_token);
+            console.log('Extracted user ID from token:', userId);
+
+            if (!userId) {
+                console.error('Could not extract user ID from token');
+                setError(true);
+                setErrorCount((prev) => prev + 1);
+                return;
+            }
+
+            // Mise à jour du userStore avec l'ID
+            const userData = {
+                id: userId,
+                username: response.username,
+                token: response.access_token,
+                refresh_token: response.refresh_token,
+                powens_token: response.powens_token,
+            };
+            console.log('Updating user store with:', userData);
+            updateUser(userData);
+
+            // 2. Vérifier si un PIN est déjà configuré
+            const pinStatus = await getPinStatus();
+            console.log('PIN status:', pinStatus);
+
+            if (!pinStatus.isSetup) {
+                console.log('PIN not configured, redirecting to PIN setup');
+                navigate(APP_ROUTES_ENUM.CREATE_PIN);
+                return;
+            }
+
+            // 3. Générer un deviceId
+            let deviceId = localStorage.getItem('deviceId');
+            console.log('Current deviceId:', deviceId);
+
+            if (!deviceId) {
+                console.log('No deviceId found, generating new one');
+                deviceId = await generateDeviceId();
+                console.log('Generated new deviceId:', deviceId);
+                localStorage.setItem('deviceId', deviceId);
+            }
+
+            // 4. Vérifier si un PIN est requis
+            const { requiresPin } = await appOpen(deviceId);
+            console.log('PIN required:', requiresPin);
+
+            if (requiresPin) {
+                console.log('PIN required, moving to PIN verification step');
+                setDataForStep3(email, password);
+                console.log('Data set for step 3, calling onNext');
+                onNext();
+                return;
+            }
+
+            // Si pas de PIN requis, aller directement à la page d'accueil
+            console.log('No PIN required, redirecting to home');
+            navigate(APP_ROUTES_ENUM.HOME);
+        } catch (error) {
+            console.error('Login error:', error);
             setError(true);
-            setErrorCount(errorCount + 1);
+            setErrorCount((prev) => prev + 1);
         }
     };
 
