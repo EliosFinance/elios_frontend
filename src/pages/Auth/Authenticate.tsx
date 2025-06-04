@@ -7,22 +7,22 @@ import { Drawer, DrawerClose, DrawerContent, DrawerTitle, DrawerTrigger } from '
 import { OsEnum, useDeviceDetection } from '@/hook/useDeviceDetection';
 import { userStore } from '@/store/UserStore.ts';
 import APP_ROUTES_ENUM from '@/types/APP_ROUTES_ENUM';
-import { ArrowDownCircleIcon, ArrowLeftCircleIcon } from '@heroicons/react/24/outline';
+import { ArrowLeftCircleIcon } from '@heroicons/react/24/outline';
 import { GoogleLogin } from '@react-oauth/google';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { createSearchParams, useNavigate } from 'react-router-dom';
 import DrawerStep1 from './Login/DrawerStep1';
 import DrawerStep2 from './Login/DrawerStep2';
-import DrawerStep3 from './Login/DrawerStep3';
 
 const Authenticate: React.FC = () => {
     const [email, setEmail] = useState('');
     const [error, setError] = useState<string | null>(null); // État pour le message d'erreur
-    const [drawerStep, setDrawerStep] = useState<'step1' | 'step2' | 'step3'>('step1');
-    const [dataForStep3, setDataForStep3] = useState<{ email: string; password: string } | null>(null);
+    const [drawerStep, setDrawerStep] = useState<'step1' | 'step2'>('step1');
+    const [dataForStep2, setDataForStep2] = useState<{ email: string; password: string } | null>(null);
     const { os } = useDeviceDetection();
     const navigate = useNavigate();
     const updateUser = userStore((state) => state.updateUser);
+    const googleParentRef = useRef<HTMLDivElement>(null);
 
     const isValidEmail = (email: string): boolean => {
         // Expression régulière pour valider une adresse email
@@ -62,8 +62,8 @@ const Authenticate: React.FC = () => {
             try {
                 const { requiresPin } = await appOpen(deviceId);
                 if (requiresPin) {
-                    setDataForStep3({ email: loginGoogle.username, password: '' });
-                    setDrawerStep('step3');
+                    setDataForStep2({ email: loginGoogle.username, password: '' });
+                    setDrawerStep('step2');
                     return;
                 }
             } catch (error) {
@@ -75,14 +75,14 @@ const Authenticate: React.FC = () => {
     };
 
     return (
-        <div className='flex flex-col items-center justify-center w-full h-screen px-4 bg-white gap-6'>
+        <div className='flex flex-col items-center justify-center w-full h-screen gap-6'>
             {/* Decorations & Headings */}
             <div className='flex flex-col items-center justify-center'>
                 {/* Logo */}
                 <img src={mainLogo} alt='Elios Logo' className='w-20 h-20 mb-4 rounded-4' />
 
                 {/* Titre */}
-                <h1 className='text-3xl font-bold text-gray-800 mb-2 text-center w-[25ch]'>
+                <h1 className='text-3xl font-bold mb-2 text-center w-full'>
                     Créez un compte pour sauvegarder vos réponses
                 </h1>
 
@@ -101,7 +101,7 @@ const Authenticate: React.FC = () => {
                             </svg>
                         ))}
                     </div>
-                    <p className='mt-1 text-xs text-gray-500'>noté 4.98/5 - 4324 notes</p>
+                    <p className='mt-1 text-xs text-gray-200'>noté 4.98/5 - 4324 notes</p>
                 </div>
             </div>
 
@@ -114,9 +114,10 @@ const Authenticate: React.FC = () => {
                         placeholder='Votre email'
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        className={`w-full px-4 py-2 border-t-none border-r-none border-l-none border-b-solid border-b-[1.5px] ${
-                            error ? 'border-red-500' : 'border-gray-300'
-                        } focus:outline-none focus:ring-0 text-m placeholder:text-gray-500 placeholder:font-semibold`}
+                        className={`
+                            w-full bg-transparent px-4 py-2 border-t-none border-r-none border-l-none border-b-solid border-b-[1.5px] mb-2
+                            ${error ? 'border-red-500' : 'border-gray-300'} 
+                            focus:outline-none focus:ring-0 text-m placeholder:text-gray-500 placeholder:font-semibold`}
                     />
                     {/* Message d'erreur */}
                     {error && <p className='mt-2 text-sm text-red-500'>{error}</p>}
@@ -140,7 +141,7 @@ const Authenticate: React.FC = () => {
             </div>
 
             {/* Login choice buttons */}
-            <div className='flex flex-col w-full max-w-sm space-y-2'>
+            <div className='flex flex-col w-full max-w-sm space-y-2' ref={googleParentRef}>
                 <GoogleLogin
                     onSuccess={handleGoogleLogin}
                     onError={() => {
@@ -151,46 +152,35 @@ const Authenticate: React.FC = () => {
                     text='continue_with'
                     type='standard'
                     logo_alignment='center'
-                    width={window.innerWidth - 47}
+                    width={googleParentRef.current?.offsetWidth || window.innerWidth - 47}
                     // useOneTap
                 />
                 {os === OsEnum.IOS ||
                     (os === OsEnum.WEB && (
-                        <Button className='flex items-center justify-center w-full border-solid border-[1.5px] border-gray-200 text-gray-800 rounded-full bg-transparent hover:bg-gray-300'>
-                            <img src={appleIcon} alt='Apple' className='h-4 mr-3 w-aut' />
-                            <span className='text-sm'>Continuer avec Apple</span>
+                        <Button className='h-[44px] flex items-center justify-center w-full border-solid border-[1.5px] rounded-full border-gray-200 text-black bg-white'>
+                            <img src={appleIcon} alt='Apple' className='h-5 mr-3 w-auto' />
+                            <span className='text-md font-bold text-gray-700'>Continuer avec Apple</span>
                         </Button>
                     ))}
 
                 <Drawer>
                     <DrawerTrigger asChild>
-                        <Button className='w-full bg-transparent border-solid border-[1.5px] border-gray-200 text-gray-800 py-2 rounded-full hover:bg-gray-300'>
+                        <Button className='h-[44px] font-bold w-full bg-primary-500 border-solid border-[1.5px] border-gray-200 text-gray-800 py-2 rounded-full hover:bg-gray-300'>
                             J'ai déjà un compte
                         </Button>
                     </DrawerTrigger>
-                    <DrawerContent>
-                        <Button
-                            className='absolute p-2 bg-transparent rounded-full top-2 left-4 focus:bg-transparent'
-                            onClick={() => {
-                                console.log('Back button clicked, current step:', drawerStep);
-                                switch (drawerStep) {
-                                    case 'step1':
-                                        // TODO: Close drawer
-                                        break;
-                                    case 'step2':
-                                        setDrawerStep('step1');
-                                        setDataForStep3(null);
-                                        break;
-                                    case 'step3':
-                                        setDrawerStep('step2');
-                                        break;
-                                    default:
-                                        break;
-                                }
-                            }}
-                        >
-                            <ArrowLeftCircleIcon className='w-6 h-6 text-gray-800 bg-transparent fill-none' />
-                        </Button>
+                    <DrawerContent className='bg-white text-gray-800 '>
+                        {drawerStep === 'step2' && (
+                            <Button
+                                className='absolute p-2 bg-transparent rounded-full top-2 left-4 focus:bg-transparent'
+                                onClick={() => {
+                                    setDrawerStep('step1');
+                                    setDataForStep2(null);
+                                }}
+                            >
+                                <ArrowLeftCircleIcon className='w-6 h-6 text-gray-800 bg-transparent fill-none' />
+                            </Button>
+                        )}
                         <DrawerClose className='absolute top-2 right-4'>
                             <Button className='p-2 bg-transparent rounded-full' onClick={() => setDrawerStep('step1')}>
                                 <svg
@@ -212,29 +202,22 @@ const Authenticate: React.FC = () => {
                         <DrawerTitle className='display-none'>
                             <></>
                         </DrawerTitle>
-                        <div className='mt-16'>
-                            {drawerStep === 'step1' && <DrawerStep1 onNext={() => setDrawerStep('step2')} />}
-                            {drawerStep === 'step2' && (
-                                <DrawerStep2
-                                    onNext={() => {
-                                        console.log('Moving to step 3');
-                                        setDrawerStep('step3');
-                                    }}
-                                    setDataForStep3={(email, password) => {
+                        <div>
+                            {drawerStep === 'step1' && (
+                                <DrawerStep1
+                                    onNext={() => setDrawerStep('step2')}
+                                    setDataForStep2={(email, password) => {
                                         console.log('Setting data for step 3:', { email, password });
-                                        setDataForStep3({ email, password });
+                                        setDataForStep2({ email, password });
                                     }}
                                 />
                             )}
-                            {drawerStep === 'step3' && dataForStep3 && (
-                                <div>
-                                    {console.log('Authenticate: Rendering DrawerStep3 with data:', dataForStep3)}
-                                    <DrawerStep3
-                                        key={`pin-verification-${Date.now()}`}
-                                        email={dataForStep3.email}
-                                        password={dataForStep3.password}
-                                    />
-                                </div>
+                            {drawerStep === 'step2' && (
+                                <DrawerStep2
+                                    key={`pin-verification-${Date.now()}`}
+                                    email={dataForStep2.email}
+                                    password={dataForStep2.password}
+                                />
                             )}
                         </div>
                     </DrawerContent>

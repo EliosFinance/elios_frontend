@@ -21,7 +21,11 @@ const LearnQuizzTab = (props: LearnQuizzTabProps) => {
                 <div
                     className={`w-full flex justify-between items-start flex-wrap gap-y-4 gap-x-4 ${last ? 'pb-24' : 'pb-8'}`}
                 >
-                    <QuizzCarousel slides={quizz} options={{ loop: true, containScroll: false }} />
+                    <QuizzCarousel
+                        slides={quizz}
+                        options={{ loop: true, containScroll: false }}
+                        isLoading={!quizz.length}
+                    />
                 </div>
             </div>
         );

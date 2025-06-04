@@ -40,7 +40,7 @@ const BitcoinWidget = () => {
                             )}
                         </div>
                         <span className={last24hrChange > 0 ? 'text-green-500' : 'text-red-500'}>
-                            {last24hrChange > 0 ? '+' : '-'} {last24hrChange.toFixed(2)}%
+                            {last24hrChange > 0 ? '+' : ''} {last24hrChange.toFixed(2)}%
                         </span>
                     </CardHeader>
                     <CardContent className='flex flex-col items-start h-full'>

@@ -12,6 +12,7 @@ import { Drawer, DrawerClose, DrawerContent, DrawerHeader, DrawerTitle } from '@
 import { Separator } from '@/components/ui/separator';
 import WidgetContainer from '@/components/widgets/WidgetContainer';
 import { useAuth } from '@/context/AuthProvider';
+import useLoggedUser from '@/hook/useLoggedUser';
 import APP_ROUTES_ENUM from '@/types/APP_ROUTES_ENUM';
 import { ArticleType, ArticleTypesEnum } from '@/types/BlogType';
 import { FriendsType } from '@/types/UserType';
@@ -24,7 +25,9 @@ const Landing = () => {
     const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
     const [friends, setFriends] = useState<FriendsType[]>([]);
     const [articles, setArticles] = useState<ArticleType[]>([]);
+    const [friendsLoading, setFriendsLoading] = useState<boolean>(true);
     const { user } = useAuth();
+    const { getFullLoggedUser } = useLoggedUser();
     const { data: connections } = useGetConnections();
 
     useEffect(() => {
@@ -35,9 +38,10 @@ const Landing = () => {
             }
 
             if (friends.length === 0) {
-                // const fullUser = await getFullLoggedUser();
-                // setFriends(fullUser?.friends || []); TODO: Fix this when the backend is ready -> parse friends
-                setFriends([]);
+                setFriendsLoading(true);
+                const fullUser = await getFullLoggedUser();
+                setFriendsLoading(false);
+                setFriends((fullUser?.friends as any) || []);
             }
         };
         fetchUser();
@@ -106,7 +110,7 @@ const Landing = () => {
                     variant='addFriends'
                     className='w-full h-[250px]'
                 >
-                    <FriendsCarousel slides={friends} />
+                    <FriendsCarousel slides={friends} isLoading={friendsLoading && !friends.length} />
                 </BlurItem>
             </div>
 
@@ -124,6 +128,7 @@ const Landing = () => {
                 </div>
                 <CardCarousel
                     slides={articles}
+                    isLoading={!articles.length}
                     options={{ loop: false, containScroll: false, align: 'start' }}
                     cardVariant={ArticleTypesEnum.SMALL_PREVIEW}
                     sx='pl-6'

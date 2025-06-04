@@ -35,8 +35,8 @@ const defaultWidgets = (user: any, connections: ConnectionType[], transactions: 
         },
         {
             id: 7,
-            title: 'Articles favoris',
-            description: 'Your favorite articles.',
+            title: 'Articles lus',
+            description: 'Your read articles.',
             image: '/path/to/articles.jpg',
             content: 'Article 1, Article 2, Article 3',
             display: true,

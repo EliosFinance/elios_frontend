@@ -2,6 +2,7 @@ import BlurItem from '@/components/BlurItem';
 import Subscription from '@/components/UpgradePlan';
 import CardCarousel from '@/components/carousels/CardCarousel';
 import { Drawer, DrawerClose, DrawerContent, DrawerHeader, DrawerTitle } from '@/components/ui/drawer';
+import { Skeleton } from '@/components/ui/skeleton';
 import useLoggedUser from '@/hook/useLoggedUser';
 import APP_ROUTES_ENUM from '@/types/APP_ROUTES_ENUM';
 import { ArticleCategoryType, ArticleType, ArticleTypesEnum } from '@/types/BlogType';
@@ -43,6 +44,7 @@ const LearnArticleTab = (props: LearnArticleTabProps) => {
                             slides={articles}
                             options={{ loop: true, containScroll: false }}
                             cardVariant={ArticleTypesEnum.SMALL_PREVIEW}
+                            isLoading={!articles.length}
                         />
                     </div>
                 </BlurItem>
@@ -69,15 +71,23 @@ const LearnArticleTab = (props: LearnArticleTabProps) => {
                 </div>
                 <div className='w-full overflow-x-auto scrollbar-hide mt-2 mb-3'>
                     <div className='flex space-x-4 snap-x snap-mandatory overflow-x-auto px-6'>
-                        {props.articlesCategories.map((category) => (
-                            <a
-                                key={category.id}
-                                href={`${APP_ROUTES_ENUM.ARTICLE_CATEGORY}/${category.id}`}
-                                className='py-2 px-6 bg-blue-500 text-white rounded-full font-semibold text-lg flex-shrink-0 snap-center'
-                            >
-                                {category.title}
-                            </a>
-                        ))}
+                        {props.articlesCategories.length
+                            ? props.articlesCategories.map((category) => (
+                                  <a
+                                      key={category.id}
+                                      href={`${APP_ROUTES_ENUM.ARTICLE_CATEGORY}/${category.id}`}
+                                      className='py-2 px-6 bg-blue-500 text-white rounded-full font-semibold text-lg flex-shrink-0 snap-center'
+                                  >
+                                      {category.title}
+                                  </a>
+                              ))
+                            : [...Array(10)].map((_, index) => (
+                                  <Skeleton
+                                      key={index}
+                                      className='h-10 !w-32 rounded-full bg-gray-500 flex-shrink-0 snap-center skeleton-loader'
+                                      style={{ borderRadius: 'var(--border-radius-8)' }}
+                                  />
+                              ))}
                     </div>
                 </div>
             </div>

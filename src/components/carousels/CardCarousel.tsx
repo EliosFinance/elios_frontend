@@ -9,6 +9,7 @@ import BlurItem from '../BlurItem';
 import { Card } from '../Card';
 import Subscription from '../UpgradePlan';
 import { Drawer, DrawerClose, DrawerContent, DrawerHeader, DrawerTitle } from '../ui/drawer';
+import LoaderCarousel from './LoaderCarousel';
 const TWEEN_FACTOR_BASE = 0.52;
 
 const numberWithinRange = (number: number, min: number, max: number): number => Math.min(Math.max(number, min), max);
@@ -16,12 +17,13 @@ const numberWithinRange = (number: number, min: number, max: number): number => 
 type PropType = {
     slides: ArticleType[];
     cardVariant: ArticleTypesEnum;
+    isLoading: boolean;
     options?: EmblaOptionsType;
     sx?: string;
 };
 
 const CardCarousel: React.FC<PropType> = (props) => {
-    const { slides, options } = props;
+    const { slides, options, isLoading } = props;
     const [emblaRef, emblaApi] = useEmblaCarousel(options);
     const tweenFactor = useRef(0);
     const tweenNodes = useRef<HTMLElement[]>([]);
@@ -103,48 +105,54 @@ const CardCarousel: React.FC<PropType> = (props) => {
 
     return (
         <>
-            <div className='embla'>
-                <div className={`embla__viewport ${props.sx}`} ref={emblaRef}>
-                    <div className='embla__container'>
-                        {slides.map((project: ArticleType, index: number) => (
-                            <div className='embla__slide' key={index}>
-                                <BlurItem
-                                    locked={project.isPremium && !isPremium}
-                                    onClick={() => {
-                                        if (project.isPremium && !isPremium) {
-                                            setIsDrawerOpen(true);
-                                        }
-                                    }}
-                                    variant='premium'
-                                    className='w-full'
-                                >
-                                    <Card
-                                        article={project}
-                                        variant={props.cardVariant}
-                                        classNames={['embla__slide__number']}
-                                        key={index}
-                                        cardToDisplay={project.id}
-                                        userHasRead={() => {
-                                            return;
-                                        }}
-                                    />
-                                </BlurItem>
+            {isLoading ? (
+                <LoaderCarousel options={options} />
+            ) : (
+                <>
+                    <div className='embla'>
+                        <div className={`embla__viewport ${props.sx}`} ref={emblaRef}>
+                            <div className='embla__container'>
+                                {slides.map((project: ArticleType, index: number) => (
+                                    <div className='embla__slide' key={index}>
+                                        <BlurItem
+                                            locked={project.isPremium && !isPremium}
+                                            onClick={() => {
+                                                if (project.isPremium && !isPremium) {
+                                                    setIsDrawerOpen(true);
+                                                }
+                                            }}
+                                            variant='premium'
+                                            className='w-full'
+                                        >
+                                            <Card
+                                                article={project}
+                                                variant={props.cardVariant}
+                                                classNames={['embla__slide__number']}
+                                                key={index}
+                                                cardToDisplay={project.id}
+                                                userHasRead={() => {
+                                                    return;
+                                                }}
+                                            />
+                                        </BlurItem>
+                                    </div>
+                                ))}
                             </div>
-                        ))}
+                        </div>
                     </div>
-                </div>
-            </div>
-            <Drawer open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
-                <DrawerContent className='z-[100000] bg-[#181823]' aria-describedby={undefined}>
-                    <DrawerHeader>
-                        <DrawerTitle>Deviens Premium</DrawerTitle>
-                        <DrawerClose className='absolute right-4 top-4'>
-                            <XMarkIcon />
-                        </DrawerClose>
-                    </DrawerHeader>
-                    <Subscription />
-                </DrawerContent>
-            </Drawer>
+                    <Drawer open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
+                        <DrawerContent className='z-[100000] bg-[#181823]' aria-describedby={undefined}>
+                            <DrawerHeader>
+                                <DrawerTitle>Deviens Premium</DrawerTitle>
+                                <DrawerClose className='absolute right-4 top-4'>
+                                    <XMarkIcon />
+                                </DrawerClose>
+                            </DrawerHeader>
+                            <Subscription />
+                        </DrawerContent>
+                    </Drawer>
+                </>
+            )}
         </>
     );
 };
