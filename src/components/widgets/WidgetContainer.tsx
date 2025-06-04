@@ -137,7 +137,7 @@ const WidgetPagination = ({ currentPage, totalPages, onPageChange }) => (
                 <button
                     onClick={() => onPageChange(currentPage + 1)}
                     disabled={currentPage >= totalPages}
-                    className={`w-6 h-1 rounded-full ${currentPage === 2 ? 'bg-white' : 'bg-gray-700'}`}
+                    className={`w-6 h-1 rounded-full ${currentPage === totalPages ? 'bg-white' : 'bg-gray-700'}`}
                 />
             </>
         )}
