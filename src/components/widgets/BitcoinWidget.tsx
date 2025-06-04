@@ -30,7 +30,7 @@ const BitcoinWidget = () => {
             {isLoading ? (
                 <WidgetSkeleton />
             ) : (
-                <Card className='h-[200px] !w-min-fullw-full flex flex-col justify-between rounded-xl bg-gray-700 border border-gray-300 text-white'>
+                <Card className='h-[200px] !w-min-full w-full flex flex-col justify-between rounded-xl bg-gray-700 border border-gray-300 text-white'>
                     <CardHeader className='!w-min-full !w-full flex flex-row items-start justify-between h-full'>
                         <div className='w-8 h-8 bg-gray-800 flex items-center justify-center rounded-full'>
                             {last24hrChange > 0 ? (
