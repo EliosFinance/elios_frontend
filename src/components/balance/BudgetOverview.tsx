@@ -46,7 +46,7 @@ const BudgetOverview: React.FC = () => {
 	return (
 		<Card className="w-full rounded-xl">
 			<CardContent className="p-6">
-				<h2 className="mb-4 text-xl font-bold text-white">Budget mensuel</h2>
+				<h2 className="mb-4 font-bold text-white">Budget mensuel</h2>
 
 				<div className="flex items-center justify-center mb-6">
 					<div className="relative w-48 h-48">

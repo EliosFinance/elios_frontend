@@ -26,7 +26,7 @@ const ChallengesSection: React.FC = () => {
 
     return (
         <div className='w-full my-4 rounded shadow mb-12'>
-            <h2 className='text-xl font-bold'>Défis</h2>
+            <h2 className='font-bold'>Défis</h2>
             <ul className='mt-2'>
                 {challenges.map((challenge) => (
                     <li key={challenge.id} className='p-2 mb-2 border rounded'>

@@ -53,7 +53,7 @@ const TransactionsSection: React.FC = () => {
 	return (
 		<Card className="w-full rounded-xl">
 			<CardContent className="p-6">
-				<h2 className="mb-4 text-xl font-bold text-white">Dernières transactions</h2>
+				<h2 className="mb-4 font-bold text-white">Dernières transactions</h2>
 
 				{latestTransactions.length > 0 ? (
 					<>

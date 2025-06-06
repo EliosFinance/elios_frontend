@@ -54,7 +54,7 @@ const Partners = () => {
 
             <div className='flex flex-col items-start justify-center w-full px-6'>
                 <div className='flex items-center justify-between w-full'>
-                    <h2 className='text-2xl font-black'>Nos partenaires</h2>
+                    <h2 className='font-black'>Nos partenaires</h2>
                 </div>
 
                 {loading ? (

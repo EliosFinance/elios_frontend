@@ -31,8 +31,8 @@ const QuizzNav = (props: props) => {
                 </div>
             </div>
             <div className='w-full h-auto flex items-center justify-between text-gray-600 text-left pt-4'>
-                <h1 className='font-bold text-lg'>{props.quizz?.title}</h1>
-                <h2 className='font-bold text-lg text-center'>Score: {props.currentScore}</h2>
+                <h1 className='font-bold'>{props.quizz?.title}</h1>
+                <h2 className='font-bold text-center'>Score: {props.currentScore}</h2>
             </div>
         </div>
     );

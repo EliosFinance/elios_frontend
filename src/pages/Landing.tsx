@@ -51,7 +51,7 @@ const Landing = () => {
         <div className='flex flex-col items-center w-full pt-8 mb-32 space-y-8'>
             <div className='flex flex-col items-start w-full gap-4 px-6'>
                 <LandingHeader />
-                <h1 className='mt-4 text-2xl font-bold text-primary-500'>
+                <h1 className='mt-4 font-bold text-primary-500'>
                     Bienvenue, {user.username.charAt(0).toUpperCase() + user.username.slice(1)}
                 </h1>
             </div>
@@ -67,7 +67,7 @@ const Landing = () => {
 
             <div className='w-full px-6'>
                 <div className='flex items-center justify-between mb-4'>
-                    <h2 className='text-xl font-bold'>Abonnements du mois</h2>
+                    <h2 className='font-bold'>Abonnements du mois</h2>
                     <Button
                         variant='ghost'
                         size='icon'
@@ -88,13 +88,13 @@ const Landing = () => {
             </div>
 
             <div className='w-full px-6'>
-                <h2 className='mb-4 text-xl font-bold'>Aujourd'hui</h2>
+                <h2 className='mb-4 font-bold'>Aujourd'hui</h2>
                 <GetPremium onTopUpClick={() => setIsDrawerOpen(true)} />
             </div>
 
             <div className='w-full'>
                 <div className='flex items-center justify-between mb-4 px-6'>
-                    <h2 className='text-xl font-bold'>Mes amis</h2>
+                    <h2 className='font-bold'>Mes amis</h2>
                     <Button
                         variant='ghost'
                         size='icon'
@@ -116,7 +116,7 @@ const Landing = () => {
 
             <div className='w-full'>
                 <div className='flex items-center justify-between mb-4 px-6'>
-                    <h2 className='text-xl font-bold'>Apprendre avec EliosLearn !</h2>
+                    <h2 className='font-bold'>Apprendre avec EliosLearn !</h2>
                     <Button
                         variant='ghost'
                         size='icon'

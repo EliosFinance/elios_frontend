@@ -73,14 +73,14 @@ export default function ChallengePage() {
 							className='object-cover w-full h-full'
 						/>
 					</div>
-					<CardTitle className='text-sm font-bold line-clamp-1'>{challenge.title}</CardTitle>
-					<CardDescription className='mt-1 text-xs'>
+					<CardTitle className='font-bold line-clamp-1'>{challenge.title}</CardTitle>
+					<CardDescription className='mt-1'>
 						{challenge.userStatus === 'START' ? 'En cours' : 'À démarrer'}
 					</CardDescription>
 				</CardHeader>
 				<div className='px-3 pb-3 mt-auto'>
 					<Progress value={percent} className='w-full h-2' />
-					<p className='mt-2 text-xs'>
+					<p className='mt-2'>
 						{challenge.progress}/{challenge.total} ({percent}%)
 					</p>
 				</div>
@@ -97,12 +97,11 @@ export default function ChallengePage() {
 				<div className='relative w-full h-20 mb-2 overflow-hidden rounded'>
 					<img src={challenge.backgroundImage} alt={challenge.title} className='object-cover w-full h-full' />
 				</div>
-				<CardTitle className='text-sm font-bold line-clamp-1'>{challenge.title}</CardTitle>
-				<CardDescription className='mt-1 text-xs text-green-600'>Défi terminé !</CardDescription>
+				<CardTitle className='font-bold line-clamp-1'>{challenge.title}</CardTitle>
+				<CardDescription className='mt-1 text-green-600'>Défi terminé !</CardDescription>
 			</CardHeader>
 			<div className='px-3 pb-3 mt-auto'>
-				{/* Badge de complétion ou espace additionnel */}
-				<div className='flex items-center justify-center h-8 text-xs font-medium text-green-600'>
+				<div className='flex items-center justify-center h-8 text-green-600 text-md'>
 					✓ Terminé
 				</div>
 			</div>
@@ -115,8 +114,8 @@ export default function ChallengePage() {
 				{featuredChallenge && (
 					<Card className='w-full shadow-sm'>
 						<CardHeader className='p-4'>
-							<CardTitle className='text-sm'>Challenge vedette</CardTitle>
-							<CardDescription className='mt-1 text-xs'>{featuredChallenge.title}</CardDescription>
+							<CardTitle>Challenge vedette</CardTitle>
+							<CardDescription className='mt-1'>{featuredChallenge.title}</CardDescription>
 						</CardHeader>
 						<div className='px-4'>
 							<div ref={chartRef} className='w-full h-[250px]' />
@@ -131,21 +130,21 @@ export default function ChallengePage() {
 
 				{ongoing.length > 0 && (
 					<div>
-						<h2 className='mb-2 text-base font-semibold'>Défis en cours</h2>
+						<h2 className='mb-2 font-semibold'>Défis en cours</h2>
 						<CarouselChallenges slides={ongoing} loop={true} renderItem={renderChallengeCard} />
 					</div>
 				)}
 
 				{notStarted.length > 0 && (
 					<div>
-						<h2 className='mb-2 text-base font-semibold'>Défis à démarrer</h2>
+						<h2 className='mb-2 font-semibold'>Défis à démarrer</h2>
 						<CarouselChallenges slides={notStarted} loop={true} renderItem={renderChallengeCard} />
 					</div>
 				)}
 
 				{completed.length > 0 && (
 					<div>
-						<h2 className='mb-2 text-base font-semibold'>Défis terminés</h2>
+						<h2 className='mb-2 font-semibold'>Défis terminés</h2>
 						<CarouselChallenges slides={completed} loop={true} renderItem={renderCompletedCard} />
 					</div>
 				)}

@@ -29,7 +29,7 @@ const SubscriptionsSection: React.FC = () => {
 
     return (
         <div className='w-full my-4 rounded shadow'>
-            <h2 className='text-xl font-bold'>Abonnements</h2>
+            <h2 className='font-bold'>Abonnements</h2>
             <ul className='mt-2'>
                 {subscriptions.map((sub) => (
                     <li key={sub.id} className='flex justify-between py-2 border-b'>

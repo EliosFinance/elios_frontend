@@ -24,7 +24,7 @@ const Rewards = () => {
         <PageLayout title='Récompenses'>
             {copied && <CopyAlert />}
 
-            <h3 className='mb-4 text-lg font-bold'>Parrainez vos amis &amp; gagnez 100 EliCoins !</h3>
+            <h4 className='mb-4 font-bold'>Parrainez vos amis &amp; gagnez 100 EliCoins !</h4>
             <ReferralSection onCopy={handleCopy} />
 
             <EliCoinsCard coins={125} totalCoins={500} />

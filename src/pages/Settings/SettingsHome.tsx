@@ -33,7 +33,7 @@ const SettingsHome = () => {
                         alt='User profile picture'
                     />
                     <div className='flex flex-col'>
-                        <span className='text-2xl font-semibold'>{user.username}</span>
+                        <span className='text-xl font-semibold'>{user.username}</span>
                         {/* TODO: verify if account has 2FA enabled and display a badge if so */}
                         <div
                             className='flex items-center gap-2 bg-blue-500 bg-opacity-30 p-[2px] px-2 rounded-2'
@@ -64,7 +64,7 @@ const SettingsHome = () => {
             <div className='flex flex-col items-start justify-center w-full gap-8'>
                 {SETTINGS_MAP.map((settingCategory, key) => (
                     <div key={key} className='flex flex-col w-full'>
-                        <h2 className='text-4xl font-semibold'>{settingCategory.title}</h2>
+                        <h2 className='font-semibold'>{settingCategory.title}</h2>
                         <ul className='flex flex-col w-full pt-4 pl-4'>
                             {settingCategory.children?.map((setting, index) => (
                                 <li
@@ -77,7 +77,7 @@ const SettingsHome = () => {
                                                 {setting.icon}
                                             </span>{' '}
                                             &nbsp;
-                                            <span className='text-xl'>{setting.title}</span>
+                                            <span className='text-base'>{setting.title}</span>
                                         </div>
                                         <ChevronRightIcon className='object-cover object-center w-4 h-4' />
                                     </a>

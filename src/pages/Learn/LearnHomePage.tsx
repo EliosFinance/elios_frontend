@@ -70,7 +70,7 @@ const LearnHomePage = () => {
         <div className='flex flex-col items-center justify-center w-full h-full gap-y-4'>
             {/* <FinishedChallengeAnimation challenge={challengeData[0]} /> */}
             <div className='flex flex-col items-start justify-center w-full px-6 pt-12'>
-                <h2 className='text-2xl text-primary-500'>Elios Learn</h2>
+                <h1 className='text-primary-500'>Elios Learn</h1>
                 <InputApp
                     type='text'
                     placeholder='Recherchez une idée, un sujet, ...'
@@ -83,7 +83,7 @@ const LearnHomePage = () => {
 
             {isUserTyping ? (
                 <div className='w-full h-[70%] flex justify-center items-center flex-col'>
-                    <h2 className='text-2xl font-black'>Résultats de recherche</h2>
+                    <h2 className='font-black'>Résultats de recherche</h2>
                     <div className='flex flex-wrap items-start justify-between w-full gap-y-4 gap-x-4'>
                         <CardCarousel
                             slides={filteredSubjects}

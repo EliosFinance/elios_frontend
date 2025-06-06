@@ -7,77 +7,77 @@ import { createUseStyles } from 'react-jss';
 import ButtonApp from '../ButtonApp';
 
 interface ReferralSectionProps {
-    onCopy: () => void;
+  onCopy: () => void;
 }
 
 const ReferralSection = ({ onCopy }: ReferralSectionProps) => {
-    const [coolDownOn, setCoolDownOn] = useState<boolean>(false);
-    const styles = useStyles();
+  const [coolDownOn, setCoolDownOn] = useState<boolean>(false);
+  const styles = useStyles();
 
-    useEffect(() => {
-        const timer = setTimeout(() => {
-            setCoolDownOn(false);
-        }, 2000);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setCoolDownOn(false);
+    }, 2000);
 
-        return () => clearTimeout(timer);
-    }, [coolDownOn]);
+    return () => clearTimeout(timer);
+  }, [coolDownOn]);
 
-    const handleCopy = () => {
-        navigator.clipboard
-            .writeText('elios.me/username-id')
-            .then(() => {
-                setCoolDownOn(true);
-                onCopy();
-            })
-            .catch((err) => console.error('Erreur de copie:', err));
-    };
+  const handleCopy = () => {
+    navigator.clipboard
+      .writeText('elios.me/username-id')
+      .then(() => {
+        setCoolDownOn(true);
+        onCopy();
+      })
+      .catch((err) => console.error('Erreur de copie:', err));
+  };
 
-    return (
-        <>
-            <div className='flex items-center flex-col justify-center p-4 mb-4 bg-[--neutral-700] rounded-lg'>
-                <div className={'w-full h-full relative'} onClick={handleCopy}>
-                    <input className={styles.input} type={'text'} value={'elios.me/username-id'} readOnly />
-                    <span className={styles.endIcon}>
-                        {coolDownOn ? (
-                            <CheckIcon className='w-5 h-5 text-white cursor-pointer' />
-                        ) : (
-                            <CopyIcon className='w-5 h-5 text-white' />
-                        )}
-                    </span>
-                </div>
-                <ButtonApp
-                    bold
-                    onClick={() => alert('TODO: share with friends (see w/melissa)')}
-                    sx='!rounded-xl bg-primary-500 text-white :'
-                >
-                    Partager
-                </ButtonApp>
-            </div>
-        </>
-    );
+  return (
+    <>
+      <div className='flex flex-col items-center justify-center p-4 mb-4 bg-[--neutral-800] border border-solid border-[--neutral-500] rounded-lg'>
+        <div className={'w-full h-full relative'} onClick={handleCopy}>
+          <input className={styles.input} type={'text'} value={'elios.me/username-id'} readOnly />
+          <span className={styles.endIcon}>
+            {coolDownOn ? (
+              <CheckIcon className='w-5 h-5 text-white cursor-pointer' />
+            ) : (
+              <CopyIcon className='w-5 h-5 text-white' />
+            )}
+          </span>
+        </div>
+        <ButtonApp
+          bold
+          onClick={() => alert('TODO: share with friends (see w/melissa)')}
+          sx='!rounded-xl bg-primary-500 text-white :'
+        >
+          Partager
+        </ButtonApp>
+      </div>
+    </>
+  );
 };
 
 export default ReferralSection;
 const useStyles = createUseStyles({
-    input: {
-        width: '100%',
-        padding: '10px',
-        border: '1px solid var(--neutral-500)',
-        backgroundColor: 'var(--neutral-800)',
-        borderRadius: '5px',
-        fontSize: '16px',
-        margin: '10px 0',
-        borderTopLeftRadius: 'var(--border-radius-3)',
-        borderTopRightRadius: 'var(--border-radius-3)',
-        borderBottomRightRadius: 'var(--border-radius-3)',
-        borderBottomLeftRadius: 'var(--border-radius-3)',
-        paddingLeft: '15px',
-        outline: 'none',
-    },
-    endIcon: {
-        position: 'absolute',
-        right: '15px',
-        top: '50%',
-        transform: 'translateY(-50%)',
-    },
+  input: {
+    width: '100%',
+    padding: '10px',
+    border: '1px solid var(--neutral-500)',
+    backgroundColor: 'var(--neutral-800)',
+    borderRadius: '5px',
+    fontSize: '16px',
+    margin: '10px 0',
+    borderTopLeftRadius: 'var(--border-radius-3)',
+    borderTopRightRadius: 'var(--border-radius-3)',
+    borderBottomRightRadius: 'var(--border-radius-3)',
+    borderBottomLeftRadius: 'var(--border-radius-3)',
+    paddingLeft: '15px',
+    outline: 'none',
+  },
+  endIcon: {
+    position: 'absolute',
+    right: '15px',
+    top: '50%',
+    transform: 'translateY(-50%)',
+  },
 });
