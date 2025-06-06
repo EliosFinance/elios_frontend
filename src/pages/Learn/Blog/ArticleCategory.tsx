@@ -53,6 +53,7 @@ const ArticleCategory = () => {
                                 slides={cards}
                                 options={{ loop: false, containScroll: false }}
                                 cardVariant={ArticleTypesEnum.SMALL_PREVIEW}
+                                isLoading={!cards.length}
                             />
                         </div>
 
@@ -62,6 +63,7 @@ const ArticleCategory = () => {
                                 slides={cards}
                                 options={{ loop: false, containScroll: false }}
                                 cardVariant={ArticleTypesEnum.SMALL_PREVIEW}
+                                isLoading={!cards.length}
                             />
                         </div>
 

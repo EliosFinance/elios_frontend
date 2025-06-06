@@ -41,7 +41,7 @@ export const usePinVerification = () => {
                 try {
                     isProcessingRef.current = true;
                     console.log('Calling appClose with deviceId:', deviceId);
-                    await appClose(deviceId);
+                    await appClose();
                     // Ne pas supprimer le deviceId en cas d'erreur
                     // On le garde pour la prochaine ouverture
                 } catch (error) {
