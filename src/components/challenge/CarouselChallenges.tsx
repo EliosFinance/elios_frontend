@@ -3,30 +3,40 @@ import { ChallengeType } from '@/temp/DefiData';
 import React from 'react';
 
 interface CarouselChallengesProps {
-    slides: ChallengeType[];
-    renderItem: (data: ChallengeType) => React.ReactNode;
-    loop?: boolean;
+	slides: ChallengeType[];
+	renderItem: (data: ChallengeType) => React.ReactNode;
+	loop?: boolean;
 }
 
 export default function CarouselChallenges({ slides, renderItem, loop = false }: CarouselChallengesProps) {
-    // Configuration des options du carousel
-    const carouselOptions = {
-        loop,
-        dragFree: false, // Pour le "clipsage"
-        align: 'center' as const,
-    };
+	const isSingleItem = slides.length === 1;
 
-    return (
-        <div className='pb-6'>
-            {' '}
-            {/* Ajout d'un padding en bas pour éviter que le contenu soit coupé */}
-            <CarouselApp opts={carouselOptions} className='w-full'>
-                <CarouselAppContent>
-                    {slides.map((slide, index) => (
-                        <CarouselAppItem key={slide.id || index}>{renderItem(slide)}</CarouselAppItem>
-                    ))}
-                </CarouselAppContent>
-            </CarouselApp>
-        </div>
-    );
+	const carouselOptions = {
+		loop: isSingleItem ? false : loop,
+		dragFree: false,
+		align: 'center' as const,
+	};
+
+	if (isSingleItem) {
+		return (
+			<div className='flex justify-center pb-6'>
+				<div className='w-full h-full max-w-sm'>
+					{renderItem(slides[0])}
+				</div>
+			</div>
+		);
+	}
+
+	return (
+		<div className='pb-6'>
+			{' '}
+			<CarouselApp opts={carouselOptions} className='w-full'>
+				<CarouselAppContent>
+					{slides.map((slide, index) => (
+						<CarouselAppItem key={slide.id || index}>{renderItem(slide)}</CarouselAppItem>
+					))}
+				</CarouselAppContent>
+			</CarouselApp>
+		</div>
+	);
 }
