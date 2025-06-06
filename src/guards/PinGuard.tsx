@@ -21,6 +21,15 @@ const PinGuard: React.FC<PinGuardProps> = ({ children }) => {
             }
 
             try {
+                // Vérifier si le token est expiré
+                const { exp } = JSON.parse(atob(user.token.split('.')[1]));
+                if (Date.now() >= exp * 1000) {
+                    console.log('Token expired, redirecting to login');
+                    userStore.getState().removeUser();
+                    navigate(APP_ROUTES_ENUM.LOGIN);
+                    return;
+                }
+
                 const deviceId = localStorage.getItem('deviceId');
                 if (!deviceId) {
                     console.log('No deviceId found, redirecting to PIN verification');
@@ -40,7 +49,13 @@ const PinGuard: React.FC<PinGuardProps> = ({ children }) => {
                 setIsChecking(false);
             } catch (error) {
                 console.error('Error checking PIN status:', error);
-                navigate(APP_ROUTES_ENUM.PIN_VERIFICATION);
+                // Si l'erreur est une erreur 401 (token expiré), rediriger vers login
+                if (error.response?.status === 401) {
+                    userStore.getState().removeUser();
+                    navigate(APP_ROUTES_ENUM.LOGIN);
+                } else {
+                    navigate(APP_ROUTES_ENUM.PIN_VERIFICATION);
+                }
             }
         };
 
