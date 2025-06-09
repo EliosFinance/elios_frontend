@@ -2,6 +2,7 @@
 export * from './learn';
 export * from './connexion';
 export * from './powens';
+export * from './user';
 
 // Files
 export * from './allCall';

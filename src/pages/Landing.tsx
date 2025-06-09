@@ -2,6 +2,7 @@ import { getTrendingArticles, useGetConnections } from '@/api';
 import BlurItem from '@/components/BlurItem';
 import GetPremium from '@/components/GetPremium';
 import Subscription from '@/components/UpgradePlan';
+import UserAnalytics from '@/components/UserAnalytics';
 import CardCarousel from '@/components/carousels/CardCarousel';
 import FriendsCarousel from '@/components/carousels/FriendsCarousel';
 import LandingHeader from '@/components/landing/Header';
@@ -48,7 +49,7 @@ const Landing = () => {
     }, []);
 
     return (
-        <div className='flex flex-col items-center w-full pt-8 mb-32 space-y-8'>
+        <div className='flex flex-col items-center w-full pt-8 mb-32 gap-8'>
             <div className='flex flex-col items-start w-full gap-4 px-6'>
                 <LandingHeader />
                 <h1 className='mt-4 text-2xl font-bold text-primary-500'>
@@ -64,6 +65,9 @@ const Landing = () => {
             >
                 <WeekChart className={'px-6'} />
             </BlurItem>
+
+
+            <UserAnalytics />
 
             <div className='w-full px-6'>
                 <div className='flex items-center justify-between mb-4'>
@@ -137,8 +141,6 @@ const Landing = () => {
 
             <WidgetContainer />
 
-            <Separator className='mt-20' />
-            <Separator className='mt-20' />
             <Separator className='mt-20' />
 
             <Drawer open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>

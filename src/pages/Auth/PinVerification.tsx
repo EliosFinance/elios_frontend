@@ -16,7 +16,7 @@ const PinVerification: React.FC = () => {
     const [_remainingAttempts, setRemainingAttempts] = useState<number>(3);
     const [isInitializing, setIsInitializing] = useState(true);
     const navigate = useNavigate();
-    const user = userStore((state) => state.user);
+    const {user, lastUserLocation} = userStore();
 
     useEffect(() => {
         const initializePin = async () => {
@@ -34,8 +34,8 @@ const PinVerification: React.FC = () => {
 
                 const response = await appOpen(deviceId);
                 if (!response.requiresPin) {
-                    localStorage.setItem('pinVerified', 'true');
-                    navigate(APP_ROUTES_ENUM.HOME);
+                    localStorage.setItem('pinVerified', 'true');                    
+                    navigate(lastUserLocation || APP_ROUTES_ENUM.HOME);
                 } else {
                     const pinStatus = await getPinStatus();
                     if (pinStatus.isLocked) {
@@ -86,7 +86,7 @@ const PinVerification: React.FC = () => {
 
             await verifyPin(pin, deviceId);
             localStorage.setItem('pinVerified', 'true');
-            navigate(APP_ROUTES_ENUM.HOME);
+            navigate(lastUserLocation || APP_ROUTES_ENUM.HOME);
         } catch (error: any) {
             if (error.response?.data?.message?.includes('PIN is locked')) {
                 setError('PIN verrouillé. Veuillez vous reconnecter.');

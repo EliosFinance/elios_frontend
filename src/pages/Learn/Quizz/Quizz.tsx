@@ -31,7 +31,6 @@ const Quizz = () => {
             const correctAnswers = question.options
                 .filter((option) => option.isCorrect === true)
                 .map((option) => option.id);
-            console.log(correctAnswers, tickedAnswers);
 
             setCorrectAnswers(correctAnswers);
             const isCorrect =
@@ -129,7 +128,7 @@ const Quizz = () => {
                     </ButtonApp>
 
                     <Drawer open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
-                        <DrawerContent className='z-[100000]' aria-describedby=''>
+                        <DrawerContent className='bg-gray-800 border-none' aria-describedby=''>
                             <DrawerHeader>
                                 <DrawerTitle>
                                     {isAnswerCorrect ? '✅ Bonne réponse !' : '❌ Mauvaise réponse !'}
