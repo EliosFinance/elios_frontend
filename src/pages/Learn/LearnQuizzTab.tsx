@@ -1,5 +1,4 @@
 import { useGetPersonalizedContent } from '@/api';
-import Subscription from '@/components/UpgradePlan';
 import QuizzCarousel from '@/components/carousels/QuizzCarousel';
 import WeekChart from '@/components/landing/WeekChart';
 import { Badge } from '@/components/ui/badge';
@@ -9,13 +8,11 @@ import { Progress } from '@/components/ui/progress';
 import { useAuth } from '@/context/AuthProvider';
 import { QuizzType } from '@/temp/QuizzData';
 import APP_ROUTES_ENUM from '@/types/APP_ROUTES_ENUM';
-import { XMarkIcon } from '@heroicons/react/24/outline';
 import {
     Award,
     Calendar,
     CheckCircle,
     Clock,
-    Filter,
     InfoIcon,
     Play,
     Star,
@@ -25,13 +22,12 @@ import {
     Users,
     Zap,
 } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 type LearnQuizzTabProps = {
     quizz: QuizzType[];
 };
 
-// Types pour les nouvelles fonctionnalités
 type Achievement = {
     id: string;
     title: string;
@@ -40,15 +36,6 @@ type Achievement = {
     unlocked: boolean;
     progress?: number;
     maxProgress?: number;
-};
-
-type DailyChallenge = {
-    id: string;
-    title: string;
-    description: string;
-    reward: number;
-    completed: boolean;
-    timeLeft: string;
 };
 
 type QuizzStats = {
