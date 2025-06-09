@@ -123,14 +123,15 @@ const QuizzCarousel: React.FC<PropType> = (props) => {
                                                 <div className='flex items-center justify-center w-auto h-full text-sm font-light text-center gap-x-2'>
                                                     <p className='text-gray-500'>Dernier score</p>
                                                     <p className='font-bold'>
-                                                        {
-                                                            q?.finishers?.find(
+                                                        {(() => {
+                                                            const allAttempts = q?.finishers?.filter(
                                                                 (r: any) =>
                                                                     r.username === user.username ||
                                                                     r.email === user.username,
-                                                            ).lastScore
-                                                        }
-                                                        /{q.questions.length}
+                                                            );
+                                                            const lastAttempt = allAttempts?.[allAttempts.length - 1];
+                                                            return lastAttempt?.lastScore || 0;
+                                                        })()}/{q.questions.length}
                                                     </p>
                                                 </div>
                                             )}
