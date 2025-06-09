@@ -1,4 +1,4 @@
-import { getUser, useGetConnection } from '@/api';
+import { useGetConnection, getUser } from '@/api';
 import { useAuth } from '@/context/AuthProvider';
 import { userType } from '@/types/challengeType';
 import { TransactionType } from '@/types/transactionType';

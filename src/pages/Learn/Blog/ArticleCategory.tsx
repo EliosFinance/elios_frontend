@@ -39,13 +39,13 @@ const ArticleCategory = () => {
 
     return (
         <div className='flex flex-col items-center justify-center w-full h-full pb-24 pt-6'>
-            <div className='flex flex-col items-center justify-center w-full mt-10 gap-y-12'>
+            <div className='flex flex-col items-center justify-center w-full mt-12 gap-y-12'>
                 <div className='flex items-center justify-start w-full px-6 gap-x-4'>
                     <h1 className='w-full text-4xl font-black'>{category?.title}</h1>
                     <img src={category?.icon} alt={category?.title} className='w-[40px] h-[40px] object-cover' />
                 </div>
-                <span className='h-[1px] w-[80%] border-solid border-black border-[1px] rounded-full' />
-                {cards.length > 0 && category ? (
+                <span className='h-[1px] w-[80%] border-solid border-white border-[1px] rounded-full' />
+                {category ? (
                     <>
                         <div className='flex flex-wrap items-center justify-center w-full gap-x-4'>
                             <h2 className='text-2xl font-black w-[90%]'>Les plus populaires</h2>
@@ -53,6 +53,7 @@ const ArticleCategory = () => {
                                 slides={cards}
                                 options={{ loop: false, containScroll: false }}
                                 cardVariant={ArticleTypesEnum.SMALL_PREVIEW}
+                                isLoading={!cards.length}
                             />
                         </div>
 
@@ -62,6 +63,7 @@ const ArticleCategory = () => {
                                 slides={cards}
                                 options={{ loop: false, containScroll: false }}
                                 cardVariant={ArticleTypesEnum.SMALL_PREVIEW}
+                                isLoading={!cards.length}
                             />
                         </div>
 
@@ -70,7 +72,7 @@ const ArticleCategory = () => {
                 ) : (
                     <>
                         <h2 className='text-lg font-bold'>Cette catégorie semble vide...</h2>
-                        <ButtonApp onClick={() => window.history.back()} color='secondary' size='small'>
+                        <ButtonApp onClick={() => window.history.back()} color='default' size='small'>
                             Retourner en lieu sûr
                         </ButtonApp>
                     </>

@@ -76,7 +76,7 @@ const WeekChart = ({ className }: { className?: string }) => {
 
     return (
         <div className={`w-full mb-4 rounded-lg ${className}`}>
-            <h2 className='mb-0 text-xl font-bold'>Last Week</h2>
+            <h2 className='mb-0 text-xl font-bold'>La semaine dernière</h2>
             <div ref={chartRef} style={{ width: '100vw', height: '300px' }} className='-ml-6' />
         </div>
     );

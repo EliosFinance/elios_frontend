@@ -1,8 +1,8 @@
-import { appOpen } from '@/api/connexion/connexionCalls';
+import { appOpen, getPinStatus } from '@/api/connexion/connexionCalls';
 import { userStore } from '@/store/UserStore';
 import APP_ROUTES_ENUM from '@/types/APP_ROUTES_ENUM';
-import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useEffect, useRef, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 interface PinGuardProps {
     children: React.ReactNode;
@@ -11,11 +11,14 @@ interface PinGuardProps {
 const PinGuard: React.FC<PinGuardProps> = ({ children }) => {
     const [isChecking, setIsChecking] = useState(true);
     const navigate = useNavigate();
-    const user = userStore((state) => state.user);
+    const { user, setLastUserLocation } = userStore();
+    const location = useLocation();
+    const hasCheckedRef = useRef(false);
 
     useEffect(() => {
         const checkPinStatus = async () => {
             if (!user?.token) {
+                console.log('No token, redirecting to login');
                 navigate(APP_ROUTES_ENUM.LOGIN);
                 return;
             }
@@ -32,35 +35,61 @@ const PinGuard: React.FC<PinGuardProps> = ({ children }) => {
 
                 const deviceId = localStorage.getItem('deviceId');
                 if (!deviceId) {
-                    console.log('No deviceId found, redirecting to PIN verification');
-                    navigate(APP_ROUTES_ENUM.PIN_VERIFICATION);
+                    setLastUserLocation(location.pathname);
+
+                    setTimeout(() => {
+                        navigate(APP_ROUTES_ENUM.PIN_VERIFICATION);
+                    }, 100);
                     return;
                 }
 
                 const { requiresPin } = await appOpen(deviceId);
-                console.log('PIN required:', requiresPin);
+                const { isLocked, isSetup } = await getPinStatus();
 
-                if (requiresPin) {
-                    console.log('PIN required, redirecting to PIN verification');
-                    navigate(APP_ROUTES_ENUM.PIN_VERIFICATION);
+                console.log('PIN Status:', { requiresPin, isLocked, isSetup });
+
+                if (requiresPin && isLocked && isSetup) {
+                    if (
+                        location.pathname !== APP_ROUTES_ENUM.PIN_VERIFICATION &&
+                        location.pathname !== APP_ROUTES_ENUM.LOGIN
+                    ) {
+                        setLastUserLocation(location.pathname);
+                        userStore.getState().setLastUserLocation(location.pathname);
+                    }
+
+                    hasCheckedRef.current = true;
+
+                    setTimeout(() => {
+                        navigate(APP_ROUTES_ENUM.PIN_VERIFICATION);
+                    }, 150);
+
                     return;
                 }
 
+                hasCheckedRef.current = true;
                 setIsChecking(false);
             } catch (error) {
-                console.error('Error checking PIN status:', error);
-                // Si l'erreur est une erreur 401 (token expiré), rediriger vers login
-                if (error.response?.status === 401) {
+                console.error('💥 Error checking PIN status:', error);
+                if (
+                    location.pathname !== APP_ROUTES_ENUM.PIN_VERIFICATION &&
+                    location.pathname !== APP_ROUTES_ENUM.LOGIN
+                ) {
+                    setLastUserLocation(location.pathname);
+                }
+
+                if (error?.response?.status === 401) {
                     userStore.getState().removeUser();
                     navigate(APP_ROUTES_ENUM.LOGIN);
                 } else {
-                    navigate(APP_ROUTES_ENUM.PIN_VERIFICATION);
+                    setTimeout(() => {
+                        navigate(APP_ROUTES_ENUM.PIN_VERIFICATION);
+                    }, 100);
                 }
             }
         };
 
         checkPinStatus();
-    }, [user?.token]);
+    }, [user?.token, location.pathname]);
 
     if (isChecking) {
         return (

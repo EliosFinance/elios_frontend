@@ -13,7 +13,7 @@ const QuizzNav = (props: props) => {
         <div className='w-full h-[80px] flex justify-between items-center flex-col fixed top-0 p-6 z-[10000000] rounded-b-[var(--border-radius-3)]'>
             <div className='w-full h-full flex justify-start items-center'>
                 <XMarkIcon
-                    className='w-8 h-8 text-gray-600 flex !justify-start'
+                    className='w-8 h-8 text-white flex !justify-start'
                     onClick={() => window.history.back()}
                 />
 
