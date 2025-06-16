@@ -8,7 +8,7 @@ interface RewardCardProps {
 
 const RewardCard = ({ title, progress, imageUrl }: RewardCardProps) => {
     return (
-        <div className='flex items-center justify-between p-4 mb-4 border border-gray-500 rounded-lg'>
+        <div className='flex items-center justify-between p-4 mb-4 border bg-[--neutral-800] border-gray-500 rounded-lg'>
             <img src={imageUrl} alt='Reward' className='w-10 h-10 mr-4' />
             <div className='flex-1'>
                 <p>{title}</p>
