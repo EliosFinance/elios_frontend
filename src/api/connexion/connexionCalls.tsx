@@ -92,7 +92,6 @@ export const useGetConnection = (): UseQueryResult<ConnectionType[], AxiosError>
 export const getPinStatus = async (): Promise<{ isSetup: boolean; isLocked: boolean }> => {
     try {
         const response = await instance_back.get('auth/pin/status', getAuthHeaders());
-        console.log('PIN status response:', response.data);
         return {
             isSetup: response.data.isSetup ?? false,
             isLocked: response.data.isLocked ?? false,

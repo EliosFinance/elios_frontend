@@ -56,7 +56,7 @@ const QuizzResult = (props: QuizzResultProps) => {
                     slides={recommandedArticles}
                     options={{ loop: false, containScroll: false }}
                     cardVariant={ArticleTypesEnum.SMALL_PREVIEW}
-                    isLoading={!recommandedArticles.length}
+                    isLoading={!props.quizz?.relatedArticles?.length}
                 />
             </div>
             <div className='flex flex-col items-center justify-center w-full h-auto gap-y-4'>
@@ -64,7 +64,7 @@ const QuizzResult = (props: QuizzResultProps) => {
                     color='primary'
                     sx='!bg-green-500'
                     onClick={() => {
-                        navigate(`${APP_ROUTES_ENUM.LEARN}/${APP_ROUTES_ENUM.QUIZZ}/${props.quizz?.id}`);
+                        window.location.reload();
                     }}
                 >
                     Recommencer le quizz

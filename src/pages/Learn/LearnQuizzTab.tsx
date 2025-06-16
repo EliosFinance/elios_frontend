@@ -1,64 +1,419 @@
 import Subscription from '@/components/UpgradePlan';
 import QuizzCarousel from '@/components/carousels/QuizzCarousel';
 import WeekChart from '@/components/landing/WeekChart';
+import { Button } from '@/components/ui/button';
 import { Drawer, DrawerClose, DrawerContent, DrawerHeader, DrawerTitle } from '@/components/ui/drawer';
+import { Badge } from '@/components/ui/badge';
+import { Progress } from '@/components/ui/progress';
 import { QuizzType } from '@/temp/QuizzData';
 import { XMarkIcon } from '@heroicons/react/24/outline';
-import { InfoIcon } from 'lucide-react';
-import { useState } from 'react';
+import { 
+    InfoIcon, 
+    Trophy, 
+    Target, 
+    Clock, 
+    Star, 
+    TrendingUp, 
+    Zap,
+    Award,
+    Calendar,
+    CheckCircle,
+    Play,
+    Users,
+    Filter
+} from 'lucide-react';
+import { useState, useEffect } from 'react';
+import APP_ROUTES_ENUM from '@/types/APP_ROUTES_ENUM';
+import { useAuth } from '@/context/AuthProvider';
+import { useGetPersonalizedContent } from '@/api';
 
 type LearnQuizzTabProps = {
     quizz: QuizzType[];
 };
 
-const LearnQuizzTab = (props: LearnQuizzTabProps) => {
-    const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
+// Types pour les nouvelles fonctionnalités
+type Achievement = {
+    id: string;
+    title: string;
+    description: string;
+    icon: React.ReactNode;
+    unlocked: boolean;
+    progress?: number;
+    maxProgress?: number;
+};
 
-    const SliderSection: React.FC<{ title: string; quizz: QuizzType[]; last: boolean }> = ({ title, quizz, last }) => {
+type DailyChallenge = {
+    id: string;
+    title: string;
+    description: string;
+    reward: number;
+    completed: boolean;
+    timeLeft: string;
+};
+
+type QuizzStats = {
+    totalCompleted: number;
+    streakDays: number;
+    averageScore: number;
+    totalPoints: number;
+    rank: string;
+    nextRankPoints: number;
+};
+
+const LearnQuizzTab = (props: LearnQuizzTabProps) => {
+    const { user } = useAuth();
+    const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
+    const [activeTab, setActiveTab] = useState<'quizz' | 'achievements' | 'stats'>('quizz');
+    const [selectedDifficulty, setSelectedDifficulty] = useState<'all' | 'easy' | 'medium' | 'hard'>('all');
+    const { data: recommendedQuizz, isLoading } = useGetPersonalizedContent();
+
+    // Données simulées pour les nouvelles fonctionnalités
+    const [stats] = useState<QuizzStats>({
+        totalCompleted: 47,
+        streakDays: 12,
+        averageScore: 87,
+        totalPoints: 2340,
+        rank: "Maître de la finance",
+        nextRankPoints: 660
+    });
+
+    const [achievements] = useState<Achievement[]>([
+        {
+            id: '1',
+            title: 'Premier Quiz',
+            description: 'Terminez votre premier quiz',
+            icon: <Play className="w-4 h-4" />,
+            unlocked: true
+        },
+        {
+            id: '2',
+            title: 'Série de 5',
+            description: 'Réussissez 5 quiz consécutifs',
+            icon: <Target className="w-4 h-4" />,
+            unlocked: true
+        },
+        {
+            id: '3',
+            title: 'Perfectionniste',
+            description: 'Obtenez 100% à 10 quiz',
+            icon: <Star className="w-4 h-4" />,
+            unlocked: false,
+            progress: 7,
+            maxProgress: 10
+        },
+        {
+            id: '4',
+            title: 'Marathon',
+            description: 'Complétez 100 quiz',
+            icon: <Trophy className="w-4 h-4" />,
+            unlocked: false,
+            progress: 47,
+            maxProgress: 100
+        }
+    ]);
+
+    const filteredQuizz = selectedDifficulty === 'all' 
+        ? props.quizz 
+        : props.quizz.filter(q => q.difficulty === selectedDifficulty);
+
+    const SliderSection = () => {
         return (
-            <div className='w-[100vw] flex justify-center items-start flex-col -ml-6'>
-                <h2 className='text-2xl font-black px-6'>{title}</h2>
-                <div
-                    className={`w-full flex justify-between items-start flex-wrap gap-y-4 gap-x-4 ${last ? 'pb-24' : 'pb-8'}`}
-                >
-                    <QuizzCarousel
-                        slides={quizz}
-                        options={{ loop: true, containScroll: false }}
-                        isLoading={!quizz.length}
-                    />
+            <div className='w-full flex justify-center items-start flex-col mb-2 pt-6'>
+                <div className='w-full flex justify-between items-center'>
+                    <h2 className='text-2xl font-black'>Quizz</h2>
+                    <a className='text-sm font-semibold text-blue-500' href={APP_ROUTES_ENUM.QUIZZ}>
+                        Voir tout &gt;
+                    </a>
+                </div>
+                <div className='w-full overflow-x-auto scrollbar-hide mt-2 mb-3'>
+                    <div className='flex space-x-4 snap-x snap-mandatory overflow-x-auto'>
+                        {['all', 'easy', 'medium', 'hard'].map((difficulty) => (
+                                <Button
+                                    key={difficulty}
+                                    size="sm"
+                                    onClick={() => setSelectedDifficulty(difficulty as any)}
+                                    className={`
+                                        py-2 px-6 border-none text-white rounded-full font-semibold text-lg flex-shrink-0 snap-center 
+                                        ${selectedDifficulty === difficulty ? 'bg-blue-800' : 'bg-blue-500 hover:bg-blue-600'}
+                                    `}
+                                >
+                                    {difficulty.charAt(0).toUpperCase() + difficulty.slice(1)}
+                                </Button>
+                            ))}
+                    </div>
                 </div>
             </div>
         );
     };
 
+    const StatsCard: React.FC<{ icon: React.ReactNode; title: string; value: string | number; subtitle?: string }> = 
+        ({ icon, title, value, subtitle }) => (
+            <div className="bg-gray-800 rounded-lg p-4 flex items-center gap-3">
+                <div className="text-primary-500">{icon}</div>
+                <div>
+                    <p className="text-2xl font-bold">{value}</p>
+                    <p className="text-sm text-gray-400">{title}</p>
+                    {subtitle && <p className="text-xs text-gray-500">{subtitle}</p>}
+                </div>
+            </div>
+        );
+
+    const AchievementCard: React.FC<{ achievement: Achievement }> = ({ achievement }) => (
+        <div className={`bg-gray-800 rounded-lg p-4 border-2 ${achievement.unlocked ? 'border-purple-500' : 'border-gray-600'}`}>
+            <div className="flex items-center gap-3 mb-2">
+                <div className={`p-2 rounded-full ${achievement.unlocked ? 'bg-purple-500' : 'bg-gray-600'}`}>
+                    {achievement.icon}
+                </div>
+                <div className="flex-1">
+                    <h4 className="font-semibold">{achievement.title}</h4>
+                    <p className="text-sm text-gray-400">{achievement.description}</p>
+                </div>
+                {achievement.unlocked && <CheckCircle className="w-5 h-5 text-green-500" />}
+            </div>
+            {achievement.progress !== undefined && (
+                <div className="mt-3">
+                    <div className="flex justify-between text-sm text-gray-400 mb-1">
+                        <span>Progression</span>
+                        <span>{achievement.progress}/{achievement.maxProgress}</span>
+                    </div>
+                    <Progress value={(achievement.progress / achievement.maxProgress!) * 100} className="h-2" />
+                </div>
+            )}
+        </div>
+    );
+
     return (
         <div className='w-full flex justify-center items-start flex-col mb-8 p-6 gap-y-6'>
+            {/* Header avec rang et info */}
             <div
-                className={`w-full flex justify-between items-center h-6 mb-2`}
-                onClick={() => {
-                    setIsDrawerOpen(true);
-                }}
+                className={`w-full flex justify-between items-center h-6 mb-2 cursor-pointer hover:opacity-80 transition-opacity`}
+                onClick={() => setIsDrawerOpen(true)}
             >
-                <p className='font-bold text-xl text-purple-500'>Maître de la finance</p>
+                <div className="flex items-center gap-2">
+                    <Trophy className="w-5 h-5 text-purple-500" />
+                    <p className='font-bold text-xl text-purple-500'>{stats.rank}</p>
+                    <Badge variant="default" className='bg-primary-500 text-black'>{stats.totalPoints} pts</Badge>
+                </div>
                 <InfoIcon className='h-6 w-6' />
             </div>
 
-            <WeekChart />
-            <SliderSection title='Les quizz' quizz={props.quizz} last={false}></SliderSection>
+            {/* Statistiques rapides */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 w-full">
+                <StatsCard 
+                    icon={<Target className="w-5 h-5" />}
+                    title="Quiz terminés"
+                    value={stats.totalCompleted}
+                />
+                <StatsCard 
+                    icon={<TrendingUp className="w-5 h-5" />}
+                    title="Série actuelle"
+                    value={`${stats.streakDays} jours`}
+                />
+                <StatsCard 
+                    icon={<Star className="w-5 h-5" />}
+                    title="Score moyen"
+                    value={`${stats.averageScore}%`}
+                />
+                <StatsCard 
+                    icon={<Trophy className="w-5 h-5" />}
+                    title="Prochain rang"
+                    value={`${stats.nextRankPoints} pts`}
+                    subtitle="à débloquer"
+                />
+            </div>
 
+            <WeekChart />
+
+            <div className='w-[100vw] flex justify-between items-start flex-wrap -ml-6'>
+                <div className='flex items-center justify-between mb-4 px-6'>
+                    <h2 className='text-xl font-bold'>Apprendre avec EliosLearn !</h2>
+                </div>
+                <QuizzCarousel
+                    slides={props.quizz}
+                    options={{ loop: true, containScroll: false }}
+                    isLoading={!props.quizz.length}
+                />
+            </div>
+            <div className='w-[100vw] flex justify-between items-start flex-wrap -ml-6'>
+                <div className='flex items-center justify-between mb-4 px-6'>
+                    <h2 className='text-xl font-bold'>Apprendre avec EliosLearn !</h2>
+                </div>
+                <QuizzCarousel
+                    slides={recommendedQuizz?.quizz}
+                    options={{ loop: true, containScroll: false }}
+                    isLoading={isLoading}
+                />
+            </div>
+
+            <SliderSection />
+            <div className='w-full flex justify-start items-start flex-wrap gap-y-4 gap-x-4 pb-24'>
+                {filteredQuizz?.map((q, index) => (
+                    <div key={index} 
+                        className={`
+                            w-[50px] h-[50px] p-4 rounded-lg
+                            ${q?.finishers?.some((r: any) => r.username === user.username || r.email === user.username) ?
+                                q?.finishers?.find(
+                                    (r: any) =>
+                                        r.username === user.username ||
+                                        r.email === user.username,
+                                )?.lastScore > (q?.questions.length || 0 * 0.7) ? 'bg-green-600' : 'bg-red-500'
+                            : 'bg-gray-800'}
+                        `}
+                    >
+                        <p 
+                            className={`
+                                w-full h-full text-md text-center flex items-center justify-center font-bold
+                                ${q?.finishers?.some((r: any) => r.username === user.username || r.email === user.username) ? 'text-black': 'text-gray-400'}
+                            `}
+                        >
+                            {index + 1}
+                        </p>
+                    </div>
+                ))}
+            </div>
+
+
+            {/* Drawer enrichi */}
             <Drawer open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
-                <DrawerContent className='z-[100000]' aria-describedby={undefined}>
+                <DrawerContent className='bg-gray-900 text-white border-none px-6 max-h-[80vh]' aria-describedby={undefined}>
                     <DrawerHeader>
-                        <DrawerTitle>Classements</DrawerTitle>
-                        <DrawerClose className='absolute right-4 top-4'>
-                            <XMarkIcon />
-                        </DrawerClose>
+                        <div className="flex items-center justify-between">
+                            <DrawerTitle className="text-xl">Profil & Progression</DrawerTitle>
+                            <DrawerClose>
+                                <Button className='p-0 bg-transparent rounded-full hover:bg-gray-800'>
+                                    <svg
+                                        xmlns='http://www.w3.org/2000/svg'
+                                        className='w-6 h-6 text-white'
+                                        fill='none'
+                                        viewBox='0 0 24 24'
+                                        stroke='currentColor'
+                                    >
+                                        <path
+                                            strokeLinecap='round'
+                                            strokeLinejoin='round'
+                                            strokeWidth={2}
+                                            d='M6 18L18 6M6 6l12 12'
+                                        />
+                                    </svg>
+                                </Button>
+                            </DrawerClose>
+                        </div>
+                        
+                        {/* Onglets */}
+                        <div className="flex gap-2 mt-4">
+                            {[
+                                { key: 'quizz', label: 'Classements', icon: <Trophy className="w-4 h-4" /> },
+                                { key: 'achievements', label: 'Succès', icon: <Award className="w-4 h-4" /> },
+                                { key: 'stats', label: 'Statistiques', icon: <TrendingUp className="w-4 h-4" /> }
+                            ].map(tab => (
+                                <Button
+                                    key={tab.key}
+                                    variant={activeTab === tab.key ? 'default' : 'outline'}
+                                    size="sm"
+                                    onClick={() => setActiveTab(tab.key as any)}
+                                    className="flex items-center gap-2"
+                                >
+                                    {tab.icon}
+                                    {tab.label}
+                                </Button>
+                            ))}
+                        </div>
                     </DrawerHeader>
-                    <div className='w-full h-full flex items-center justify-center flex-col gap-y-4 p-4 min-h-[40dvh] pb-24'>
-                        <h4 className='text-xl font-bold text-purple-500'>1. Maître de la finance</h4>
-                        <h4 className='text-xl font-bold text-red-500'>2. Banquier</h4>
-                        <h4 className='text-xl font-bold text-green-500'>3. Amateur de graphiques</h4>
-                        <h4 className='text-xl font-bold text-amber-900'>4. Novice des écus</h4>
+                    
+                    <div className='w-full flex-1 overflow-y-auto pb-6'>
+                        {activeTab === 'quizz' && (
+                            <div className='flex items-center justify-center flex-col gap-y-4 p-4'>
+                                <h4 className='text-xl font-bold text-purple-500 flex items-center gap-2'>
+                                    <Trophy className="w-5 h-5" />
+                                    1. Maître de la finance
+                                </h4>
+                                <h4 className='text-xl font-bold text-red-500 flex items-center gap-2'>
+                                    <Award className="w-5 h-5" />
+                                    2. Banquier
+                                </h4>
+                                <h4 className='text-xl font-bold text-green-500 flex items-center gap-2'>
+                                    <Star className="w-5 h-5" />
+                                    3. Amateur de graphiques
+                                </h4>
+                                <h4 className='text-xl font-bold text-amber-900 flex items-center gap-2'>
+                                    <Target className="w-5 h-5" />
+                                    4. Novice des écus
+                                </h4>
+                                
+                                <div className="mt-6 w-full max-w-md">
+                                    <h5 className="font-semibold mb-3">Progression vers le prochain rang</h5>
+                                    <Progress value={78} className="h-3 mb-2" />
+                                    <p className="text-sm text-gray-400">{stats.nextRankPoints} points restants</p>
+                                </div>
+                            </div>
+                        )}
+                        
+                        {activeTab === 'achievements' && (
+                            <div className='space-y-4 p-4'>
+                                <h4 className="text-lg font-semibold mb-4">Vos Succès</h4>
+                                {achievements.map(achievement => (
+                                    <AchievementCard key={achievement.id} achievement={achievement} />
+                                ))}
+                            </div>
+                        )}
+                        
+                        {activeTab === 'stats' && (
+                            <div className='space-y-6 p-4'>
+                                <h4 className="text-lg font-semibold mb-4">Statistiques Détaillées</h4>
+                                
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <StatsCard 
+                                        icon={<Calendar className="w-5 h-5" />}
+                                        title="Jours actifs"
+                                        value="23"
+                                        subtitle="ce mois-ci"
+                                    />
+                                    <StatsCard 
+                                        icon={<Users className="w-5 h-5" />}
+                                        title="Classement global"
+                                        value="#847"
+                                        subtitle="sur 12,453 utilisateurs"
+                                    />
+                                    <StatsCard 
+                                        icon={<Clock className="w-5 h-5" />}
+                                        title="Temps total"
+                                        value="8h 24m"
+                                        subtitle="d'apprentissage"
+                                    />
+                                    <StatsCard 
+                                        icon={<Zap className="w-5 h-5" />}
+                                        title="Meilleur score"
+                                        value="100%"
+                                        subtitle="Finance personnelle"
+                                    />
+                                </div>
+                                
+                                <div className="bg-gray-800 rounded-lg p-4">
+                                    <h5 className="font-semibold mb-3">Domaines de prédilection</h5>
+                                    <div className="space-y-3">
+                                        {[
+                                            { subject: 'Finance personnelle', score: 94, color: 'bg-green-500' },
+                                            { subject: 'Investissement', score: 87, color: 'bg-blue-500' },
+                                            { subject: 'Cryptomonnaies', score: 82, color: 'bg-orange-500' },
+                                            { subject: 'Économie', score: 76, color: 'bg-purple-500' }
+                                        ].map((item, index) => (
+                                            <div key={index} className="flex items-center justify-between">
+                                                <span className="text-sm">{item.subject}</span>
+                                                <div className="flex items-center gap-2">
+                                                    <div className="w-20 bg-gray-700 rounded-full h-2">
+                                                        <div 
+                                                            className={`h-2 rounded-full ${item.color}`}
+                                                            style={{ width: `${item.score}%` }}
+                                                        />
+                                                    </div>
+                                                    <span className="text-sm font-semibold w-10">{item.score}%</span>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+                        )}
                     </div>
                 </DrawerContent>
             </Drawer>

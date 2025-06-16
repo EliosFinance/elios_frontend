@@ -108,7 +108,7 @@ const QuizzCarousel: React.FC<PropType> = (props) => {
                                         {/* header */}
                                         <div className='w-full h-[7%] flex justify-between items-center mt-5 px-5'>
                                             <div className='flex items-center justify-start w-auto h-full text-sm font-light text-center gap-x-2'>
-                                                {q.finishers.some(
+                                                {q?.finishers?.some(
                                                     (r: any) =>
                                                         r.username === user.username || r.email === user.username,
                                                 ) ? (
@@ -117,14 +117,14 @@ const QuizzCarousel: React.FC<PropType> = (props) => {
                                                     <XMarkIcon className='h-[20px] text-red-500' />
                                                 )}
                                             </div>
-                                            {q.finishers.find(
+                                            {q?.finishers?.find(
                                                 (r: any) => r.username === user.username || r.email === user.username,
                                             ) && (
                                                 <div className='flex items-center justify-center w-auto h-full text-sm font-light text-center gap-x-2'>
                                                     <p className='text-gray-500'>Dernier score</p>
                                                     <p className='font-bold'>
                                                         {
-                                                            q.finishers.find(
+                                                            q?.finishers?.find(
                                                                 (r: any) =>
                                                                     r.username === user.username ||
                                                                     r.email === user.username,
