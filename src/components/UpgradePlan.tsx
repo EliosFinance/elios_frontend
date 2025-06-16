@@ -34,7 +34,7 @@ const Subscription = () => {
 				<div className='mb-5'>
 					<div className='grid grid-cols-2 gap-2'>
 						{features.map((feature, index) => (
-							<div key={index} className='flex items-center gap-2 p-2.5 bg-gradient-to-br from-white/8 to-white/4 rounded-lg border border-white/10 backdrop-blur-sm'>
+							<div key={index} className='flex items-center gap-2 p-2.5 bg-gradient-to-br from-white/8 to-white/4 rounded-lg border border border-white/10 backdrop-blur-sm'>
 								<CheckCircleIcon className='flex-shrink-0 w-4 h-4 text-emerald-400' />
 								<span className='text-xs font-medium leading-tight text-white'>{feature}</span>
 							</div>

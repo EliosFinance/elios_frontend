@@ -34,9 +34,9 @@ const ReferralSection = ({ onCopy }: ReferralSectionProps) => {
 
   return (
     <>
-      <div className='flex flex-col items-center justify-center p-4 mb-4 bg-[--neutral-800] border border-solid border-[--neutral-500] rounded-lg'>
+      <div className='flex flex-col items-center justify-center p-4 mb-4 border rounded-lg bg-white/5 border-white/10 backdrop-blur-sm'>
         <div className={'w-full h-full relative'} onClick={handleCopy}>
-          <input className={styles.input} type={'text'} value={'elios.me/username-id'} readOnly />
+          <Input className={styles.input} type={'text'} value={'elios.me/username-id'} readOnly />
           <span className={styles.endIcon}>
             {coolDownOn ? (
               <CheckIcon className='w-5 h-5 text-white cursor-pointer' />

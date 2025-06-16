@@ -85,7 +85,7 @@ const MyBankAccounts = () => {
                         BankAccount(index, bankAccount),
                     )
                 ) : (
-                    <div className='w-full h-[400px] flex flex-col gap-4 items-center justify-center rounded-4 border-solid border-[1px] border-[--neutral-500] bg-[--neutral-800]'>
+                    <div className='w-full h-[400px] flex flex-col gap-4 items-center justify-center rounded-4 border-solid border-[1px] border-[--neutral-500] bg-white/5'>
                         <p className='w-2/3 text-lg font-bold text-center'>
                             Vous n'avez pas encore ajouté de compte bancaire
                         </p>

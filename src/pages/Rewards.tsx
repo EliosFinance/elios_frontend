@@ -8,30 +8,30 @@ import PageLayout from '@/layout/PageLayout';
 import { useState } from 'react';
 
 const Rewards = () => {
-    const [copied, setCopied] = useState(false);
+	const [copied, setCopied] = useState(false);
 
-    const handleCopy = () => {
-        navigator.clipboard
-            .writeText('elios.me/username-id')
-            .then(() => {
-                setCopied(true);
-                setTimeout(() => setCopied(false), 2000);
-            })
-            .catch((err) => console.error('Erreur de copie:', err));
-    };
+	const handleCopy = () => {
+		navigator.clipboard
+			.writeText('elios.me/username-id')
+			.then(() => {
+				setCopied(true);
+				setTimeout(() => setCopied(false), 2000);
+			})
+			.catch((err) => console.error('Erreur de copie:', err));
+	};
 
-    return (
-        <PageLayout title='Récompenses'>
-            {copied && <CopyAlert />}
+	return (
+		<PageLayout title='Récompenses'>
+			{copied && <CopyAlert />}
 
-            <h4 className='mb-4 font-bold'>Parrainez vos amis &amp; gagnez 100 EliCoins !</h4>
-            <ReferralSection onCopy={handleCopy} />
+			<h4 className='mb-4 font-bold'>Parrainez vos amis &amp; gagnez 100 EliCoins !</h4>
+			<ReferralSection onCopy={handleCopy} />
 
-            <EliCoinsCard coins={125} totalCoins={500} />
-            <ActionButtons />
-            <RewardsSection />
-        </PageLayout>
-    );
+			<EliCoinsCard coins={125} totalCoins={500} />
+			<ActionButtons />
+			<RewardsSection />
+		</PageLayout>
+	);
 };
 
 export default Rewards;
