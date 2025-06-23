@@ -26,23 +26,19 @@ const TransactionsSection: React.FC = () => {
 
 	if (isLoading) {
 		return (
-			<Card className="rounded-xl">
-				<CardContent className="p-6">
-					<div className="w-full h-64 bg-gray-800 animate-pulse rounded-xl"></div>
-				</CardContent>
-			</Card>
+			<div className="rounded-lg bg-white/5 border border-white/10 backdrop-blur-sm p-4">
+				<div className="w-full h-48 bg-gray-800/60 animate-pulse rounded-lg"></div>
+			</div>
 		);
 	}
 
 	if (error) {
 		return (
-			<Card className="rounded-xl">
-				<CardContent className="p-6">
-					<div className="p-4 text-sm text-center text-red-400 bg-red-900/30 rounded-xl">
-						Impossible de charger vos transactions
-					</div>
-				</CardContent>
-			</Card>
+			<div className="rounded-lg bg-white/5 border border-white/10 backdrop-blur-sm p-4">
+				<div className="p-3 text-sm text-center text-red-400 bg-red-500/10 border border-red-500/20 rounded-lg">
+					Impossible de charger vos transactions
+				</div>
+			</div>
 		);
 	}
 
@@ -51,60 +47,75 @@ const TransactionsSection: React.FC = () => {
 	}, 0);
 
 	return (
-		<Card className="w-full rounded-xl">
-			<CardContent className="p-6">
-				<h2 className="mb-4 font-bold text-white">Dernières transactions</h2>
+		<div className="rounded-lg bg-white/5 border border-white/10 backdrop-blur-sm p-4">
+			<div className="flex items-center gap-2 mb-4">
+				<div className="flex items-center justify-center w-6 h-6 rounded-lg bg-white/5 border border-white/10">
+					<CalendarIcon className="w-4 h-4 text-primary-400" />
+				</div>
+				<h3 className="text-lg font-bold text-white">Dernières transactions</h3>
+			</div>
 
-				{latestTransactions.length > 0 ? (
-					<>
-						<div className="space-y-3">
-							{latestTransactions.map((tx) => {
-								const displayDate = parseTransactionDate(tx).toLocaleDateString('fr-FR');
-								const value = Number(tx.value);
+			{latestTransactions.length > 0 ? (
+				<>
+					<div className="space-y-3 mb-4">
+						{latestTransactions.map((tx) => {
+							const displayDate = parseTransactionDate(tx).toLocaleDateString('fr-FR');
+							const value = Number(tx.value);
 
-								return (
-									<div key={tx.id} className="p-4 bg-gray-800 rounded-xl">
-										<div className="flex flex-col w-full">
-											<div className="flex items-start justify-between mb-2">
-												<span className="font-medium text-white truncate">
-													{tx.wording}
-												</span>
-												<span className="ml-2 font-bold text-red-500">
-													{value.toLocaleString('fr-FR', {
-														style: 'currency',
-														currency: 'EUR',
-													})}
-												</span>
+							return (
+								<div key={tx.id} className="p-3 rounded-lg bg-white/5 border border-white/10">
+									<div className="flex items-start justify-between gap-3">
+										<div className="flex items-center gap-3 flex-1 min-w-0">
+											<div className="flex items-center justify-center w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex-shrink-0">
+												<svg className="w-4 h-4" viewBox="0 0 24 24" fill="none">
+													<path d="M12 2v20m8-10H4" stroke="currentColor" strokeWidth="2" className="text-primary-400"/>
+												</svg>
 											</div>
-											<div className="flex items-center text-sm text-gray-400">
-												<CalendarIcon size={14} className="mr-2" />
-												<span>{displayDate}</span>
+											<div className="flex-1 min-w-0">
+												<p className="font-medium text-white text-sm leading-tight truncate">{tx.wording}</p>
+												<div className="flex items-center text-xs text-gray-400 mt-1">
+													<CalendarIcon className="w-3 h-3 mr-1" />
+													<span>{displayDate}</span>
+												</div>
 											</div>
 										</div>
+										<div className="flex-shrink-0">
+											<span className={`font-bold text-sm ${
+												value < 0 ? 'text-red-400' : 'text-green-400'
+											}`}>
+												{value.toLocaleString('fr-FR', {
+													style: 'currency',
+													currency: 'EUR',
+												})}
+											</span>
+										</div>
 									</div>
-								);
-							})}
-						</div>
-
-						<div className="pt-4 mt-6 border-t border-gray-700">
-							<div className="flex items-center justify-between">
-								<span className="text-gray-400">Total récent</span>
-								<span className="text-xl font-bold text-white">
-									{totalLatest.toLocaleString('fr-FR', {
-										style: 'currency',
-										currency: 'EUR',
-									})}
-								</span>
-							</div>
-						</div>
-					</>
-				) : (
-					<div className="py-8 text-center text-gray-400">
-						Aucune transaction récente
+								</div>
+							);
+						})}
 					</div>
-				)}
-			</CardContent>
-		</Card>
+
+					<div className="pt-3 border-t border-white/10">
+						<div className="flex items-center justify-between">
+							<span className="text-white font-medium">Total récent</span>
+							<span className="text-white font-bold">
+								{totalLatest.toLocaleString('fr-FR', {
+									style: 'currency',
+									currency: 'EUR',
+								})}
+							</span>
+						</div>
+					</div>
+				</>
+			) : (
+				<div className="py-6 text-center text-gray-400">
+					<svg className="w-12 h-12 mx-auto mb-2 text-gray-500" viewBox="0 0 24 24" fill="none">
+						<path d="M12 2v20m8-10H4" stroke="currentColor" strokeWidth="2"/>
+					</svg>
+					<p className="text-sm">Aucune transaction récente</p>
+				</div>
+			)}
+		</div>
 	);
 };
 

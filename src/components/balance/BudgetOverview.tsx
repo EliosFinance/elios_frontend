@@ -20,90 +20,91 @@ const BudgetOverview: React.FC = () => {
 	}, [connections]);
 
 	if (isLoading) return (
-		<Card className="rounded-xl">
-			<CardContent className="p-6">
-				<div className="w-full h-64 bg-gray-800 animate-pulse rounded-xl"></div>
-			</CardContent>
-		</Card>
+		<div className="rounded-lg bg-white/5 border border-white/10 backdrop-blur-sm p-4">
+			<div className="w-full h-48 bg-gray-800/60 animate-pulse rounded-lg"></div>
+		</div>
 	);
 
 	if (error) return (
-		<Card className="rounded-xl">
-			<CardContent className="p-6">
-				<div className="p-4 text-sm text-center text-red-400 bg-red-900/30 rounded-xl">
-					Impossible de charger votre budget
-				</div>
-			</CardContent>
-		</Card>
+		<div className="rounded-lg bg-white/5 border border-white/10 backdrop-blur-sm p-4">
+			<div className="p-3 text-sm text-center text-red-400 bg-red-500/10 border border-red-500/20 rounded-lg">
+				Impossible de charger votre budget
+			</div>
+		</div>
 	);
 
 	const remaining = budget - spending;
 	const spendingPercentage = Math.min(100, Math.round((spending / budget) * 100));
 
-	const circumference = 2 * Math.PI * 70;
+	const circumference = 2 * Math.PI * 60;
 	const dashOffset = circumference - (circumference * spendingPercentage) / 100;
 
 	return (
-		<Card className="w-full rounded-xl">
-			<CardContent className="p-6">
-				<h2 className="mb-4 font-bold text-white">Budget mensuel</h2>
+		<div className="rounded-lg bg-white/5 border border-white/10 backdrop-blur-sm p-4">
+			<div className="flex items-center gap-2 mb-4">
+				<div className="flex items-center justify-center w-6 h-6 rounded-lg bg-white/5 border border-white/10">
+					<svg className="w-4 h-4" viewBox="0 0 24 24" fill="none">
+						<path d="M12 2v20m0-20a10 10 0 0 1 0 20 10 10 0 0 1 0-20z" stroke="currentColor" strokeWidth="2" className="text-primary-400"/>
+					</svg>
+				</div>
+				<h3 className="text-lg font-bold text-white">Budget mensuel</h3>
+			</div>
 
-				<div className="flex items-center justify-center mb-6">
-					<div className="relative w-48 h-48">
-						<svg className="w-full h-full" viewBox="0 0 160 160">
-							<circle
-								cx="80"
-								cy="80"
-								r="70"
-								fill="transparent"
-								stroke="#374151"
-								strokeWidth="12"
-							/>
-							<circle
-								cx="80"
-								cy="80"
-								r="70"
-								fill="transparent"
-								stroke="#3B82F6"
-								strokeWidth="12"
-								strokeLinecap="round"
-								strokeDasharray={circumference}
-								strokeDashoffset={dashOffset}
-								transform="rotate(-90 80 80)"
-							/>
-						</svg>
+			<div className="flex items-center justify-center mb-4">
+				<div className="relative w-32 h-32">
+					<svg className="w-full h-full" viewBox="0 0 140 140">
+						<circle
+							cx="70"
+							cy="70"
+							r="60"
+							fill="transparent"
+							stroke="#374151"
+							strokeWidth="8"
+						/>
+						<circle
+							cx="70"
+							cy="70"
+							r="60"
+							fill="transparent"
+							stroke="var(--primary-500)"
+							strokeWidth="8"
+							strokeLinecap="round"
+							strokeDasharray={circumference}
+							strokeDashoffset={dashOffset}
+							transform="rotate(-90 70 70)"
+						/>
+					</svg>
 
-						<div className="absolute inset-0 flex flex-col items-center justify-center">
-							<span className="text-3xl font-bold text-white">{spendingPercentage}%</span>
-							<span className="text-sm text-gray-400">utilisé</span>
-						</div>
+					<div className="absolute inset-0 flex flex-col items-center justify-center">
+						<span className="text-xl font-bold text-white">{spendingPercentage}%</span>
+						<span className="text-xs text-gray-400">utilisé</span>
 					</div>
 				</div>
+			</div>
 
-				<div className="space-y-4">
-					<div className="flex items-center justify-between">
-						<span className="text-gray-400">Budget total</span>
-						<span className="font-medium text-white">
-							{budget.toLocaleString('fr-FR', { style: 'currency', currency: 'EUR' })}
-						</span>
-					</div>
-
-					<div className="flex items-center justify-between">
-						<span className="text-gray-400">Dépenses</span>
-						<span className="font-medium text-blue-400">
-							{spending.toLocaleString('fr-FR', { style: 'currency', currency: 'EUR' })}
-						</span>
-					</div>
-
-					<div className="flex items-center justify-between pt-3 border-t border-gray-700">
-						<span className="text-white">Reste à dépenser</span>
-						<span className="font-bold text-white">
-							{remaining.toLocaleString('fr-FR', { style: 'currency', currency: 'EUR' })}
-						</span>
-					</div>
+			<div className="space-y-3">
+				<div className="flex items-center justify-between text-sm">
+					<span className="text-gray-400">Budget total</span>
+					<span className="font-medium text-white">
+						{budget.toLocaleString('fr-FR', { style: 'currency', currency: 'EUR' })}
+					</span>
 				</div>
-			</CardContent>
-		</Card>
+
+				<div className="flex items-center justify-between text-sm">
+					<span className="text-gray-400">Dépenses</span>
+					<span className="font-medium text-primary-400">
+						{spending.toLocaleString('fr-FR', { style: 'currency', currency: 'EUR' })}
+					</span>
+				</div>
+
+				<div className="flex items-center justify-between pt-2 border-t border-white/10">
+					<span className="text-white font-medium">Reste disponible</span>
+					<span className="font-bold text-white">
+						{remaining.toLocaleString('fr-FR', { style: 'currency', currency: 'EUR' })}
+					</span>
+				</div>
+			</div>
+		</div>
 	);
 };
 

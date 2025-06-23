@@ -25,16 +25,42 @@ const ChallengesSection: React.FC = () => {
     }, []);
 
     return (
-        <div className='w-full my-4 rounded shadow mb-12'>
-            <h2 className='font-bold'>Défis</h2>
-            <ul className='mt-2'>
-                {challenges.map((challenge) => (
-                    <li key={challenge.id} className='p-2 mb-2 border rounded'>
-                        <h3 className='font-semibold'>{challenge.title}</h3>
-                        <p className='text-sm text-gray-700'>{challenge.description}</p>
-                    </li>
-                ))}
-            </ul>
+        <div className='rounded-lg bg-white/5 border border-white/10 backdrop-blur-sm p-4'>
+            <div className='flex items-center gap-2 mb-4'>
+                <div className='flex items-center justify-center w-6 h-6 rounded-lg bg-white/5 border border-white/10'>
+                    <svg className='w-4 h-4' viewBox='0 0 24 24' fill='none'>
+                        <path d='M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z' stroke='currentColor' strokeWidth='2' className='text-primary-400'/>
+                    </svg>
+                </div>
+                <h3 className='text-lg font-bold text-white'>Défis</h3>
+            </div>
+            
+            {challenges.length > 0 ? (
+                <div className='space-y-3'>
+                    {challenges.map((challenge) => (
+                        <div key={challenge.id} className='p-3 rounded-lg bg-white/5 border border-white/10'>
+                            <div className='flex items-start gap-3'>
+                                <div className='flex items-center justify-center w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex-shrink-0'>
+                                    <svg className='w-4 h-4' viewBox='0 0 24 24' fill='none'>
+                                        <path d='M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z' stroke='currentColor' strokeWidth='2' className='text-primary-400'/>
+                                    </svg>
+                                </div>
+                                <div className='flex-1 min-w-0'>
+                                    <h4 className='font-medium text-white text-sm leading-tight mb-1'>{challenge.title}</h4>
+                                    <p className='text-xs text-gray-400 leading-relaxed'>{challenge.description}</p>
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            ) : (
+                <div className='py-6 text-center text-gray-400'>
+                    <svg className='w-12 h-12 mx-auto mb-2 text-gray-500' viewBox='0 0 24 24' fill='none'>
+                        <path d='M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z' stroke='currentColor' strokeWidth='2'/>
+                    </svg>
+                    <p className='text-sm'>Aucun défi disponible</p>
+                </div>
+            )}
         </div>
     );
 };
