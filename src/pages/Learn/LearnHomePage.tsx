@@ -89,7 +89,7 @@ const LearnHomePage = () => {
                             slides={filteredSubjects}
                             options={{ loop: false, containScroll: false }}
                             cardVariant={ArticleTypesEnum.SMALL_PREVIEW}
-                            isLoading={!filteredSubjects.length}
+                            isLoading={false}
                         />
                     </div>
                 </div>
