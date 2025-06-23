@@ -1,4 +1,5 @@
 import { Button } from '@/components/ui/button.tsx';
+import { useAuth } from '@/context/AuthProvider';
 import { useRegisterUsersStore } from '@/store/RegisterUser';
 import APP_ROUTES_ENUM from '@/types/APP_ROUTES_ENUM';
 import React, { useState, useEffect } from 'react';
@@ -8,23 +9,25 @@ import RegisterHeader from '../components/RegisterHeader';
 const CreateUsername: React.FC = () => {
     const [isValid, setIsValid] = useState<boolean>(false);
     const { username, setUsername } = useRegisterUsersStore();
+    const { user } = useAuth();
     const navigate = useNavigate();
+
+    useEffect(() => {
+        if (user?.username && !username) {
+            const conditions = [username.length >= 5, !/[^a-zA-Z0-9]/.test(username)];
+
+            // Nettoyer le nom d'utilisateur pour enlever les caractères spéciaux et le mettre en minuscule
+            const sanitizedUsername = user.username.replace(/[^a-zA-Z0-9]/g, '').toLowerCase();
+            setUsername(sanitizedUsername);
+            setIsValid(conditions.every((condition) => condition));
+        }
+    }, [user, username, setUsername]);
 
     const handleNext = () => {
         if (!isValid) return;
         setUsername(username);
         navigate(APP_ROUTES_ENUM.CREATE_PASSWORD);
     };
-
-    useEffect(() => {
-        const validateUsername = () => {
-            // TODO: request backend for unique username
-            const conditions = [username.length >= 5, !/[^a-zA-Z0-9]/.test(username)];
-            setIsValid(conditions.every((condition) => condition));
-        };
-
-        validateUsername();
-    }, [username]);
 
     return (
         <div className='flex flex-col items-center justify-between w-full h-screen px-4 pt-6 pb-8'>

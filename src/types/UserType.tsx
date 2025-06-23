@@ -3,6 +3,16 @@ import { QuizzType } from '@/temp/QuizzData';
 import { ArticleType } from './BlogType';
 import { TransactionType } from './transactionType';
 
+export type UserCompletionStatus = {
+    emailVerified: boolean;
+    pinConfigured: boolean;
+    termsAccepted: boolean;
+    profileComplete: boolean;
+    provider: 'email' | 'google';
+    registrationDate: Date;
+    nextSteps: string[];
+};
+
 export type FriendsType = {
     id: string;
     profilePicture: string;

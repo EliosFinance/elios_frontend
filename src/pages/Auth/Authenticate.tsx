@@ -1,9 +1,11 @@
-import { login_google } from '@/api';
-import { appOpen } from '@/api/connexion/connexionCalls';
+import { instance_back, login_google } from '@/api';
+import { appOpen, checkUserCompletionStatus, generateDeviceId } from '@/api/connexion/connexionCalls';
 import mainLogo from '@/assets/images/corp/main_logo.png';
 import appleIcon from '@/assets/images/icons/apple_icon.png';
 import { Button } from '@/components/ui/button.tsx';
 import { Drawer, DrawerClose, DrawerContent, DrawerTitle, DrawerTrigger } from '@/components/ui/drawer';
+import { useAuth } from '@/context/AuthProvider';
+import { determineNextStep } from '@/helpers/registrationHelper';
 import { OsEnum, useDeviceDetection } from '@/hook/useDeviceDetection';
 import { userStore } from '@/store/UserStore.ts';
 import APP_ROUTES_ENUM from '@/types/APP_ROUTES_ENUM';
@@ -20,6 +22,7 @@ const Authenticate: React.FC = () => {
     const [drawerStep, setDrawerStep] = useState<'step1' | 'step2'>('step1');
     const [dataForStep2, setDataForStep2] = useState<{ email: string; password: string } | null>(null);
     const { os } = useDeviceDetection();
+    const { user } = useAuth();
     const navigate = useNavigate();
     const updateUser = userStore((state) => state.updateUser);
     const googleParentRef = useRef<HTMLDivElement>(null);
@@ -45,33 +48,40 @@ const Authenticate: React.FC = () => {
     };
 
     const handleGoogleLogin = async (credentialResponse: any) => {
-        const loginGoogle = await login_google(credentialResponse.credential);
-        if (!loginGoogle) return;
+        try {
+            const loginGoogle = await login_google(credentialResponse.credential);
+            if (!loginGoogle) return;
 
-        updateUser({
-            id: loginGoogle.id,
-            username: loginGoogle.username,
-            token: loginGoogle.access_token,
-            refresh_token: loginGoogle.refresh_token,
-            powens_token: loginGoogle.powens_token,
-        });
+            updateUser({
+                id: loginGoogle.id,
+                username: loginGoogle.username,
+                token: loginGoogle.access_token,
+                refresh_token: loginGoogle.refresh_token,
+                powens_token: loginGoogle.powens_token,
+            });
 
-        // Vérifier si un PIN est requis
-        const deviceId = localStorage.getItem('deviceId');
-        if (deviceId) {
-            try {
+            const userStatus = await checkUserCompletionStatus(loginGoogle.id.toString());
+
+            const nextStep = determineNextStep(userStatus, loginGoogle.username);
+
+            if (nextStep === 'complete') {
+                const deviceId = localStorage.getItem('deviceId') || (await generateDeviceId());
+                localStorage.setItem('deviceId', deviceId);
+
                 const { requiresPin } = await appOpen(deviceId);
                 if (requiresPin) {
                     setDataForStep2({ email: loginGoogle.username, password: '' });
                     setDrawerStep('step2');
                     return;
                 }
-            } catch (error) {
-                console.error('Error checking PIN status:', error);
+                navigate(APP_ROUTES_ENUM.HOME);
+            } else {
+                navigate(nextStep);
             }
+        } catch (error) {
+            console.error('Error in Google login:', error);
+            setError('Erreur lors de la connexion avec Google');
         }
-
-        navigate(APP_ROUTES_ENUM.HOME);
     };
 
     return (

@@ -1,4 +1,4 @@
-import { setupPin } from '@/api/connexion/connexionCalls';
+import { markPinConfigured, setupPin } from '@/api/connexion/connexionCalls';
 import { Button } from '@/components/ui/button';
 import { useRegisterUsersStore } from '@/store/RegisterUser';
 import { userStore } from '@/store/UserStore';
@@ -21,6 +21,29 @@ const PinCodeScreen: React.FC = () => {
         }
     }, [pin]);
 
+    const handleNext = async () => {
+        try {
+            if (!user?.token) {
+                // Utilisateur pas encore connecté (flux normal)
+                navigate(APP_ROUTES_ENUM.CONFIRM_PIN);
+                return;
+            }
+
+            // Utilisateur connecté (Google)
+            const success = await setupPin(pin);
+            if (success) {
+                await markPinConfigured();
+                navigate(APP_ROUTES_ENUM.CONFIRM_PIN);
+            } else {
+                throw new Error('Échec de la configuration du PIN');
+            }
+        } catch (err: any) {
+            console.error('Erreur lors de la configuration du PIN:', err);
+            setError(err.message || 'Impossible de configurer le PIN, réessayez.');
+            setPin('');
+        }
+    };
+
     const handlePinInput = (digit: string) => {
         if (pin.length < 6) {
             setError('');
@@ -31,26 +54,6 @@ const PinCodeScreen: React.FC = () => {
     const handleDelete = () => {
         setError('');
         setPin(pin.slice(0, -1));
-    };
-
-    const handleNext = async () => {
-        try {
-            if (!user?.token) {
-                navigate(APP_ROUTES_ENUM.CONFIRM_PIN);
-                return;
-            }
-
-            const success = await setupPin(pin);
-            if (success) {
-                navigate(APP_ROUTES_ENUM.CONFIRM_PIN);
-            } else {
-                throw new Error('Échec de la configuration du PIN');
-            }
-        } catch (err: any) {
-            console.error('Erreur lors de la configuration du PIN:', err);
-            setError(err.message || 'Impossible de configurer le PIN, réessayez.');
-            setPin('');
-        }
     };
 
     return (
