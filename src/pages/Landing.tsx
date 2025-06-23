@@ -1,5 +1,6 @@
 import { getTrendingArticles, useGetConnections } from '@/api';
 import BlurItem from '@/components/BlurItem';
+import { ChartSkeleton } from '@/components/ChartSkeleton';
 import GetPremium from '@/components/GetPremium';
 import Subscription from '@/components/UpgradePlan';
 import UserAnalytics from '@/components/UserAnalytics';
@@ -29,7 +30,11 @@ const Landing = () => {
     const [friendsLoading, setFriendsLoading] = useState<boolean>(true);
     const { user } = useAuth();
     const { getFullLoggedUser } = useLoggedUser();
-    const { data: connections } = useGetConnections();
+    const {
+        data: connections,
+        isLoading: isLoadingConnections,
+        isFetching: isFetchingConnections,
+    } = useGetConnections();
 
     useEffect(() => {
         const fetchUser = async () => {
@@ -58,14 +63,15 @@ const Landing = () => {
             </div>
 
             <BlurItem
-                locked={!connections?.length}
+                locked={!isLoadingConnections && !isFetchingConnections && !connections?.length}
+                isLoading={isLoadingConnections || isFetchingConnections}
                 onClick={() => navigate(APP_ROUTES_ENUM.CONNECT_BANK_ACCOUNT)}
+                loadingItem={<ChartSkeleton header='La semaine dernière' />}
                 variant='connectAccount'
                 className='w-full min-h-[300px]'
             >
                 <WeekChart className={'px-6'} />
             </BlurItem>
-
 
             <UserAnalytics />
 
@@ -82,7 +88,8 @@ const Landing = () => {
                     </Button>
                 </div>
                 <BlurItem
-                    locked={!connections?.length}
+                    locked={!isLoadingConnections && !isFetchingConnections && !connections?.length}
+                    isLoading={isLoadingConnections || isFetchingConnections}
                     onClick={() => navigate(APP_ROUTES_ENUM.SUBSCRIPTION)}
                     variant='connectAccount'
                     className='w-full h-auto'
@@ -109,7 +116,8 @@ const Landing = () => {
                     </Button>
                 </div>
                 <BlurItem
-                    locked={!connections?.length}
+                    locked={true}
+                    isLoading={false}
                     onClick={() => navigate(APP_ROUTES_ENUM.FRIENDS)}
                     variant='addFriends'
                     className='w-full h-[250px]'
