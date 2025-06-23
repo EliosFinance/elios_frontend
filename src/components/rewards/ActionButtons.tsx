@@ -3,15 +3,20 @@ import { Button } from '../ui/button';
 import { GiftIcon, UserPlusIcon, CurrencyEuroIcon, StarIcon, XMarkIcon } from '@heroicons/react/24/outline';
 
 const ActionButtons = () => {
-	return (
-		<div className='flex justify-between gap-2 mb-4'>
-			<Button className='w-[48%] px-4 py-2 mr-2 h-12 text-white bg-blue-500 active:bg-blue-500 focus:bg-blue-500 rounded-lg text-sm'>Activité</Button>
-			<Drawer>
-				<DrawerTrigger asChild>
-					<Button className='w-[48%] px-4 py-2 h-12 text-white bg-blue-500 active:bg-blue-500 focus:bg-blue-500 rounded-lg text-sm'>
-						Comment ça marche
+		return (
+			<div className='p-4 mb-6 border rounded-lg bg-white/5 border-white/10 backdrop-blur-sm'>
+				<div className='flex justify-between gap-3'>
+					<Button className='flex items-center justify-center flex-1 h-12 gap-2 text-sm font-medium text-white transition-all duration-200 border rounded-lg bg-white/5 border-white/10 backdrop-blur-sm hover:bg-white/10'>
+						<StarIcon className='w-4 h-4' />
+						Activité
 					</Button>
-				</DrawerTrigger>
+					<Drawer>
+						<DrawerTrigger asChild>
+							<Button className='flex items-center justify-center flex-1 h-12 gap-2 text-sm font-medium text-white transition-all duration-200 border rounded-lg bg-white/5 border-white/10 backdrop-blur-sm hover:bg-white/10'>
+								<GiftIcon className='w-4 h-4' />
+								Comment ça marche
+							</Button>
+						</DrawerTrigger>
 				<DrawerContent className="bg-[#181823] border-none h-[85vh] flex flex-col">
 					<DrawerHeader className="relative flex-shrink-0 px-6 pt-2 pb-4">
 						<DrawerTitle className="text-xl font-bold text-center text-white">Comment ça marche ?</DrawerTitle>
@@ -50,7 +55,7 @@ const ActionButtons = () => {
 								</div>
 								<div className='p-3 border rounded-lg bg-white/5 border-white/10'>
 									<div className='text-center'>
-										<div className='flex items-center justify-center w-8 h-8 mx-auto mb-2 rounded-full bg-purple-500/20'>
+										<div className='flex items-center justify-center w-8 h-8 p-4 mx-auto mb-2 rounded-full bg-purple-500/20'>
 											<span className='text-sm font-bold text-purple-400'>+50</span>
 										</div>
 										<p className='text-xs font-medium text-white'>Finir un défi</p>
@@ -58,7 +63,7 @@ const ActionButtons = () => {
 								</div>
 								<div className='p-3 border rounded-lg bg-white/5 border-white/10'>
 									<div className='text-center'>
-										<div className='flex items-center justify-center w-8 h-8 mx-auto mb-2 rounded-full bg-orange-500/20'>
+										<div className='flex items-center justify-center w-8 h-8 p-2 mx-auto mb-2 rounded-full bg-orange-500/20'>
 											<span className='text-sm font-bold text-orange-400'>+100</span>
 										</div>
 										<p className='text-xs font-medium text-white'>Parrainer un ami</p>
@@ -110,6 +115,7 @@ const ActionButtons = () => {
 					</div>
 				</DrawerContent>
 			</Drawer>
+		</div>
 		</div>
 	);
 };
