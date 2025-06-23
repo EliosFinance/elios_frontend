@@ -1,6 +1,7 @@
 import { getSingleConnector, getWebViewUrl } from '@/api';
 import ButtonApp from '@/components/ButtonApp';
 import { Button } from '@/components/ui/button';
+import { Skeleton } from '@/components/ui/skeleton';
 import { ConnectorType } from '@/types/connectionType';
 import { CheckCircleIcon } from '@heroicons/react/24/outline';
 import { useEffect, useState } from 'react';
@@ -10,13 +11,16 @@ import BankPageHeader from './BankPageHeader';
 const DisplaySingleConnector = () => {
     const [startConnection, setStartConnection] = useState<boolean>(false);
     const [connector, setConnector] = useState<ConnectorType | null>(null);
+    const [isLoading, setIsLoading] = useState<boolean>(true);
     const params = useParams<{ uuid: string }>();
     const uuid = params.uuid;
 
     useEffect(() => {
         const loadBankAccount = async () => {
+            setIsLoading(true);
             const connector = await getSingleConnector(uuid);
             setConnector(connector);
+            setIsLoading(false);
         };
 
         loadBankAccount();
@@ -39,27 +43,37 @@ const DisplaySingleConnector = () => {
     return (
         <div className='flex flex-col items-center justify-start w-full px-4 gap-10'>
             <BankPageHeader />
-            {connector && (
+            {isLoading ? (
                 <div className='flex flex-col items-center justify-center w-full gap-4'>
-                    <div className='flex items-center justify-center w-full'>
-                        <img src={connector.logo} alt={connector.name} />
-                        <p>{connector.name}</p>
-                    </div>
-
-                    <div className='flex flex-col items-center justify-center w-4/5 gap-2'>
-                        {connector.account_types?.map((p) => (
-                            <div key={p} className='flex items-center justify-between w-full border-gray-300'>
-                                <p>{p}</p>
-                                <CheckCircleIcon className='w-5 h-5 font-semibold text-white fill-green-400' />
-                            </div>
-                        ))}
-                    </div>
+                    <Skeleton className='w-1/2 h-12 rounded-lg' />
+                    <Skeleton className='w-1/3 h-8 rounded-lg' />
+                    <Skeleton className='w-1/4 h-6 rounded-lg' />
                 </div>
-            )}
+            ) : (
+                <>
+                    {connector && (
+                        <div className='flex flex-col items-center justify-center w-full gap-4'>
+                            <div className='flex items-center justify-center w-full'>
+                                <img src={connector.logo} alt={connector.name} />
+                                <p>{connector.name}</p>
+                            </div>
 
-            <Button size='lg' onClick={() => setStartConnection(true)}>
-                Connecter un compte
-            </Button>
+                            <div className='flex flex-col items-center justify-center w-4/5 gap-2'>
+                                {connector.account_types?.map((p) => (
+                                    <div key={p} className='flex items-center justify-between w-full border-gray-300'>
+                                        <p>{p}</p>
+                                        <CheckCircleIcon className='w-5 h-5 font-semibold text-white fill-green-400' />
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    )}
+
+                    <Button size='lg' onClick={() => setStartConnection(true)}>
+                        Connecter un compte
+                    </Button>
+                </>
+            )}
         </div>
     );
 };
