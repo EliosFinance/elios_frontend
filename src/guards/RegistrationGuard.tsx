@@ -1,8 +1,8 @@
 import { checkUserCompletionStatus, getUser } from '@/api';
 import { useAuth } from '@/context/AuthProvider';
 import APP_ROUTES_ENUM from '@/types/APP_ROUTES_ENUM';
-import { useEffect, useState } from 'react';
-import { Navigate, useLocation, useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 interface RegistrationGuardProps {
     children: React.ReactNode;
@@ -11,7 +11,6 @@ interface RegistrationGuardProps {
 const RegistrationGuard: React.FC<RegistrationGuardProps> = ({ children }) => {
     const { user } = useAuth();
     const location = useLocation();
-    const [isLoading, setIsLoading] = useState(true);
     const navigate = useNavigate();
 
     // Routes exclues de la vérification
@@ -32,12 +31,10 @@ const RegistrationGuard: React.FC<RegistrationGuardProps> = ({ children }) => {
         const checkRegistrationStatus = async () => {
             if (!user?.id) {
                 navigate(APP_ROUTES_ENUM.LOGIN);
-                setIsLoading(false);
                 return;
             }
 
             if (excludedRoutes.includes(location.pathname)) {
-                setIsLoading(false);
                 return;
             }
 
@@ -67,8 +64,6 @@ const RegistrationGuard: React.FC<RegistrationGuardProps> = ({ children }) => {
                     navigate(APP_ROUTES_ENUM.LOGIN);
                 }
             }
-
-            setIsLoading(false);
         };
 
         checkRegistrationStatus();
