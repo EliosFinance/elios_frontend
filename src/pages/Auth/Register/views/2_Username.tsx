@@ -13,13 +13,12 @@ const CreateUsername: React.FC = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
+        const conditions = [username.length >= 5, !/[^a-zA-Z0-9]/.test(username)];
+        setIsValid(conditions.every((condition) => condition));
         if (user?.username && !username) {
-            const conditions = [username.length >= 5, !/[^a-zA-Z0-9]/.test(username)];
-
             // Nettoyer le nom d'utilisateur pour enlever les caractères spéciaux et le mettre en minuscule
             const sanitizedUsername = user.username.replace(/[^a-zA-Z0-9]/g, '').toLowerCase();
             setUsername(sanitizedUsername);
-            setIsValid(conditions.every((condition) => condition));
         }
     }, [user, username, setUsername]);
 

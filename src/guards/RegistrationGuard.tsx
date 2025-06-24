@@ -1,8 +1,8 @@
-import { checkUserCompletionStatus } from '@/api';
+import { checkUserCompletionStatus, getUser } from '@/api';
 import { useAuth } from '@/context/AuthProvider';
 import APP_ROUTES_ENUM from '@/types/APP_ROUTES_ENUM';
 import { useEffect, useState } from 'react';
-import { Navigate, useLocation } from 'react-router-dom';
+import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 
 interface RegistrationGuardProps {
     children: React.ReactNode;
@@ -12,7 +12,7 @@ const RegistrationGuard: React.FC<RegistrationGuardProps> = ({ children }) => {
     const { user } = useAuth();
     const location = useLocation();
     const [isLoading, setIsLoading] = useState(true);
-    const [redirectTo, setRedirectTo] = useState<string | null>(null);
+    const navigate = useNavigate();
 
     // Routes exclues de la vérification
     const excludedRoutes = [
@@ -30,14 +30,12 @@ const RegistrationGuard: React.FC<RegistrationGuardProps> = ({ children }) => {
 
     useEffect(() => {
         const checkRegistrationStatus = async () => {
-            // Si pas d'utilisateur connecté, rediriger vers login
             if (!user?.id) {
-                setRedirectTo(APP_ROUTES_ENUM.LOGIN);
+                navigate(APP_ROUTES_ENUM.LOGIN);
                 setIsLoading(false);
                 return;
             }
 
-            // Si sur une route exclue, ne pas vérifier
             if (excludedRoutes.includes(location.pathname)) {
                 setIsLoading(false);
                 return;
@@ -45,24 +43,29 @@ const RegistrationGuard: React.FC<RegistrationGuardProps> = ({ children }) => {
 
             try {
                 const status = await checkUserCompletionStatus(user.id.toString());
+                const fullUser = await getUser();
 
-                // Déterminer la prochaine étape nécessaire
+                console.log('User completion status:', status);
+
                 if (!status.emailVerified && status.provider !== 'google') {
-                    setRedirectTo(APP_ROUTES_ENUM.VERIFY_EMAIL + `?email=${encodeURIComponent(user.username)}`);
-                } else if (!status.profileComplete) {
-                    setRedirectTo(APP_ROUTES_ENUM.CREATE_USERNAME);
+                    navigate(APP_ROUTES_ENUM.VERIFY_EMAIL + `?email=${encodeURIComponent(fullUser.email || '')}`);
                 } else if (!status.pinConfigured) {
-                    setRedirectTo(APP_ROUTES_ENUM.CREATE_PIN);
+                    navigate(APP_ROUTES_ENUM.CREATE_PIN);
                 } else if (!status.termsAccepted) {
-                    setRedirectTo(APP_ROUTES_ENUM.TERMS);
+                    navigate(APP_ROUTES_ENUM.TERMS);
                 } else {
                     // Inscription complète
-                    setRedirectTo(null);
+                    navigate(null);
                 }
             } catch (error) {
                 console.error('Error checking registration status:', error);
-                // En cas d'erreur, permettre l'accès mais logger
-                setRedirectTo(null);
+
+                if (user?.username && user?.id) {
+                    console.log('API error for existing user, allowing access');
+                    navigate(null);
+                } else {
+                    navigate(APP_ROUTES_ENUM.LOGIN);
+                }
             }
 
             setIsLoading(false);
@@ -71,21 +74,14 @@ const RegistrationGuard: React.FC<RegistrationGuardProps> = ({ children }) => {
         checkRegistrationStatus();
     }, [user?.id, location.pathname]);
 
-    // Affichage du loader pendant la vérification
-    if (isLoading) {
-        return (
-            <div className='flex items-center justify-center min-h-screen'>
-                <div className='animate-spin rounded-full h-8 w-8 border-b-2 border-primary-500'></div>
-            </div>
-        );
-    }
+    // if (isLoading) {
+    //     return (
+    //         <div className='flex items-center justify-center min-h-screen'>
+    //             <div className='animate-spin rounded-full h-8 w-8 border-b-2 border-primary-500'></div>
+    //         </div>
+    //     );
+    // }
 
-    // Redirection si nécessaire
-    if (redirectTo) {
-        return <Navigate to={redirectTo} replace />;
-    }
-
-    // Affichage du contenu si tout est OK
     return <>{children}</>;
 };
 

@@ -1,11 +1,11 @@
-import { markPinConfigured, setupPin } from '@/api/connexion/connexionCalls';
+import { getPinStatus, markPinConfigured, setupPin } from '@/api/connexion/connexionCalls';
 import { Button } from '@/components/ui/button';
 import { useRegisterUsersStore } from '@/store/RegisterUser';
 import { userStore } from '@/store/UserStore';
 import APP_ROUTES_ENUM from '@/types/APP_ROUTES_ENUM';
 import { FingerPrintIcon } from '@heroicons/react/24/outline';
 import { DeleteIcon } from 'lucide-react';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useLayoutEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import RegisterHeader from '../components/RegisterHeader';
 
@@ -55,6 +55,20 @@ const PinCodeScreen: React.FC = () => {
         setError('');
         setPin(pin.slice(0, -1));
     };
+
+    useEffect(() => {
+        const getUser = async () => {
+            const pinStatus = await getPinStatus();
+            console.log('Pin status:', pinStatus);
+
+            if (pinStatus.isSetup) {
+                await markPinConfigured();
+                navigate(APP_ROUTES_ENUM.HOME);
+            }
+        };
+
+        getUser();
+    }, []);
 
     return (
         <div className='flex flex-col items-center justify-start w-full h-screen px-4 pt-6 pb-8'>
