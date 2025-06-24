@@ -28,6 +28,7 @@ const LearnArticleTab = (props: LearnArticleTabProps) => {
             <div className='w-full flex justify-center items-start flex-col'>
                 <h2 className='font-black px-6'>{title}</h2>
                 <BlurItem
+                    isLoading={false}
                     locked={premium && !isPremium}
                     onClick={() => {
                         if (premium && !isPremium) {

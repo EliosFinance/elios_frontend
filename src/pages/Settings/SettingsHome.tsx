@@ -1,30 +1,21 @@
-import { logout_api } from '@/api';
 import ButtonApp from '@/components/ButtonApp';
 import { useAuth } from '@/context/AuthProvider';
 import APP_ROUTES_ENUM from '@/types/APP_ROUTES_ENUM';
-import { ArrowUturnLeftIcon, ChevronRightIcon, QuestionMarkCircleIcon } from '@heroicons/react/24/outline';
+import { ChevronRightIcon } from '@heroicons/react/24/outline';
 import { useNavigate } from 'react-router-dom';
 import alertIcon from '../../assets/images/icons/alerte.png';
 import { SETTINGS_MAP } from './SettingsMap';
+import SettingsPageHeader from './SettingsPageHeader';
 
 const SettingsHome = () => {
     const navigate = useNavigate();
     const { signOut, user } = useAuth();
     return (
-        <div className='flex flex-col w-full px-4 py-8 gap-10'>
+        <div className='flex flex-col w-full px-4 py-8 pt-14 gap-10'>
+            <SettingsPageHeader link={APP_ROUTES_ENUM.HOME} />
+
             {/* Header */}
             <div className='flex flex-col items-center justify-between w-full gap-8'>
-                {/* go back + help */}
-                <div className='flex items-center justify-between w-full'>
-                    <ArrowUturnLeftIcon className='object-cover object-center w-6 h-6' onClick={() => navigate(-1)} />
-                    <QuestionMarkCircleIcon
-                        className='object-cover object-center w-6 h-6'
-                        onClick={() => {
-                            alert('TODO: Implement help modal');
-                        }}
-                    />
-                </div>
-
                 {/* User Profile */}
                 <div className='flex items-center w-full gap-4'>
                     <img

@@ -1,15 +1,12 @@
 import { userStore } from '@/store/UserStore.ts';
-import {
-    PersonalizedContent,
-    UserInsights,
-    UserPreferences,
-} from '@/types/UserType';
+import { userType } from '@/types/challengeType';
+import { PersonalizedContent, UserInsights, UserPreferences } from '@/types/recommendationsType';
 import { AxiosError } from 'axios';
 import { UseQueryResult, useQuery } from 'react-query';
 import { instance_back } from '../const';
 
 // Query functions
-export const getUser = async () => {
+export const getUser = async (): Promise<userType | undefined> => {
     try {
         const headers = userStore.getState().getAuth();
 

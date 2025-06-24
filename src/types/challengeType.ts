@@ -12,6 +12,7 @@ export type companyType = {
 
 export type userType = {
     id: number;
+    email: string;
     username: string;
     password: string;
     score: number;
@@ -22,6 +23,12 @@ export type userType = {
     articles: ArticleType[];
     likedArticles: ArticleType[];
     challenges: challengeType[];
+    emailVerified: boolean;
+    pinConfigured: boolean;
+    termsAccepted: boolean;
+    profileComplete: boolean;
+    provider: 'email' | 'google';
+    creation_date: Date;
 
     // TODO: add more fields
     isPremium: boolean;

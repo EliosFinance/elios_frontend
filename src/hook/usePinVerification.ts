@@ -167,9 +167,11 @@ export const usePinVerification = () => {
 
             if (debounceTimerRef.current) {
                 clearTimeout(debounceTimerRef.current);
+                debounceTimerRef.current = null;
             }
             if (graceTimerRef.current) {
                 clearTimeout(graceTimerRef.current);
+                graceTimerRef.current = null;
             }
         };
     }, [user?.id, debouncedVisibilityChange]);

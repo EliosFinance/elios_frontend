@@ -1,31 +1,6 @@
 import { ChallengeType } from '@/temp/DefiData';
 import { QuizzType } from '@/temp/QuizzData';
 import { ArticleType } from './BlogType';
-import { TransactionType } from './transactionType';
-
-export type FriendsType = {
-    id: string;
-    profilePicture: string;
-    username: string;
-    email: string;
-    friends: FriendsType[];
-    articles: ArticleType[];
-    likedArticles: ArticleType[];
-    readArticles: ArticleType[];
-    transactions: TransactionType[];
-    userToChallenge: UserToChallengeType[];
-};
-
-export type UserToChallengeType = {
-    id: number;
-    challenge: ChallengeType;
-    user: FriendsType;
-    currentState: string | null;
-    creation_date: Date;
-    update_date: Date;
-};
-
-// User recommendations ↓
 
 export type RecommendationUIState = {
     selectedCategories: string[];
@@ -149,4 +124,76 @@ export type CacheStats = {
     expiredEntries: number;
     hitRate: number;
     memoryUsage: string;
+};
+
+export type UserSpendingsPreferencesType = {
+    financialProfile: {
+        totalIncome: number;
+        totalExpenses: number;
+        savingsRate: number;
+        topCategories: CategorySpending[];
+        monthlyTrend: MonthlySpending[];
+    };
+    spendingPatterns: {
+        averageTransactionAmount: number;
+        transactionFrequency: number;
+        highestSpendingDay: string;
+        recurringExpenses: RecurringExpense[];
+    };
+    recommendations: {
+        budgetOptimization: BudgetRecommendation[];
+        savingsOpportunities: SavingsOpportunity[];
+        riskAreas: RiskArea[];
+    };
+};
+
+export type CategorySpending = {
+    category: string;
+    amount: number;
+    percentage: number;
+    transactionCount: number;
+};
+
+export type MonthlySpending = {
+    month: string;
+    income: number;
+    expenses: number;
+    savings: number;
+};
+
+export type RecurringExpense = {
+    description: string;
+    amount: number;
+    frequency: 'weekly' | 'monthly' | 'quarterly';
+    category: string;
+};
+
+export type BudgetRecommendation = {
+    category: string;
+    currentSpending: number;
+    recommendedBudget: number;
+    potentialSavings: number;
+    priority: 'high' | 'medium' | 'low';
+    description: string;
+};
+
+export type SavingsOpportunity = {
+    type: string;
+    description: string;
+    potentialSavings: number;
+    difficulty: 'easy' | 'medium' | 'hard';
+    timeframe: string;
+};
+
+export type RiskArea = {
+    type: string;
+    description: string;
+    severity: 'high' | 'medium' | 'low';
+    suggestion: string;
+};
+
+export type PersonalizedRecommendations = {
+    articles: ArticleType[];
+    challenges: ChallengeType[];
+    quizz: QuizzType[];
 };

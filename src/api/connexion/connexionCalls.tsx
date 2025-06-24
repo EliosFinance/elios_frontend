@@ -1,4 +1,5 @@
 import { userStore } from '@/store/UserStore';
+import { UserCompletionStatus } from '@/types/UserType';
 import { ConnectionType } from '@/types/connectionType';
 import { AxiosError } from 'axios';
 import { UseQueryResult, useQuery } from 'react-query';
@@ -176,6 +177,60 @@ export const logout_api = async (): Promise<void> => {
         localStorage.removeItem('deviceId');
     } catch (error) {
         console.error('[logout_api] Erreur:', error);
+        throw error;
+    }
+};
+
+export const checkUserCompletionStatus = async (userId: string): Promise<UserCompletionStatus> => {
+    try {
+        const response = await instance_back.get(`/auth/registration/status/${userId}`);
+        return response.data;
+    } catch (error) {
+        console.error('Error checking user completion status:', error);
+        throw error;
+    }
+};
+
+export const markEmailAsVerified = async (email: string) => {
+    try {
+        const response = await instance_back.post(
+            '/auth/registration/verify-email-google',
+            { email },
+            getAuthHeaders(),
+        );
+        return response.data;
+    } catch (error) {
+        console.error('Error marking email as verified:', error);
+        throw error;
+    }
+};
+
+export const acceptTermsAndConditions = async (userId: string) => {
+    try {
+        const response = await instance_back.post('/auth/registration/accept-terms', { userId }, getAuthHeaders());
+        return response.data;
+    } catch (error) {
+        console.error('Error accepting terms:', error);
+        throw error;
+    }
+};
+
+export const updateUserProfile = async (profileData: any) => {
+    try {
+        const response = await instance_back.put('/auth/registration/profile', profileData, getAuthHeaders());
+        return response.data;
+    } catch (error) {
+        console.error('Error updating user profile:', error);
+        throw error;
+    }
+};
+
+export const markPinConfigured = async () => {
+    try {
+        const response = await instance_back.post('/auth/registration/mark-pin-configured', {}, getAuthHeaders());
+        return response.data;
+    } catch (error) {
+        console.error('Error marking PIN as configured:', error);
         throw error;
     }
 };
