@@ -1,13 +1,8 @@
 import { getReadArticles } from '@/api';
 import humanizeNumbers from '@/helpers/humanizeNumbers';
 import { ArticleType } from '@/types/BlogType';
-import { userType } from '@/types/challengeType';
-import { ArrowDown, ArrowUp } from 'lucide-react';
 import { useEffect, useState } from 'react';
-import { data } from 'react-router-dom';
-import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
-import { Skeleton } from '../ui/skeleton';
-import WidgetSkeleton from './WidgetSkeleton';
+import { Card, CardContent, CardHeader } from '../ui/card';
 
 const ReadArticlesWidget = () => {
     const [readArticles, setReadArticles] = useState<ArticleType[]>([]);

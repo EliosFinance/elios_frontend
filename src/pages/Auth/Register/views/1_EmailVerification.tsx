@@ -11,7 +11,6 @@ import RegisterHeader from '../components/RegisterHeader';
 
 const EmailVerification: React.FC = () => {
     const navigate = useNavigate();
-    const { user } = useAuth();
     const params = new URLSearchParams(window.location.search);
     const userEmail = decodeURIComponent(params.get('email')) || '';
     const isGoogleUser = params.get('provider') === 'google';
