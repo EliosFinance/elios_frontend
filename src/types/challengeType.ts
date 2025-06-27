@@ -23,6 +23,7 @@ export type userType = {
     articles: ArticleType[];
     likedArticles: ArticleType[];
     challenges: challengeType[];
+    notification: NotificationType;
     emailVerified: boolean;
     pinConfigured: boolean;
     termsAccepted: boolean;
@@ -32,6 +33,20 @@ export type userType = {
 
     // TODO: add more fields
     isPremium: boolean;
+};
+
+export type NotificationType = {
+    id: number;
+    accountSync: boolean;
+    budget: boolean;
+    expenses: boolean;
+    learn: boolean;
+    emails: boolean;
+    push: boolean;
+    friends: boolean;
+    challenges: boolean;
+    weeklyReport: boolean;
+    monthlyReport: boolean;
 };
 
 export type challengeType = {

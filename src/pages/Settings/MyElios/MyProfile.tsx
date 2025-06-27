@@ -1,5 +1,6 @@
 import { getChallenges, getLikedArticles, getReadArticles, getUser } from '@/api';
 import PageLayout from '@/layout/PageLayout';
+import APP_ROUTES_ENUM from '@/types/APP_ROUTES_ENUM';
 import { ArticleType } from '@/types/BlogType';
 import { userType } from '@/types/challengeType';
 import { set } from 'date-fns';
@@ -113,14 +114,14 @@ const MyProfile = () => {
     if (!profileData) {
         return (
             <PageLayout title='Mon profil'>
-                <SettingsPageHeader />
+                <SettingsPageHeader link={APP_ROUTES_ENUM.SETTINGS} />
                 <div className='flex items-center justify-center h-screen text-gray-400'>Chargement du profil...</div>
             </PageLayout>
         );
     }
     return (
         <PageLayout title='Mon profil'>
-            <SettingsPageHeader />
+            <SettingsPageHeader link={APP_ROUTES_ENUM.SETTINGS} />
 
             <div className='w-full flex items-start gap-3 mb-6'>
                 <div className='flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-br from-primary-500 to-primary-600 shadow-lg flex-shrink-0'>
@@ -268,7 +269,50 @@ const MyProfile = () => {
                             </div>
                         </div>
                     </button>
+                    {isEditing && (
+                        <div className='mb-6 p-4 bg-white/5 border border-white/10 rounded-lg backdrop-blur-sm'>
+                            <h3 className='text-lg font-bold text-white mb-4'>Modifier le profil</h3>
 
+                            <div className='space-y-4'>
+                                <div>
+                                    <label className='block text-sm font-medium text-gray-300 mb-2'>
+                                        Nom d'utilisateur
+                                    </label>
+                                    <input
+                                        type='text'
+                                        value={profileData.username}
+                                        onChange={(e) => setProfileData({ ...profileData, username: e.target.value })}
+                                        className='w-full px-3 py-2 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500'
+                                    />
+                                </div>
+
+                                <div>
+                                    <label className='block text-sm font-medium text-gray-300 mb-2'>Email</label>
+                                    <input
+                                        type='email'
+                                        value={profileData.email}
+                                        onChange={(e) => setProfileData({ ...profileData, email: e.target.value })}
+                                        className='w-full px-3 py-2 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500'
+                                    />
+                                </div>
+                            </div>
+
+                            <div className='flex gap-3 mt-6'>
+                                <button
+                                    onClick={handleSave}
+                                    className='flex-1 px-4 py-2 bg-primary-500 hover:bg-primary-600 text-white font-medium rounded-lg transition-colors'
+                                >
+                                    Sauvegarder
+                                </button>
+                                <button
+                                    onClick={handleEdit}
+                                    className='px-4 py-2 bg-gray-500/20 hover:bg-gray-500/30 text-gray-300 font-medium rounded-lg transition-colors'
+                                >
+                                    Annuler
+                                </button>
+                            </div>
+                        </div>
+                    )}
                     <button className='p-4 bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg text-left transition-colors group'>
                         <div className='flex items-center gap-3'>
                             <div className='w-10 h-10 bg-primary-500/20 rounded-lg flex items-center justify-center group-hover:bg-primary-500/30 transition-colors'>
@@ -294,49 +338,6 @@ const MyProfile = () => {
                     </button>
                 </div>
             </div>
-
-            {isEditing && (
-                <div className='mb-6 p-4 bg-white/5 border border-white/10 rounded-lg backdrop-blur-sm'>
-                    <h3 className='text-lg font-bold text-white mb-4'>Modifier le profil</h3>
-
-                    <div className='space-y-4'>
-                        <div>
-                            <label className='block text-sm font-medium text-gray-300 mb-2'>Nom d'utilisateur</label>
-                            <input
-                                type='text'
-                                value={profileData.username}
-                                onChange={(e) => setProfileData({ ...profileData, username: e.target.value })}
-                                className='w-full px-3 py-2 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500'
-                            />
-                        </div>
-
-                        <div>
-                            <label className='block text-sm font-medium text-gray-300 mb-2'>Email</label>
-                            <input
-                                type='email'
-                                value={profileData.email}
-                                onChange={(e) => setProfileData({ ...profileData, email: e.target.value })}
-                                className='w-full px-3 py-2 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500'
-                            />
-                        </div>
-                    </div>
-
-                    <div className='flex gap-3 mt-6'>
-                        <button
-                            onClick={handleSave}
-                            className='flex-1 px-4 py-2 bg-primary-500 hover:bg-primary-600 text-white font-medium rounded-lg transition-colors'
-                        >
-                            Sauvegarder
-                        </button>
-                        <button
-                            onClick={handleEdit}
-                            className='px-4 py-2 bg-gray-500/20 hover:bg-gray-500/30 text-gray-300 font-medium rounded-lg transition-colors'
-                        >
-                            Annuler
-                        </button>
-                    </div>
-                </div>
-            )}
 
             {/* Activities */}
             <div className='mb-6'>

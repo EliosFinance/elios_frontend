@@ -1,5 +1,5 @@
 import { userStore } from '@/store/UserStore.ts';
-import { userType } from '@/types/challengeType';
+import { NotificationType, userType } from '@/types/challengeType';
 import { PersonalizedContent, UserInsights, UserPreferences } from '@/types/recommendationsType';
 import { AxiosError } from 'axios';
 import { UseQueryResult, useQuery } from 'react-query';
@@ -65,6 +65,32 @@ export const getUserInsights = async (): Promise<UserInsights> => {
     }
 };
 
+export const getUserNotifications = async (): Promise<NotificationType> => {
+    try {
+        const headers = userStore.getState().getAuth();
+        const response = await instance_back.get('users/notifications', { headers });
+        return response.data;
+    } catch (error) {
+        const err = error as AxiosError;
+        console.error('Erreur lors de la récupération des notifications:', err.message);
+        throw err;
+    }
+};
+
+export const updateUserNotifications = async (notif: NotificationType): Promise<NotificationType> => {
+    try {
+        const headers = userStore.getState().getAuth();
+        const response = await instance_back.patch('users/notifications', notif, {
+            headers,
+        });
+        return response.data;
+    } catch (error) {
+        const err = error as AxiosError;
+        console.error('Erreur lors de la mise à jour des notifications:', err.message);
+        throw err;
+    }
+};
+
 export const useGetHeader = (): UseQueryResult<any, AxiosError> => {
     return useQuery<any, AxiosError>({
         queryKey: ['getUser'],
@@ -106,5 +132,12 @@ export const useGetUserInsights = (options?: { enabled?: boolean }): UseQueryRes
         staleTime: 1000 * 60 * 60, // 1 heure
         cacheTime: 1000 * 60 * 60 * 2, // 2 heures
         ...options,
+    });
+};
+
+export const useGetUserNotifications = (): UseQueryResult<NotificationType, AxiosError> => {
+    return useQuery<NotificationType, AxiosError>({
+        queryKey: ['userNotifications'],
+        queryFn: getUserNotifications,
     });
 };
