@@ -58,7 +58,7 @@ const UserAnalytics = () => {
                     <div>
                         <h2 className='mb-4 text-xl font-bold'>Recommandations d'Elios AI</h2>
                         <div className='w-full min-h-[200px] max-h-[300px] flex flex-col items-center justify-center'>
-                            <div className='w-full h-full border-gray-400 bg-gray-800 flex flex-col items-start justify-center rounded-lg p-4 gap-3'>
+                            <div className='flex flex-col items-start justify-center w-full h-full gap-3 p-4 border rounded-lg bg-white/5 border-white/10'>
                                 <p>{data?.insights?.recommendations}</p>
                                 <p>
                                     N'hésitez pas à explorer plus de&nbsp;
