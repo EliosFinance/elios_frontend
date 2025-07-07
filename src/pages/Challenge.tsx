@@ -7,6 +7,7 @@ import { ChallengeType, challenges } from '@/temp/DefiData';
 import * as echarts from 'echarts';
 import { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { ActivityIcon } from 'lucide-react';
 
 export default function ChallengePage() {
 	const navigate = useNavigate();
@@ -110,6 +111,15 @@ export default function ChallengePage() {
 
 	return (
 		<PageLayout title='Défis'>
+			<div className='flex items-start gap-3 mb-6'>
+				<div className='flex items-center justify-center flex-shrink-0 w-12 h-12 shadow-lg rounded-xl bg-gradient-to-br from-primary-500 to-primary-600'>
+					<ActivityIcon className='w-6 h-6 text-white' />
+				</div>
+				<div className='flex-1'>
+					<h2 className='mb-1 text-xl font-bold text-white'>Gérez vos défis</h2>
+					<p className='text-sm leading-relaxed text-gray-400'>Suivez vos dépenses, analysez vos habitudes et optimisez votre budget mensuel.</p>
+				</div>
+			</div>
 			<main className='flex flex-col w-full h-full pb-16 space-y-6'>
 				{featuredChallenge && (
 					<Card className='w-full shadow-sm'>
