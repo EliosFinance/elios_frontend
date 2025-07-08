@@ -1823,10 +1823,10 @@ concat-map@0.0.1:
   resolved "https://registry.npmjs.org/concat-map/-/concat-map-0.0.1.tgz"
   integrity sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==
 
-confettis@^0.3.4:
-  version "0.3.7"
-  resolved "https://registry.npmjs.org/confettis/-/confettis-0.3.7.tgz"
-  integrity sha512-VE1Cst9Pg/jydKvABNhRDHR1Hf3dbxsXLhy8RDZueFLZwJ4HLHmgSUf0MLWDsh7bOLltQQQHj/Sb2txuHx989g==
+confettis@^0.3.9:
+  version "0.3.9"
+  resolved "https://registry.npmjs.org/confettis/-/confettis-0.3.9.tgz"
+  integrity sha512-Uqy5l52HrTDVPTbj0HlwUxHHOP8Fy4G7dQ/509meBqsyEAk15r/Tm12zmhQV1dadI2EJnvAH87m6VtxRO1+JfQ==
 
 conventional-changelog-angular@^7.0.0:
   version "7.0.0"
@@ -2195,10 +2195,11 @@ elementtree@^0.1.7:
     "@stripe/stripe-js" "^7.1.0"
     "@tanstack/react-table" "^8.20.1"
     axios "^1.7.2"
+    caniuse-lite "^1.0.30001727"
     class-variance-authority "^0.7.0"
     clsx "^2.1.1"
     commitizen "^4.3.0"
-    confettis "^0.3.4"
+    confettis "^0.3.9"
     date-fns "^3.6.0"
     echarts "^5.5.1"
     echarts-for-react "^3.0.2"
