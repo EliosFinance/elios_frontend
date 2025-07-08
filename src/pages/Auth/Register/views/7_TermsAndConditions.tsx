@@ -1,7 +1,8 @@
-import { generateDeviceId, setupPin } from '@/api/connexion/connexionCalls';
+import { acceptTermsAndConditions, generateDeviceId, setupPin } from '@/api/connexion/connexionCalls';
 import { register_api } from '@/api/connexion/connexionCalls';
 import { instance_back } from '@/api/const';
 import { Button } from '@/components/ui/button';
+import { useAuth } from '@/context/AuthProvider';
 import { useRegisterUsersStore } from '@/store/RegisterUser';
 import { userStore } from '@/store/UserStore';
 import APP_ROUTES_ENUM from '@/types/APP_ROUTES_ENUM';
@@ -12,6 +13,7 @@ import RegisterHeader from '../components/RegisterHeader';
 const TermsAndConditions: React.FC = () => {
     const [isAccepted, setIsAccepted] = useState(false);
     const navigate = useNavigate();
+    const { user } = useAuth();
     const { email, username, password2: password, pin1: pin, clear } = useRegisterUsersStore();
 
     const handleNext = async () => {
@@ -21,41 +23,41 @@ const TermsAndConditions: React.FC = () => {
         }
 
         try {
-            // 1. Inscription et login
-            await register_api(username, email, password);
-            const loginResponse = await instance_back.post('auth/sign-in', {
-                usernameOrEmail: username,
-                password: password,
-            });
+            if (user?.token) {
+                await acceptTermsAndConditions(user.id);
+                console.log('CGU acceptées pour utilisateur Google');
+            } else {
+                await register_api(username, email, password);
+                const loginResponse = await instance_back.post('auth/sign-in', {
+                    usernameOrEmail: username,
+                    password: password,
+                });
 
-            const { access_token, refresh_token, username: responseUsername, powens_token } = loginResponse.data;
+                const { access_token, refresh_token, username: responseUsername, powens_token } = loginResponse.data;
 
-            // 2. Stockage des tokens et mise à jour du store
-            localStorage.setItem('token', access_token);
-            localStorage.setItem('refresh_token', refresh_token);
+                localStorage.setItem('token', access_token);
+                localStorage.setItem('refresh_token', refresh_token);
 
-            const tokenPayload = JSON.parse(atob(access_token.split('.')[1]));
-            userStore.getState().updateUser({
-                id: tokenPayload.sub,
-                username: responseUsername,
-                token: access_token,
-                refresh_token: refresh_token,
-                powens_token: powens_token,
-            });
+                const tokenPayload = JSON.parse(atob(access_token.split('.')[1]));
+                userStore.getState().updateUser({
+                    id: tokenPayload.sub,
+                    username: responseUsername,
+                    token: access_token,
+                    refresh_token: refresh_token,
+                    powens_token: powens_token,
+                });
 
-            // 3. Configuration du PIN et deviceId
-            const success = await setupPin(pin);
-            if (!success) {
-                throw new Error('Échec de la configuration du PIN');
+                await setupPin(pin);
+                await acceptTermsAndConditions(tokenPayload.sub);
             }
+
             const deviceId = await generateDeviceId();
             localStorage.setItem('deviceId', deviceId);
 
-            // 4. Nettoyage et redirection
             clear();
             navigate(APP_ROUTES_ENUM.HOME);
         } catch (err) {
-            console.error("Erreur lors de l'inscription ou de la configuration:", (err as Error).message);
+            console.error("Erreur lors de l'acceptation des CGU:", (err as Error).message);
         }
     };
 

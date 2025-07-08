@@ -37,7 +37,7 @@ const BlogNav = (props: props) => {
     }, []);
 
     return (
-        <div className='w-full h-[60px] flex justify-between items-center flex-col bg-[--neutral-800] shadow-sm fixed top-0 px-4 z-[10000000] rounded-b-[var(--border-radius-3)]'>
+        <div className='w-full h-[60px] flex justify-between items-center flex-col bg-white/5 shadow-sm fixed top-0 px-4 z-[10000000] rounded-b-[var(--border-radius-3)]'>
             {!props.disableActionButtons && (
                 <div className='flex items-center w-full mt-2 justify-evenly gap-x-2'>
                     {props?.article?.articleContent?.map((_card, index) => (

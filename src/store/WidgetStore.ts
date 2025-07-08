@@ -1,4 +1,4 @@
-import { WidgetType } from '@/temp/WidgetData';
+import { WidgetType } from '@/types/WidgetType';
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 

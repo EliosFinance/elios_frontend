@@ -21,7 +21,7 @@ const IAAdvice: React.FC = () => {
 
     return (
         <div className='p-4 my-4 rounded shadow bg-blue-50'>
-            <h2 className='text-xl font-bold'>Conseils IA</h2>
+            <h2 className='font-bold'>Conseils IA</h2>
             <p className='mt-2 text-sm text-gray-800'>{advice}</p>
         </div>
     );

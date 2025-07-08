@@ -1,5 +1,6 @@
 import { getTrendingArticles, useGetConnections } from '@/api';
 import BlurItem from '@/components/BlurItem';
+import { ChartSkeleton } from '@/components/ChartSkeleton';
 import GetPremium from '@/components/GetPremium';
 import Subscription from '@/components/UpgradePlan';
 import UserAnalytics from '@/components/UserAnalytics';
@@ -29,7 +30,11 @@ const Landing = () => {
     const [friendsLoading, setFriendsLoading] = useState<boolean>(true);
     const { user } = useAuth();
     const { getFullLoggedUser } = useLoggedUser();
-    const { data: connections } = useGetConnections();
+    const {
+        data: connections,
+        isLoading: isLoadingConnections,
+        isFetching: isFetchingConnections,
+    } = useGetConnections();
 
     useEffect(() => {
         const fetchUser = async () => {
@@ -52,26 +57,27 @@ const Landing = () => {
         <div className='flex flex-col items-center w-full pt-8 mb-32 gap-8'>
             <div className='flex flex-col items-start w-full gap-4 px-6'>
                 <LandingHeader />
-                <h1 className='mt-4 text-2xl font-bold text-primary-500'>
+                <h1 className='mt-4 font-bold text-primary-500'>
                     Bienvenue, {user.username.charAt(0).toUpperCase() + user.username.slice(1)}
                 </h1>
             </div>
 
             <BlurItem
-                locked={!connections?.length}
+                locked={!isLoadingConnections && !isFetchingConnections && !connections?.length}
+                isLoading={isLoadingConnections || isFetchingConnections}
                 onClick={() => navigate(APP_ROUTES_ENUM.CONNECT_BANK_ACCOUNT)}
+                loadingItem={<ChartSkeleton header='La semaine dernière' />}
                 variant='connectAccount'
                 className='w-full min-h-[300px]'
             >
                 <WeekChart className={'px-6'} />
             </BlurItem>
 
-
             <UserAnalytics />
 
             <div className='w-full px-6'>
                 <div className='flex items-center justify-between mb-4'>
-                    <h2 className='text-xl font-bold'>Abonnements du mois</h2>
+                    <h2 className='font-bold'>Abonnements du mois</h2>
                     <Button
                         variant='ghost'
                         size='icon'
@@ -82,7 +88,8 @@ const Landing = () => {
                     </Button>
                 </div>
                 <BlurItem
-                    locked={!connections?.length}
+                    locked={!isLoadingConnections && !isFetchingConnections && !connections?.length}
+                    isLoading={isLoadingConnections || isFetchingConnections}
                     onClick={() => navigate(APP_ROUTES_ENUM.SUBSCRIPTION)}
                     variant='connectAccount'
                     className='w-full h-auto'
@@ -92,13 +99,13 @@ const Landing = () => {
             </div>
 
             <div className='w-full px-6'>
-                <h2 className='mb-4 text-xl font-bold'>Aujourd'hui</h2>
+                <h2 className='mb-4 font-bold'>Aujourd'hui</h2>
                 <GetPremium onTopUpClick={() => setIsDrawerOpen(true)} />
             </div>
 
             <div className='w-full'>
                 <div className='flex items-center justify-between mb-4 px-6'>
-                    <h2 className='text-xl font-bold'>Mes amis</h2>
+                    <h2 className='font-bold'>Mes amis</h2>
                     <Button
                         variant='ghost'
                         size='icon'
@@ -109,7 +116,8 @@ const Landing = () => {
                     </Button>
                 </div>
                 <BlurItem
-                    locked={!connections?.length}
+                    locked={true}
+                    isLoading={false}
                     onClick={() => navigate(APP_ROUTES_ENUM.FRIENDS)}
                     variant='addFriends'
                     className='w-full h-[250px]'
@@ -120,7 +128,7 @@ const Landing = () => {
 
             <div className='w-full'>
                 <div className='flex items-center justify-between mb-4 px-6'>
-                    <h2 className='text-xl font-bold'>Apprendre avec EliosLearn !</h2>
+                    <h2 className='font-bold'>Apprendre avec EliosLearn !</h2>
                     <Button
                         variant='ghost'
                         size='icon'

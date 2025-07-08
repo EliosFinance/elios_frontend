@@ -3,6 +3,7 @@ import AppDrawer from '@/components/AppDrawer';
 import ButtonApp from '@/components/ButtonApp';
 import GetPremium from '@/components/GetPremium';
 import Subscription from '@/components/UpgradePlan';
+import PageLayout from '@/layout/PageLayout';
 import APP_ROUTES_ENUM from '@/types/APP_ROUTES_ENUM';
 import { ConnectionType } from '@/types/connectionType';
 import { ArrowPathRoundedSquareIcon, ExclamationTriangleIcon } from '@heroicons/react/24/outline';
@@ -75,17 +76,16 @@ const MyBankAccounts = () => {
     };
 
     return (
-        <div className='flex flex-col items-start justify-center w-full h-full px-4 py-8 mb-12 gap-8'>
+        <PageLayout title='Mes comptes bancaires'>
             <SettingsPageHeader />
 
-            <div className='flex flex-col items-start justify-center w-full gap-1'>
-                <h2 className='text-xl font-bold'>Vos comptes connectés</h2>
+            <div className='flex flex-col items-start justify-center w-full gap-4 mb-14 mt-8'>
                 {connections.data && connections.data.length > 0 ? (
                     connections.data.map((bankAccount: ConnectionType, index: number) =>
                         BankAccount(index, bankAccount),
                     )
                 ) : (
-                    <div className='w-full h-[400px] flex flex-col gap-4 items-center justify-center rounded-4 border-solid border-[1px] border-[--neutral-500] bg-[--neutral-800]'>
+                    <div className='w-full h-[400px] flex flex-col gap-4 items-center justify-center rounded-4 border-solid border-[1px] border-[--neutral-500] bg-white/5'>
                         <p className='w-2/3 text-lg font-bold text-center'>
                             Vous n'avez pas encore ajouté de compte bancaire
                         </p>
@@ -101,14 +101,14 @@ const MyBankAccounts = () => {
                 )}
             </div>
 
-            <div className='flex flex-col items-start justify-center w-full gap-1'>
+            <div className='flex flex-col items-start justify-center w-full gap-4'>
                 <h2 className='text-xl font-bold'>Pour connecter plus de comptes</h2>
                 <GetPremium onTopUpClick={() => setIsDrawerOpen(true)} />
             </div>
             <AppDrawer isDrawerOpen={isDrawerOpen} setIsDrawerOpen={setIsDrawerOpen} title='Devenez Premium'>
                 <Subscription />
             </AppDrawer>
-        </div>
+        </PageLayout>
     );
 };
 

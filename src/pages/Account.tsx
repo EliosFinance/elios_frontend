@@ -97,7 +97,7 @@ const Account = () => {
                         className='w-16 h-16 mr-4 rounded-full'
                     />
                     <div>
-                        <h3 className='text-lg font-bold'>Nom d'utilisateur</h3>
+                        <h3 className='font-bold'>Nom d'utilisateur</h3>
                         <button className='flex items-center px-2 py-1 mt-1 text-sm bg-gray-200 rounded-full'>
                             <InformationCircleIcon className='w-4 h-4 mr-1' />
                             SÉCURISER MON COMPTE
@@ -107,7 +107,7 @@ const Account = () => {
 
                 {accountSections.map((section, index) => (
                     <div key={index} className='mb-6'>
-                        <h3 className='mb-2 text-lg font-bold'>{section.title}</h3>
+                        <h3 className='mb-2 font-bold'>{section.title}</h3>
                         {section.items.map((item, idx) => (
                             <div
                                 key={idx}

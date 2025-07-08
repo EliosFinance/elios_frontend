@@ -1,6 +1,16 @@
-import { ChallengeType } from '@/temp/DefiData';
 import { ArticleType } from './BlogType';
+import { challengeType } from './challengeType';
 import { TransactionType } from './transactionType';
+
+export type UserCompletionStatus = {
+    emailVerified: boolean;
+    pinConfigured: boolean;
+    termsAccepted: boolean;
+    profileComplete: boolean;
+    provider: 'email' | 'google';
+    registrationDate: Date;
+    nextSteps: string[];
+};
 
 export type FriendsType = {
     id: string;
@@ -17,7 +27,7 @@ export type FriendsType = {
 
 export type UserToChallengeType = {
     id: number;
-    challenge: ChallengeType;
+    challenge: challengeType;
     user: FriendsType;
     currentState: string | null;
     creation_date: Date;

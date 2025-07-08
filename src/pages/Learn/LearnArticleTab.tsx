@@ -26,8 +26,9 @@ const LearnArticleTab = (props: LearnArticleTabProps) => {
     const SliderSection = (title: string, articles: ArticleType[], premium: boolean, last: boolean) => {
         return (
             <div className='w-full flex justify-center items-start flex-col'>
-                <h2 className='text-2xl font-black px-6'>{title}</h2>
+                <h2 className='font-black px-6'>{title}</h2>
                 <BlurItem
+                    isLoading={false}
                     locked={premium && !isPremium}
                     onClick={() => {
                         if (premium && !isPremium) {
@@ -64,7 +65,7 @@ const LearnArticleTab = (props: LearnArticleTabProps) => {
         <>
             <div className='w-full flex justify-center items-start flex-col mb-8 pt-6'>
                 <div className='w-full flex justify-between items-center'>
-                    <h2 className='text-2xl font-black px-6'>Catégories</h2>
+                    <h2 className='font-black px-6'>Catégories</h2>
                     <a className='text-sm font-semibold text-blue-500 px-6' href={APP_ROUTES_ENUM.ARTICLE_CATEGORIES}>
                         Voir tout &gt;
                     </a>

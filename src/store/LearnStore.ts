@@ -1,4 +1,3 @@
-import { WidgetType } from '@/temp/WidgetData';
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 

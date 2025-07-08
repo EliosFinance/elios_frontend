@@ -1,30 +1,21 @@
-import { logout_api } from '@/api';
 import ButtonApp from '@/components/ButtonApp';
 import { useAuth } from '@/context/AuthProvider';
 import APP_ROUTES_ENUM from '@/types/APP_ROUTES_ENUM';
-import { ArrowUturnLeftIcon, ChevronRightIcon, QuestionMarkCircleIcon } from '@heroicons/react/24/outline';
+import { ChevronRightIcon } from '@heroicons/react/24/outline';
 import { useNavigate } from 'react-router-dom';
 import alertIcon from '../../assets/images/icons/alerte.png';
 import { SETTINGS_MAP } from './SettingsMap';
+import SettingsPageHeader from './SettingsPageHeader';
 
 const SettingsHome = () => {
     const navigate = useNavigate();
     const { signOut, user } = useAuth();
     return (
-        <div className='flex flex-col w-full px-4 py-8 gap-10'>
+        <div className='flex flex-col w-full px-4 py-8 pt-14 gap-10'>
+            <SettingsPageHeader link={APP_ROUTES_ENUM.HOME} />
+
             {/* Header */}
             <div className='flex flex-col items-center justify-between w-full gap-8'>
-                {/* go back + help */}
-                <div className='flex items-center justify-between w-full'>
-                    <ArrowUturnLeftIcon className='object-cover object-center w-6 h-6' onClick={() => navigate(-1)} />
-                    <QuestionMarkCircleIcon
-                        className='object-cover object-center w-6 h-6'
-                        onClick={() => {
-                            alert('TODO: Implement help modal');
-                        }}
-                    />
-                </div>
-
                 {/* User Profile */}
                 <div className='flex items-center w-full gap-4'>
                     <img
@@ -33,7 +24,7 @@ const SettingsHome = () => {
                         alt='User profile picture'
                     />
                     <div className='flex flex-col'>
-                        <span className='text-2xl font-semibold'>{user.username}</span>
+                        <span className='text-xl font-semibold'>{user.username}</span>
                         {/* TODO: verify if account has 2FA enabled and display a badge if so */}
                         <div
                             className='flex items-center gap-2 bg-blue-500 bg-opacity-30 p-[2px] px-2 rounded-2'
@@ -64,7 +55,7 @@ const SettingsHome = () => {
             <div className='flex flex-col items-start justify-center w-full gap-8'>
                 {SETTINGS_MAP.map((settingCategory, key) => (
                     <div key={key} className='flex flex-col w-full'>
-                        <h2 className='text-4xl font-semibold'>{settingCategory.title}</h2>
+                        <h2 className='font-semibold'>{settingCategory.title}</h2>
                         <ul className='flex flex-col w-full pt-4 pl-4'>
                             {settingCategory.children?.map((setting, index) => (
                                 <li
@@ -77,7 +68,7 @@ const SettingsHome = () => {
                                                 {setting.icon}
                                             </span>{' '}
                                             &nbsp;
-                                            <span className='text-xl'>{setting.title}</span>
+                                            <span className='text-base'>{setting.title}</span>
                                         </div>
                                         <ChevronRightIcon className='object-cover object-center w-4 h-4' />
                                     </a>

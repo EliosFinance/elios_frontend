@@ -149,7 +149,7 @@ const CarouselAppItem = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HT
                 role='group'
                 aria-roledescription='slide'
                 className={cn(
-                    'min-w-0 shrink-0 grow-0 basis-4/5 md:basis-1/3',
+                    'min-w-0 shrink-0 grow-0 basis-4/5 md:basis-1/3 h-full flex',
                     orientation === 'horizontal' ? 'pl-4' : 'pt-4',
                     className,
                 )}

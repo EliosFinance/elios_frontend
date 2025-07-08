@@ -21,7 +21,7 @@ const TitleHeading = ({ title, onBack }: TitleHeadingProps) => {
                     <ArrowLeftIcon className='w-6 h-6 text-gray-700' />
                 </button>
             )}
-            <h1 className='text-lg font-semibold text-white'>{title}</h1>
+            <h1 className='font-semibold text-white'>{title}</h1>
         </header>
     );
 };

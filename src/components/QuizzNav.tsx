@@ -1,4 +1,4 @@
-import { QuizzType } from '@/temp/QuizzData';
+import { QuizzType } from '@/types/QuizzType';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { Progress } from './ui/progress';
 
@@ -12,10 +12,7 @@ const QuizzNav = (props: props) => {
     return (
         <div className='w-full h-[80px] flex justify-between items-center flex-col fixed top-0 p-6 z-[10000000] rounded-b-[var(--border-radius-3)]'>
             <div className='w-full h-full flex justify-start items-center'>
-                <XMarkIcon
-                    className='w-8 h-8 text-white flex !justify-start'
-                    onClick={() => window.history.back()}
-                />
+                <XMarkIcon className='w-8 h-8 text-white flex !justify-start' onClick={() => window.history.back()} />
 
                 {/* progress bar */}
                 <div className='w-full h-full flex justify-end items-center'>
@@ -31,8 +28,8 @@ const QuizzNav = (props: props) => {
                 </div>
             </div>
             <div className='w-full h-auto flex items-center justify-between text-gray-600 text-left pt-4'>
-                <h1 className='font-bold text-lg'>{props.quizz?.title}</h1>
-                <h2 className='font-bold text-lg text-center'>Score: {props.currentScore}</h2>
+                <h1 className='font-bold'>{props.quizz?.title}</h1>
+                <h2 className='font-bold text-center'>Score: {props.currentScore}</h2>
             </div>
         </div>
     );

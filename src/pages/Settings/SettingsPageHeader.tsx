@@ -1,17 +1,24 @@
 import AppDrawer from '@/components/AppDrawer';
-import Subscription from '@/components/UpgradePlan';
-import { Drawer, DrawerClose, DrawerContent, DrawerHeader, DrawerTitle } from '@/components/ui/drawer';
 import { ArrowUturnLeftIcon, QuestionMarkCircleIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const SettingsPageHeader = () => {
+const SettingsPageHeader = ({ link }: { link?: string }) => {
     const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
     const navigate = useNavigate();
 
     return (
-        <div className='flex items-center justify-between w-full'>
-            <ArrowUturnLeftIcon className='object-cover object-center w-6 h-6' onClick={() => navigate(-1)} />
+        <div className='fixed z-[1000] top-0 left-0 px-6 py-5 flex items-center justify-between w-full bg-[var(--background)]'>
+            <ArrowUturnLeftIcon
+                className='object-cover object-center w-6 h-6'
+                onClick={() => {
+                    if (link) {
+                        navigate(link);
+                    } else {
+                        navigate(-1);
+                    }
+                }}
+            />
             <QuestionMarkCircleIcon className='w-6 h-6' onClick={() => setIsDrawerOpen(true)} />
 
             <AppDrawer isDrawerOpen={isDrawerOpen} setIsDrawerOpen={setIsDrawerOpen} title="Besoin d'aide ?">

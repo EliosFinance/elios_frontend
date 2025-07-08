@@ -12,7 +12,7 @@ const Header = ({ title, onBack }: HeaderProps) => {
             <div className='absolute z-10 flex items-center top-4 left-4'>
                 <ArrowLeftIcon className='w-8 h-8 cursor-pointer' onClick={onBack} />
             </div>
-            <h2 className='z-10 text-xl font-bold'>{title}</h2>
+            <h2 className='z-10 font-bold'>{title}</h2>
             <div className='absolute z-10 flex items-center top-4 right-4'>
                 <EyeIcon className='w-8 h-8 cursor-pointer' />
             </div>
