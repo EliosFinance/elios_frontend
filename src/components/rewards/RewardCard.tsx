@@ -83,12 +83,14 @@ const RewardCard = ({ title, progress, imageUrl, coins = 50, isCompleted = false
                     {isCompleted ? (
                         <Button 
                             disabled
+                            aria-label='Reward already claimed'
                             className='px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-gray-400 cursor-not-allowed text-xs'
                         >
                             Récupéré
                         </Button>
                     ) : canClaim ? (
                         <Button 
+                            aria-label='Claim reward'
                             className='px-3 py-2 rounded-lg bg-white/5 border border-white/10 backdrop-blur-sm text-white hover:bg-white/10 transition-all duration-200 text-xs font-medium'
                         >
                             Récupérer
