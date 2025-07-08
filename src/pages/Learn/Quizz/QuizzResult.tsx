@@ -4,9 +4,9 @@ import success_audio from '@/assets/sound_effects/kids_yay_TEMP.mp3';
 import ButtonApp from '@/components/ButtonApp';
 import CardCarousel from '@/components/carousels/CardCarousel';
 import useConfettis from '@/hook/useConfettis';
-import { QuizzType } from '@/temp/QuizzData';
 import APP_ROUTES_ENUM from '@/types/APP_ROUTES_ENUM';
 import { ArticleType, ArticleTypesEnum } from '@/types/BlogType';
+import { QuizzType } from '@/types/QuizzType';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 

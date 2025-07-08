@@ -6,8 +6,8 @@ import { Button } from '@/components/ui/button';
 import { Drawer, DrawerClose, DrawerContent, DrawerHeader, DrawerTitle } from '@/components/ui/drawer';
 import { Progress } from '@/components/ui/progress';
 import { useAuth } from '@/context/AuthProvider';
-import { QuizzType } from '@/temp/QuizzData';
 import APP_ROUTES_ENUM from '@/types/APP_ROUTES_ENUM';
+import { QuizzType } from '@/types/QuizzType';
 import {
     Award,
     Calendar,

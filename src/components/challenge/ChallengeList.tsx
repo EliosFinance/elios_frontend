@@ -1,8 +1,8 @@
-import { ChallengeType } from '@/temp/DefiData';
+import { challengeType } from '@/types/challengeType';
 import { ChallengeCard } from './ChallengeCard';
 
 interface ChallengeListProps {
-    challenges: ChallengeType[];
+    challenges: challengeType[];
     onSelectChallenge?: (id: number) => void;
 }
 

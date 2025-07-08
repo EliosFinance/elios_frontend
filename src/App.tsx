@@ -57,7 +57,6 @@ import SingleChallenge from './pages/SingleChallenge.tsx';
 import SingleFriend from './pages/SingleFriends.tsx';
 import Subscription from './pages/Subscription/Subscription.tsx';
 import APP_ROUTES_ENUM from './types/APP_ROUTES_ENUM.ts';
-import { challengeData } from './types/challengeType.ts';
 
 function App() {
     const { os } = useDeviceDetection();
@@ -96,10 +95,10 @@ function App() {
                             <Route path={APP_ROUTES_ENUM.LOGIN} element={<Authenticate />} />
                             <Route path={APP_ROUTES_ENUM.REGISTER} element={<Authenticate />} />
                             <Route path={'*'} element={<FirstTimerView />} />
-                            <Route
+                            {/* <Route
                                 path={`${APP_ROUTES_ENUM.TEST}`}
                                 element={<PartnerChallenge challenge={challengeData} />}
-                            />
+                            /> */}
                         </Route>
 
                         {/* Routes d'inscription - authentification requise mais inscription peut être incomplète */}

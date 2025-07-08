@@ -1,4 +1,4 @@
-import { QuestionOptionType } from '@/temp/QuizzData';
+import { QuestionOptionType } from '@/types/QuizzType';
 import React, { useEffect } from 'react';
 
 type SingleProps = {
@@ -10,7 +10,7 @@ type SingleProps = {
 const Single = (props: SingleProps) => {
     return (
         <div className='w-full h-auto flex flex-wrap justify-between items-center gap-y-2 text-center'>
-            {props.options.map((option, index) => (
+            {props.options.map((option, _index) => (
                 <div
                     key={option.id}
                     className={`

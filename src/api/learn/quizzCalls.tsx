@@ -1,6 +1,5 @@
 import { userStore } from '@/store/UserStore';
-import { QuizzType } from '@/temp/QuizzData';
-import { ArticleCategoryType } from '@/types/BlogType';
+import { QuizzType } from '@/types/QuizzType';
 import { AxiosError } from 'axios';
 import { instance_back } from '../const';
 

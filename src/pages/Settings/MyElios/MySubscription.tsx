@@ -1,5 +1,15 @@
+import PageLayout from '@/layout/PageLayout';
+import ComingSoonPage from '@/pages/ComingSoonPage';
+import APP_ROUTES_ENUM from '@/types/APP_ROUTES_ENUM';
+import SettingsPageHeader from '../SettingsPageHeader';
+
 const MySubscription = () => {
-    return <div>MySubscription</div>;
+    return (
+        <PageLayout title='Mon abonnement'>
+            <SettingsPageHeader link={APP_ROUTES_ENUM.SETTINGS} />
+            <ComingSoonPage />
+        </PageLayout>
+    );
 };
 
 export default MySubscription;

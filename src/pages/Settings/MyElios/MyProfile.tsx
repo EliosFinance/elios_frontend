@@ -1,9 +1,7 @@
-import { getChallenges, getLikedArticles, getReadArticles, getUser } from '@/api';
+import { getLikedArticles, getReadArticles, getUser } from '@/api';
 import PageLayout from '@/layout/PageLayout';
 import APP_ROUTES_ENUM from '@/types/APP_ROUTES_ENUM';
-import { ArticleType } from '@/types/BlogType';
 import { userType } from '@/types/challengeType';
-import { set } from 'date-fns';
 import {
     AlertCircleIcon,
     CalendarIcon,

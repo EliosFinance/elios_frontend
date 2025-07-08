@@ -8,7 +8,7 @@ const SettingsPageHeader = ({ link }: { link?: string }) => {
     const navigate = useNavigate();
 
     return (
-        <div className='fixed z-[1000] top-0 left-0 p-6 flex items-center justify-between w-full bg-[var(--background)]'>
+        <div className='fixed z-[1000] top-0 left-0 px-6 py-5 flex items-center justify-between w-full bg-[var(--background)]'>
             <ArrowUturnLeftIcon
                 className='object-cover object-center w-6 h-6'
                 onClick={() => {

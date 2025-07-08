@@ -1,4 +1,4 @@
-import { getChallenges } from '@/api/learn/challengesCalls';
+import { getPartnerChallenges } from '@/api/learn/challengesCalls';
 import PartnerChallenge from '@/components/PartnerChallenge';
 import {
     Drawer,
@@ -29,7 +29,7 @@ const PartnerDrawer: React.FC<PartnerDrawerProps> = ({ isOpen, setIsOpen, partne
         if (partner) {
             const fetchData = async () => {
                 try {
-                    const challengesData = await getChallenges(partner.id);
+                    const challengesData = await getPartnerChallenges(partner.id);
                     setChallenges(challengesData);
                     setLoading(false);
                 } catch (error) {

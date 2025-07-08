@@ -1,5 +1,3 @@
-import { FilteredRecommendations, RecommendationUIState } from '@/types/UserType';
-
 /**
  * Formate le score d'activité pour l'affichage
  */
@@ -44,18 +42,4 @@ export const getScoreColor = (score: number): string => {
     if (score >= 40) return '#eab308'; // jaune
     if (score >= 20) return '#f97316'; // orange
     return '#ef4444'; // rouge
-};
-
-/**
- * Trie les catégories par score décroissant
- */
-export const sortCategoriesByScore = (categories: CategoryPreferenceType[]): CategoryPreference[] => {
-    return [...categories].sort((a, b) => b.score - a.score);
-};
-
-/**
- * Trie les types de contenu par score décroissant
- */
-export const sortContentTypesByScore = (contentTypes: ContentTypePreference[]): ContentTypePreference[] => {
-    return [...contentTypes].sort((a, b) => b.score - a.score);
 };
