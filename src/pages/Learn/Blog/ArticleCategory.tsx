@@ -1,6 +1,5 @@
 import { getSingleArticle, getSingleArticleCategory } from '@/api';
 import BlogNav from '@/components/BlogNav';
-import MiniHeader from '@/components/MiniHeader';
 import { Folder } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import ButtonApp from '@/components/ButtonApp';
@@ -42,9 +41,6 @@ const ArticleCategory = () => {
 
 	return (
 		<div className='flex flex-col items-center justify-center w-full h-full pt-6 pb-24'>
-			{category && (
-				<MiniHeader icon={<Folder className='w-6 h-6 text-white' />} title={category.title} subtitle={category.description || ''} />
-			)}
 			<div className='flex flex-col items-center justify-center w-full mt-12 gap-y-12'>
 				<div className='flex items-center justify-start w-full px-6 gap-x-4'>
 					<h1 className='w-full text-4xl font-black'>{category?.title}</h1>

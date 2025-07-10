@@ -1,6 +1,5 @@
 import { getArticleCategories } from '@/api';
 import BlogNav from '@/components/BlogNav';
-import MiniHeader from '@/components/MiniHeader';
 import { BookOpen } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import APP_ROUTES_ENUM from '@/types/APP_ROUTES_ENUM';
@@ -21,7 +20,6 @@ const AllArticleCategories = () => {
 
 	return (
 		<div className='flex flex-col items-center justify-center w-full h-full px-6'>
-			<MiniHeader icon={<BookOpen className='w-6 h-6 text-white' />} title='Toutes les catégories' subtitle='Explorez tous les sujets disponibles' />
 			<div className='flex flex-col items-start justify-start w-full pb-24 mb-12 gap-y-4'>
 				{articleCategories.length > 0 &&
 					articleCategories.map((category, index) => (

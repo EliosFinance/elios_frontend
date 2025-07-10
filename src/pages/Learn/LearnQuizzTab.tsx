@@ -172,7 +172,7 @@ const LearnQuizzTab = (props: LearnQuizzTabProps) => {
 	);
 
 	return (
-		<div className='flex flex-col items-start justify-center w-full p-6 mb-8 gap-y-6'>
+		<div className='flex flex-col items-start justify-center w-full py-4 mb-8 gap-y-6'>
 			{/* Header avec rang et info */}
 			<div
 				className={`w-full flex justify-between items-center h-6 mb-2 cursor-pointer hover:opacity-80 transition-opacity`}
