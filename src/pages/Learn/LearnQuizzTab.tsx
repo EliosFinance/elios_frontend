@@ -116,7 +116,7 @@ const LearnQuizzTab = (props: LearnQuizzTabProps) => {
 								size='sm'
 								variant={selectedDifficulty === difficulty ? 'default' : 'secondary'}
 								onClick={() => setSelectedDifficulty(difficulty as any)}
-								className='flex-shrink-0 snap-center'
+								className='flex-shrink-0 bg-gray-500 snap-center'
 							>
 								{difficulty.charAt(0).toUpperCase() + difficulty.slice(1)}
 							</Button>
