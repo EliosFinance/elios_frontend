@@ -114,7 +114,7 @@ const ResetPassword: React.FC = () => {
     if (token) {
         // Formulaire de nouveau mot de passe
         return (
-            <div className='flex flex-col items-center w-full'>
+            <div className='flex min-h-screen w-full items-center justify-center'>
                 <div className='w-full max-w-sm py-4 mb-10'>
                     <div className='mb-6 text-center'>
                         <h2 className='text-lg font-bold text-white'>Nouveau mot de passe</h2>
@@ -167,52 +167,54 @@ const ResetPassword: React.FC = () => {
 
     // Formulaire d'envoi d'email
     return (
-        <div className='py-4 mb-10'>
-            <div className='mb-6 text-center'>
-                <h2 className='text-lg font-bold text-white'>Réinitialiser le mot de passe</h2>
-                <p className='text-gray-400 text-sm mt-2'>
-                    Entrez votre adresse e-mail pour recevoir un lien de réinitialisation.
-                </p>
-            </div>
-            <form className='space-y-4' onSubmit={handleRequest}>
-                <input
-                    id='emailReset'
-                    type='email'
-                    placeholder='Votre email'
-                    value={email}
-                    onChange={(e) => {
-                        setEmail(e.target.value);
-                        setError(null);
-                        setGlobalError(null);
-                        setSuccess(false);
-                    }}
-                    className={`bg-transparent w-full px-4 py-2 border-t-none border-r-none border-l-none border-b-solid border-b-[1.5px] ${
-                        error ? 'border-red-500' : 'border-gray-300'
-                    } focus:outline-none focus:ring-0 text-m placeholder:text-gray-500 placeholder:font-semibold`}
-                    required
-                />
-                {/* Message d'erreur sous l'input, un seul à la fois */}
-                {globalError ? (
-                    <p className='mt-2 text-sm text-red-500'>{globalError}</p>
-                ) : error ? (
-                    <p className='mt-2 text-sm text-red-500'>{error}</p>
-                ) : success ? (
-                    <p className='mt-2 text-sm text-green-500'>Un email de réinitialisation a été envoyé !</p>
-                ) : null}
-                <div className='mt-6'>
-                    <Button
-                        className='w-full py-2 text-sm text-white bg-blue-500 rounded-full hover:bg-blue-600'
-                        type='submit'
-                        disabled={loading}
-                    >
-                        {loading ? 'Envoi...' : 'Envoyer le lien'}
-                    </Button>
+        <div className='flex min-h-screen w-full items-center justify-center'>
+            <div className='w-full max-w-sm py-4 mb-10'>
+                <div className='mb-6 text-center'>
+                    <h2 className='text-lg font-bold text-white'>Réinitialiser le mot de passe</h2>
+                    <p className='text-gray-400 text-sm mt-2'>
+                        Entrez votre adresse e-mail pour recevoir un lien de réinitialisation.
+                    </p>
                 </div>
-            </form>
-            <div className='flex flex-col items-start justify-start mt-4 text-xs text-center text-gray-500 '>
-                <span className='text-blue-500 cursor-pointer' onClick={() => navigate(APP_ROUTES_ENUM.LOGIN)}>
-                    Retour à la connexion
-                </span>
+                <form className='space-y-4' onSubmit={handleRequest}>
+                    <input
+                        id='emailReset'
+                        type='email'
+                        placeholder='Votre email'
+                        value={email}
+                        onChange={(e) => {
+                            setEmail(e.target.value);
+                            setError(null);
+                            setGlobalError(null);
+                            setSuccess(false);
+                        }}
+                        className={`bg-transparent w-full px-4 py-2 border-t-none border-r-none border-l-none border-b-solid border-b-[1.5px] ${
+                            error ? 'border-red-500' : 'border-gray-300'
+                        } focus:outline-none focus:ring-0 text-m placeholder:text-gray-500 placeholder:font-semibold`}
+                        required
+                    />
+                    {/* Message d'erreur sous l'input, un seul à la fois */}
+                    {globalError ? (
+                        <p className='mt-2 text-sm text-red-500'>{globalError}</p>
+                    ) : error ? (
+                        <p className='mt-2 text-sm text-red-500'>{error}</p>
+                    ) : success ? (
+                        <p className='mt-2 text-sm text-green-500'>Un email de réinitialisation a été envoyé !</p>
+                    ) : null}
+                    <div className='mt-6'>
+                        <Button
+                            className='w-full py-2 text-sm text-white bg-blue-500 rounded-full hover:bg-blue-600'
+                            type='submit'
+                            disabled={loading}
+                        >
+                            {loading ? 'Envoi...' : 'Envoyer le lien'}
+                        </Button>
+                    </div>
+                </form>
+                <div className='flex flex-col items-start justify-start mt-4 text-xs text-center text-gray-500 '>
+                    <span className='text-blue-500 cursor-pointer' onClick={() => navigate(APP_ROUTES_ENUM.LOGIN)}>
+                        Retour à la connexion
+                    </span>
+                </div>
             </div>
         </div>
     );
