@@ -13,7 +13,7 @@ const ResetPassword: React.FC = () => {
     const [token, setToken] = useState<string | null>(null);
     const [newPassword, setNewPassword] = useState('');
     const [resetSuccess, setResetSuccess] = useState(false);
-    const [resetError, setResetError] = useState<string | null>(null);
+    const [resetError, setResetError] = useState<string | string[] | null>(null);
     const [globalError, setGlobalError] = useState<string | null>(null);
     const navigate = useNavigate();
     const location = useLocation();
@@ -80,15 +80,26 @@ const ResetPassword: React.FC = () => {
             await resetPassword(token!, newPassword);
             setResetSuccess(true);
         } catch (err: any) {
-            const msg = err?.response?.data?.message || err.message || 'Erreur lors de la réinitialisation.';
-            // Si le token a déjà été utilisé, ou expiré/invalide, on redirige vers la page initiale avec un message global
-            if (msg.includes('déjà été utilisé')) {
-                setGlobalError('Ce lien de réinitialisation a déjà été utilisé. Veuillez refaire une demande.');
-                setToken(null);
-                setNewPassword('');
-                navigate(APP_ROUTES_ENUM.RESET_PASSWORD, { replace: true });
-            } else if (msg.toLowerCase().includes('expiré') || msg.toLowerCase().includes('invalide')) {
-                setGlobalError('Ce lien a expiré ou est invalide. Veuillez refaire une demande.');
+            // Gestion des messages d'erreur backend (array ou string)
+            let msg = err?.response?.data?.message || err.message || 'Erreur lors de la réinitialisation.';
+            if (Array.isArray(msg)) {
+                // On prend tous les messages de validation (array de tableaux)
+                msg = msg
+                    .flat()
+                    .map((m: any) => m.message)
+                    .filter(Boolean);
+            }
+            if (
+                typeof msg === 'string' &&
+                (msg.includes('déjà été utilisé') ||
+                    msg.toLowerCase().includes('expiré') ||
+                    msg.toLowerCase().includes('invalide'))
+            ) {
+                setGlobalError(
+                    msg.includes('déjà été utilisé')
+                        ? 'Ce lien de réinitialisation a déjà été utilisé. Veuillez refaire une demande.'
+                        : 'Ce lien a expiré ou est invalide. Veuillez refaire une demande.',
+                );
                 setToken(null);
                 setNewPassword('');
                 navigate(APP_ROUTES_ENUM.RESET_PASSWORD, { replace: true });
@@ -121,7 +132,16 @@ const ResetPassword: React.FC = () => {
                             className='bg-transparent w-full px-4 py-2 border-t-none border-r-none border-l-none border-b-solid border-b-[1.5px] border-gray-300 focus:outline-none focus:ring-0 text-m placeholder:text-gray-500 placeholder:font-semibold'
                             required
                         />
-                        {resetError && <p className='mt-2 text-sm text-red-500'>{resetError}</p>}
+                        {/* Affichage des messages d'erreur sous le champ password */}
+                        {resetError && Array.isArray(resetError) ? (
+                            <ul className='mt-2 text-sm text-red-500 space-y-1'>
+                                {resetError.map((msg, i) => (
+                                    <li key={i}>{msg}</li>
+                                ))}
+                            </ul>
+                        ) : resetError ? (
+                            <p className='mt-2 text-sm text-red-500'>{resetError}</p>
+                        ) : null}
                         {resetSuccess && (
                             <p className='mt-2 text-sm text-green-500'>Mot de passe réinitialisé avec succès !</p>
                         )}
