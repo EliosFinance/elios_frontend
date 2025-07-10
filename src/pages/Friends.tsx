@@ -1,27 +1,27 @@
 import PageLayout from '@/layout/PageLayout';
-import { friendsData } from '@/temp/FriendsData';
-import { ArrowLeftIcon, ChevronDownIcon, ChevronUpIcon, EyeIcon } from '@heroicons/react/24/outline';
-import { motion } from 'framer-motion';
+import { useGetFriends } from '@/api/friends'; 
+import { userStore } from '@/store/UserStore';
+import { EyeIcon, PlusIcon } from '@heroicons/react/24/outline';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import MyFriendRequestsModal from './Settings/Social/MyFriendRequestsModal'; 
+
 
 const Friends = () => {
     const [searchTerm, setSearchTerm] = useState('');
-    const [expandedFriend, setExpandedFriend] = useState<string | null>(null);
-    // const [isModalOpen, setIsModalOpen] = useState(false);
     const navigate = useNavigate();
+    const [showRequests, setShowRequests] = useState(false);
+    const userId = Number(userStore.getState().user?.id);
+    const { data: friends = [], isLoading } = useGetFriends(userId);
+    
 
-    const filteredFriends = friendsData.filter((friend) =>
-        friend.name.toLowerCase().includes(searchTerm.toLowerCase()),
+   
+    const sortedFriends = [...friends].sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+
+  
+    const filteredFriends = sortedFriends.filter((friend) =>
+        friend.username.toLowerCase().includes(searchTerm.toLowerCase())
     );
-
-    const toggleExpand = (name: string) => {
-        setExpandedFriend(expandedFriend === name ? null : name);
-    };
-
-    // const toggleModal = () => {
-    //     setIsModalOpen(!isModalOpen);
-    // };
 
     return (
         <PageLayout title='Suivez les statistiques de vos amis' onBack={() => navigate(-1)}>
@@ -35,76 +35,48 @@ const Friends = () => {
                     placeholder='Recherchez vos amis'
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className='w-full p-2 mb-4 border rounded'
+                    className='w-full p-2 mb-4 border rounded text-black'
                 />
 
-                {filteredFriends.map((friend) => (
-                    <div key={friend.name} className='mb-4'>
-                        <div
-                            className='flex items-center justify-between p-4 bg-white rounded shadow cursor-pointer'
-                            onClick={() => toggleExpand(friend.name)}
-                        >
-                            <div className='flex items-center'>
-                                <div className='p-4 text-black bg-gray-300 rounded'>
-                                    <p>Score</p>
-                                    <p className='text-2xl font-bold'>{friend.score}</p>
-                                </div>
-                                <div className='ml-4'>
-                                    <p>{friend.name}</p>
-                                </div>
-                            </div>
-                            {expandedFriend === friend.name ? (
-                                <ChevronUpIcon className='w-6 h-6' />
-                            ) : (
-                                <ChevronDownIcon className='w-6 h-6' />
-                            )}
-                        </div>
+                {isLoading ? (
+                    <p>Chargement...</p>
+                ) : filteredFriends.length === 0 ? (
+                    <p className="text-gray-500">Aucun ami trouvé pour « {searchTerm} »</p>
+                ) : (
+                    filteredFriends.map((friend) => (
+                        <div key={friend.id} className='mb-4'>
+                            <div className='flex items-center justify-between p-4 bg-white rounded shadow'>
+                                <div>
+                                    <p className='text-lg font-semibold text-black'>{friend.username}</p>
+                            <p className='text-sm text-gray-500'>
+                            Score : <span className='text-green-600 font-bold'>🏆 {friend.score  ?? '?'}</span>
+                             </p>
 
-                        {expandedFriend === friend.name && (
-                            <motion.div
-                                className='p-4 mt-2 bg-gray-100 rounded'
-                                initial={{ opacity: 0, height: 0 }}
-                                animate={{ opacity: 1, height: 'auto' }}
-                                transition={{ duration: 0.3 }}
-                            >
-                                <div className='flex mb-4 space-x-2'>
-                                    {friend.products.map((product, index) => (
-                                        <div key={index} className='p-2 text-black bg-gray-300 rounded'>
-                                            <p>Produit</p>
-                                            <p>{product}%</p>
-                                        </div>
-                                    ))}
-                                </div>
-                                <h3 className='mb-2 font-bold'>Travail en retard</h3>
-                                <div className='flex items-center mb-2'>
-                                    <div className='p-2 text-black bg-red-300 rounded-full'>
-                                        <p>{friend.overdueWork.percentage}%</p>
-                                    </div>
-                                    <div className='ml-2'>
-                                        <p>{friend.overdueWork.count} Travaux en retard</p>
-                                        <p>{friend.overdueWork.description}</p>
-                                    </div>
-                                </div>
-                                <div className='flex items-center'>
-                                    <div className='p-2 text-black bg-yellow-300 rounded-full'>
-                                        <p>{friend.finishedLate.percentage}%</p>
-                                    </div>
-                                    <div className='ml-2'>
-                                        <p>{friend.finishedLate.count} Travaux finis en retard</p>
-                                        <p>{friend.finishedLate.description}</p>
-                                    </div>
                                 </div>
                                 <button
                                     onClick={() => navigate(`/friends/${friend.id}`)}
-                                    className='px-4 py-2 mt-4 text-white bg-blue-500 rounded'
+                                    className='p-2 text-black hover:text-gray-700 transition-colors'
+                                    title="Voir les détails"
                                 >
-                                    Plus d'infos
+                                    <PlusIcon className='w-6 h-6' />
                                 </button>
-                            </motion.div>
-                        )}
-                    </div>
-                ))}
-            </section>
+                            </div>
+                        </div>
+                    ))
+                )}
+          <div className="flex justify-end mb-4 gap-4">
+              <button
+                onClick={() => navigate('/settings/my-friends')}
+                className="px-4 py-2 text-white bg-primary-500 rounded shadow" > + Ajouter un ami
+              </button>
+              <button
+                onClick={() => setShowRequests(true)}
+                className="px-4 py-2 text-white bg-primary-500 rounded shadow">  Voir les demandes
+               </button>
+
+           </div>
+         </section>
+                {showRequests && (<MyFriendRequestsModal onClose={() => setShowRequests(false)} />)}
         </PageLayout>
     );
 };
