@@ -1,4 +1,4 @@
-import { getLikedArticles, getReadArticles, getUser } from '@/api';
+import { getLikedArticles, getReadArticles, getUser, updateUserAvatar } from '@/api';
 import PageLayout from '@/layout/PageLayout';
 import APP_ROUTES_ENUM from '@/types/APP_ROUTES_ENUM';
 import { userType } from '@/types/challengeType';
@@ -17,13 +17,15 @@ import {
     UserIcon,
     XCircleIcon,
 } from 'lucide-react';
-import { useLayoutEffect, useState } from 'react';
+import React, { useState, useRef, useLayoutEffect } from 'react';
 import SettingsPageFooter from '../SettingsPageFooter';
 import SettingsPageHeader from '../SettingsPageHeader';
 
 const MyProfile = () => {
     const [isEditing, setIsEditing] = useState(false);
     const [profileData, setProfileData] = useState<userType>();
+    const [isUploading, setIsUploading] = useState(false);
+    const fileInputRef = useRef<HTMLInputElement>(null);
 
     const [completionStatus] = useState({
         emailVerified: true,
@@ -57,8 +59,70 @@ const MyProfile = () => {
         setIsEditing(!isEditing);
     };
 
-    const handleSave = () => {
-        setIsEditing(false);
+    const handleSave = async () => {
+        if (!profileData) return;
+
+        try {
+            await updateUserAvatar(profileData.avatarUrl ?? '');
+            setIsEditing(false);
+            // Optionnel : afficher un message de succès
+            console.log('Profil mis à jour avec succès');
+        } catch (error) {
+            console.error('Erreur lors de la mise à jour du profil:', error);
+            // Optionnel : afficher un message d'erreur
+        }
+    };
+
+    const handleAvatarClick = () => {
+        fileInputRef.current?.click();
+    };
+
+    const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+        const file = event.target.files?.[0];
+        if (!file || !profileData) return;
+
+        // Vérifier le type de fichier
+        if (!file.type.startsWith('image/')) {
+            alert('Veuillez sélectionner un fichier image');
+            return;
+        }
+
+        // Vérifier la taille du fichier (max 5MB)
+        if (file.size > 5 * 1024 * 1024) {
+            alert('Le fichier est trop volumineux. Maximum 5MB autorisé');
+            return;
+        }
+
+        setIsUploading(true);
+
+        try {
+            // Convertir le fichier en base64 ou utiliser une URL temporaire
+            const reader = new FileReader();
+            reader.onload = async (e) => {
+                const result = e.target?.result as string;
+
+                // Mettre à jour temporairement l'avatar localement
+                const updatedProfile = { ...profileData, avatarUrl: result };
+                setProfileData(updatedProfile);
+
+                // Sauvegarder dans la base de données
+                try {
+                    await updateUserAvatar(profileData.avatarUrl ?? '');
+                    console.log('Avatar mis à jour avec succès');
+                } catch (error) {
+                    console.error("Erreur lors de la mise à jour de l'avatar:", error);
+                    // Revenir à l'état précédent en cas d'erreur
+                    setProfileData(profileData);
+                    alert("Erreur lors de la mise à jour de l'avatar");
+                }
+            };
+            reader.readAsDataURL(file);
+        } catch (error) {
+            console.error('Erreur lors du traitement du fichier:', error);
+            alert('Erreur lors du traitement du fichier');
+        } finally {
+            setIsUploading(false);
+        }
     };
 
     const getStatusIcon = (status: boolean) => {
@@ -83,7 +147,6 @@ const MyProfile = () => {
                 A2F pas encore activé
             </span>
         );
-        // <span className='px-2 py-1 text-xs font-medium bg-blue-500/20 text-blue-300 rounded-lg'>A2F activé</span>
     };
 
     useLayoutEffect(() => {
@@ -91,7 +154,6 @@ const MyProfile = () => {
             const user = await getUser();
             if (user) {
                 console.log('Profil utilisateur récupéré:', user);
-
                 setProfileData(user);
             }
             const readArticles = await getReadArticles();
@@ -101,9 +163,9 @@ const MyProfile = () => {
                 articlesLus: readArticles?.length || 0,
                 articlesAimes: likedArticles?.length || 0,
                 articlesEcrits: 0,
-                amis: profileData?.friends?.length || 0,
+                amis: user?.friends?.length || 0,
                 defisCompletes: 0,
-                transactionsTotal: profileData?.transactions?.length || 0,
+                transactionsTotal: user?.transactions?.length || 0,
             });
         };
         fetchProfileData();
@@ -117,6 +179,7 @@ const MyProfile = () => {
             </PageLayout>
         );
     }
+
     return (
         <PageLayout title='Mon profil'>
             <SettingsPageHeader link={APP_ROUTES_ENUM.SETTINGS} />
@@ -137,9 +200,9 @@ const MyProfile = () => {
             <div className='flex items-start gap-4 mb-6 p-4 bg-white/5 border border-white/10 rounded-lg backdrop-blur-sm'>
                 <div className='relative'>
                     <div className='w-20 h-20 rounded-xl overflow-hidden bg-gradient-to-br from-primary-500 to-primary-600 shadow-lg'>
-                        {profileData.profilePicture ? (
+                        {profileData.avatarUrl ? (
                             <img
-                                src={profileData.profilePicture}
+                                src={profileData.avatarUrl}
                                 alt='Photo de profil'
                                 className='w-full h-full object-cover'
                             />
@@ -150,12 +213,24 @@ const MyProfile = () => {
                         )}
                     </div>
                     <button
-                        className='absolute -bottom-1 -right-1 w-7 h-7 bg-primary-500 rounded-full flex items-center justify-center shadow-lg hover:bg-primary-600 transition-colors'
-                        onClick={() => alert('Changer la photo de profil')}
+                        className='absolute -bottom-1 -right-1 w-7 h-7 bg-primary-500 rounded-full flex items-center justify-center shadow-lg hover:bg-primary-600 transition-colors disabled:opacity-50'
+                        onClick={handleAvatarClick}
+                        disabled={isUploading}
                         aria-label='Changer la photo de profil'
                     >
-                        <CameraIcon className='w-4 h-4 text-white' />
+                        {isUploading ? (
+                            <div className='w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin' />
+                        ) : (
+                            <CameraIcon className='w-4 h-4 text-white' />
+                        )}
                     </button>
+                    <input
+                        ref={fileInputRef}
+                        type='file'
+                        accept='image/*'
+                        onChange={handleFileChange}
+                        className='hidden'
+                    />
                 </div>
 
                 <div className='flex-1'>
@@ -267,8 +342,9 @@ const MyProfile = () => {
                             </div>
                         </div>
                     </button>
+
                     {isEditing && (
-                        <div className='mb-6 p-4 bg-white/5 border border-white/10 rounded-lg backdrop-blur-sm'>
+                        <div className='md:col-span-2 p-4 bg-white/5 border border-white/10 rounded-lg backdrop-blur-sm'>
                             <h3 className='text-lg font-bold text-white mb-4'>Modifier le profil</h3>
 
                             <div className='space-y-4'>
@@ -293,6 +369,22 @@ const MyProfile = () => {
                                         className='w-full px-3 py-2 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500'
                                     />
                                 </div>
+
+                                <div>
+                                    <label className='block text-sm font-medium text-gray-300 mb-2'>
+                                        URL de l'avatar
+                                    </label>
+                                    <input
+                                        type='url'
+                                        value={profileData.avatarUrl || ''}
+                                        onChange={(e) => setProfileData({ ...profileData, avatarUrl: e.target.value })}
+                                        placeholder='https://exemple.com/avatar.jpg'
+                                        className='w-full px-3 py-2 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500'
+                                    />
+                                    <p className='text-xs text-gray-400 mt-1'>
+                                        Vous pouvez aussi utiliser le bouton photo pour télécharger une image
+                                    </p>
+                                </div>
                             </div>
 
                             <div className='flex gap-3 mt-6'>
@@ -311,6 +403,7 @@ const MyProfile = () => {
                             </div>
                         </div>
                     )}
+
                     <button className='p-4 bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg text-left transition-colors group'>
                         <div className='flex items-center gap-3'>
                             <div className='w-10 h-10 bg-primary-500/20 rounded-lg flex items-center justify-center group-hover:bg-primary-500/30 transition-colors'>
