@@ -20,6 +20,10 @@ const CentralExpensesPage: React.FC = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
+        if (!connections || isLoading || isFetching) {
+            setTotal(0);
+            return;
+        }
         if (connections) {
             const sum = connections.reduce((acc: number, connection: ConnectionType) => {
                 return acc + (connection.balance || 0);
@@ -57,10 +61,11 @@ const CentralExpensesPage: React.FC = () => {
                         timeframe={timeframe}
                         onTimeframeChange={setTimeframe}
                         onDateSelected={setSelectedDate}
+                        connections={connections || []}
                     />
 
                     {/* Section Budget */}
-                    <BudgetOverview />
+                    <BudgetOverview connections={connections || []} />
 
                     {/* Section Abonnements */}
                     <SubscriptionsSection />
