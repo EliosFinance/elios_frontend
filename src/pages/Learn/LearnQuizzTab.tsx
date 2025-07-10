@@ -133,7 +133,7 @@ const LearnQuizzTab = (props: LearnQuizzTabProps) => {
 		value,
 		subtitle,
 	}) => (
-		<div className='flex items-center gap-3 p-4 bg-gray-800 rounded-lg'>
+		<div className='flex items-center gap-3 p-4 border rounded-lg bg-white/5 border-white/10'>
 			<div className='text-primary-500'>{icon}</div>
 			<div>
 				<p className='text-2xl font-bold'>{value}</p>
