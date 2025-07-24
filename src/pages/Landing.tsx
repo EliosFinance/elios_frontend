@@ -221,7 +221,7 @@ const Landing = () => {
                             <CarouselContent className="-ml-2">
                                 {friends.map((friend) => (
                                     <CarouselItem key={friend.id} className="pl-2 pr-2 basis-1/2">
-                                        <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-4 hover:bg-white/10 transition-colors cursor-pointer h-[200px] flex flex-col items-center justify-center">
+                                        <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-6 hover:bg-white/10 transition-colors cursor-pointer h-[240px] flex flex-col items-center justify-center">
                                             <div className="relative mb-4">
                                                 <img 
                                                     src={friend.avatarUrl} 
