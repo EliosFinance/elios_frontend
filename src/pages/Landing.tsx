@@ -49,7 +49,7 @@ const Landing = () => {
                 const demoFriends: (FriendsType & { isOnline: boolean })[] = [
                     {
                         id: "1",
-                        username: "Emma Dubois",
+                        username: "Emma",
                         email: "emma.dubois@student.fr",
                         avatarUrl: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=150&h=150&fit=crop&crop=face",
                         isOnline: true,
@@ -62,7 +62,7 @@ const Landing = () => {
                     },
                     {
                         id: "2", 
-                        username: "Lucas Martin",
+                        username: "Lucas",
                         email: "lucas.martin@student.fr",
                         avatarUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face",
                         isOnline: false,
@@ -75,7 +75,7 @@ const Landing = () => {
                     },
                     {
                         id: "3",
-                        username: "Chloé Leroy",
+                        username: "Chloé",
                         email: "chloe.leroy@student.fr", 
                         avatarUrl: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face",
                         isOnline: true,
@@ -88,7 +88,7 @@ const Landing = () => {
                     },
                     {
                         id: "4",
-                        username: "Antoine Moreau",
+                        username: "Antoine",
                         email: "antoine.moreau@student.fr",
                         avatarUrl: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face",
                         isOnline: true,
@@ -101,7 +101,7 @@ const Landing = () => {
                     },
                     {
                         id: "5",
-                        username: "Sophie Bernard",
+                        username: "Sophie",
                         email: "sophie.bernard@student.fr",
                         avatarUrl: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&h=150&fit=crop&crop=face",
                         isOnline: false,
@@ -114,7 +114,7 @@ const Landing = () => {
                     },
                     {
                         id: "6",
-                        username: "Thomas Petit",
+                        username: "Thomas",
                         email: "thomas.petit@student.fr",
                         avatarUrl: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop&crop=face",
                         isOnline: true,
@@ -142,7 +142,7 @@ const Landing = () => {
     }, []);
 
     return (
-        <div className='flex flex-col items-center w-full pt-8 mb-32 gap-8'>
+        <div className='flex flex-col items-center w-full gap-8 pt-8 mb-32'>
             <div className='flex flex-col items-start w-full gap-4 px-6'>
                 <LandingHeader />
                 <h1 className='mt-4 font-bold text-primary-500'>
@@ -192,7 +192,7 @@ const Landing = () => {
             </div>
 
             <div className='w-full'>
-                <div className='flex items-center justify-between mb-4 px-6'>
+                <div className='flex items-center justify-between px-6 mb-4'>
                     <h2 className='font-bold text-white'>Mes amis</h2>
                     <Button
                         variant='ghost'
@@ -206,7 +206,7 @@ const Landing = () => {
                 
                 {friendsLoading ? (
                     <div className='flex justify-center items-center h-[200px] bg-white/5 rounded-xl border border-white/10 mx-6'>
-                        <div className='animate-spin rounded-full h-8 w-8 border-b-2 border-white'></div>
+                        <div className='w-8 h-8 border-b-2 border-white rounded-full animate-spin'></div>
                     </div>
                 ) : (
                     <div className="px-6">
@@ -226,14 +226,14 @@ const Landing = () => {
                                                 <img 
                                                     src={friend.avatarUrl} 
                                                     alt={friend.username}
-                                                    className="w-20 h-20 rounded-full object-cover border-2 border-white/20"
+                                                    className="object-cover w-20 h-20 border-2 rounded-full border-white/20"
                                                 />
                                                 <div className={`absolute bottom-0 right-0 w-6 h-6 rounded-full border-2 border-gray-900 ${
                                                     (friend as any).isOnline ? 'bg-green-500' : 'bg-gray-500'
                                                 }`}></div>
                                             </div>
-                                            <h3 className="font-semibold text-white text-sm text-center mb-1 px-2">{friend.username}</h3>
-                                            <p className="text-xs text-gray-400 text-center mb-3 px-2">{friend.email.split('@')[0]}</p>
+                                            <h3 className="px-2 mb-1 text-sm font-semibold text-center text-white">{friend.username}</h3>
+                                            <p className="px-2 mb-3 text-xs text-center text-gray-400">{friend.email.split('@')[0]}</p>
                                             <div className="flex items-center gap-2 text-xs">
                                                 <span className={`w-2 h-2 rounded-full ${
                                                     (friend as any).isOnline ? 'bg-green-500' : 'bg-gray-500'
@@ -254,7 +254,7 @@ const Landing = () => {
             </div>
 
             <div className='w-full'>
-                <div className='flex items-center justify-between mb-4 px-6'>
+                <div className='flex items-center justify-between px-6 mb-4'>
                     <h2 className='font-bold'>Apprendre avec EliosLearn !</h2>
                     <Button
                         variant='ghost'
