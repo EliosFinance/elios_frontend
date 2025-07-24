@@ -2,19 +2,20 @@ import { ConnectionType } from '@/types/connectionType';
 import React, { useEffect, useState } from 'react';
 
 const BudgetOverview: React.FC = ({ connections }: { connections: ConnectionType[] }) => {
-    const [budget, setBudget] = useState<number>(0);
-    const [spending, setSpending] = useState<number>(0);
+    // Données hardcodées réalistes pour un étudiant français
+    const [budget, setBudget] = useState<number>(800); // Budget mensuel étudiant typique
+    const [spending, setSpending] = useState<number>(548.64); // Dépenses actuelles
 
-    useEffect(() => {
-        if (connections) {
-            const totalSpending = connections.reduce((acc: number, connection: ConnectionType) => {
-                return acc + (connection.balance || 0);
-            }, 0);
+    // useEffect(() => {
+    //     if (connections) {
+    //         const totalSpending = connections.reduce((acc: number, connection: ConnectionType) => {
+    //             return acc + (connection.balance || 0);
+    //         }, 0);
 
-            setBudget(totalSpending + 2000);
-            setSpending(totalSpending);
-        }
-    }, [connections]);
+    //         setBudget(totalSpending + 2000);
+    //         setSpending(totalSpending);
+    //     }
+    // }, [connections]);
 
     const remaining = budget - spending;
     const spendingPercentage = Math.min(100, Math.round((spending / budget) * 100));

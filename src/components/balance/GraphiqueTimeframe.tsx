@@ -24,69 +24,23 @@ const GraphiqueTimeframe: React.FC<GraphiqueTimeframeProps> = ({
     const chartRef = useRef<HTMLDivElement | null>(null);
     const [xAxisData, setXAxisData] = useState<string[]>([]);
     const [seriesData, setSeriesData] = useState<number[]>([]);
-    const { data: transactions, isLoading, isFetching } = useGetTransactions(connections);
+    // const { data: transactions, isLoading, isFetching } = useGetTransactions(connections);
+    const isLoading = false;
+    const isFetching = false;
+    
     useEffect(() => {
-        async function fetchChartData() {
-            if (isLoading || isFetching) return;
-            try {
-                const t = transactions
-                    ?.map((tx) => {
-                        const dateValue = (tx as any).date || tx.last_update;
-                        const parsedDate = new Date(String(dateValue));
-                        return {
-                            date: parsedDate,
-                            value: Number(tx.value) || 0,
-                        };
-                    })
-                    .filter((tx) => !isNaN(tx.date.getTime()));
-                if (!t || t.length === 0) {
-                    throw new Error('No valid transactions found');
-                }
-                const groupedData: Record<string, number> = {};
-                if (timeframe === 'day') {
-                    t.forEach((tx) => {
-                        const dateStr = tx.date.toISOString().split('T')[0];
-                        groupedData[dateStr] = (groupedData[dateStr] || 0) + tx.value;
-                    });
-                    setXAxisData(Object.keys(groupedData));
-                    setSeriesData(Object.values(groupedData));
-                } else if (timeframe === 'week') {
-                    t.forEach((tx) => {
-                        const date = new Date(tx.date);
-                        const day = date.toLocaleDateString('fr-FR', { weekday: 'short' });
-                        groupedData[day] = (groupedData[day] || 0) + tx.value;
-                    });
-                    setXAxisData(Object.keys(groupedData));
-                    setSeriesData(Object.values(groupedData));
-                } else if (timeframe === 'month') {
-                    t.forEach((tx) => {
-                        const month = tx.date.toISOString().slice(0, 7); // YYYY-MM
-                        groupedData[month] = (groupedData[month] || 0) + tx.value;
-                    });
-                    setXAxisData(Object.keys(groupedData));
-                    setSeriesData(Object.values(groupedData));
-                }
-            } catch (error) {
-                console.error('Erreur lors de la récupération des données du graphique:', error);
-                if (timeframe === 'day') {
-                    setXAxisData([
-                        '2025-02-07T08:00:00Z',
-                        '2025-02-07T12:00:00Z',
-                        '2025-02-07T16:00:00Z',
-                        '2025-02-07T20:00:00Z',
-                    ]);
-                    setSeriesData([150, 300, 200, 400]);
-                } else if (timeframe === 'week') {
-                    setXAxisData(['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim']);
-                    setSeriesData([120, 200, 150, 80, 70, 110, 130]);
-                } else if (timeframe === 'month') {
-                    setXAxisData(['2025-02-01', '2025-02-08', '2025-02-15', '2025-02-22', '2025-02-28']);
-                    setSeriesData([500, 750, 600, 900, 800]);
-                }
-            }
+        // Données hardcodées réalistes pour un étudiant français
+        if (timeframe === 'day') {
+            setXAxisData(['08h', '12h', '16h', '20h']);
+            setSeriesData([-4.50, -8.90, -23.45, -12.80]); // Petit-déj, déjeuner, courses, dîner
+        } else if (timeframe === 'week') {
+            setXAxisData(['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim']);
+            setSeriesData([-45.20, -32.10, -67.85, -28.50, -89.40, -156.30, -78.90]); // Dépenses hebdomadaires étudiant
+        } else if (timeframe === 'month') {
+            setXAxisData(['Semaine 1', 'Semaine 2', 'Semaine 3', 'Semaine 4']);
+            setSeriesData([-198.25, -167.80, -145.60, -89.50]); // Dépenses mensuelles progressives
         }
-        fetchChartData();
-    }, [timeframe, transactions, connections]);
+    }, [timeframe]);
 
     useEffect(() => {
         if (!chartRef.current || isFetching || isLoading) return;

@@ -4,8 +4,17 @@ import { CalendarIcon } from 'lucide-react';
 import React, { useEffect, useState } from 'react';
 
 const TransactionsSection: React.FC = () => {
-    const { data: transactions, error, isLoading, isFetching } = useGetTransactions();
-    const [latestTransactions, setLatestTransactions] = useState<TransactionType[]>([]);
+    // const { data: transactions, error, isLoading, isFetching } = useGetTransactions();
+    const [latestTransactions, setLatestTransactions] = useState<TransactionType[]>([
+        { id: 1, userId: 'me', limit: 5, wording: 'Monoprix PARIS 15', value: '-23.45', last_update: new Date('2024-07-23T10:30:00') },
+        { id: 2, userId: 'me', limit: 5, wording: 'McDonald\'s CHAMPS ELYSEES', value: '-8.90', last_update: new Date('2024-07-22T19:15:00') },
+        { id: 3, userId: 'me', limit: 5, wording: 'RATP NAVIGO MENSUEL', value: '-75.20', last_update: new Date('2024-07-22T08:00:00') },
+        { id: 4, userId: 'me', limit: 5, wording: 'Virement PARENTS', value: '+400.00', last_update: new Date('2024-07-21T14:30:00') },
+        { id: 5, userId: 'me', limit: 5, wording: 'Boulangerie PAUL', value: '-4.50', last_update: new Date('2024-07-21T07:45:00') }
+    ]);
+    const error = false;
+    const isLoading = false;
+    const isFetching = false;
 
     const parseTransactionDate = (tx: TransactionType): Date => {
         const dateValue = (tx as any).date || tx.last_update;
@@ -13,14 +22,24 @@ const TransactionsSection: React.FC = () => {
         return isNaN(parsed.getTime()) ? new Date() : parsed;
     };
 
-    useEffect(() => {
-        if (transactions) {
-            const sorted = [...transactions].sort((a, b) => {
-                return parseTransactionDate(b).getTime() - parseTransactionDate(a).getTime();
-            });
-            setLatestTransactions(sorted.slice(0, 5));
+    const getTransactionIcon = (wording: string) => {
+        if (wording.toLowerCase().includes('monoprix') || wording.toLowerCase().includes('carrefour')) {
+            return '🛒';
         }
-    }, [transactions]);
+        if (wording.toLowerCase().includes('mcdonald') || wording.toLowerCase().includes('kfc') || wording.toLowerCase().includes('burger')) {
+            return '🍔';
+        }
+        if (wording.toLowerCase().includes('ratp') || wording.toLowerCase().includes('navigo') || wording.toLowerCase().includes('transport')) {
+            return '🚇';
+        }
+        if (wording.toLowerCase().includes('virement') || wording.toLowerCase().includes('parents')) {
+            return '💰';
+        }
+        if (wording.toLowerCase().includes('boulangerie') || wording.toLowerCase().includes('paul') || wording.toLowerCase().includes('café')) {
+            return '🥖';
+        }
+        return '💳';
+    };
 
     if (isLoading || isFetching) {
         return (
@@ -65,14 +84,7 @@ const TransactionsSection: React.FC = () => {
                                     <div className='flex items-start justify-between gap-3'>
                                         <div className='flex items-center gap-3 flex-1 min-w-0'>
                                             <div className='flex items-center justify-center w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex-shrink-0'>
-                                                <svg className='w-4 h-4' viewBox='0 0 24 24' fill='none'>
-                                                    <path
-                                                        d='M12 2v20m8-10H4'
-                                                        stroke='currentColor'
-                                                        strokeWidth='2'
-                                                        className='text-primary-400'
-                                                    />
-                                                </svg>
+                                                <span className='text-lg'>{getTransactionIcon(tx.wording || '')}</span>
                                             </div>
                                             <div className='flex-1 min-w-0'>
                                                 <p className='font-medium text-white text-sm leading-tight truncate'>

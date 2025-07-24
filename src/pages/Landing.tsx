@@ -45,9 +45,55 @@ const Landing = () => {
 
             if (friends.length === 0) {
                 setFriendsLoading(true);
-                const fullUser = await getFullLoggedUser();
-                setFriendsLoading(false);
-                setFriends((fullUser?.friends as any) || []);
+                // Données d'amis fictifs pour la démo
+                const demoFriends: FriendsType[] = [
+                    {
+                        id: "1",
+                        username: "Emma Dubois",
+                        email: "emma.dubois@student.fr",
+                        avatarUrl: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=150&h=150&fit=crop&crop=face",
+                        friends: [],
+                        articles: [],
+                        likedArticles: [],
+                        readArticles: [],
+                        transactions: [],
+                        userToChallenge: []
+                    },
+                    {
+                        id: "2", 
+                        username: "Lucas Martin",
+                        email: "lucas.martin@student.fr",
+                        avatarUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face",
+                        friends: [],
+                        articles: [],
+                        likedArticles: [],
+                        readArticles: [],
+                        transactions: [],
+                        userToChallenge: []
+                    },
+                    {
+                        id: "3",
+                        username: "Chloé Leroy",
+                        email: "chloe.leroy@student.fr", 
+                        avatarUrl: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face",
+                        friends: [],
+                        articles: [],
+                        likedArticles: [],
+                        readArticles: [],
+                        transactions: [],
+                        userToChallenge: []
+                    }
+                ];
+                setTimeout(() => {
+                    setFriendsLoading(false);
+                    setFriends(demoFriends);
+                }, 1000);
+                return;
+                
+                // Code API original commenté
+                // const fullUser = await getFullLoggedUser();
+                // setFriendsLoading(false);
+                // setFriends((fullUser?.friends as any) || []);
             }
         };
         fetchUser();
@@ -116,7 +162,7 @@ const Landing = () => {
                     </Button>
                 </div>
                 <BlurItem
-                    locked={true}
+                    locked={false}
                     isLoading={false}
                     onClick={() => navigate(APP_ROUTES_ENUM.FRIENDS)}
                     variant='addFriends'
