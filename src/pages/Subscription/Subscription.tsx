@@ -4,7 +4,6 @@ import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
 import ReactECharts from 'echarts-for-react';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import DribblePro from '../../assets/images/icons/dribblepro_icon.png';
 import SlackIcon from '../../assets/images/icons/slack_icon.png';
 import SpotifyIcon from '../../assets/images/icons/spotify_icon.png';
 
@@ -20,35 +19,21 @@ const Subscription = () => {
 	const [expensesData, _setExpensesData] = useState({
 		Monthly: [
 			{
-				icon: <img src={DribblePro} alt='Dribbble Pro' className='w-5 h-5' />,
-				name: 'Dribbble Pro',
-				amount: '$160',
+				icon: <img src='https://svgl.app/library/figma.svg' alt='Figma' className='w-5 h-5' />,
+				name: 'Figma',
+				amount: '12,99€',
 			},
-			{ icon: <img src={SpotifyIcon} alt='Spotify' className='w-5 h-5' />, name: 'Spotify', amount: '$160' },
-			{ icon: <img src={SlackIcon} alt='Slack' className='w-5 h-5' />, name: 'Slack', amount: '$160' },
-			{
-				icon: <img src={DribblePro} alt='Dribbble Pro' className='w-5 h-5' />,
-				name: 'Dribbble Pro',
-				amount: '$160',
-			},
-			{ icon: <img src={SpotifyIcon} alt='Spotify' className='w-5 h-5' />, name: 'Spotify', amount: '$160' },
-			{ icon: <img src={SlackIcon} alt='Slack' className='w-5 h-5' />, name: 'Slack', amount: '$160' },
+			{ icon: <img src={SpotifyIcon} alt='Spotify' className='w-5 h-5' />, name: 'Spotify', amount: '9,99€' },
+			{ icon: <img src={SlackIcon} alt='Slack' className='w-5 h-5' />, name: 'Slack', amount: '15,99€' },
 		],
 		Weekly: [
 			{
-				icon: <img src={DribblePro} alt='Dribbble Pro' className='w-5 h-5' />,
-				name: 'Dribbble Pro',
-				amount: '$40',
+				icon: <img src='https://svgl.app/library/figma.svg' alt='Figma' className='w-5 h-5' />,
+				name: 'Figma',
+				amount: '3,25€',
 			},
-			{ icon: <img src={SpotifyIcon} alt='Spotify' className='w-5 h-5' />, name: 'Spotify', amount: '$40' },
-			{ icon: <img src={SlackIcon} alt='Slack' className='w-5 h-5' />, name: 'Slack', amount: '$40' },
-			{
-				icon: <img src={DribblePro} alt='Dribbble Pro' className='w-5 h-5' />,
-				name: 'Dribbble Pro',
-				amount: '$40',
-			},
-			{ icon: <img src={SpotifyIcon} alt='Spotify' className='w-5 h-5' />, name: 'Spotify', amount: '$40' },
-			{ icon: <img src={SlackIcon} alt='Slack' className='w-5 h-5' />, name: 'Slack', amount: '$40' },
+			{ icon: <img src={SpotifyIcon} alt='Spotify' className='w-5 h-5' />, name: 'Spotify', amount: '2,50€' },
+			{ icon: <img src={SlackIcon} alt='Slack' className='w-5 h-5' />, name: 'Slack', amount: '4,00€' },
 		],
 	});
 
@@ -121,7 +106,7 @@ const Subscription = () => {
 			{/* Section dépenses récurrentes */}
 			<div className='mb-4'>
 				<h2 className='mb-1 text-lg font-semibold text-white'>Vos abonnements actifs</h2>
-				<p className='mb-4 text-sm text-gray-400'>6 abonnements • Total mensuel : <span className={`font-medium text-white ${!isVisible ? 'blur-sm' : ''}`}>89,94€</span></p>
+				<p className='mb-4 text-sm text-gray-400'>3 abonnements • Total mensuel : <span className={`font-medium text-white ${!isVisible ? 'blur-sm' : ''}`}>38,97€</span></p>
 			</div>
 
 			{/* Grid des dépenses */}

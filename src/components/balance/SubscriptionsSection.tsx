@@ -9,8 +9,12 @@ type Subscription = {
 };
 
 const SubscriptionsSection: React.FC = () => {
-    const [subscriptions, _setSubscriptions] = useState<Subscription[]>([]);
-    const [totalRecurring, _setTotalRecurring] = useState<number>(0);
+    const [subscriptions, _setSubscriptions] = useState<Subscription[]>([
+        { id: 1, name: 'Figma', monthlyCost: 12.99 },
+        { id: 2, name: 'Spotify', monthlyCost: 9.99 },
+        { id: 3, name: 'Slack', monthlyCost: 15.99 },
+    ]);
+    const [totalRecurring, _setTotalRecurring] = useState<number>(38.97);
 
     // useEffect(() => {
     //     async function fetchSubscriptions() {
