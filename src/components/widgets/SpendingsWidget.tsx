@@ -1,4 +1,4 @@
-import { useGetTransactions } from '@/api';
+import { useGetConnections, useGetTransactions } from '@/api';
 import humanizeNumbers from '@/helpers/humanizeNumbers';
 import { useEffect, useState } from 'react';
 import { Bar, BarChart, CartesianGrid, XAxis } from 'recharts';
@@ -15,7 +15,8 @@ const defaultChartData = DAYS.map((day) => ({
 }));
 
 const SpendingsWidget = () => {
-    const { data: transactions, isLoading } = useGetTransactions();
+    const { data: connections } = useGetConnections();
+    const { data: transactions, isLoading } = useGetTransactions(connections || []);
     const [monthSpendings, setMonthSpendings] = useState('0');
     const [chartData, setChartData] = useState(defaultChartData);
 

@@ -1,7 +1,11 @@
 import { ConnectionType } from '@/types/connectionType';
 import React, { useEffect, useState } from 'react';
 
-const BudgetOverview: React.FC = ({ connections }: { connections: ConnectionType[] }) => {
+interface BudgetOverviewProps {
+    connections: ConnectionType[];
+}
+
+const BudgetOverview: React.FC<BudgetOverviewProps> = ({ connections }) => {
     // Données hardcodées réalistes pour un étudiant français
     const [budget, setBudget] = useState<number>(800); // Budget mensuel étudiant typique
     const [spending, setSpending] = useState<number>(548.64); // Dépenses actuelles
