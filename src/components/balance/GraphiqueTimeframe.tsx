@@ -95,10 +95,10 @@ const GraphiqueTimeframe: React.FC<GraphiqueTimeframeProps> = ({
                 }
             },
             grid: {
-                top: 80,
+                top: 100,
                 left: 50,
                 right: 40,
-                bottom: 40,
+                bottom: 50,
                 containLabel: true
             },
             xAxis: { 
@@ -246,24 +246,50 @@ const GraphiqueTimeframe: React.FC<GraphiqueTimeframeProps> = ({
                 <ChartSkeleton header='' />
             ) : (
                 <div className='w-full p-4 border rounded-lg bg-white/5 border-white/10 backdrop-blur-sm'>
-                    <div className='flex justify-end w-full space-x-4'>
-                        <button onClick={() => onTimeframeChange('day')} className='px-2 py-1 border rounded'>
-                            Jour
-                        </button>
-                        <button onClick={() => onTimeframeChange('week')} className='px-2 py-1 border rounded'>
-                            Semaine
-                        </button>
-                        <button onClick={() => onTimeframeChange('month')} className='px-2 py-1 border rounded'>
-                            Mois
-                        </button>
+                    <div className='flex justify-between items-center w-full mb-4'>
+                        <div>
+                            <p className='text-2xl font-bold text-white'>
+                                {total.toLocaleString('fr-FR', {
+                                    style: 'currency',
+                                    currency: 'EUR',
+                                })}
+                            </p>
+                            <p className='text-sm text-gray-400'>Solde total</p>
+                        </div>
+                        <div className='flex space-x-2'>
+                            <button 
+                                onClick={() => onTimeframeChange('day')} 
+                                className={`px-3 py-1 text-xs rounded-lg transition-colors ${
+                                    timeframe === 'day' 
+                                        ? 'bg-primary-500 text-white' 
+                                        : 'bg-white/10 text-gray-300 hover:bg-white/20'
+                                }`}
+                            >
+                                Jour
+                            </button>
+                            <button 
+                                onClick={() => onTimeframeChange('week')} 
+                                className={`px-3 py-1 text-xs rounded-lg transition-colors ${
+                                    timeframe === 'week' 
+                                        ? 'bg-primary-500 text-white' 
+                                        : 'bg-white/10 text-gray-300 hover:bg-white/20'
+                                }`}
+                            >
+                                Semaine
+                            </button>
+                            <button 
+                                onClick={() => onTimeframeChange('month')} 
+                                className={`px-3 py-1 text-xs rounded-lg transition-colors ${
+                                    timeframe === 'month' 
+                                        ? 'bg-primary-500 text-white' 
+                                        : 'bg-white/10 text-gray-300 hover:bg-white/20'
+                                }`}
+                            >
+                                Mois
+                            </button>
+                        </div>
                     </div>
-                    <p className='-mb-8 text-2xl font-bold'>
-                        {total.toLocaleString('fr-FR', {
-                            style: 'currency',
-                            currency: 'EUR',
-                        })}
-                    </p>
-                    <div ref={chartRef} style={{ width: '100%', height: '300px' }} />
+                    <div ref={chartRef} style={{ width: '100%', height: '350px' }} />
                 </div>
             )}
         </>

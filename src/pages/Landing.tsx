@@ -45,13 +45,14 @@ const Landing = () => {
 
             if (friends.length === 0) {
                 setFriendsLoading(true);
-                // Données d'amis fictifs pour la démo
-                const demoFriends: FriendsType[] = [
+                // Données d'amis fictifs pour la démo (avec statut en ligne/hors ligne)
+                const demoFriends: (FriendsType & { isOnline: boolean })[] = [
                     {
                         id: "1",
                         username: "Emma Dubois",
                         email: "emma.dubois@student.fr",
                         avatarUrl: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=150&h=150&fit=crop&crop=face",
+                        isOnline: true,
                         friends: [],
                         articles: [],
                         likedArticles: [],
@@ -64,6 +65,7 @@ const Landing = () => {
                         username: "Lucas Martin",
                         email: "lucas.martin@student.fr",
                         avatarUrl: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face",
+                        isOnline: false,
                         friends: [],
                         articles: [],
                         likedArticles: [],
@@ -76,6 +78,46 @@ const Landing = () => {
                         username: "Chloé Leroy",
                         email: "chloe.leroy@student.fr", 
                         avatarUrl: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face",
+                        isOnline: true,
+                        friends: [],
+                        articles: [],
+                        likedArticles: [],
+                        readArticles: [],
+                        transactions: [],
+                        userToChallenge: []
+                    },
+                    {
+                        id: "4",
+                        username: "Antoine Moreau",
+                        email: "antoine.moreau@student.fr",
+                        avatarUrl: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face",
+                        isOnline: true,
+                        friends: [],
+                        articles: [],
+                        likedArticles: [],
+                        readArticles: [],
+                        transactions: [],
+                        userToChallenge: []
+                    },
+                    {
+                        id: "5",
+                        username: "Sophie Bernard",
+                        email: "sophie.bernard@student.fr",
+                        avatarUrl: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&h=150&fit=crop&crop=face",
+                        isOnline: false,
+                        friends: [],
+                        articles: [],
+                        likedArticles: [],
+                        readArticles: [],
+                        transactions: [],
+                        userToChallenge: []
+                    },
+                    {
+                        id: "6",
+                        username: "Thomas Petit",
+                        email: "thomas.petit@student.fr",
+                        avatarUrl: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop&crop=face",
+                        isOnline: true,
                         friends: [],
                         articles: [],
                         likedArticles: [],
@@ -149,8 +191,8 @@ const Landing = () => {
                 <GetPremium onTopUpClick={() => setIsDrawerOpen(true)} />
             </div>
 
-            <div className='w-full px-6'>
-                <div className='flex items-center justify-between mb-4'>
+            <div className='w-full'>
+                <div className='flex items-center justify-between mb-4 px-6'>
                     <h2 className='font-bold text-white'>Mes amis</h2>
                     <Button
                         variant='ghost'
@@ -163,44 +205,51 @@ const Landing = () => {
                 </div>
                 
                 {friendsLoading ? (
-                    <div className='flex justify-center items-center h-[200px] bg-white/5 rounded-xl border border-white/10'>
+                    <div className='flex justify-center items-center h-[200px] bg-white/5 rounded-xl border border-white/10 mx-6'>
                         <div className='animate-spin rounded-full h-8 w-8 border-b-2 border-white'></div>
                     </div>
                 ) : (
-                    <Carousel 
-                        opts={{
-                            align: "start",
-                            loop: true,
-                        }}
-                        className="w-full"
-                    >
-                        <CarouselContent className="-ml-2 md:-ml-4">
-                            {friends.map((friend, index) => (
-                                <CarouselItem key={friend.id} className="pl-2 md:pl-4 basis-1/2 md:basis-1/3">
-                                    <div className="p-1">
-                                        <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-4 hover:bg-white/10 transition-colors cursor-pointer h-[180px] flex flex-col items-center justify-center">
-                                            <div className="relative mb-3">
+                    <div className="px-6">
+                        <Carousel 
+                            opts={{
+                                align: "start",
+                                loop: false,
+                                dragFree: true,
+                            }}
+                            className="w-full"
+                        >
+                            <CarouselContent className="-ml-3">
+                                {friends.map((friend) => (
+                                    <CarouselItem key={friend.id} className="pl-3 basis-1/2">
+                                        <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-4 hover:bg-white/10 transition-colors cursor-pointer h-[200px] flex flex-col items-center justify-center">
+                                            <div className="relative mb-4">
                                                 <img 
                                                     src={friend.avatarUrl} 
                                                     alt={friend.username}
-                                                    className="w-16 h-16 rounded-full object-cover border-2 border-white/20"
+                                                    className="w-20 h-20 rounded-full object-cover border-2 border-white/20"
                                                 />
-                                                <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-green-500 rounded-full border-2 border-white/20"></div>
+                                                <div className={`absolute bottom-0 right-0 w-6 h-6 rounded-full border-2 border-gray-900 ${
+                                                    (friend as any).isOnline ? 'bg-green-500' : 'bg-gray-500'
+                                                }`}></div>
                                             </div>
-                                            <h3 className="font-semibold text-white text-sm text-center mb-1">{friend.username}</h3>
-                                            <p className="text-xs text-gray-400 text-center mb-2">{friend.email}</p>
-                                            <div className="flex items-center gap-1 text-xs text-gray-300">
-                                                <span className="w-2 h-2 bg-primary-400 rounded-full"></span>
-                                                <span>En ligne</span>
+                                            <h3 className="font-semibold text-white text-sm text-center mb-1 px-2">{friend.username}</h3>
+                                            <p className="text-xs text-gray-400 text-center mb-3 px-2">{friend.email.split('@')[0]}</p>
+                                            <div className="flex items-center gap-2 text-xs">
+                                                <span className={`w-2 h-2 rounded-full ${
+                                                    (friend as any).isOnline ? 'bg-green-500' : 'bg-gray-500'
+                                                }`}></span>
+                                                <span className={`${
+                                                    (friend as any).isOnline ? 'text-green-400' : 'text-gray-400'
+                                                }`}>
+                                                    {(friend as any).isOnline ? 'En ligne' : 'Hors ligne'}
+                                                </span>
                                             </div>
                                         </div>
-                                    </div>
-                                </CarouselItem>
-                            ))}
-                        </CarouselContent>
-                        <CarouselPrevious className="left-2 bg-white/10 border-white/20 hover:bg-white/20 text-white" />
-                        <CarouselNext className="right-2 bg-white/10 border-white/20 hover:bg-white/20 text-white" />
-                    </Carousel>
+                                    </CarouselItem>
+                                ))}
+                            </CarouselContent>
+                        </Carousel>
+                    </div>
                 )}
             </div>
 
