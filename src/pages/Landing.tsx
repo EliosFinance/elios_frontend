@@ -5,7 +5,7 @@ import GetPremium from '@/components/GetPremium';
 import Subscription from '@/components/UpgradePlan';
 import UserAnalytics from '@/components/UserAnalytics';
 import CardCarousel from '@/components/carousels/CardCarousel';
-import FriendsCarousel from '@/components/carousels/FriendsCarousel';
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 import LandingHeader from '@/components/landing/Header';
 import MonthlySubscriptions from '@/components/landing/MonthlySubscriptions';
 import WeekChart from '@/components/landing/WeekChart';
@@ -149,27 +149,59 @@ const Landing = () => {
                 <GetPremium onTopUpClick={() => setIsDrawerOpen(true)} />
             </div>
 
-            <div className='w-full'>
-                <div className='flex items-center justify-between mb-4 px-6'>
-                    <h2 className='font-bold'>Mes amis</h2>
+            <div className='w-full px-6'>
+                <div className='flex items-center justify-between mb-4'>
+                    <h2 className='font-bold text-white'>Mes amis</h2>
                     <Button
                         variant='ghost'
                         size='icon'
                         onClick={() => navigate(APP_ROUTES_ENUM.FRIENDS)}
-                        className='rounded-xl hover:bg-gray-100'
+                        className='rounded-xl hover:bg-white/10'
                     >
-                        <ArrowRightIcon className='w-5 h-5' />
+                        <ArrowRightIcon className='w-5 h-5 text-white' />
                     </Button>
                 </div>
-                <BlurItem
-                    locked={false}
-                    isLoading={false}
-                    onClick={() => navigate(APP_ROUTES_ENUM.FRIENDS)}
-                    variant='addFriends'
-                    className='w-full h-[250px]'
-                >
-                    <FriendsCarousel slides={friends} isLoading={friendsLoading && !friends.length} />
-                </BlurItem>
+                
+                {friendsLoading ? (
+                    <div className='flex justify-center items-center h-[200px] bg-white/5 rounded-xl border border-white/10'>
+                        <div className='animate-spin rounded-full h-8 w-8 border-b-2 border-white'></div>
+                    </div>
+                ) : (
+                    <Carousel 
+                        opts={{
+                            align: "start",
+                            loop: true,
+                        }}
+                        className="w-full"
+                    >
+                        <CarouselContent className="-ml-2 md:-ml-4">
+                            {friends.map((friend, index) => (
+                                <CarouselItem key={friend.id} className="pl-2 md:pl-4 basis-1/2 md:basis-1/3">
+                                    <div className="p-1">
+                                        <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-4 hover:bg-white/10 transition-colors cursor-pointer h-[180px] flex flex-col items-center justify-center">
+                                            <div className="relative mb-3">
+                                                <img 
+                                                    src={friend.avatarUrl} 
+                                                    alt={friend.username}
+                                                    className="w-16 h-16 rounded-full object-cover border-2 border-white/20"
+                                                />
+                                                <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-green-500 rounded-full border-2 border-white/20"></div>
+                                            </div>
+                                            <h3 className="font-semibold text-white text-sm text-center mb-1">{friend.username}</h3>
+                                            <p className="text-xs text-gray-400 text-center mb-2">{friend.email}</p>
+                                            <div className="flex items-center gap-1 text-xs text-gray-300">
+                                                <span className="w-2 h-2 bg-primary-400 rounded-full"></span>
+                                                <span>En ligne</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </CarouselItem>
+                            ))}
+                        </CarouselContent>
+                        <CarouselPrevious className="left-2 bg-white/10 border-white/20 hover:bg-white/20 text-white" />
+                        <CarouselNext className="right-2 bg-white/10 border-white/20 hover:bg-white/20 text-white" />
+                    </Carousel>
+                )}
             </div>
 
             <div className='w-full'>
