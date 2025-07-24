@@ -148,7 +148,6 @@ const DrawerStep1: React.FC<DrawerStep1Props> = ({ onNext, setDataForStep2 }) =>
                 </div>
             </div>
             <div className='flex flex-col items-start justify-start mt-2 text-xs text-center text-gray-500 '>
-                {/* TODO: FORGOT PASSWORD */}
                 <span
                     className='text-blue-500 cursor-pointer'
                     onClick={() => {
@@ -157,16 +156,14 @@ const DrawerStep1: React.FC<DrawerStep1Props> = ({ onNext, setDataForStep2 }) =>
                 >
                     Vous n'avez pas encore de compte ?
                 </span>
-                {error && errorCount > 2 && (
-                    <span
-                        className='mt-2 text-blue-500 cursor-pointer'
-                        onClick={() => {
-                            alert('TODO');
-                        }}
-                    >
-                        Mot de passe oublié ?
-                    </span>
-                )}
+                <span
+                    className='mt-2 text-blue-500 cursor-pointer'
+                    onClick={() => {
+                        navigate(APP_ROUTES_ENUM.RESET_PASSWORD);
+                    }}
+                >
+                    Mot de passe oublié ?
+                </span>
             </div>
             <div className='mt-6'>
                 <Button

@@ -20,6 +20,7 @@ import ConfirmPassword from './pages/Auth/Register/views/4_ConfirmPassword.tsx';
 import PINCodeScreen from './pages/Auth/Register/views/5_CreatePINCodeScreen.tsx';
 import ConfirmPIN from './pages/Auth/Register/views/6_ConfirmPin.tsx';
 import TermsAndConditions from './pages/Auth/Register/views/7_TermsAndConditions.tsx';
+import ResetPassword from './pages/Auth/ResetPassword';
 import CentralExpensesPage from './pages/Balance/CentralExpensesPage.tsx';
 import ConnectBankAccount from './pages/Bank/ConnectBankAccount.tsx';
 import DisplaySingleConnector from './pages/Bank/DisplaySingleConnector.tsx';
@@ -95,6 +96,7 @@ function App() {
                             <Route path={APP_ROUTES_ENUM.LOGIN} element={<Authenticate />} />
                             <Route path={APP_ROUTES_ENUM.REGISTER} element={<Authenticate />} />
                             <Route path={'*'} element={<FirstTimerView />} />
+                            <Route path={APP_ROUTES_ENUM.RESET_PASSWORD} element={<ResetPassword />} />
                             {/* <Route
                                 path={`${APP_ROUTES_ENUM.TEST}`}
                                 element={<PartnerChallenge challenge={challengeData} />}

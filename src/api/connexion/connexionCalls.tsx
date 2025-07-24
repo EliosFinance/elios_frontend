@@ -234,3 +234,33 @@ export const markPinConfigured = async () => {
         throw error;
     }
 };
+
+export const requestResetPassword = async (email: string) => {
+    try {
+        const response = await instance_back.post('/auth/request-reset-password', { email });
+        return response.data;
+    } catch (error) {
+        console.error('[requestResetPassword] Erreur:', error);
+        throw error;
+    }
+};
+
+export const resetPassword = async (token: string, newPassword: string) => {
+    try {
+        const response = await instance_back.post('/auth/reset-password', { token, newPassword });
+        return response.data;
+    } catch (error) {
+        console.error('[resetPassword] Erreur:', error);
+        throw error;
+    }
+};
+
+export const validateResetToken = async (token: string) => {
+    try {
+        const response = await instance_back.post('/auth/validate-reset-token', { token });
+        return response.data;
+    } catch (error) {
+        console.error('[validateResetToken] Erreur:', error);
+        throw error;
+    }
+};
