@@ -51,7 +51,7 @@ const Landing = () => {
                         id: "1",
                         username: "Emma",
                         email: "emma.dubois@student.fr",
-                        avatarUrl: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=150&h=150&fit=crop&crop=face",
+                        avatarUrl: "https://images.unsplash.com/photo-1535295972055-1c762f4483e5?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
                         isOnline: true,
                         friends: [],
                         articles: [],
