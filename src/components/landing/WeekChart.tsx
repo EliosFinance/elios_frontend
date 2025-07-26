@@ -25,16 +25,6 @@ const WeekChart = ({ className }: { className?: string }) => {
         const maxExpense = Math.max(...weeklyExpenses.map(Math.abs));
 
         const option = {
-            title: {
-                text: 'Dépenses de la semaine',
-                textStyle: {
-                    color: '#FFFFFF',
-                    fontSize: 16,
-                    fontWeight: 'bold'
-                },
-                top: 10,
-                left: 20
-            },
             legend: {
                 data: ['Dépenses quotidiennes'],
                 top: 40,
