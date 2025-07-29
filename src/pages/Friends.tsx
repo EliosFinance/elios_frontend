@@ -1,112 +1,119 @@
 import PageLayout from '@/layout/PageLayout';
-import { friendsData } from '@/temp/FriendsData';
-import { ArrowLeftIcon, ChevronDownIcon, ChevronUpIcon, EyeIcon } from '@heroicons/react/24/outline';
-import { motion } from 'framer-motion';
+import { useGetFriends } from '@/api/friends'; 
+import { userStore } from '@/store/UserStore';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import MyFriendRequestsModal from './Settings/Social/MyFriendRequestsModal'; 
+import { useQueryClient } from 'react-query';
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { UsersIcon, EyeIcon } from 'lucide-react';
 
 const Friends = () => {
-    const [searchTerm, setSearchTerm] = useState('');
-    const [expandedFriend, setExpandedFriend] = useState<string | null>(null);
-    // const [isModalOpen, setIsModalOpen] = useState(false);
-    const navigate = useNavigate();
+  const [searchTerm, setSearchTerm] = useState('');
+  const [showRequests, setShowRequests] = useState(false);
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
+  const userId = Number(userStore.getState().user?.id);
+  const { data: friends = [], isLoading } = useGetFriends(userId);
 
-    const filteredFriends = friendsData.filter((friend) =>
-        friend.name.toLowerCase().includes(searchTerm.toLowerCase()),
-    );
+  const sortedFriends = [...friends].sort(
+    (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+  );
 
-    const toggleExpand = (name: string) => {
-        setExpandedFriend(expandedFriend === name ? null : name);
-    };
+  const filteredFriends = sortedFriends.filter((friend) =>
+    friend.username.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
-    // const toggleModal = () => {
-    //     setIsModalOpen(!isModalOpen);
-    // };
+  return (
+    <PageLayout title="Liste de mes amis" onBack={() => navigate('/home')}>
+      <div className="flex items-start gap-3 mb-6">
+        <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-br from-primary-500 to-primary-600 shadow-lg flex-shrink-0">
+          <UsersIcon className="w-6 h-6 text-white" />
+        </div>
+        <div>
+          <h2 className="text-xl font-bold text-white mb-1">Tes amis</h2>
+          <p className="text-sm leading-relaxed text-gray-400">
+            Gère tes relations, vois leurs scores, ou explore leurs profils.
+          </p>
+          
+        </div>
+        <div className="flex  gap-4 mt-6 ml-96">
+         <Button size="sm" variant="default" className="w-full hover:bg-warning-500 active:bg-warning-500 transition-colors text-white ml-96"
 
-    return (
-        <PageLayout title='Suivez les statistiques de vos amis' onBack={() => navigate(-1)}>
-            <div className='absolute z-10 flex items-center top-4 right-4'>
-                <EyeIcon className='w-8 h-8 cursor-pointer' />
-            </div>
+            onClick={() => navigate('/settings/my-friends')}
+          >
+            + Ajouter un ami
+          </Button>
+         <Button size="sm" variant="default" className="w-full hover:bg-warning-500 active:bg-warning-500 transition-colors text-white"
+            onClick={() => setShowRequests(true)}
+          >
+            Voir les demandes
+          </Button>
+        </div>
+      </div>
 
-            <section className='w-full px-6 mt-6'>
-                <input
-                    type='text'
-                    placeholder='Recherchez vos amis'
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    className='w-full p-2 mb-4 border rounded'
-                />
+      <main className="space-y-6 pb-16">
+        <Card>
+          <CardHeader>
+            <CardTitle>Rechercher un ami</CardTitle>
+            <input
+              type="text"
+              placeholder="Recherchez par pseudo"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="mt-4 w-full p-2 rounded border bg-transparent text-sm text-white"
+            />
 
-                {filteredFriends.map((friend) => (
-                    <div key={friend.name} className='mb-4'>
-                        <div
-                            className='flex items-center justify-between p-4 bg-white rounded shadow cursor-pointer'
-                            onClick={() => toggleExpand(friend.name)}
-                        >
-                            <div className='flex items-center'>
-                                <div className='p-4 text-black bg-gray-300 rounded'>
-                                    <p>Score</p>
-                                    <p className='text-2xl font-bold'>{friend.score}</p>
-                                </div>
-                                <div className='ml-4'>
-                                    <p>{friend.name}</p>
-                                </div>
-                            </div>
-                            {expandedFriend === friend.name ? (
-                                <ChevronUpIcon className='w-6 h-6' />
-                            ) : (
-                                <ChevronDownIcon className='w-6 h-6' />
-                            )}
-                        </div>
-
-                        {expandedFriend === friend.name && (
-                            <motion.div
-                                className='p-4 mt-2 bg-gray-100 rounded'
-                                initial={{ opacity: 0, height: 0 }}
-                                animate={{ opacity: 1, height: 'auto' }}
-                                transition={{ duration: 0.3 }}
-                            >
-                                <div className='flex mb-4 space-x-2'>
-                                    {friend.products.map((product, index) => (
-                                        <div key={index} className='p-2 text-black bg-gray-300 rounded'>
-                                            <p>Produit</p>
-                                            <p>{product}%</p>
-                                        </div>
-                                    ))}
-                                </div>
-                                <h3 className='mb-2 font-bold'>Travail en retard</h3>
-                                <div className='flex items-center mb-2'>
-                                    <div className='p-2 text-black bg-red-300 rounded-full'>
-                                        <p>{friend.overdueWork.percentage}%</p>
-                                    </div>
-                                    <div className='ml-2'>
-                                        <p>{friend.overdueWork.count} Travaux en retard</p>
-                                        <p>{friend.overdueWork.description}</p>
-                                    </div>
-                                </div>
-                                <div className='flex items-center'>
-                                    <div className='p-2 text-black bg-yellow-300 rounded-full'>
-                                        <p>{friend.finishedLate.percentage}%</p>
-                                    </div>
-                                    <div className='ml-2'>
-                                        <p>{friend.finishedLate.count} Travaux finis en retard</p>
-                                        <p>{friend.finishedLate.description}</p>
-                                    </div>
-                                </div>
-                                <button
-                                    onClick={() => navigate(`/friends/${friend.id}`)}
-                                    className='px-4 py-2 mt-4 text-white bg-blue-500 rounded'
-                                >
-                                    Plus d'infos
-                                </button>
-                            </motion.div>
-                        )}
+            {isLoading ? (
+              <CardDescription className="mt-4">Chargement…</CardDescription>
+            ) : filteredFriends.length === 0 ? (
+              <CardDescription className="mt-4 text-white">
+                Aucun ami trouvé pour « {searchTerm} »
+              </CardDescription>
+            ) : (
+              filteredFriends.map((friend) => (
+                <div key={friend.id} className="mt-4">
+                  <Card className="flex items-center justify-between p-3 shadow-sm">
+                    <div>
+                      <p className="font-medium text-white">{friend.username}</p>
+                      <p className="text-sm text-gray-500">
+                        Score : <span className="text-green-600 font-bold">🏆 {friend.score ?? '?'}</span>
+                      </p>
                     </div>
-                ))}
-            </section>
-        </PageLayout>
-    );
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      onClick={() => navigate(`/friends/${friend.id}`)}
+                    >
+                      <EyeIcon className="w-4 h-4 mr-1" />
+                      Voir
+                    </Button>
+                  </Card>
+                </div>
+              ))
+            )}
+          </CardHeader>
+        </Card>
+
+     
+      </main>
+
+      {showRequests && (
+        <MyFriendRequestsModal
+          onClose={() => setShowRequests(false)}
+          onFriendAccepted={() =>
+            queryClient.invalidateQueries({ queryKey: ['friends', userId] as const })
+          }
+        />
+      )}
+    </PageLayout>
+  );
 };
 
 export default Friends;

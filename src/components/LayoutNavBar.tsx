@@ -48,7 +48,7 @@ const LayoutNavBar = () => {
 
     useEffect(() => {
         const currentRoute = Object.values(APP_ROUTES_ENUM).find((route) => window.location.pathname.includes(route));
-        setCurrentRoute(currentRoute.toLowerCase() || '');
+        setCurrentRoute(currentRoute?.toLowerCase() || '');
     }, []);
 
     return (

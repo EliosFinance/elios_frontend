@@ -23,6 +23,7 @@ export type FriendsType = {
     readArticles: ArticleType[];
     transactions: TransactionType[];
     userToChallenge: UserToChallengeType[];
+    profilePicture: string;
 };
 
 export type UserToChallengeType = {

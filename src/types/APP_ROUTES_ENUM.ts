@@ -55,6 +55,9 @@ const APP_ROUTES_ENUM = {
     SETTINGS_PRIVACY_POLICY: '/settings/privacy-policy',
     SETTINGS_CHANGE_LOG: '/settings/change-log',
     SETTINGS_TERMS_OF_USE: '/settings/terms-of-use',
+    SOCIAL_MY_FRIENDS: '/settings/my-friends',
+    SOCIAL_MY_FRIENDS_REQUEST:'/settings/my-friends-request'
+
 };
 
 export default APP_ROUTES_ENUM;

@@ -1462,6 +1462,18 @@
   resolved "https://registry.npmjs.org/@stripe/stripe-js/-/stripe-js-7.4.0.tgz#0076116ca6f994f40aa439ccf2e891a251ff2814"
   integrity sha512-lQHQPfXPTBeh0XFjq6PqSBAyR7umwcJbvJhXV77uGCUDD6ymXJU/f2164ydLMLCCceNuPlbV9b+1smx98efwWQ==
 
+"@tanstack/query-core@5.83.0":
+  version "5.83.0"
+  resolved "https://registry.yarnpkg.com/@tanstack/query-core/-/query-core-5.83.0.tgz#ac3bf337007bb7ea97b1fd2e7c3ceb4240f36dbc"
+  integrity sha512-0M8dA+amXUkyz5cVUm/B+zSk3xkQAcuXuz5/Q/LveT4ots2rBpPTZOzd7yJa2Utsf8D2Upl5KyjhHRY+9lB/XA==
+
+"@tanstack/react-query@^5.81.5":
+  version "5.83.0"
+  resolved "https://registry.yarnpkg.com/@tanstack/react-query/-/react-query-5.83.0.tgz#e72cacdb03d2e6a7e4f82f5b2fc228118941d499"
+  integrity sha512-/XGYhZ3foc5H0VM2jLSD/NyBRIOK4q9kfeml4+0x2DlL6xVuAcVEW+hTlTapAmejObg0i3eNqhkr2dT+eciwoQ==
+  dependencies:
+    "@tanstack/query-core" "5.83.0"
+
 "@tanstack/react-table@^8.20.1":
   version "8.21.3"
   resolved "https://registry.npmjs.org/@tanstack/react-table/-/react-table-8.21.3.tgz#2c38c747a5731c1a07174fda764b9c2b1fb5e91b"
@@ -2428,6 +2440,7 @@ elementtree@^0.1.7:
     "@react-oauth/google" "^0.12.1"
     "@reduxjs/toolkit" "^2.2.7"
     "@stripe/stripe-js" "^7.1.0"
+    "@tanstack/react-query" "^5.81.5"
     "@tanstack/react-table" "^8.20.1"
     axios "^1.7.2"
     caniuse-lite "^1.0.30001727"
@@ -2438,7 +2451,7 @@ elementtree@^0.1.7:
     date-fns "^3.6.0"
     echarts "^5.5.1"
     echarts-for-react "^3.0.2"
-    elios_frontend "file:../../../../../AppData/Local/Yarn/Cache/v6/npm-elios-frontend-0.0.0-59e5e088-3534-4864-86ce-5e7862132d1f-1751969413899/node_modules/elios_frontend"
+    elios_frontend "file:../../../Library/Caches/Yarn/v6/npm-elios-frontend-0.0.0-c04acbaa-0595-41ec-bab4-7fc13e35aa0b-1753784975116/node_modules/elios_frontend"
     embla-carousel "^8.3.0"
     embla-carousel-react "^8.3.0"
     framer-motion "^11.11.11"

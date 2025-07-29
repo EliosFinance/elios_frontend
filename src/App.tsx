@@ -48,6 +48,7 @@ import MyProfile from './pages/Settings/MyElios/MyProfile.tsx';
 import MyReferrals from './pages/Settings/MyElios/MyReferrals.tsx';
 import MyRewards from './pages/Settings/MyElios/MyRewards.tsx';
 import MySubscription from './pages/Settings/MyElios/MySubscription.tsx';
+import MyFriends from './pages/Settings/Social/MyFriends.tsx';
 import MyAccessCodes from './pages/Settings/Security/MyAccessCodes.tsx';
 import MyDeviceManagement from './pages/Settings/Security/MyDeviceManagement.tsx';
 import TwoFactorAuthentication from './pages/Settings/Security/TwoFactorAuthentication.tsx';
@@ -55,14 +56,17 @@ import SettingsHome from './pages/Settings/SettingsHome.tsx';
 import FollowOurSocialNetworks from './pages/Settings/Social/FollowOurSocialNetworks.tsx';
 import SingleChallenge from './pages/SingleChallenge.tsx';
 import SingleFriend from './pages/SingleFriends.tsx';
+import MyFriendRequestsModal from './pages/Settings/Social/MyFriendRequestsModal.tsx';
 import Subscription from './pages/Subscription/Subscription.tsx';
 import APP_ROUTES_ENUM from './types/APP_ROUTES_ENUM.ts';
+import { useNavigate } from 'react-router-dom';
 
 function App() {
     const { os } = useDeviceDetection();
     usePinVerification();
     useKeepAlive();
     let googleId;
+    const navigate = useNavigate();
 
     switch (os) {
         case OsEnum.WEB:
@@ -169,6 +173,7 @@ function App() {
                             }
                         />
 
+
                         {/* Routes protégées - authentification ET inscription complète requises */}
                         <Route
                             path='/'
@@ -183,6 +188,7 @@ function App() {
                             <Route path={APP_ROUTES_ENUM.BALANCE} element={<CentralExpensesPage />} />
                             <Route path={APP_ROUTES_ENUM.PARTNERS} element={<Partners />} />
                             <Route path={APP_ROUTES_ENUM.SUBSCRIPTION} element={<Subscription />} />
+
 
                             {/* Learn Routes */}
                             <Route path={APP_ROUTES_ENUM.LEARN} element={<LearnHomePage />} />
@@ -231,6 +237,9 @@ function App() {
                             <Route path={APP_ROUTES_ENUM.SETTINGS_PRIVACY_POLICY} element={<PrivacyPolicy />} />
                             <Route path={APP_ROUTES_ENUM.SETTINGS_CHANGE_LOG} element={<ChangeLog />} />
                             <Route path={APP_ROUTES_ENUM.SETTINGS_TERMS_OF_USE} element={<TermsOfUse />} />
+                            <Route path="/settings/my-friends" element={<MyFriends />}/>
+                            <Route path={APP_ROUTES_ENUM.SOCIAL_MY_FRIENDS_REQUEST}element={<MyFriendRequestsModal onClose={() => navigate(-1)} />}/>
+
                         </Route>
                     </Routes>
                 </div>
