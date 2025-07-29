@@ -59,12 +59,14 @@ import SingleFriend from './pages/SingleFriends.tsx';
 import MyFriendRequestsModal from './pages/Settings/Social/MyFriendRequestsModal.tsx';
 import Subscription from './pages/Subscription/Subscription.tsx';
 import APP_ROUTES_ENUM from './types/APP_ROUTES_ENUM.ts';
+import { useNavigate } from 'react-router-dom';
 
 function App() {
     const { os } = useDeviceDetection();
     usePinVerification();
     useKeepAlive();
     let googleId;
+    const navigate = useNavigate();
 
     switch (os) {
         case OsEnum.WEB:
@@ -235,8 +237,8 @@ function App() {
                             <Route path={APP_ROUTES_ENUM.SETTINGS_PRIVACY_POLICY} element={<PrivacyPolicy />} />
                             <Route path={APP_ROUTES_ENUM.SETTINGS_CHANGE_LOG} element={<ChangeLog />} />
                             <Route path={APP_ROUTES_ENUM.SETTINGS_TERMS_OF_USE} element={<TermsOfUse />} />
-                            <Route path={APP_ROUTES_ENUM.SOCIAL_MY_FRIENDS} element={<MyFriends />} />
-                            <Route path={APP_ROUTES_ENUM.SOCIAL_MY_FRIENDS_REQUEST} element={<MyFriendRequestsModal />} />
+                            <Route path="/settings/my-friends" element={<MyFriends />}/>
+                            <Route path={APP_ROUTES_ENUM.SOCIAL_MY_FRIENDS_REQUEST}element={<MyFriendRequestsModal onClose={() => navigate(-1)} />}/>
 
                         </Route>
                     </Routes>

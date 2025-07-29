@@ -7,6 +7,11 @@ import { userStore } from '@/store/UserStore';
 export type Friend = {
     id: number;
     username: string;
+    email?: string;
+    profilePicture?: string;
+    createdAt?: string;
+    referralCode?: string;
+    score?:number; 
     
 };
 
@@ -65,6 +70,7 @@ export const getUserById = async (id: number) => {
     const res = await instance_back.get(`/users/${id}`, { headers });
     return res.data;
 };
+
 export const useGetUserById = (id?: number) => {
   return useQuery(['user', id], async () => {
     const headers = userStore.getState().getAuth();
@@ -80,15 +86,20 @@ export const useGetUserById = (id?: number) => {
 
 
 export const useFriendSuggestions = (currentUserId: number) => {
-    return useQuery({
-        queryKey: ['friend-suggestions', currentUserId],
-        queryFn: async () => {
-            const res = await fetch(`/api/friends/suggestions?currentUserId=${currentUserId}`);
-            if (!res.ok) throw new Error('Erreur lors du chargement des suggestions');
-            return res.json(); 
-        },
-    });
+  return useQuery({
+    queryKey: ['friend-suggestions', currentUserId],
+    queryFn: async () => {
+      const headers = userStore.getState().getAuth();
+      const res = await instance_back.get('/friends/suggestions', {
+        params: { currentUserId },
+        headers,
+      });
+      return res.data;
+    },
+  });
 };
+
+
 export const getReceivedFriendRequests = async (userId: number) => {
   const headers = userStore.getState().getAuth();
   const res = await instance_back.get(`/friends/requests/received`, {
