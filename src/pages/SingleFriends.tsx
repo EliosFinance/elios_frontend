@@ -1,43 +1,73 @@
 import PageLayout from '@/layout/PageLayout';
-import { useGetUserById } from '@/api/friends/friendsCalls'; 
-import { ArrowLeftIcon } from '@heroicons/react/24/outline';
+import { useGetUserById } from '@/api/friends/friendsCalls';
 import { useNavigate, useParams } from 'react-router-dom';
 
-const SingleFriend = () => {
+import { Card, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+
+export default function SingleFriend() {
     const { id } = useParams<{ id: string }>();
     const navigate = useNavigate();
-
     const friendId = Number(id);
-    const { data: friend, isLoading, isError } = useGetUserById(friendId); 
 
-    if (isLoading) return <p className="text-center">Chargement...</p>;
-    if (isError || !friend) return <p className="text-center">Ami non trouvé</p>;
+    const { data: friend, isLoading, isError } = useGetUserById(friendId);
+
+    if (isLoading) return <p className="text-center text-gray-400">Chargement...</p>;
+    if (isError || !friend) return <p className="text-center text-red-500">Ami non trouvé</p>;
 
     return (
-        <div className='flex flex-col items-center w-full'>
-            <header className='relative flex items-center justify-between w-full h-20 px-6 bg-gray-200'>
-                <div className='absolute z-10 flex items-center top-4 left-4'>
-                    <ArrowLeftIcon className='w-8 h-8 cursor-pointer' onClick={() => navigate(-1)} />
-                </div>
-                <h2 className='z-10 text-xl font-bold'>{friend.username}</h2>
-            </header>
-
-            <section className='w-full px-6 mt-6'>
-                <div className='flex items-center p-4 mb-4 bg-white rounded shadow'>
-                    <div className='w-16 h-16 mr-4 bg-gray-300 rounded-full'></div>
-                    <div>
-                        <p className='font-bold text-black'>{friend.username}</p>
-                        <p className='font-bold text-black'>{friend.email}</p>
-                    </div>
-                </div>
-
-                <div className='p-4 mb-4 bg-white rounded shadow'>
-                    <h3 className='mb-2 font-bold'>Statistiques à venir…</h3>
-                    <p>Tu pourras afficher ici les scores des challenges par exemple.</p>
-                </div>
-            </section>
+        <PageLayout title="Profil de l’ami" onBack={() => navigate('/friends')}>
+  <div className="flex flex-col space-y-6 pb-10">
+  
+    <Card>
+      <CardHeader className="flex items-center space-x-4">
+        <div className="w-16 h-16 bg-gray-300 rounded-full" />
+        <div>
+          <CardTitle>{friend.username}</CardTitle>
+          <CardDescription>{friend.email}</CardDescription>
         </div>
-    );
-};
+      </CardHeader>
+    </Card>
 
-export default SingleFriend;
+
+ 
+    <Card>
+      <CardHeader>
+        <CardTitle>Quizz réalisés</CardTitle>
+        {friend.quizzes?.length === 0 ? (
+          <CardDescription className="text-sm text-gray-500">
+            Aucun quizz encore réalisé.
+          </CardDescription>
+        ) : (
+          <ul className="mt-2 ml-4 list-disc text-sm text-gray-800">
+            {friend.quizzes.map((q: any) => (
+              <li key={q.id}>
+                {q.title} — {q.score} pts
+              </li>
+            ))}
+          </ul>
+        )}
+      </CardHeader>
+    </Card>
+
+   
+    <Card>
+      <CardHeader>
+        <CardTitle>Challenges terminés</CardTitle>
+        {friend.challengesCompleted?.length === 0 ? (
+          <CardDescription className="text-sm text-gray-500">
+            Aucun challenge terminé.
+          </CardDescription>
+        ) : (
+          <ul className="mt-2 ml-4 list-disc text-sm text-gray-800">
+            {friend.challengesCompleted.map((c: any) => (
+              <li key={c.id}>{c.title}</li>
+            ))}
+          </ul>
+        )}
+      </CardHeader>
+    </Card>
+  </div>
+</PageLayout>
+
+    );
+}

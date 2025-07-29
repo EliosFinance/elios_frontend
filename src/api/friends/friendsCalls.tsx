@@ -65,12 +65,19 @@ export const getUserById = async (id: number) => {
     const res = await instance_back.get(`/users/${id}`, { headers });
     return res.data;
 };
+export const useGetUserById = (id?: number) => {
+  return useQuery(['user', id], async () => {
+    const headers = userStore.getState().getAuth();
+    const res = await instance_back.get(`/friends/${id}`, { headers });
 
-export const useGetUserById = (id: number) => {
-    return useQuery(['user', id], () => getUserById(id), {
-        enabled: !!id,
-    });
+    return res.data[0]; 
+  }, {
+    enabled: !!id,
+    staleTime: 1000 * 60,
+  });
 };
+
+
 
 export const useFriendSuggestions = (currentUserId: number) => {
     return useQuery({

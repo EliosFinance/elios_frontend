@@ -1,12 +1,29 @@
-import { getSentFriendRequests, getReceivedFriendRequests , acceptFriendRequest , rejectFriendRequest} from '@/api/friends';
+import {
+  getSentFriendRequests,
+  getReceivedFriendRequests,
+  acceptFriendRequest,
+  rejectFriendRequest,
+} from '@/api/friends';
 import { useEffect, useState } from 'react';
 import { userStore } from '@/store/UserStore';
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { X } from 'lucide-react';
 
-
-
-const MyFriendRequestsModal = ({ onClose }: { onClose: () => void }) => {
-  const [sent, setSent] = useState([]);
-  const [received, setReceived] = useState([]);
+const MyFriendRequestsModal = ({
+  onClose,
+  onFriendAccepted,
+}: {
+  onClose: () => void;
+  onFriendAccepted?: () => void;
+}) => {
+  const [sent, setSent] = useState<any[]>([]);
+  const [received, setReceived] = useState<any[]>([]);
   const userId = Number(userStore.getState().user?.id);
 
   useEffect(() => {
@@ -15,84 +32,86 @@ const MyFriendRequestsModal = ({ onClose }: { onClose: () => void }) => {
   }, [userId]);
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
-      <div className="bg-white rounded-2xl p-6 w-[95%] max-w-md shadow-xl relative">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-4">
+    
+      <div className="relative w-full max-w-md p-6 rounded-2xl backdrop-blur-xl bg-gradient-to-br from-neutral-800/80 to-neutral-900/90 ring-1 ring-white/10 space-y-6">
+      
         <button
           onClick={onClose}
-          className="absolute top-3 right-4 text-gray-500 hover:text-gray-700 text-xl font-bold"
+          className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors"
         >
-          ✖
+          <X className="w-6 h-6" />
         </button>
 
-        <h2 className="text-xl font-semibold text-black mb-6 text-center">
+        <h2 className="text-xl font-bold text-center text-white">
           Demandes d’amis
         </h2>
 
-        {/* Demandées */}
-        <section className="mb-6">
-          <h3 className="text-sm font-semibold text-gray-700 mb-2">📤 Demandes envoyées</h3>
-          {sent.length === 0 ? (
-            <p className="text-sm text-gray-400">Aucune demande envoyée</p>
-          ) : (
-            <ul className="space-y-2">
-              {sent.map((user) => (
-                <li key={user.id} className="p-3 bg-gray-100 rounded-lg text-black text-sm">
-                  {user.username}
-                </li>
-              ))}
-            </ul>
-          )}
-        </section>
+       
+        <Card className="bg-white/5 backdrop-blur-sm border border-white/10">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-sm text-white">
+              📤 Demandes envoyées
+            </CardTitle>
 
-     
-        <section>
-          <h3 className="text-sm font-semibold text-gray-700 mb-2">📥 Demandes reçues</h3>
-         {received.length === 0 ? (
-  <p className="text-sm text-gray-400">Aucune demande reçue</p>
-) : (
-  <ul className="space-y-3">
-    {received.map((user) => (
-      <li
-        key={user.id}
-        className="flex justify-between items-center p-3 bg-gray-100 rounded-lg text-black text-sm"
-      >
-        <span>{user.username}</span>
-        <div className="flex gap-2">
-          <button
-            onClick={async () => {
-              try {
-                await acceptFriendRequest(userId, user.id); // 
-                setReceived((prev) => prev.filter((u) => u.id !== user.id)); 
-              } catch (err) {
-                console.error('Erreur acceptation', err);
-              }
-            }}
-            className="px-2 py-1 text-xs text-white bg-green-600 rounded hover:bg-green-700"
-          >
-            Accepter
-          </button>
+            {sent.length === 0 ? (
+              <CardDescription className="mt-2 text-gray-400">
+                Aucune demande envoyée
+              </CardDescription>
+            ) : (
+              <ul className="mt-3 space-y-2">
+                {sent.map((user) => (
+                  <li
+                    key={user.id}
+                    className="px-3 py-2 rounded text-sm text-white bg-white/10"
+                  >
+                    {user.username}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </CardHeader>
+        </Card>
 
-          <button
-            onClick={async () => {
-              try {
-                await rejectFriendRequest(userId, user.id); 
-                setReceived((prev) => prev.filter((u) => u.id !== user.id)); 
-              } catch (err) {
-                console.error('Erreur refus', err);
-              }
-            }}
-            className="px-2 py-1 text-xs text-white bg-red-500 rounded hover:bg-red-600"
-          >
-            Refuser
-          </button>
-        </div>
-      </li>
-    ))}
-  </ul>
-)}
+      
+        <Card className="bg-white/5 backdrop-blur-sm border border-white/10">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-sm text-white">
+              📥 Demandes reçues
+            </CardTitle>
 
-          
-        </section>
+            {received.length === 0 ? (
+              <CardDescription className="mt-2 text-gray-400">
+                Aucune demande reçue
+              </CardDescription>
+            ) : (
+              <ul className="mt-3 space-y-3">
+                {received.map((user) => (
+                  <li
+                    key={user.id}
+                    className="flex items-center justify-between px-3 py-2 rounded text-sm bg-white/10"
+                  >
+                    <span className="text-white">{user.username}</span>
+
+                    <div className="flex gap-2">
+                     <Button size="sm" variant="default" className="w-full hover:bg-warning-500 active:bg-warning-500 transition-colors text-white"
+                     onClick={async () => { await acceptFriendRequest(userId, user.id);setReceived((prev) => prev.filter((u) => u.id !== user.id));
+                    onFriendAccepted?.();
+                    }}> Accepter
+                   </Button>
+
+                    <Button size="sm" variant="default" className="w-full hover:bg-warning-500 active:bg-warning-500 transition-colors text-white"
+                    onClick={async () => {try {await rejectFriendRequest(userId, user.id);
+                    setReceived((prev) => prev.filter((u) => u.id !== user.id));} catch (err) {console.error('Erreur refus', err); }}}
+                      > Refuser
+                      </Button>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </CardHeader>
+        </Card>
       </div>
     </div>
   );
