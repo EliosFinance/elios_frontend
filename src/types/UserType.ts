@@ -14,7 +14,7 @@ export type UserCompletionStatus = {
 
 export type FriendsType = {
     id: string;
-    profilePicture: string;
+    avatarUrl: string;
     username: string;
     email: string;
     friends: FriendsType[];

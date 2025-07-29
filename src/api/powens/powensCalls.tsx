@@ -18,8 +18,13 @@ export const get_powens_token = async () => {
     }
 };
 
-const getTransactions = async () => {
+const getTransactions = async (connections: ConnectionType[]) => {
     try {
+        console.log('Fetching transactions for connections:', connections);
+        if (connections.length === 0) {
+            console.warn('No connections provided, returning empty transactions array');
+            return [];
+        }
         const headers = userStore.getState().getAuth();
         const response = await instance_back.get('powens/transactions', { headers });
         return response.data;
@@ -29,10 +34,10 @@ const getTransactions = async () => {
     }
 };
 
-export const useGetTransactions = (): UseQueryResult<TransactionType[], AxiosError> => {
+export const useGetTransactions = (connections: ConnectionType[]): UseQueryResult<TransactionType[], AxiosError> => {
     return useQuery<TransactionType[], AxiosError>({
         queryKey: ['getTransactions'],
-        queryFn: getTransactions,
+        queryFn: () => getTransactions(connections),
     });
 };
 
@@ -97,12 +102,10 @@ export const getWebViewUrl = async (connector_uuids: string): Promise<{ url: str
     }
 };
 
-export const getWebViewRefreshUrl = async (
-    connection_id?: string
-): Promise<{ url: string }> => {
+export const getWebViewRefreshUrl = async (connection_id?: string): Promise<{ url: string }> => {
     try {
         const headers = userStore.getState().getAuth();
-        const payload: { [key: string]: string} = {};
+        const payload: { [key: string]: string } = {};
 
         if (connection_id !== undefined) {
             payload.connection_id = connection_id;
