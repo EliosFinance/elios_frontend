@@ -1,20 +1,23 @@
 import * as echarts from 'echarts';
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
+import { useGetChallenges } from '@/api';
 import { Button } from '@/components/ui/button';
 import { Card, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { useAuth } from '@/context/AuthProvider';
 import PageLayout from '@/layout/PageLayout';
-import { ArrowLeftIcon, InformationCircleIcon } from '@heroicons/react/24/outline';
-
-import { ChallengeType, challenges } from '@/temp/DefiData';
+import { challengeType } from '@/types/challengeType';
 
 export default function SingleChallenge() {
     const { id } = useParams<{ id: string }>();
+    const { user } = useAuth();
     const navigate = useNavigate();
     const chartRef = useRef<HTMLDivElement | null>(null);
 
-    const challenge: ChallengeType | undefined = challenges.find((c) => c.id === Number(id));
+    const { data: challenges, isLoading, isError } = useGetChallenges();
+
+    const challenge: challengeType | undefined = challenges.find((c) => c.id === Number(id));
     const [visibleEntries, setVisibleEntries] = useState(3);
 
     useEffect(() => {
@@ -55,7 +58,7 @@ export default function SingleChallenge() {
             <main className='space-y-6'>
                 <div
                     className='relative flex flex-col justify-end w-full text-white bg-center bg-cover'
-                    style={{ backgroundImage: `url(${challenge.backgroundImage})` }}
+                    style={{ backgroundImage: `url(${challenge.image})` }}
                 >
                     <div className='absolute inset-0 opacity-40' />
                     <div className='relative z-10 flex items-center mb-3'>
@@ -68,7 +71,15 @@ export default function SingleChallenge() {
                     </div>
                     <div className='relative z-10'>
                         <h1 className='text-xl font-bold'>{challenge.title}</h1>
-                        <p className='text-sm'>Statut : {challenge.userStatus || 'DEFAULT'}</p>
+                        <p className='text-sm'>
+                            Statut :
+                            {['START', 'PROGRESS'].includes(
+                                challenge.userToChallenge.filter((c) => c.user.username === user.username)[0]
+                                    ?.currentState ?? '',
+                            )
+                                ? 'En cours'
+                                : 'À démarrer'}
+                        </p>
                     </div>
                 </div>
 
@@ -90,7 +101,8 @@ export default function SingleChallenge() {
                         <div className='w-full h-40' ref={chartRef} />
                     </Card>
 
-                    {challenge.leaderboard && challenge.leaderboard.length > 0 && (
+                    <p>TODO: challenge leaderboard</p>
+                    {/* {challenge.leaderboard && challenge.leaderboard.length > 0 && (
                         <Card>
                             <CardHeader className=''>
                                 <CardTitle className='text-sm font-bold'>Leaderboard</CardTitle>
@@ -119,7 +131,7 @@ export default function SingleChallenge() {
                                 )}
                             </div>
                         </Card>
-                    )}
+                    )} */}
                 </div>
             </main>
         </PageLayout>

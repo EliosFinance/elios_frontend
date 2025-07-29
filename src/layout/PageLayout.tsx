@@ -21,7 +21,7 @@ export default function PageLayout({ title, onBack, children }: PageLayoutProps)
                             <ChevronLeft size={24} />
                         </button>
                     )}
-                    <h2 className='text-2xl font-black text-primary-500'>{title}</h2>
+                    <h1 className='font-black text-primary-500'>{title}</h1>
                 </div>
             </div>
             <div className='flex flex-col w-full px-6 py-6'>{children}</div>

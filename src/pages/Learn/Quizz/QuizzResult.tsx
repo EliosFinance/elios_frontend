@@ -4,9 +4,9 @@ import success_audio from '@/assets/sound_effects/kids_yay_TEMP.mp3';
 import ButtonApp from '@/components/ButtonApp';
 import CardCarousel from '@/components/carousels/CardCarousel';
 import useConfettis from '@/hook/useConfettis';
-import { QuizzType } from '@/temp/QuizzData';
 import APP_ROUTES_ENUM from '@/types/APP_ROUTES_ENUM';
-import { ArticleTypesEnum } from '@/types/BlogType';
+import { ArticleType, ArticleTypesEnum } from '@/types/BlogType';
+import { QuizzType } from '@/types/QuizzType';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -18,6 +18,8 @@ type QuizzResultProps = {
 const QuizzResult = (props: QuizzResultProps) => {
     const navigate = useNavigate();
     const { throwConfettis, throwPartyConfettis } = useConfettis();
+
+    const recommandedArticles: ArticleType[] = [];
     const scoreSuperiorTo70 = props.score >= (props.quizz?.questions?.length || 0) * 0.7;
 
     useEffect(() => {
@@ -39,7 +41,7 @@ const QuizzResult = (props: QuizzResultProps) => {
         }
     }, [scoreSuperiorTo70]);
     return (
-        <div className='w-full h-auto flex flex-col justify-center items-start gap-y-10 pb-20'>
+        <div className='flex flex-col items-start justify-center w-full h-auto pb-20 gap-y-10'>
             <h1 className='text-3xl font-black text-left'>Résultat du quizz</h1>
             <h3
                 className={`-mt-6 w-full text-xl font-bold p-4 rounded-2xl text-white ${scoreSuperiorTo70 ? 'bg-green-500' : 'bg-red-500'}`}
@@ -51,13 +53,13 @@ const QuizzResult = (props: QuizzResultProps) => {
                     {scoreSuperiorTo70 ? 'Pour aller plus loin' : 'Pour améliorer votre score'}
                 </h2>
                 <CardCarousel
-                    slides={props.quizz?.relatedArticles}
+                    slides={recommandedArticles}
                     options={{ loop: false, containScroll: false }}
                     cardVariant={ArticleTypesEnum.SMALL_PREVIEW}
                     isLoading={!props.quizz?.relatedArticles?.length}
                 />
             </div>
-            <div className='w-full h-auto flex flex-col justify-center items-center gap-y-4'>
+            <div className='flex flex-col items-center justify-center w-full h-auto gap-y-4'>
                 <ButtonApp
                     color='primary'
                     sx='!bg-green-500'

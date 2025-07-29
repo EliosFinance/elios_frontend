@@ -1,5 +1,4 @@
-import { QuestionOptionType } from '@/temp/QuizzData';
-import React from 'react';
+import { QuestionOptionType } from '@/types/QuizzType';
 
 type MultipleProps = {
     options: QuestionOptionType[];

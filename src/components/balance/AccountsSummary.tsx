@@ -42,45 +42,44 @@ const AccountsSummary: React.FC<AccountsSummaryProps> = ({ date }) => {
   }, [connections, date]);
 
   if (isLoading) return (
-    <Card className="rounded-xl">
-      <CardContent className="p-6">
-        <div className="w-full h-16 bg-gray-800 animate-pulse rounded-xl"></div>
-      </CardContent>
-    </Card>
+    <div className="rounded-lg bg-white/5 border border-white/10 backdrop-blur-sm p-4">
+      <div className="w-full h-16 bg-gray-800/60 animate-pulse rounded-lg"></div>
+    </div>
   );
 
   if (error) return (
-    <Card className="rounded-xl">
-      <CardContent className="p-6">
-        <div className="p-4 text-sm text-center text-red-400 bg-red-900/30 rounded-xl">
-          Impossible de charger vos comptes
-        </div>
-      </CardContent>
-    </Card>
+    <div className="rounded-lg bg-white/5 border border-white/10 backdrop-blur-sm p-4">
+      <div className="p-3 text-sm text-center text-red-400 bg-red-500/10 border border-red-500/20 rounded-lg">
+        Impossible de charger vos comptes
+      </div>
+    </div>
   );
 
   return (
-    <Card className="overflow-hidden rounded-xl">
-      <CardContent className="p-6">
-        <div className="flex flex-col">
-          <span className="mb-3 text-base text-gray-400">
-            Solde total au {date.toLocaleDateString('fr-FR')}
-          </span>
-          <div className="flex flex-col">
-            <span className="mb-2 text-3xl font-bold text-gray-200">
+    <div className="rounded-lg bg-white/5 border border-white/10 backdrop-blur-sm p-4">
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-white/5 border border-white/10">
+            <ArrowUpIcon className="w-5 h-5 text-green-400" />
+          </div>
+          <div>
+            <p className="text-sm font-medium text-white">
               {total.toLocaleString('fr-FR', {
                 style: 'currency',
                 currency: 'EUR',
               })}
-            </span>
-            <div className="flex items-center text-green-600">
-              <ArrowUpIcon size={16} />
-              <span className="ml-1 font-medium">{percentChange.toFixed(1)}%</span>
-            </div>
+            </p>
+            <p className="text-xs text-gray-400">
+              Solde au {date.toLocaleDateString('fr-FR')}
+            </p>
           </div>
         </div>
-      </CardContent>
-    </Card>
+        <div className="flex items-center gap-1 px-2 py-1 rounded-lg bg-white/5 border border-white/10">
+          <ArrowUpIcon className="w-3 h-3 text-green-400" />
+          <span className="text-xs font-medium text-green-400">{percentChange.toFixed(1)}%</span>
+        </div>
+      </div>
+    </div>
   );
 };
 

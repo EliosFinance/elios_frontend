@@ -115,6 +115,7 @@ const CardCarousel: React.FC<PropType> = (props) => {
                                 {slides.map((project: ArticleType, index: number) => (
                                     <div className='embla__slide' key={index}>
                                         <BlurItem
+                                            isLoading={isLoading}
                                             locked={project.isPremium && !isPremium}
                                             onClick={() => {
                                                 if (project.isPremium && !isPremium) {

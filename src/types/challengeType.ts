@@ -12,6 +12,7 @@ export type companyType = {
 
 export type userType = {
     id: number;
+    email: string;
     username: string;
     password: string;
     score: number;
@@ -22,9 +23,30 @@ export type userType = {
     articles: ArticleType[];
     likedArticles: ArticleType[];
     challenges: challengeType[];
+    notification: NotificationType;
+    emailVerified: boolean;
+    pinConfigured: boolean;
+    termsAccepted: boolean;
+    profileComplete: boolean;
+    provider: 'email' | 'google';
+    creation_date: Date;
 
     // TODO: add more fields
     isPremium: boolean;
+};
+
+export type NotificationType = {
+    id: number;
+    accountSync: boolean;
+    budget: boolean;
+    expenses: boolean;
+    learn: boolean;
+    emails: boolean;
+    push: boolean;
+    friends: boolean;
+    challenges: boolean;
+    weeklyReport: boolean;
+    monthlyReport: boolean;
 };
 
 export type challengeType = {
@@ -34,28 +56,17 @@ export type challengeType = {
     image: string;
     company: companyType;
     category: ArticleCategoryType;
-    users: userType[];
+    userToChallenge: userToChallengeType[];
 };
 
-export const challengeData: challengeType = {
-    id: 1,
-    title: 'Challenge 1',
-    description: 'Description 1',
-    image: 'Image 1',
-    company: {
-        id: 1,
-        name: 'Enterprise 1',
-        logo: 'Logo 1',
-        description: 'Description 1',
-        creation_date: new Date(),
-        challenges: [],
-    },
-    category: {
-        id: 1,
-        title: ArticleCategoriesEnum.BUDGET,
-        description: 'Description 1',
-        icon: 'https://via.placeholder.com/150',
-        articles: [],
-    },
-    users: [],
+export type userToChallengeType = {
+    id: number;
+    user: {
+        id: number;
+        username: string;
+        email: string;
+    };
+    currentState: 'START' | 'PROGRESS' | 'REWARD_TO_CLAIM' | 'REWARD_CLAIMED' | 'END';
+    creation_date: Date;
+    update_date: Date;
 };

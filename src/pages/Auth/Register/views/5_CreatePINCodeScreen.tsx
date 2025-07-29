@@ -1,11 +1,11 @@
-import { setupPin } from '@/api/connexion/connexionCalls';
+import { getPinStatus, markPinConfigured, setupPin } from '@/api/connexion/connexionCalls';
 import { Button } from '@/components/ui/button';
 import { useRegisterUsersStore } from '@/store/RegisterUser';
 import { userStore } from '@/store/UserStore';
 import APP_ROUTES_ENUM from '@/types/APP_ROUTES_ENUM';
 import { FingerPrintIcon } from '@heroicons/react/24/outline';
 import { DeleteIcon } from 'lucide-react';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useLayoutEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import RegisterHeader from '../components/RegisterHeader';
 
@@ -21,6 +21,29 @@ const PinCodeScreen: React.FC = () => {
         }
     }, [pin]);
 
+    const handleNext = async () => {
+        try {
+            if (!user?.token) {
+                // Utilisateur pas encore connecté (flux normal)
+                navigate(APP_ROUTES_ENUM.CONFIRM_PIN);
+                return;
+            }
+
+            // Utilisateur connecté (Google)
+            const success = await setupPin(pin);
+            if (success) {
+                await markPinConfigured();
+                navigate(APP_ROUTES_ENUM.CONFIRM_PIN);
+            } else {
+                throw new Error('Échec de la configuration du PIN');
+            }
+        } catch (err: any) {
+            console.error('Erreur lors de la configuration du PIN:', err);
+            setError(err.message || 'Impossible de configurer le PIN, réessayez.');
+            setPin('');
+        }
+    };
+
     const handlePinInput = (digit: string) => {
         if (pin.length < 6) {
             setError('');
@@ -33,25 +56,19 @@ const PinCodeScreen: React.FC = () => {
         setPin(pin.slice(0, -1));
     };
 
-    const handleNext = async () => {
-        try {
-            if (!user?.token) {
-                navigate(APP_ROUTES_ENUM.CONFIRM_PIN);
-                return;
-            }
+    useEffect(() => {
+        const getUser = async () => {
+            const pinStatus = await getPinStatus();
+            console.log('Pin status:', pinStatus);
 
-            const success = await setupPin(pin);
-            if (success) {
-                navigate(APP_ROUTES_ENUM.CONFIRM_PIN);
-            } else {
-                throw new Error('Échec de la configuration du PIN');
+            if (pinStatus.isSetup) {
+                await markPinConfigured();
+                navigate(APP_ROUTES_ENUM.HOME);
             }
-        } catch (err: any) {
-            console.error('Erreur lors de la configuration du PIN:', err);
-            setError(err.message || 'Impossible de configurer le PIN, réessayez.');
-            setPin('');
-        }
-    };
+        };
+
+        getUser();
+    }, []);
 
     return (
         <div className='flex flex-col items-center justify-start w-full h-screen px-4 pt-6 pb-8'>

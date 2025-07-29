@@ -1,6 +1,6 @@
-import { ChallengeType } from '@/temp/DefiData';
-import { QuizzType } from '@/temp/QuizzData';
 import { ArticleType } from './BlogType';
+import { QuizzType } from './QuizzType';
+import { challengeType } from './challengeType';
 
 export type RecommendationUIState = {
     selectedCategories: string[];
@@ -12,7 +12,7 @@ export type RecommendationUIState = {
 
 export type FilteredRecommendations = {
     articles: ArticleType[];
-    challenges: ChallengeType[];
+    challenges: challengeType[];
     quizz: QuizzType[];
     totalCount: number;
     filteredCount: number;
@@ -194,6 +194,6 @@ export type RiskArea = {
 
 export type PersonalizedRecommendations = {
     articles: ArticleType[];
-    challenges: ChallengeType[];
+    challenges: challengeType[];
     quizz: QuizzType[];
 };

@@ -1,5 +1,5 @@
 import { widgetStore } from '@/store/WidgetStore';
-import { WidgetType } from '@/temp/WidgetData';
+import { WidgetType } from '@/types/WidgetType';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 

@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Drawer, DrawerClose, DrawerContent, DrawerHeader, DrawerTitle } from '@/components/ui/drawer';
 import { useAuth } from '@/context/AuthProvider';
 import { widgetStore } from '@/store/WidgetStore';
-import { WidgetType } from '@/temp/WidgetData';
+import { WidgetType } from '@/types/WidgetType';
 import { ConnectionType } from '@/types/connectionType';
 import { TransactionType } from '@/types/transactionType';
 import { EyeIcon, EyeSlashIcon, PencilSquareIcon, XMarkIcon } from '@heroicons/react/24/outline';
