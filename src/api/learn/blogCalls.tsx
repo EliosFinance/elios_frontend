@@ -97,7 +97,7 @@ const mockArticles: ArticleType[] = [
         articleContent: [
             {
                 id: 1,
-                image: "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=600&h=400&fit=crop",
+                image: "https://images.unsplash.com/photo-1559526324-4b87b5e36e44?w=600&h=400&fit=crop",
                 title: "Comprendre les bases",
                 type: ArticleTypesEnum.FULL,
                 creation_date: "2024-01-15",
@@ -117,7 +117,7 @@ const mockArticles: ArticleType[] = [
             },
             {
                 id: 2,
-                image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop",
+                image: "https://images.unsplash.com/photo-1556740738-b6a63e27c4df?w=600&h=400&fit=crop",
                 title: "Choisir son courtier",
                 type: ArticleTypesEnum.FULL,
                 creation_date: "2024-01-15",
@@ -137,7 +137,7 @@ const mockArticles: ArticleType[] = [
             },
             {
                 id: 3,
-                image: "https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?w=600&h=400&fit=crop",
+                image: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=600&h=400&fit=crop",
                 title: "Vos premiers investissements",
                 type: ArticleTypesEnum.FULL,
                 creation_date: "2024-01-15",
@@ -157,7 +157,7 @@ const mockArticles: ArticleType[] = [
             },
             {
                 id: 4,
-                image: "https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?w=600&h=400&fit=crop",
+                image: "https://images.unsplash.com/photo-1618044619888-009e412ff12a?w=600&h=400&fit=crop",
                 title: "La règle d'or",
                 type: ArticleTypesEnum.FULL,
                 creation_date: "2024-01-15",
@@ -193,7 +193,7 @@ const mockArticles: ArticleType[] = [
         articleContent: [
             {
                 id: 5,
-                image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600&h=400&fit=crop",
+                image: "https://images.unsplash.com/photo-1434626881859-194d67b2b86f?w=600&h=400&fit=crop",
                 title: "Livret A et LDDS",
                 type: ArticleTypesEnum.FULL,
                 creation_date: "2024-01-20",
@@ -213,7 +213,7 @@ const mockArticles: ArticleType[] = [
             },
             {
                 id: 6,
-                image: "https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?w=600&h=400&fit=crop",
+                image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600&h=400&fit=crop",
                 title: "Plan Épargne Logement (PEL)",
                 type: ArticleTypesEnum.FULL,
                 creation_date: "2024-01-20",
@@ -233,7 +233,7 @@ const mockArticles: ArticleType[] = [
             },
             {
                 id: 7,
-                image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600&h=400&fit=crop",
+                image: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=600&h=400&fit=crop",
                 title: "Assurance-vie",
                 type: ArticleTypesEnum.FULL,
                 creation_date: "2024-01-20",
@@ -289,7 +289,7 @@ const mockArticles: ArticleType[] = [
         articleContent: [
             {
                 id: 9,
-                image: "https://images.unsplash.com/photo-1640340434855-6084b1f4901c?w=600&h=400&fit=crop",
+                image: "https://images.unsplash.com/photo-1518544866330-4e4815c6f8a5?w=600&h=400&fit=crop",
                 title: "Bitcoin : L'or numérique",
                 type: ArticleTypesEnum.FULL,
                 creation_date: "2024-01-25",
@@ -309,7 +309,7 @@ const mockArticles: ArticleType[] = [
             },
             {
                 id: 10,
-                image: "https://images.unsplash.com/photo-1621761191319-c6fb62004040?w=600&h=400&fit=crop",
+                image: "https://images.unsplash.com/photo-1640340434855-6084b1f4901c?w=600&h=400&fit=crop",
                 title: "Ethereum : Bien plus qu'une monnaie",
                 type: ArticleTypesEnum.FULL,
                 creation_date: "2024-01-25",
@@ -329,7 +329,7 @@ const mockArticles: ArticleType[] = [
             },
             {
                 id: 11,
-                image: "https://images.unsplash.com/photo-1559526324-4b87b5e36e44?w=600&h=400&fit=crop",
+                image: "https://images.unsplash.com/photo-1621761191319-c6fb62004040?w=600&h=400&fit=crop",
                 title: "Comparaison technique",
                 type: ArticleTypesEnum.FULL,
                 creation_date: "2024-01-25",
@@ -385,7 +385,7 @@ const mockArticles: ArticleType[] = [
             },
             {
                 id: 13,
-                image: "https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?w=600&h=400&fit=crop",
+                image: "https://images.unsplash.com/photo-1633158829585-23ba8f7c8caf?w=600&h=400&fit=crop",
                 title: "Méthode 2 : Envelope Budgeting",
                 type: ArticleTypesEnum.FULL,
                 creation_date: "2024-01-30",
@@ -405,7 +405,7 @@ const mockArticles: ArticleType[] = [
             },
             {
                 id: 14,
-                image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600&h=400&fit=crop",
+                image: "https://images.unsplash.com/photo-1472289065668-ce650ac443d2?w=600&h=400&fit=crop",
                 title: "Méthode 3 : Budget base zéro",
                 type: ArticleTypesEnum.FULL,
                 creation_date: "2024-01-30",
@@ -465,7 +465,7 @@ const mockArticles: ArticleType[] = [
         likes: [],
         saved: [],
         readingTime: "11",
-        thumbnail: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=400&h=250&fit=crop",
+        thumbnail: "https://images.unsplash.com/photo-1573166364524-d9b6ea20c137?w=400&h=250&fit=crop",
         author: mockAuthors[0],
         description: "Découvrez les ETF, ces fonds indiciels qui permettent d'investir simplement sur les marchés. Avantages, inconvénients et stratégies d'investissement.",
         articleContent: []
@@ -480,9 +480,189 @@ const mockArticles: ArticleType[] = [
         likes: [],
         saved: [],
         readingTime: "16",
-        thumbnail: "https://images.unsplash.com/photo-1554224154-22534de96e0b?w=400&h=250&fit=crop",
+        thumbnail: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=400&h=250&fit=crop",
         author: mockAuthors[3],
         description: "Analyse complète de l'assurance-vie : avantages fiscaux, flexibilité, rendements. Pourquoi ce placement reste incontournable en 2024.",
+        articleContent: []
+    },
+    {
+        id: 9,
+        slug: "plan-epargne-retraite-per",
+        title: "Plan Épargne Retraite (PER) : Optimiser sa retraite et ses impôts",
+        isPremium: false,
+        category: mockArticleCategories[1], // EPARGNE
+        reads: [],
+        likes: [],
+        saved: [],
+        readingTime: "13",
+        thumbnail: "https://images.unsplash.com/photo-1559526324-4b87b5e36e44?w=400&h=250&fit=crop",
+        author: mockAuthors[3],
+        description: "Découvrez le PER, nouveau produit d'épargne retraite. Déduction fiscale, gestion, sortie : tout ce qu'il faut savoir pour bien préparer sa retraite.",
+        articleContent: []
+    },
+    {
+        id: 10,
+        slug: "fintech-banques-digitales-2024",
+        title: "Fintech vs Banques traditionnelles : Le guide 2024",
+        isPremium: false,
+        category: mockArticleCategories[4], // BUDGET
+        reads: [],
+        likes: [],
+        saved: [],
+        readingTime: "9",
+        thumbnail: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=400&h=250&fit=crop",
+        author: mockAuthors[0],
+        description: "Revolut, N26, Boursorama : comparatif des banques en ligne et néobanques. Services, tarifs, avantages pour faire le bon choix.",
+        articleContent: []
+    },
+    {
+        id: 11,
+        slug: "scpi-investissement-immobilier-pierre-papier",
+        title: "SCPI : Investir dans l'immobilier sans les contraintes",
+        isPremium: true,
+        category: mockArticleCategories[5], // IMMOBILIER
+        reads: [],
+        likes: [],
+        saved: [],
+        readingTime: "20",
+        thumbnail: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&h=250&fit=crop",
+        author: mockAuthors[1],
+        description: "Les SCPI permettent d'investir dans l'immobilier dès 200€. Rendement, fiscalité, risques : tout savoir sur la pierre-papier.",
+        articleContent: []
+    },
+    {
+        id: 12,
+        slug: "credit-immobilier-taux-2024",
+        title: "Crédit immobilier 2024 : Négocier le meilleur taux",
+        isPremium: false,
+        category: mockArticleCategories[5], // IMMOBILIER
+        reads: [],
+        likes: [],
+        saved: [],
+        readingTime: "15",
+        thumbnail: "https://images.unsplash.com/photo-1560520653-9e0e4c89eb11?w=400&h=250&fit=crop",
+        author: mockAuthors[2],
+        description: "Stratégies pour obtenir le meilleur taux immobilier. Négociation, courtiers, banques : maximisez vos chances d'obtenir un financement avantageux.",
+        articleContent: []
+    },
+    {
+        id: 13,
+        slug: "trading-forex-debutant",
+        title: "Trading Forex pour débutants : Risques et opportunités",
+        isPremium: false,
+        category: mockArticleCategories[2], // BOURSE
+        reads: [],
+        likes: [],
+        saved: [],
+        readingTime: "17",
+        thumbnail: "https://images.unsplash.com/photo-1640161704729-cbe966a08476?w=400&h=250&fit=crop",
+        author: mockAuthors[1],
+        description: "Le marché des changes attire de nombreux débutants. Comprendre les risques, choisir un broker fiable et développer une stratégie gagnante.",
+        articleContent: []
+    },
+    {
+        id: 14,
+        slug: "investir-start-up-crowdfunding",
+        title: "Crowdfunding : Investir dans les start-ups prometteuses",
+        isPremium: true,
+        category: mockArticleCategories[0], // INVESTISSEMENT
+        reads: [],
+        likes: [],
+        saved: [],
+        readingTime: "12",
+        thumbnail: "https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=400&h=250&fit=crop",
+        author: mockAuthors[0],
+        description: "Platforms de crowdfunding, analyse des projets, diversification : comment investir intelligemment dans l'innovation française.",
+        articleContent: []
+    },
+    {
+        id: 15,
+        slug: "nft-investissement-art-numerique",
+        title: "NFT : Faut-il investir dans l'art numérique ?",
+        isPremium: false,
+        category: mockArticleCategories[3], // CRYPTO
+        reads: [],
+        likes: [],
+        saved: [],
+        readingTime: "11",
+        thumbnail: "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=400&h=250&fit=crop",
+        author: mockAuthors[2],
+        description: "Les NFT ont révolutionné l'art numérique. Analyse du marché, risques, opportunités et conseils pour investir dans cette nouvelle classe d'actifs.",
+        articleContent: []
+    },
+    {
+        id: 16,
+        slug: "gestion-patrimoine-jeunes-actifs",
+        title: "Gestion de patrimoine pour jeunes actifs : Par où commencer ?",
+        isPremium: false,
+        category: mockArticleCategories[0], // INVESTISSEMENT
+        reads: [],
+        likes: [],
+        saved: [],
+        readingTime: "14",
+        thumbnail: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=250&fit=crop",
+        author: mockAuthors[0],
+        description: "Premiers salaires, premiers investissements : stratégies patrimoniales adaptées aux 25-35 ans. PEA, assurance-vie, immobilier locatif.",
+        articleContent: []
+    },
+    {
+        id: 17,
+        slug: "inflation-proteger-epargne",
+        title: "Inflation : Comment protéger son épargne de la hausse des prix",
+        isPremium: false,
+        category: mockArticleCategories[1], // EPARGNE
+        reads: [],
+        likes: [],
+        saved: [],
+        readingTime: "10",
+        thumbnail: "https://images.unsplash.com/photo-1611095790444-1dfa35de854b?w=400&h=250&fit=crop",
+        author: mockAuthors[3],
+        description: "Face à l'inflation, certains placements perdent de la valeur. Actions, immobilier, or : quels investissements privilégier pour préserver son pouvoir d'achat.",
+        articleContent: []
+    },
+    {
+        id: 18,
+        slug: "pea-compte-titres-differences",
+        title: "PEA vs Compte-titres : Quel support choisir pour ses actions ?",
+        isPremium: false,
+        category: mockArticleCategories[2], // BOURSE
+        reads: [],
+        likes: [],
+        saved: [],
+        readingTime: "8",
+        thumbnail: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=250&fit=crop",
+        author: mockAuthors[1],
+        description: "PEA ou compte-titres ordinaire ? Fiscalité, plafonds, éligibilité : comparatif complet pour optimiser vos investissements en bourse.",
+        articleContent: []
+    },
+    {
+        id: 19,
+        slug: "cryptomonnaies-defi-finance-decentralisee",
+        title: "DeFi : La finance décentralisée révolutionne-t-elle l'épargne ?",
+        isPremium: true,
+        category: mockArticleCategories[3], // CRYPTO
+        reads: [],
+        likes: [],
+        saved: [],
+        readingTime: "19",
+        thumbnail: "https://images.unsplash.com/photo-1620321023374-d1a68fbc720d?w=400&h=250&fit=crop",
+        author: mockAuthors[2],
+        description: "Lending, staking, yield farming : la DeFi promet des rendements attractifs. Opportunités et risques de cette nouvelle finance sans intermédiaires.",
+        articleContent: []
+    },
+    {
+        id: 20,
+        slug: "investissement-socialement-responsable-esg",
+        title: "ISR : Investir de manière socialement responsable",
+        isPremium: false,
+        category: mockArticleCategories[0], // INVESTISSEMENT
+        reads: [],
+        likes: [],
+        saved: [],
+        readingTime: "13",
+        thumbnail: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=400&h=250&fit=crop",
+        author: mockAuthors[0],
+        description: "L'investissement responsable concilie performance financière et impact positif. ETF ESG, fonds thématiques : comment bien investir durablement.",
         articleContent: []
     }
 ];
