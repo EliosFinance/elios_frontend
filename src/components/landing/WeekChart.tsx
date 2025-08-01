@@ -9,60 +9,160 @@ const WeekChart = ({ className }: { className?: string }) => {
 
         const getLastSevenDays = () => {
             const dates = [];
+            const days = ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'];
             for (let i = 6; i >= 0; i--) {
                 const date = new Date();
                 date.setDate(date.getDate() - i);
-                dates.push(date.toLocaleDateString('en-US', { day: '2-digit', month: 'short' }));
+                const dayName = days[date.getDay() === 0 ? 6 : date.getDay() - 1];
+                const dayNum = date.toLocaleDateString('fr-FR', { day: '2-digit' });
+                dates.push(`${dayName} ${dayNum}`);
             }
             return dates;
         };
 
+        // Données réalistes d'étudiant français (dépenses négatives)
+        const weeklyExpenses = [-45.20, -32.10, -67.85, -28.50, -89.40, -156.30, -78.90];
+        const maxExpense = Math.max(...weeklyExpenses.map(Math.abs));
+
         const option = {
+            legend: {
+                data: ['Dépenses quotidiennes'],
+                top: 40,
+                left: 20,
+                textStyle: {
+                    color: '#CCCCCC',
+                    fontSize: 12
+                },
+                icon: 'circle'
+            },
             tooltip: {
                 trigger: 'axis',
-                formatter: '{c0} $',
-                backgroundColor: '#DDA853',
-                borderColor: '#ccc',
+                formatter: function(params) {
+                    const value = Math.abs(params[0].value);
+                    return `${params[0].axisValue}<br/>Dépenses: ${value.toFixed(2)}€`;
+                },
+                backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                borderColor: '#DDA853',
                 borderWidth: 1,
                 textStyle: {
                     color: '#FFF',
                     fontWeight: 'bold',
                 },
             },
+            grid: {
+                top: 80,
+                left: 40,
+                right: 40,
+                bottom: 40,
+                containLabel: true
+            },
             xAxis: {
                 type: 'category',
                 data: getLastSevenDays(),
-                axisLine: { show: false },
+                axisLine: { 
+                    show: true,
+                    lineStyle: { color: '#555' }
+                },
                 axisTick: { show: false },
-                axisLabel: { color: '#999' },
+                axisLabel: { 
+                    color: '#CCCCCC',
+                    fontSize: 11,
+                    rotate: 0
+                },
             },
             yAxis: {
-                // if line cross 0, set color to red, else set to green
                 type: 'value',
                 axisLine: { show: false },
                 axisTick: { show: false },
-                axisLabel: { show: false },
-                splitLine: {
-                    lineStyle: { color: '#eeeeeec1' },
+                axisLabel: { 
+                    show: true,
+                    color: '#CCCCCC',
+                    fontSize: 10,
+                    formatter: function(value) {
+                        return Math.abs(value) + '€';
+                    }
                 },
+                splitLine: {
+                    lineStyle: { 
+                        color: '#333333',
+                        type: 'dashed'
+                    },
+                },
+                min: Math.min(...weeklyExpenses) - 20,
+                max: 0
             },
             series: [
                 {
-                    name: 'Expenses',
-                    data: [120, 200, 150, 80, 70, 110, 130],
+                    name: 'Dépenses quotidiennes',
+                    data: weeklyExpenses,
                     type: 'line',
                     smooth: true,
-                    // if line cross the data, set color to red, else set to green
+                    symbol: 'circle',
+                    symbolSize: 6,
                     lineStyle: {
-                        color: '#FFF',
-                        width: 2,
+                        color: '#DDA853',
+                        width: 3,
+                    },
+                    itemStyle: {
+                        color: '#DDA853',
+                        borderColor: '#FFF',
+                        borderWidth: 2
                     },
                     areaStyle: {
-                        color: '#dda85347',
+                        color: {
+                            type: 'linear',
+                            x: 0,
+                            y: 0,
+                            x2: 0,
+                            y2: 1,
+                            colorStops: [{
+                                offset: 0, color: 'rgba(221, 168, 83, 0.4)'
+                            }, {
+                                offset: 1, color: 'rgba(221, 168, 83, 0.1)'
+                            }]
+                        }
                     },
                     markPoint: {
-                        data: [{ type: 'max', name: 'Max', symbol: 'circle', symbolSize: 8, label: { show: false } }],
+                        data: [
+                            { 
+                                type: 'max', 
+                                name: 'Pic de dépenses', 
+                                symbol: 'pin', 
+                                symbolSize: 50,
+                                itemStyle: {
+                                    color: '#FF6B6B'
+                                },
+                                label: { 
+                                    show: true,
+                                    formatter: function(params) {
+                                        return Math.abs(params.value) + '€';
+                                    },
+                                    color: '#FFFFFF',
+                                    fontSize: 10,
+                                    fontWeight: 'bold'
+                                }
+                            }
+                        ],
                     },
+                    markLine: {
+                        data: [
+                            {
+                                type: 'average',
+                                name: 'Moyenne',
+                                lineStyle: {
+                                    color: '#4ECDC4',
+                                    type: 'dashed',
+                                    width: 2
+                                },
+                                label: {
+                                    formatter: function(params) {
+                                        return 'Moy: ' + Math.abs(params.value).toFixed(0) + '€';
+                                    },
+                                    color: '#4ECDC4'
+                                }
+                            }
+                        ]
+                    }
                 },
             ],
         };

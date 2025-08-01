@@ -109,23 +109,22 @@ const FriendsCarousel: React.FC<PropType> = (props) => {
                                         <div className='w-full h-[7%] flex justify-between items-center mt-5 px-5'></div>
 
                                         {/* body */}
-                                        <a
+                                        <div
                                             className='flex flex-col items-center justify-center w-full h-full gap-y-4'
-                                            href={`${APP_ROUTES_ENUM.QUIZZ}/${q.id}`}
                                         >
                                             <img
                                                 src={
-                                                    q.profilePicture
-                                                        ? q.profilePicture
+                                                    q.avatarUrl
+                                                        ? q.avatarUrl
                                                         : 'https://via.placeholder.com/150'
                                                 }
-                                                alt='project thumbnail'
+                                                alt='friend avatar'
                                                 className='h-[125px] w-[45%] rounded-[var(--border-radius-5)] shadow-lg object-cover'
                                             />
                                             <div className='flex flex-col items-center justify-center w-full h-auto gap-y-2'>
                                                 <p className='text-lg'>{q.username}</p>
                                             </div>
-                                        </a>
+                                        </div>
                                     </div>
                                 </div>
                             ))}

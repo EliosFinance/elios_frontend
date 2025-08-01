@@ -147,7 +147,7 @@ const WidgetPagination = ({ currentPage, totalPages, onPageChange }) => (
 const WidgetContainer = () => {
     const { user } = useAuth();
     const { data: connections } = useGetConnections();
-    const { data: transactions } = useGetTransactions();
+    const { data: transactions } = useGetTransactions(connections || []);
     const { widgets, toggleWidgetDisplay, setWidgets } = widgetStore((state) => ({
         widgets: state.widgets,
         toggleWidgetDisplay: state.toggleWidgetDisplay,

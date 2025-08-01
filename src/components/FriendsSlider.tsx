@@ -39,7 +39,7 @@ const FriendsSlider = (props: UsersListProps) => {
                     {props.users.map((user) => (
                         <CarouselItem key={user.id} className='pl-0 pr-5 basis-1/2'>
                             <Link to={`/friends/${user.id}`} className={styles.cardLink}>
-                                <div className={styles.card} style={{ backgroundImage: `url(${user.profilePicture})` }}>
+                                <div className={styles.card} style={{ backgroundImage: `url(${user.avatarUrl})` }}>
                                     <div className={styles.cardContent}>
                                         <p className={styles.name}>{user.username}</p>
                                         <p className={styles.score}>{user.score} ec</p>

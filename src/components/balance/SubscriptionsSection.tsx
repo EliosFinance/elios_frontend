@@ -6,11 +6,16 @@ type Subscription = {
     id: number;
     name: string;
     monthlyCost: number;
+    iconUrl: string;
 };
 
 const SubscriptionsSection: React.FC = () => {
-    const [subscriptions, _setSubscriptions] = useState<Subscription[]>([]);
-    const [totalRecurring, _setTotalRecurring] = useState<number>(0);
+    const [subscriptions, _setSubscriptions] = useState<Subscription[]>([
+        { id: 1, name: 'Figma', monthlyCost: 12.99, iconUrl: 'https://svgl.app/library/figma.svg' },
+        { id: 2, name: 'Spotify', monthlyCost: 9.99, iconUrl: 'https://svgl.app/library/spotify.svg' },
+        { id: 3, name: 'Slack', monthlyCost: 15.99, iconUrl: 'https://svgl.app/library/slack.svg' },
+    ]);
+    const [totalRecurring, _setTotalRecurring] = useState<number>(38.97);
 
     // useEffect(() => {
     //     async function fetchSubscriptions() {
@@ -47,23 +52,16 @@ const SubscriptionsSection: React.FC = () => {
                                 className='flex items-center justify-between p-3 rounded-lg bg-white/5 border border-white/10'
                             >
                                 <div className='flex items-center gap-3'>
-                                    <div className='flex items-center justify-center w-8 h-8 rounded-lg bg-white/5 border border-white/10'>
-                                        <svg className='w-4 h-4' viewBox='0 0 24 24' fill='none'>
-                                            <circle
-                                                cx='12'
-                                                cy='12'
-                                                r='10'
-                                                stroke='currentColor'
-                                                strokeWidth='2'
-                                                className='text-primary-400'
-                                            />
-                                            <path
-                                                d='M12 6v6l4 2'
-                                                stroke='currentColor'
-                                                strokeWidth='2'
-                                                className='text-primary-400'
-                                            />
-                                        </svg>
+                                    <div className='flex items-center justify-center w-8 h-8 rounded-lg bg-white/5 border border-white/10 p-1'>
+                                        <img
+                                            src={sub.iconUrl}
+                                            alt={sub.name}
+                                            className='w-full h-full object-contain'
+                                            onError={(e) => {
+                                                console.error(`Failed to load icon for ${sub.name}`);
+                                                e.currentTarget.style.display = 'none';
+                                            }}
+                                        />
                                     </div>
                                     <span className='text-white text-sm font-medium'>{sub.name}</span>
                                 </div>

@@ -79,15 +79,15 @@ const Quizz = () => {
     }, [quizzId]);
 
     return (
-        <div className='w-full flex flex-col items-center justify-start mb-20 p-6 mt-10'>
+        <div className='w-full flex flex-col items-center justify-start mb-20 p-6'>
             {displayResult ? (
                 <QuizzResult quizz={quizz} score={score} />
             ) : (
                 <>
                     <QuizzNav quizz={quizz} currentQuestionIndex={currentQuestionIndex} currentScore={score} />
                     {/* body */}
-                    <div className='w-full min-h-[70dvh] flex flex-col items-start justify-start'>
-                        <div className='w-full h-auto flex flex-col items-start justify-start pt-10 pb-6'>
+                    <div className='w-full min-h-[70dvh] flex flex-col items-start justify-start mt-[120px]'>
+                        <div className='w-full h-auto flex flex-col items-start justify-start pt-4 pb-6'>
                             <h2 className='font-bold text-left text-xl'>
                                 {quizz?.questions[currentQuestionIndex].question}
                             </h2>

@@ -2,7 +2,31 @@ import { useGetChallenges } from '@/api';
 import React from 'react';
 
 const ChallengesSection: React.FC = () => {
-    const { data: challenges, isLoading, isError } = useGetChallenges();
+    // const { data: challenges, isLoading, isError } = useGetChallenges();
+    const challenges = [
+        {
+            id: 1,
+            title: "Économise 50€ ce mois-ci",
+            description: "Réduis tes dépenses alimentaires en préparant tes repas à la maison. Récompense : 5€ de crédit"
+        },
+        {
+            id: 2,
+            title: "Utilise ton pass Navigo optimalement",
+            description: "Évite les trajets inutiles et groupe tes sorties. Récompense : 10€ de cashback"
+        },
+        {
+            id: 3,
+            title: "Limite tes achats impulsifs",
+            description: "Attends 24h avant tout achat non-essentiel de plus de 20€. Récompense : Badge \"Maître du budget\""
+        },
+        {
+            id: 4,
+            title: "Compare avant d'acheter",
+            description: "Utilise des apps comme Honey ou Buyclub pour tes achats en ligne. Récompense : 3€ de bonus"
+        }
+    ];
+    const isLoading = false;
+    const isError = false;
 
     return (
         <div className='rounded-lg bg-white/5 border border-white/10 backdrop-blur-sm p-4'>
