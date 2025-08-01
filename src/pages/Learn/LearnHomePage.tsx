@@ -40,13 +40,17 @@ const LearnHomePage = () => {
 			if (articles.length === 0) {
 				const articles = await getArticles();
 				const trendingArticles = await getTrendingArticles();
-				// const premiumArticles =  await getPremiumArticles()  TODO: premium articles
-				// const recommendedArticles =  await getRecommendedArticles() TODO: recommended articles
 				const likedArticles = await getLikedArticles();
-				setArticles(articles);
+				
+				// Diversifier les articles pour chaque section avec des tranches différentes
+				const premiumArticles = articles.slice(3, 8);      // Articles 3-7 pour le premium (5 articles)
+				const recommendedArticles = articles.slice(8, 13); // Articles 8-12 pour les recommandations (5 articles)  
+				const mainArticles = articles.slice(0, 3).concat(articles.slice(13)); // Articles 0-2 + 13+ pour "Laissez-vous porter"
+				
+				setArticles(mainArticles);
 				setTrendingArticles(trendingArticles);
-				setPremiumArticles(articles);
-				setRecommendedArticles(articles);
+				setPremiumArticles(premiumArticles);
+				setRecommendedArticles(recommendedArticles);
 				setLikedArticles(likedArticles);
 			}
 			if (articlesCategories.length === 0) {
