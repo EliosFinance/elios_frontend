@@ -204,10 +204,6 @@ const LearnQuizzTab = (props: LearnQuizzTabProps) => {
 				/>
 			</div>
 
-			<div className='flex items-start justify-between w-full mt-4 -mb-8'>
-				<WeekChart />
-			</div>
-
 			<div className='w-[100vw] flex justify-between items-start flex-wrap -ml-6'>
 				<div className='flex items-center justify-between px-6 mb-4'>
 					<h2 className='text-xl font-bold'>Laissez-vous porter</h2>
