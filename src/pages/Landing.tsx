@@ -146,7 +146,9 @@ const Landing = () => {
             <div className='flex flex-col items-start w-full gap-4 px-6'>
                 <LandingHeader />
                 <h1 className='mt-4 font-bold text-primary-500'>
-                    Bienvenue, {user.username.charAt(0).toUpperCase() + user.username.slice(1)}
+                    Bienvenue, 
+                    <br />
+                    Thomas Dillmane
                 </h1>
             </div>
 
